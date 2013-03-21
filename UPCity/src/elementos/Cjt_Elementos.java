@@ -14,19 +14,24 @@ import java.util.TreeMap;
  */
 public class Cjt_Elementos extends TreeMap {
     
-    //public TreeMap <String,Integer> cjt_elem ;
    
    //CREADORA/////
    void Cjt_Elementos(){
-       //this.cjt_elem = new TreeMap<>();
    }
    /////////////////////
+   
+   
    //////METODOS PRIVADOS/////////////
+   
+   /* Funcion para evitar NULLPOINTERSEXCEPTIONS*/
    private boolean existe_elemento(String codigo){
        return this.containsKey(codigo);
         
    }
+   
    /////////////////////////////////
+   
+   
    //////MODIFICADORAS//////////////////////////////
    public void añadir_elemento(String codigo,Integer cantidad ){
        this.put(codigo,cantidad);
@@ -42,12 +47,14 @@ public class Cjt_Elementos extends TreeMap {
    }
    
    ////////////////////////////////////////////////
+   
+   
    ///////////CONSULTORAS////////////
     public Integer consultar_elemento(String codigo){
        Integer valor;
        valor = (Integer) this.get(codigo);
        return valor;
    }
-   
+   ///////////////////////////////////
       
 }
