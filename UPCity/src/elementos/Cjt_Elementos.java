@@ -16,7 +16,7 @@ public class Cjt_Elementos extends TreeMap {
     
    
    //CREADORA/////
-   void Cjt_Elementos(){
+   public  Cjt_Elementos(){
    }
    /////////////////////
    
@@ -24,8 +24,8 @@ public class Cjt_Elementos extends TreeMap {
    //////METODOS PRIVADOS/////////////
    
    /* Funcion para evitar NULLPOINTERSEXCEPTIONS*/
-   private boolean existe_elemento(String codigo){
-       return this.containsKey(codigo);
+   private boolean existe_elemento(Integer OID){
+       return this.containsKey(OID);
         
    }
    
@@ -33,16 +33,20 @@ public class Cjt_Elementos extends TreeMap {
    
    
    //////MODIFICADORAS//////////////////////////////
-   public void añadir_elemento(String codigo,Integer cantidad ){
-       this.put(codigo,cantidad);
+   public void añadir_elemento(Integer OID,Integer cantidad ){
+       this.put(OID,cantidad);
    }
    
-   public void eliminar_elemeto(String codigo){
-       if(this.existe_elemento(codigo)){
-           this.remove(codigo);
-       }
-       else {
-           System.out.println("El elemento seleccionado no se haya en el conjunto");
+   public void eliminar_elementos(Integer OID,Integer cantidad){
+       if(this.existe_elemento(OID)){
+           Integer Nuevo_valor =(Integer) this.get(OID)-cantidad;
+           if(Nuevo_valor >= 0){
+               this.put(OID, Nuevo_valor);
+           }
+           else{
+               this.remove(OID);
+           }
+           
        }
    }
    
@@ -50,9 +54,9 @@ public class Cjt_Elementos extends TreeMap {
    
    
    ///////////CONSULTORAS////////////
-    public Integer consultar_elemento(String codigo){
+    public Integer consultar_elemento(Integer OID){
        Integer valor;
-       valor = (Integer) this.get(codigo);
+       valor = (Integer) this.get(OID);
        return valor;
    }
    ///////////////////////////////////
