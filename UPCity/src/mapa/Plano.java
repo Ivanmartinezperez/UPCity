@@ -4,10 +4,14 @@
  */
 package mapa;
 
+
 /**
  *
  * @author ivanmartinez
  */
 public class Plano {
+    String maatriz_plano[][];
+    int tamano_x;
+    int tamano_y;
     
 }
