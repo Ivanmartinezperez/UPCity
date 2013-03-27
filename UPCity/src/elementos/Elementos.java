@@ -18,7 +18,9 @@ public abstract class Elementos {
     
     
     ////////CREADORAS///////////////////
-    abstract public Elementos();
+    public Elementos(int OID){
+        this.OID=OID;
+    }
     
     /*void Elementos(String nombre,int x, int y, int precio, String Des,int OID){
         this.Nombre=nombre;
