@@ -46,6 +46,6 @@ public class Restriccion_economica {
    }
    
    public int consultar_saldo_ind(int id){
-       return this.saldo[id];
+       return this.saldos[id];
    }
 }
