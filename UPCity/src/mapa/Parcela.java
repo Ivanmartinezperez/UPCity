@@ -10,17 +10,34 @@ package mapa;
  */
 public class Parcela {
     int cordenada_x;
-    int coordenada_y;
+    int cordenada_y;
     String Estado;
     
-    Parcela(int x, int i, String estado){
-        
+    Parcela(int x, int y, String estado){
+        cordenada_x = x;
+        cordenada_y = y;
+        Estado = estado;
     }
     
-    void setParcela(){
-        
+    // si x o y son menores que 0, solo se modifica su estado y no es necesario
+    //modificar su posicion.
+    void setParcela(int x, int y, String estado){
+        if(x >= 0) cordenada_x = x;
+        if(y >= 0) cordenada_y = y;
+        Estado = estado;
     }
     
+    int getx(){
+        return cordenada_x;
+    }
+    
+    int gety() {
+        return cordenada_y;
+    }
+    
+    String getestado() {
+        return Estado;
+    }
     void getParcela(){
         
     }
