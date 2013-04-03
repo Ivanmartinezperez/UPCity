@@ -4,18 +4,21 @@
  */
 package restricciones;
 
+import elementos.Cjt_Elementos;
+
 /**
  *
  * @author rondavidsofer
  */
-public class Restriccion_economica {
+public class Restriccion_economica extends Restriccion {
      
    public int saldo;
    public int[] saldos;
    
    
    //CREADORA///////
-   public Restriccion_economica( int saldo_com, int saldo_viv, int saldo_pub){
+   public Restriccion_economica( String id, String tipo,int saldo_com, int saldo_viv, int saldo_pub){
+       super(id, tipo);
        this.saldo = saldo_com + saldo_viv + saldo_pub;
        int tam = 3;
        this.saldos = new int[tam];
@@ -48,4 +51,9 @@ public class Restriccion_economica {
    public int consultar_saldo_ind(int id){
        return this.saldos[id];
    }
+
+    @Override
+    boolean checkRestriction(Cjt_Elementos cE) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -8,6 +8,6 @@ package controladors;
  *
  * @author arclorensarth
  */
-public class controlador1 {
+public class CDMantBarrios {
     
 }
