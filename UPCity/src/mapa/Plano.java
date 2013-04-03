@@ -13,12 +13,16 @@ public class Plano {
     private Parcela[][]mat;
 
     //Creadora de Plano. Crea un plano de axa.
-    public Plano(int a) throws Exception {
-        mat = new Parcela[a][a];
+    public Plano(int a, int b) throws Exception {
+        mat = new Parcela[a][b];
     }
     
-    public int tam() throws Exception {
+    public int tama() throws Exception {
         return mat.length;
+    }
+    
+    public int tamb() throws Exception {
+        return mat[0].length;
     }
     
     public Parcela pos(int x, int y) {
@@ -30,10 +34,11 @@ public class Plano {
     }
     
     public void copia(Plano p) throws Exception {
-       	int n = p.tam();
+       	int n = p.tama();
+        int m = p.tamb();
 	mat = new Parcela[n][n];
 	for(int i = 0;i < n; ++i) {
-		for(int j = 0; j < n; ++j) {
+		for(int j = 0; j < m; ++j) {
 			mat[i][j] = p.pos(i, j);
 		}
 	}
