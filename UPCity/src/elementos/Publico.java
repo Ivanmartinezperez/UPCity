@@ -8,6 +8,6 @@ package elementos;
  *
  * @author ivanmartinez
  */
-public class Servicio_publico {
+public class Publico {
     
 }

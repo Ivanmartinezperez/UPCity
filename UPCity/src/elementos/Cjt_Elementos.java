@@ -33,14 +33,27 @@ public class Cjt_Elementos extends TreeMap {
    
    
    //////MODIFICADORAS//////////////////////////////
-   public void añadir_elemento(Integer OID,Integer cantidad ){
+   public void modificar_elemento(Integer OID,Integer cantidad ){
        this.put(OID,cantidad);
+   }
+   
+   public void anadir_elementos(Integer OID,Integer cantidad){
+       if(this.existe_elemento(OID)){
+           Integer Nuevo_valor =(Integer) this.get(OID)+cantidad;
+           if(Nuevo_valor > 0){
+               this.put(OID, Nuevo_valor);
+           }
+           else{
+               this.remove(OID);
+           }
+           
+       }
    }
    
    public void eliminar_elementos(Integer OID,Integer cantidad){
        if(this.existe_elemento(OID)){
            Integer Nuevo_valor =(Integer) this.get(OID)-cantidad;
-           if(Nuevo_valor >= 0){
+           if(Nuevo_valor > 0){
                this.put(OID, Nuevo_valor);
            }
            else{
