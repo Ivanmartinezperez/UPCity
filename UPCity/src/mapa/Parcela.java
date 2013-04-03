@@ -13,6 +13,9 @@ public class Parcela {
     int cordenada_y;
     String Estado;
     
+    Parcela(){
+    }
+    
     Parcela(int x, int y, String estado){
         cordenada_x = x;
         cordenada_y = y;
