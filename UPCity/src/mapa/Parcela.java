@@ -4,52 +4,40 @@
  */
 package mapa;
 
+import java.util.TreeMap;
 /**
  *
- * @author ivanmartinez
+ * @author danielsans
  */
 public class Parcela {
-    int cordenada_x;
-    int cordenada_y;
-    String Estado;
+    int tamanyo;
+    TreeMap<Integer, Integer> restriccionesP;
     int OID;
     
     Parcela(){
     }
     
-    Parcela(int x, int y, String estado, int id){
-        cordenada_x = x;
-        cordenada_y = y;
-        Estado = estado;
+    Parcela(int tam, int ID){
+        tamanyo = tam;
+        OID = ID;
+        restriccionesP = new TreeMap<Integer, Integer>();
+    }
+    
+
+    void anadirRestriccion(int id) {
+        restriccionesP.put(id, id);
+    }
+    
+    void modificarPar(int id, int tam) {
+        tamanyo = tam;
         OID = id;
-    }
-    
-    // si x o y son menores que 0, solo se modifica su estado y no es necesario
-    //modificar su posicion.
-    void setParcela(int x, int y, String estado, int id){
-        if(x >= 0) cordenada_x = x;
-        if(y >= 0) cordenada_y = y;
-        Estado = estado;
-        OID = id;
-    }
-    
-    int getx(){
-        return cordenada_x;
-    }
-    
-    int gety() {
-        return cordenada_y;
     }
     
     int getoid() {
         return OID;
     }
     
-    String getestado() {
-        return Estado;
-    }
-    void getParcela(){
-        
+    boolean buscaRestriccion(int id){
+        return restriccionesP.containsKey(id);
     }
 }
-  

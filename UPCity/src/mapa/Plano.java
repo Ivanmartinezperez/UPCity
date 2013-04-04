@@ -7,7 +7,7 @@ package mapa;
 
 /**
  *
- * @author ivanmartinez
+ * @author danielsans
  */
 public class Plano {
     private Parcela[][]mat;
@@ -31,6 +31,10 @@ public class Plano {
 
     public void modifica (int x, int y, Parcela p) {
         mat[x][y] = p;
+    }
+    
+    public boolean consultaPar(int id, int x, int y) {
+        return mat[x][y].buscaRestriccion(id);
     }
     
     public void copia(Plano p) throws Exception {
