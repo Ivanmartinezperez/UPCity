@@ -6,7 +6,7 @@
 package elementos;
 
 import java.util.TreeMap;
-
+import Auxiliares.Pair;
 
 /**
  *
@@ -33,8 +33,8 @@ public class Cjt_Elementos extends TreeMap {
    
    
    //////MODIFICADORAS//////////////////////////////
-   public void modificar_elemento(Integer OID,Integer cantidad ){
-       this.put(OID,cantidad);
+   public void modificar_elemento(Integer OID,/*Pair <int,Elementos>*/ Integer valor ){
+       this.put(OID,valor);
    }
    
    public void anadir_elementos(Integer OID,Integer cantidad){

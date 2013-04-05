@@ -11,6 +11,10 @@ package elementos;
 public class Comercio extends Elementos {
     public int capacidad_del_comercio;
     
+    public Comercio(int OID){
+        super(OID);
+    }
+    
     public Comercio(int OID, int cap){
         super(OID);
         this.capacidad_del_comercio=cap;
