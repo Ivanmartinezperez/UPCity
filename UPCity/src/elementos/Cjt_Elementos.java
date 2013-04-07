@@ -5,8 +5,8 @@
  */
 package elementos;
 
-import java.util.TreeMap;
 import Auxiliares.Pair;
+import java.util.TreeMap;
 
 /**
  *
@@ -33,13 +33,15 @@ public class Cjt_Elementos extends TreeMap {
    
    
    //////MODIFICADORAS//////////////////////////////
-   public void modificar_elemento(Integer OID,/*Pair <int,Elementos>*/ Integer valor ){
+   public void insertar_elementos(Integer OID,Pair valor ){
        this.put(OID,valor);
    }
    
-   public void anadir_elementos(Integer OID,Integer cantidad){
+   public void anadir_cantidad_elementos(Integer OID,Integer cantidad){
        if(this.existe_elemento(OID)){
-           Integer Nuevo_valor =(Integer) this.get(OID)+cantidad;
+           Pair aux;
+           aux = (Pair) this.get(OID);
+           Integer Nuevo_valor =(Integer) aux.getFirst()+cantidad;
            if(Nuevo_valor > 0){
                this.put(OID, Nuevo_valor);
            }
@@ -50,9 +52,11 @@ public class Cjt_Elementos extends TreeMap {
        }
    }
    
-   public void eliminar_elementos(Integer OID,Integer cantidad){
+   public void eliminar_cantidad_elementos(Integer OID,Integer cantidad){
        if(this.existe_elemento(OID)){
-           Integer Nuevo_valor =(Integer) this.get(OID)-cantidad;
+           Pair aux;
+           aux = (Pair) this.get(OID);
+           Integer Nuevo_valor =(Integer) aux.getFirst()-cantidad;
            if(Nuevo_valor > 0){
                this.put(OID, Nuevo_valor);
            }
@@ -67,11 +71,19 @@ public class Cjt_Elementos extends TreeMap {
    
    
    ///////////CONSULTORAS////////////
-    public Integer consultar_elemento(Integer OID){
-       Integer valor;
-       valor = (Integer) this.get(OID);
-       return valor;
+    public Pair consultar_elemento(Integer OID){
+          Pair valor;
+          valor = (Pair) this.get(OID);
+          return valor;
    }
+    
+    /* Esta funcion retorna la raiz del arbol Y LA ELIMINA DE EL!!!*/
+    public Pair primer_elemento(){
+            Pair valor;
+            valor = (Pair) this.pollFirstEntry().getValue();
+            return valor;
+    }
+    
    ///////////////////////////////////
       
 }
