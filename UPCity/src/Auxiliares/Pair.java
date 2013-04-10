@@ -9,8 +9,13 @@ package Auxiliares;
  * @author ivanmartinez
  */
 public class Pair<A,B> {
-    public A first;
-    public B second;
+    private A first;
+    private B second;
+    
+    public Pair(A a, B b){
+        this.first = a;
+        this.second = b;
+    }
     
   public A getFirst() { return first; }
   public B getSecond() { return second; }
