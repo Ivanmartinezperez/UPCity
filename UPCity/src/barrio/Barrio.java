@@ -6,7 +6,7 @@ package barrio;
 
 /**
  *
- * @author ivanmartinez
+ * @author elpueblo
  */
 public class Barrio {
     
