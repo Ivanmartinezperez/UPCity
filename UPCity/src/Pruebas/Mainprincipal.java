@@ -4,10 +4,19 @@
  */
 package Pruebas;
 
+import Pruebas.testfunciones;
+
 /**
  *
  * @author ivanmartinez
  */
 public class Mainprincipal {
     
+    public static void main(String arg[]){
+        
+        
+        testfunciones tt = new testfunciones();
+        tt.bactracking();
+        
+    }
 }

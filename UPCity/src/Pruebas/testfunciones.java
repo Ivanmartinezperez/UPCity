@@ -4,10 +4,22 @@
  */
 package Pruebas;
 
+import elementos.*;
+import mapa.*;
+import Auxiliares.*;
+
+
 /**
  *
  * @author ivanmartinez
  */
 public class testfunciones {
     
+    public testfunciones(){
+        
+    }
+    
+    public void bactracking(){
+        
+    }
 }
