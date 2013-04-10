@@ -64,7 +64,7 @@ public class Tests {
         }
     }
         
-        public Pair troba_buida(Plano map){
+    public Pair troba_buida(Plano map){
         try {
             for(int i=0;i<map.tama();++i)
                 for(int j=0;j<map.tamb();++j){
@@ -80,7 +80,7 @@ public class Tests {
         return null;
         }
         
-        private Plano backtracking(Cjt_Elementos cjt,Plano map){
+    private Plano backtracking(Cjt_Elementos cjt,Plano map){
         
                 if(cjt.isEmpty()) return map;
                 
