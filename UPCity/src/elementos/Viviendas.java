@@ -33,7 +33,7 @@ public class Viviendas extends Elemento {
         this.capacidad_maxima = cap_max;
     }
     
-    void setTamaño(int x,int y){
+    public void setTamaño(int x,int y){
         this.Tamano_x=x;
         this.Tamano_y=y;
     }
@@ -45,11 +45,11 @@ public class Viviendas extends Elemento {
         return this.capacidad_maxima;
     }
     
-     int getTamanoX(){
+    public int getTamanoX(){
         return this.Tamano_x;
     }
     
-    int getTamanoY(){
+    public int getTamanoY(){
         return this.Tamano_y;
     }
 }

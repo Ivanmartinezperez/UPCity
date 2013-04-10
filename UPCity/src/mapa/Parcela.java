@@ -17,7 +17,7 @@ public class Parcela {
     Parcela(){
     }
     
-    Parcela(int tam, int ID){
+    public Parcela(int tam, int ID){
         tamanyo = tam;
         OID = ID;
         restriccionesP = new TreeMap<Integer, Integer>();
@@ -33,7 +33,7 @@ public class Parcela {
         OID = id;
     }
     
-    int getoid() {
+    public int getoid() {
         return OID;
     }
     

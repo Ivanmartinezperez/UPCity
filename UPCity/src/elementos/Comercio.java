@@ -9,10 +9,10 @@ package elementos;
  * @author ivanmartinez
  */
 public class Comercio extends Elemento {
-    public int capacidad_del_comercio;
-    public int Tamano_x;
-    public int Tamano_y;
-    public int Precio;
+    private int capacidad_del_comercio;
+    private int Tamano_x;
+    private int Tamano_y;
+    private int Precio;
     
     
     /////Cradoras////////
