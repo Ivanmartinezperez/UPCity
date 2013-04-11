@@ -8,18 +8,18 @@ package elementos;
  *
  * @author ivanmartinez
  */
-public class Viviendas extends Elemento {
+public class Vivienda extends Elemento {
     
     public int capacidad_maxima;
     public int Tamano_x;
     public int Tamano_y;
     public int Precio;
     
-    public Viviendas(int OID){
+    public Vivienda(int OID){
         super(OID);
     }
     
-    public Viviendas (int OID,int cap_max, int tam_x, int tam_y,int precio){
+    public Vivienda (int OID,int cap_max, int tam_x, int tam_y,int precio){
         super(OID);
         this.Tamano_x = tam_x;
         this.Tamano_y = tam_y;
