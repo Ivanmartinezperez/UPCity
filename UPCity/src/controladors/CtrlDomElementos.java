@@ -4,6 +4,7 @@
  */
 package controladors;
 
+import Auxiliares.Pair;
 import elementos.*;
 import java.util.*;
 
@@ -19,6 +20,11 @@ public class CtrlDomElementos {
         private TreeMap<String,Elemento> mapElem;
         private static CtrlDomElementos INSTANCE = null;
         
+        /**
+         * Creadora de la clase Controlador de elementos - DOMINIO
+         * @param -
+         * @return -
+         */
         private CtrlDomElementos(){
             mapCjtElem = new TreeMap<>();
             mapElem = new TreeMap<>();
@@ -40,6 +46,13 @@ public class CtrlDomElementos {
             return INSTANCE;
         }
         
+        /**
+         * Encargado de mantener la consistencia de las estructuras de datos
+         * @param e Elemento que se añade a las esructuras pertinentes
+         * @param tipo Nos indica el tipo de elemento que es: 1-Vivienda 2-Publico 3-Comercio
+         * @return Devuelve true si todo se ha realizado correctamente
+         */
+        
         private boolean anadir_a_estructuras(Elemento e,int tipo){
             String nombre = e.getNom();
             if(!mapElem.containsKey(nombre)){
@@ -56,8 +69,17 @@ public class CtrlDomElementos {
             return true;
         }
         
+        /**
+         * Encargada de crear un elemento y añadirlo a las esucturas de datos
+         * @param Nombre Nombre del elemento
+         * @param Des Descripcion del elemento
+         * @param tipo Tipo de elemento: Vivienda,publico,comercio
+         * @return Devuelve true en caso de que todo se realize correctamente 
+         */
+        
         public boolean CrearElemento(String Nombre,String Des, int tipo){
             
+            System.out.println("Entra");
                 boolean ret=true;
             
                 switch(tipo){
@@ -84,6 +106,69 @@ public class CtrlDomElementos {
                 return ret;
         
         }
+        
+        /**
+         * Crea un conjunto vacio y lo añade a las estructuras
+         * @param Nombre Nombre del conjunto a crear
+         * @return Devuelve true si todo se ha realizado correctamente
+         */
+        public boolean CrearConjunto(String Nombre){
+            
+            Cjt_Elementos cjt = new Cjt_Elementos();
+            mapCjtElem.put(Nombre, cjt);
+            return true;
+            
+        }
+        
+        /**
+         * Añade la cantidad de elemento especificada al conjunto especificado
+         * @param Nombre
+         * @param e
+         * @param cantidad
+         * @return Devuelve true en caso de que todo se reaize correctamente
+         */
+        
+        public boolean Anadir_elemento_al_conjunto(String Nombre,Elemento e, Integer cantidad){
+            
+            if(mapElem.containsKey(e.getNom()) && mapCjtElem.containsKey(Nombre)){
+                Pair p = new Pair(cantidad,e);
+                mapCjtElem.get(Nombre).insertar_elementos(e.getId(), p);
+                return true;
+            }
+            return false;
+        }
+        
+        
+        
+        /**
+         * Listado de los elementos del sistema
+         * @return Array de todos los elementos del sistema
+         */
+         public ArrayList<Elemento> ListaElementos(){
+             
+            ArrayList<Elemento> aux;
+            aux = (ArrayList<Elemento>) mapElem.values();
+            return aux;
+            
+         }
+         
+         
+         /**
+          * Listado de nombres de los elementos del sistema
+          * @return Devuelve un set con los nombres de los elementos del sistema 
+          */
+         public Set<String> ListaNombreElementos(){
+             
+            Set<String> aux = new HashSet();
+            if(!mapElem.isEmpty()){
+                aux.addAll(mapElem.keySet());
+                return aux;
+                
+            }
+            return null;
+         }
+         
+         
         
         
 
