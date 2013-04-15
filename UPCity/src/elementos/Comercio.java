@@ -38,9 +38,13 @@ public class Comercio extends Elemento {
         this.capacidad_del_comercio=cap;
     }
     
-    void setTamaño(int x,int y){
+    public void setTamaño(int x,int y){
         this.Tamano_x=x;
         this.Tamano_y=y;
+    }
+    
+    public void setTBarrio(int bar){
+        TBarrio = bar;
     }
     ///////////////////////////
     

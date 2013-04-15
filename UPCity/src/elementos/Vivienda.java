@@ -41,6 +41,10 @@ public class Vivienda extends Elemento {
         this.Tamano_y=y;
     }
     
+    public void setTBarrio(int bar){
+        TBarrio = bar;
+    }
+    
     
     ///Consultoras/////
     

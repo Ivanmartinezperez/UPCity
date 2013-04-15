@@ -50,9 +50,13 @@ public class Publico extends Elemento {
         this.capacidad_servicio_poblacion = cap;
     }
     
-     void setTamaño(int x,int y){
+    public void setTamaño(int x,int y){
         this.Tamano_x=x;
         this.Tamano_y=y;
+    }
+     
+    public void setTBarrio(int bar){
+        TBarrio = bar;
     }
     
     

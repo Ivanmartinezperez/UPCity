@@ -15,6 +15,8 @@ import barrio.Barrio;
  * @author ArclorenSarth
  */
 public class CtrlDomBarrios {
+    
+    private static CtrlDomBarrios INSTANCE;
     private TreeMap<String,Elemento> TablaElem;
     private TreeMap<String,Restriccion> TablaRest;
     private TreeMap<String,Integer> TablaBarr;
@@ -26,7 +28,7 @@ public class CtrlDomBarrios {
     /**
      * 
      */
-    public CtrlDomBarrios(){
+    private CtrlDomBarrios(){
         TablaElem = new TreeMap();
         TablaRest = new TreeMap();
         TablaBarr = new TreeMap();
@@ -37,6 +39,20 @@ public class CtrlDomBarrios {
         GDPRest.leerRestricciones(TablaRest);
         
     }
+    
+    private synchronized static void creaInstancia() {
+        if (INSTANCE == null) {
+            INSTANCE = new CtrlDomBarrios();
+        }
+    }
+
+    public static CtrlDomBarrios getInstance() {
+        if (INSTANCE == null) {
+            creaInstancia();
+        }
+        return INSTANCE;
+    }
+    
     
     public Barrio crearBarrio(String nombre){
 //        Esto basicamente creara un barrio temporal, consultando que el nombre

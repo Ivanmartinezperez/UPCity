@@ -15,9 +15,13 @@ import java.util.*;
 public class CtrlDomElementos {
     
         private int OID;
-        private HashMap<Integer,ArrayList<Elemento>> mapTipoElem;
         private TreeMap<String,Cjt_Elementos> mapCjtElem;
-        private TreeMap<String,Elemento> mapElem;
+        private HashMap<Integer,ArrayList<Elemento>> mapTipoElem1;
+        private HashMap<Integer,ArrayList<Elemento>> mapTipoElem2;
+        private HashMap<Integer,ArrayList<Elemento>> mapTipoElem3;
+        private TreeMap<String,Elemento> mapElem1;
+        private TreeMap<String,Elemento> mapElem2;
+        private TreeMap<String,Elemento> mapElem3;
         private static CtrlDomElementos INSTANCE = null;
         
         /**
@@ -27,8 +31,12 @@ public class CtrlDomElementos {
          */
         private CtrlDomElementos(){
             mapCjtElem = new TreeMap<>();
-            mapElem = new TreeMap<>();
-            mapTipoElem = new HashMap<>();
+            mapElem1 = new TreeMap<>();
+            mapElem2 = new TreeMap<>();
+            mapElem3 = new TreeMap<>();
+            mapTipoElem1 = new HashMap<>();
+            mapTipoElem2 = new HashMap<>();
+            mapTipoElem3 = new HashMap<>();
             OID=0;//Cada vez que se cree una instancia esto recibira el valor de la raiz
                   //del arbol de elementos +1, que sera el OID maximo del programa
         }
@@ -53,17 +61,30 @@ public class CtrlDomElementos {
          * @return Devuelve true si todo se ha realizado correctamente
          */
         
-        private boolean anadir_a_estructuras(Elemento e,int tipo){
+        private boolean anadir_a_estructuras(Elemento e,int tipo, int TB){
             String nombre = e.getNom();
-            if(!mapElem.containsKey(nombre)){
-                //añadimos elemento a la estructura que contiene los elementos
-                mapElem.put(nombre, e);
+            if(!mapElem1.containsKey(nombre) && !mapElem2.containsKey(nombre) 
+                && !mapElem3.containsKey(nombre)){
+                ArrayList<Elemento> aux = new ArrayList<>();
+                //añadimos elemento a la estructura que contiene los elementos y
                 //añadimos el elemento a la estructura que contiene los elementos 
                 //clasificados por el tipo
-                ArrayList<Elemento> aux = new ArrayList<>();
-                aux.add(e);
-                mapTipoElem.put((Integer) tipo, aux);
+                switch(TB){
+                    case 1: mapElem1.put(nombre, e);
+                            aux.add(e);
+                            mapTipoElem1.put((Integer) tipo, aux);
+                            break;
+                    case 2: mapElem2.put(nombre, e);
+                            aux.add(e);
+                            mapTipoElem2.put((Integer) tipo, aux);
+                            break;
+                    case 3: mapElem3.put(nombre, e);
+                            aux.add(e);
+                            mapTipoElem3.put((Integer) tipo, aux);
+                            break;
+                }
                 
+                    
             }
             
             return true;
@@ -77,7 +98,7 @@ public class CtrlDomElementos {
          * @return Devuelve true en caso de que todo se realize correctamente 
          */
         
-        public boolean CrearElemento(String Nombre,String Des, int tipo){
+        public boolean CrearElemento(String Nombre,String Des, int tipo, int TB){
             
             System.out.println("Entra");
                 boolean ret=true;
@@ -86,17 +107,20 @@ public class CtrlDomElementos {
                     case 1 : Vivienda v = new Vivienda(OID);
                              v.setNom(Nombre);
                              v.setDescrpcio(Des);
-                             anadir_a_estructuras(v,tipo);
+                             v.setTBarrio(TB);
+                             anadir_a_estructuras(v,tipo,TB);
                              break;
                     case 2 : Publico p = new Publico(OID);
                              p.setNom(Nombre);
                              p.setDescrpcio(Des);
-                             anadir_a_estructuras(p,tipo);
+                             p.setTBarrio(TB);
+                             anadir_a_estructuras(p,tipo,TB);
                              break;
                     case 3 : Comercio c = new Comercio(OID);
                              c.setNom(Nombre);
                              c.setDescrpcio(Des);
-                             anadir_a_estructuras(c,tipo);
+                             c.setTBarrio(TB);
+                             anadir_a_estructuras(c,tipo,TB);
                              break;
                     default: ret = false;
                 }
