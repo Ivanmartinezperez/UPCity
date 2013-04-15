@@ -9,6 +9,7 @@ package elementos;
  * @author ivanmartinez
  */
 public class Comercio extends Elemento {
+    private int TBarrio;
     private int capacidad_del_comercio;
     private int Tamano_x;
     private int Tamano_y;
@@ -20,8 +21,10 @@ public class Comercio extends Elemento {
         super(OID);
     }
     
-    public Comercio(int OID, int cap, int tam_x, int tam_y, int precio){
+    public Comercio(int OID, int cap, int tam_x, int tam_y, int precio, 
+                    int tbarr){
         super(OID);
+        TBarrio = tbarr;
         this.Tamano_x = tam_x;
         this.Tamano_y = tam_y;
         this.Precio = precio;
@@ -46,13 +49,18 @@ public class Comercio extends Elemento {
         return capacidad_del_comercio;
     }
     
-     int getTamanoX(){
+    public int getTamanoX(){
         return this.Tamano_x;
     }
     
-    int getTamanoY(){
+    public int getTamanoY(){
         return this.Tamano_y;
     }
+    
+    public int getTBarrio(){
+        return TBarrio;
+    }
+    
     //////////////////////////
     
 }

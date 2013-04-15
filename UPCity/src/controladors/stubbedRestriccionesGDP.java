@@ -11,7 +11,7 @@ import java.util.TreeMap;
  *
  * @author ArclorenSarth
  */
-public class stubbedRestriccionGDP {
+public class stubbedRestriccionesGDP {
     /**
      * Lectura de datos persistentes del disco, lee todas las instancias de 
      * restriccion del disco y las pasa al TreeMap TablaRest que le llega como 
