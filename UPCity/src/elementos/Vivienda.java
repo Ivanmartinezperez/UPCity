@@ -52,6 +52,10 @@ public class Vivienda extends Elemento {
         return this.capacidad_maxima;
     }
     
+    public int getPrecio(){
+        return Precio;
+    }
+    
     public int getTamanoX(){
         return this.Tamano_x;
     }

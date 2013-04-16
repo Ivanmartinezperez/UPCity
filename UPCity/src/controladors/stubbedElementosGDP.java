@@ -6,6 +6,8 @@ package controladors;
 
 import java.util.TreeMap;
 import elementos.Elemento;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -41,7 +43,14 @@ public class stubbedElementosGDP {
      * parametro.
      * @param TablaElem 
      */     
-    public void leerElementos(TreeMap<String,Elemento> TablaElem){
+    public void leerElementos(TreeMap<String,Elemento> TE0,
+                              HashMap<Integer,ArrayList<Elemento>> HE0,
+                              TreeMap<String,Elemento> TE1,
+                              HashMap<Integer,ArrayList<Elemento>> HE1,
+                              TreeMap<String,Elemento> TE2,
+                              HashMap<Integer,ArrayList<Elemento>> HE2,
+                              TreeMap<String,Elemento> TE3,
+                              HashMap<Integer,ArrayList<Elemento>> HE3){
 //        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
 //        cual tengo la duda que este del todo correcto :S    
     }

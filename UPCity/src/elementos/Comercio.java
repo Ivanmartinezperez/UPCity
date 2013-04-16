@@ -53,6 +53,10 @@ public class Comercio extends Elemento {
         return capacidad_del_comercio;
     }
     
+    public int getPrecio(){
+        return Precio;
+    }
+    
     public int getTamanoX(){
         return this.Tamano_x;
     }

@@ -69,6 +69,10 @@ public class Publico extends Elemento {
         return this.capacidad_servicio_poblacion;
     }
     
+    public int getPrecio(){
+        return Precio;
+    }
+    
     public int getTamanoX(){
         return this.Tamano_x;
     }
