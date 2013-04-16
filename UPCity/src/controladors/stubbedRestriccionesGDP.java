@@ -12,6 +12,30 @@ import java.util.TreeMap;
  * @author ArclorenSarth
  */
 public class stubbedRestriccionesGDP {
+    
+    private static stubbedRestriccionesGDP INSTANCE = null;
+   
+    private stubbedRestriccionesGDP(){
+        
+    }
+    
+    private synchronized static void creaInstancia() {
+        if (INSTANCE == null) {
+            INSTANCE = new stubbedRestriccionesGDP();
+        }
+    }
+
+    public static stubbedRestriccionesGDP getInstance() {
+        if (INSTANCE == null) {
+            creaInstancia();
+        }
+        return INSTANCE;
+    }
+    
+    
+    
+    
+    
     /**
      * Lectura de datos persistentes del disco, lee todas las instancias de 
      * restriccion del disco y las pasa al TreeMap TablaRest que le llega como 

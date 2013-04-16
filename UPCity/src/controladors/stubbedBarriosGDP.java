@@ -10,4 +10,23 @@ package controladors;
  */
 public class stubbedBarriosGDP {
     
+    private static stubbedBarriosGDP INSTANCE = null;
+   
+    private stubbedBarriosGDP(){
+        
+    }
+    
+    private synchronized static void creaInstancia() {
+        if (INSTANCE == null) {
+            INSTANCE = new stubbedBarriosGDP();
+        }
+    }
+
+    public static stubbedBarriosGDP getInstance() {
+        if (INSTANCE == null) {
+            creaInstancia();
+        }
+        return INSTANCE;
+    }
+    
 }
