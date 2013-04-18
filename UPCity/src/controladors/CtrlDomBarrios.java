@@ -158,7 +158,7 @@ public class CtrlDomBarrios {
     public boolean CrearConjunto(String Nombre){
 
         Cjt_Elementos cjt = new Cjt_Elementos();
-        mapCjtElem.put(Nombre, cjt);
+        //mapCjtElem.put(Nombre, cjt);
         return true;
 
     }
@@ -174,9 +174,9 @@ public class CtrlDomBarrios {
      */
     public boolean Anadir_elemento_al_conjunto(String Nombre,Elemento e, Integer cantidad){
             
-            if(mapElem.containsKey(e.getNom()) && mapCjtElem.containsKey(Nombre)){
+            if(true/*mapElem.containsKey(e.getNom()) && mapCjtElem.containsKey(Nombre)*/){
                 Pair p = new Pair(cantidad,e);
-                mapCjtElem.get(Nombre).insertar_elementos(e.getId(), p);
+                //mapCjtElem.get(Nombre).insertar_elementos(e.getId(), p);
                 return true;
             }
             return false;

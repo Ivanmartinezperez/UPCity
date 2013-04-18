@@ -12,7 +12,7 @@ public class stubbedBarriosGDP {
     
     private static stubbedBarriosGDP INSTANCE = null;
    
-    private stubbedBarriosGDP(){
+    public stubbedBarriosGDP(){
         
     }
     

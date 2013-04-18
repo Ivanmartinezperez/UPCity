@@ -21,7 +21,7 @@ public class CtrlDomGeneral {
     private stubbedElementosGDP GDPElem;
     private stubbedRestriccionesGDP GDPRest;
     private stubbedBarriosGDP GDPBarr;
-    private CtrlDomRestricciones DOMRest;
+    //private CtrlDomRestricciones DOMRest;
     private CtrlDomElementos DOMElem;
     private CtrlDomBarrios DOMBarr;
                 
@@ -38,16 +38,16 @@ public class CtrlDomGeneral {
         GDPElem = new stubbedElementosGDP();
         GDPRest = new stubbedRestriccionesGDP();
         GDPBarr = new stubbedBarriosGDP();
-        GDPElem.leerElementos(TablaElem);
+        //GDPElem.leerElementos(TablaElem);
         GDPRest.leerRestricciones(TablaRest);
-        DOMRest = new CtrlDomRestricciones(TablaRest);
-        DOMElem = new CtrlDomElementos(TablaElem);
-        DOMBarr = new CtrlDomBarrios(TablaElem,TablaRest,TablaBarr);
+        //DOMRest = new CtrlDomRestricciones(TablaRest);
+        //DOMElem = new CtrlDomElementos(TablaElem);
+        //DOMBarr = new CtrlDomBarrios(TablaElem,TablaRest,TablaBarr);
                  
     }
     
     public void CrearBarrio(String nombre){
-        DOMBarr.crearBarrio(nombre);
+        //DOMBarr.crearBarrio(nombre);
     }
     
     
