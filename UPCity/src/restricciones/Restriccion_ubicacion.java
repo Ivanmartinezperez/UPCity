@@ -8,17 +8,17 @@ import elementos.Cjt_Elementos;
 
 /**
  *
- * @author ivanmartinez
+ * @author ron
  */
 public class Restriccion_ubicacion extends Restriccion {
 
-    public int OID1;
-    public int OID2;
+    private String OID1;
+    private String OID2;
     public int distancia;
     
      /// CREADORA //////////
     
-    public Restriccion_ubicacion(String id, String tipo, int OID1, int OID2, int distancia){
+    public Restriccion_ubicacion(String id, String tipo, String OID1, String OID2, int distancia){
         super(id, tipo);
         this.OID1 = OID1;
         this.OID2 = OID1;
@@ -37,11 +37,11 @@ public class Restriccion_ubicacion extends Restriccion {
         return this.distancia;
     }
     
-    public int consultar_OID1(){
+    public String consultar_OID1(){
         return this.OID1;
     }
     
-    public int consultar_OID2(){
+    public String consultar_OID2(){
         return this.OID2;
     }
     
