@@ -17,7 +17,13 @@ public class Restriccion_demografica extends Restriccion {
     //super();
     //}
     
-     
+   /**
+    * Creadora de Restriccion_demografica
+    * @param id
+    * @param tipo
+    * @param OID1
+    * @param habitantes
+    */  
     public Restriccion_demografica(String id, String tipo, String OID1, int habitantes){
         super(id, tipo);
         this.habitantes = habitantes;
@@ -28,18 +34,28 @@ public class Restriccion_demografica extends Restriccion {
    /////////////////////////
     
     /// MODIFICADORES //////
-    
+    /**
+     * Modifica la cantidad minima de habitantes relacionado con el elemento
+     * @param habitantes cantidad minima de habitantes para el elemento relacionado
+     */
     public void modificar_habitantes(int habitantes){
         this.habitantes = habitantes;
     }
     ///////////////////////
     
     /// CONSULTORES ////////
-   
+   /**
+    * Consultora de la cantidad minima de habitantes 
+    * @return retorna la cantidad minima de habitantes
+    */
     public int consultar_habitantes(){
         return this.habitantes;
     }
     
+    /**
+     * Consultora del id del elemento relacionado
+     * @return retorna el id del elemento relacionado
+     */
     public String consultar_OID(){
         return this.OID;
     }
