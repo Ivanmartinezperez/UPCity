@@ -17,7 +17,7 @@ public class stubbedElementosGDP {
     
     private static stubbedElementosGDP INSTANCE = null;
    
-    public stubbedElementosGDP(){
+    private stubbedElementosGDP(){
         
     }
     

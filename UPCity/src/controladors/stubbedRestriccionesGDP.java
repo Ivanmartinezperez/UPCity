@@ -15,7 +15,7 @@ public class stubbedRestriccionesGDP {
     
     private static stubbedRestriccionesGDP INSTANCE = null;
    
-    public stubbedRestriccionesGDP(){
+    private stubbedRestriccionesGDP(){
         
     }
     
