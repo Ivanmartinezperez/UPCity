@@ -10,19 +10,18 @@ import elementos.*;
  * @author ronsofer
  */
 public class Restriccion_demografica extends Restriccion {
-    public int porcentaje;
-    public int OID;
-    
+    private int habitantes;
+    private String OID;
     /// CREADORA //////////
    // public Restriccion_demografica(){
     //super();
     //}
     
      
-    public Restriccion_demografica(String id, String tipo, int OID, int por){
-    super(id, tipo);
-    this.OID = OID;
-    this.porcentaje = por;
+    public Restriccion_demografica(String id, String tipo, String OID1, int habitantes){
+        super(id, tipo);
+        this.habitantes = habitantes;
+        this.OID = OID1;
     }
    
     
@@ -30,20 +29,20 @@ public class Restriccion_demografica extends Restriccion {
     
     /// MODIFICADORES //////
     
-    public void modificar_porcentaje(int por){
-        this.porcentaje = por;
+    public void modificar_habitantes(int habitantes){
+        this.habitantes = habitantes;
     }
     ///////////////////////
     
     /// CONSULTORES ////////
-    
-   public int consultar_porcentaje(){
-       return this.porcentaje;
-   }
    
-   public int consultar_OID() {
+    public int consultar_habitantes(){
+        return this.habitantes;
+    }
+    
+    public String consultar_OID(){
         return this.OID;
-   }
+    }
    
    
    /////////////////////////
