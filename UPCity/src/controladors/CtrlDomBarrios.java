@@ -11,9 +11,6 @@ import restricciones.Restriccion;
 import elementos.*;
 import elementos.Cjt_Elementos;
 import barrio.Barrio;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 
 /**
  *
@@ -22,16 +19,9 @@ import java.util.HashMap;
 public class CtrlDomBarrios {
     
     private static CtrlDomBarrios INSTANCE;
-    private TreeMap<String,Restriccion> TablaRest;
-    private TreeMap<String,Integer> TablaBarr;
-    private TreeMap<String,Elemento> mapElem0;
-    private TreeMap<String,Elemento> mapElem1;
-    private TreeMap<String,Elemento> mapElem2;
-    private TreeMap<String,Elemento> mapElem3;
-    private HashMap<Integer,ArrayList<Elemento>> mapTipoElem0;
-    private HashMap<Integer,ArrayList<Elemento>> mapTipoElem1;
-    private HashMap<Integer,ArrayList<Elemento>> mapTipoElem2;
-    private HashMap<Integer,ArrayList<Elemento>> mapTipoElem3;
+    private TreeMap<String,Integer> TablaBarrios;
+    private CtrlDomRestricciones DOMRest;
+    private CtrlDomElementos DOMElem;
     private stubbedElementosGDP GDPElem;
     private stubbedRestriccionesGDP GDPRest;
     private stubbedBarriosGDP GDPBarr;
@@ -41,26 +31,13 @@ public class CtrlDomBarrios {
      * 
      */
     private CtrlDomBarrios(){
-        mapElem0 = new TreeMap();
-        mapElem1 = new TreeMap();
-        mapElem2 = new TreeMap();
-        mapElem3 = new TreeMap();
-        mapTipoElem0 = new HashMap();
-        mapTipoElem1 = new HashMap();
-        mapTipoElem2 = new HashMap();
-        mapTipoElem3 = new HashMap();
-        TablaRest = new TreeMap();
-        TablaBarr = new TreeMap();
+        TablaBarrios = new TreeMap();
+        DOMElem = CtrlDomElementos.getInstance();
         GDPElem = stubbedElementosGDP.getInstance();
-        GDPRest = stubbedRestriccionesGDP.getInstance();
         GDPBarr = stubbedBarriosGDP.getInstance();
-        GDPElem.leerElementos(mapElem0,mapTipoElem0,mapElem1,mapTipoElem1,mapElem2,
-                              mapTipoElem2,mapElem3,mapTipoElem3);
-        GDPRest.leerRestricciones(TablaRest);
-        
     }
     
-    private synchronized static void creaInstancia() {
+    private static void creaInstancia() {
         if (INSTANCE == null) {
             INSTANCE = new CtrlDomBarrios();
         }
@@ -81,7 +58,7 @@ public class CtrlDomBarrios {
 //        operaciones sobre el
         
         Barrio b = null;
-        if(TablaBarr.get(nombre)==null){
+        if(TablaBarrios.get(nombre)==null){
             b = new Barrio(nombre,tip);            
         }
         
@@ -91,57 +68,49 @@ public class CtrlDomBarrios {
     
     
     public boolean anadirRestBarrio(Barrio B, String Rest){
-        if(TablaRest.containsKey(Rest)){
-            B.putRestriccion(Rest);
+        Restriccion r;
+        if(r = DOMRest.getRestriccion(Rest)){
+            B.putRestriccion(Rest,r);
             return true;
         }
         else return false;
     }
     
+    private void guardarElemento(Barrio B, Elemento e, int cant){
+        int gasto;
+        int oid = e.getId();
+        Pair v = new Pair(cant,e);
+        if(e instanceof Vivienda){
+            Vivienda e2 = (Vivienda) e;
+            gasto = cant * e2.getPrecio();
+        }
+        else if(e instanceof Publico){
+            Publico e2 = (Publico) e;
+            gasto = cant * e2.getPrecio();
+        }
+        else {
+            Comercio e2 = (Comercio) e;
+            gasto = cant * e2.getPrecio();
+        }
+        B.anadirGasto(gasto);
+        B.putElemento(oid,v);
+    }
+    
     public boolean anadirElemBarrio(Barrio B, String Elem, int cant){
         int tipo = B.getTipoBarrio();
         boolean b = false;
-        Pair v;
-        int oid;
-        Elemento e = null;
-        int gasto;
-        
-        if(mapElem0.containsKey(Elem))
-            e = mapElem0.get(Elem);
-        else {
+        Elemento e;
+        int tipoel;
+        e = DOMElem.getElemento(Elem);
+        if(e != null){
+            tipoel = DOMElem.getTBElemento(e);
             switch(tipo){
-                case 0: if(mapElem1.containsKey(Elem))
-                            e = mapElem1.get(Elem);
-                        else if(mapElem2.containsKey(Elem))
-                            e = mapElem2.get(Elem);
-                        else if(mapElem3.containsKey(Elem))
-                            e = mapElem3.get(Elem);
-                case 1: if(mapElem1.containsKey(Elem))
-                            e = mapElem1.get(Elem);
-                case 2: if(mapElem2.containsKey(Elem))
-                            e = mapElem2.get(Elem);
-                case 3: if(mapElem3.containsKey(Elem))
-                            e = mapElem3.get(Elem);
+                    case 0: b = true;
+                    case 1: b = (tipoel==1 || tipoel==0);
+                    case 2: b = (tipoel==2 || tipoel==0);
+                    case 3: b = (tipoel==3 || tipoel==0);
             }
-        }
-        if(e != null) {
-            oid = e.getId();
-            v = new Pair(cant,e);
-            if(e instanceof Vivienda){
-                Vivienda e2 = (Vivienda) e;
-                gasto = cant * e2.getPrecio();
-            }
-            else if(e instanceof Publico){
-                Publico e2 = (Publico) e;
-                gasto = cant * e2.getPrecio();
-            }
-            else {
-                Comercio e2 = (Comercio) e;
-                gasto = cant * e2.getPrecio();
-            }
-            B.anadirGasto(gasto);
-            B.putElemento(oid,v);
-            b = true;
+            if(b) guardarElemento(B,e,cant);
         }
         return b;
     }

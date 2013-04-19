@@ -9,6 +9,7 @@ import Auxiliares.Pair;
 import java.util.TreeMap;
 import mapa.Plano;
 import elementos.Cjt_Elementos;
+import restricciones.Restriccion;
 //import restricciones.Restriccion;
 
 
@@ -21,7 +22,7 @@ public class Barrio {
     private int TipoBarrio;
     private Plano Mapa;
     private Cjt_Elementos CjtElem;
-    private TreeMap<String,Integer> CjtRest;
+    private TreeMap<String,Restriccion> CjtRest;
     private int Presupuesto;
     private int Poblacion;
     private int Gastado;
@@ -47,8 +48,8 @@ public class Barrio {
         Poblacion = pob;
     }
     
-    public void putRestriccion(String rest){
-        CjtRest.put(rest,1);
+    public void putRestriccion(String Rest, Restriccion r){
+        CjtRest.put(Rest,r);
     }
     
     public void putElemento(int oid, Pair val){

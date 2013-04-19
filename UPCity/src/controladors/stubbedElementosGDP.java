@@ -21,7 +21,7 @@ public class stubbedElementosGDP {
         
     }
     
-    private synchronized static void creaInstancia() {
+    private static void creaInstancia() {
         if (INSTANCE == null) {
             INSTANCE = new stubbedElementosGDP();
         }
