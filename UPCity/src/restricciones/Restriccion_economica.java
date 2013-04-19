@@ -17,6 +17,7 @@ public class Restriccion_economica extends Restriccion {
    
    
    //CREADORA///////
+   
    public Restriccion_economica( String id, String tipo,int saldo_com, int saldo_viv, int saldo_pub){
        super(id, tipo);
        this.saldo = saldo_com + saldo_viv + saldo_pub;
