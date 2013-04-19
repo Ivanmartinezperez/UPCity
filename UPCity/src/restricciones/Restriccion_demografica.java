@@ -19,10 +19,10 @@ public class Restriccion_demografica extends Restriccion {
     
    /**
     * Creadora de Restriccion_demografica
-    * @param id
-    * @param tipo
-    * @param OID1
-    * @param habitantes
+    * @param id id de la restriccion
+    * @param tipo tipo de restriccion
+    * @param OID1 id del elemento relacionado
+    * @param habitantes cantidad minima de habitantes
     */  
     public Restriccion_demografica(String id, String tipo, String OID1, int habitantes){
         super(id, tipo);
