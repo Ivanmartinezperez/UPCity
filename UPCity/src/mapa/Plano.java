@@ -224,7 +224,7 @@ public class Plano {
      * @return si es false puede ir. si vale true, el elemento id no puede ir.
      */
     public boolean consultaPar(int id, int x, int y) {
-        return mat[x][y].buscaRestriccion(id);
+        return ((mat[x][y].getoid() != 0) || (mat[x][y].buscaRestriccion(id)));
     }
      /**
       * copia un plano.

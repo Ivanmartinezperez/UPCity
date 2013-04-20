@@ -37,7 +37,7 @@ public class Parcela {
      * le anade uno a la cantidad que havia antes.
      * @param id 
      */
-    void anadirRestriccion(int id) {
+    public void anadirRestriccion(int id) {
         int a = 1;
         if(restriccionesP.containsKey(id)) a += restriccionesP.get(id);
         restriccionesP.put(id, a);
@@ -47,7 +47,7 @@ public class Parcela {
      * PRE: tiene que existir un objeto ID en el treemap.
      * @param id 
      */
-    void quitarRestriccion(int id) {
+    public void quitarRestriccion(int id) {
         int a = restriccionesP.get(id);
         if(a == 1) restriccionesP.remove(id);
         else restriccionesP.put(id, a-1);
@@ -58,7 +58,7 @@ public class Parcela {
      * @param id
      * @param tam 
      */
-    void modificarPar(int id, int tam) {
+    public void modificarPar(int id, int tam) {
         tamanyo = tam;
         OID = id;
     }
@@ -77,7 +77,7 @@ public class Parcela {
      * @param id
      * @return 
      */
-    boolean buscaRestriccion(int id){
+    public boolean buscaRestriccion(int id){
         return restriccionesP.containsKey(id);
     }
 }
