@@ -6,10 +6,8 @@ package mapa;
 
 import Auxiliares.Pair;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 
 /**
@@ -103,13 +101,14 @@ public class Plano {
      * Esta funcion Expande el elemento oid, junto con su lista de restricciones.
      * Tambien modifica esa parcela con el oid.
      * PRE: El elemento oid cabe y puede estar en la posicion X Y
-     * @param x
-     * @param y
-     * @param oid
+     * @param x pos x del elemento oid
+     * @param y pos y del elemento oid
+     * @param oid id del elemento a insertar en xy, y del que se expandiran sus restr.
      * @param lista es una lista con Pair, donde el first es OID i el second es distancia.
+     * @param exp True = expandir. False = desexpande.
      */
-    public void expande(int x, int y, int oid, ArrayList restricciones) {
-        int contador = 0;
+    public void expande(int x, int y, int oid, ArrayList restricciones, boolean exp) {
+       // int contador = 0;
         mat[x][y].modificarPar(oid, 1);
         Queue<Pair <Integer, Integer> > cola;
         cola = new LinkedList <Pair<Integer, Integer> >();
@@ -135,9 +134,10 @@ public class Plano {
                     aux = (Pair<Integer, Integer>) restricciones.get(z);
                     int bb = aux.getSecond();
                     if(bb >= dist) {
-                        mat[a][b].anadirRestriccion(aux.getFirst());
-                        System.out.println("expando: "+a+ " "+b);
-                        ++contador;
+                        if(exp == true) mat[a][b].anadirRestriccion(aux.getFirst());
+                        else mat[a][b].quitarRestriccion(aux.getFirst());
+                        //System.out.println("expando: "+a+ " "+b);
+                        //++contador;
 
                     }/*
                     else {
@@ -156,63 +156,63 @@ public class Plano {
             if(restricciones.isEmpty() == false) {
                 if(limite(a-1, b-1) == true && visitats[a-1][b-1].getFirst() == 0) {
                     par = new Pair<Integer, Integer>(a-1, b-1);
-                    System.out.println(par.getFirst()+" "+par.getSecond());
+                    //System.out.println(par.getFirst()+" "+par.getSecond());
                     cola.add(par);
                     visitats[a-1][b-1].setSecond(dist+1);
                     visitats[a-1][b-1].setFirst(1);
                 }
                 if(limite(a-1, b) == true && visitats[a-1][b].getFirst() == 0) {
                     par = new Pair<Integer, Integer>(a-1, b);
-                    System.out.println(par.getFirst()+" "+par.getSecond());
+                   // System.out.println(par.getFirst()+" "+par.getSecond());
                     cola.add(par);
                     visitats[a-1][b].setSecond(dist+1);
                     visitats[a-1][b].setFirst(1);
                 }
                 if(limite(a-1, b+1) == true && visitats[a-1][b+1].getFirst() == 0) {
                     par = new Pair<Integer, Integer>(a-1, b+1);
-                    System.out.println(par.getFirst()+" "+par.getSecond());
+                   // System.out.println(par.getFirst()+" "+par.getSecond());
                     cola.add(par);
                     visitats[a-1][b+1].setSecond(dist+1);
                     visitats[a-1][b+1].setFirst(1);
                 }
                 if(limite(a, b-1) == true && visitats[a][b-1].getFirst() == 0) {
                     par = new Pair<Integer, Integer>(a, b-1);
-                    System.out.println(par.getFirst()+" "+par.getSecond());
+                   // System.out.println(par.getFirst()+" "+par.getSecond());
                     cola.add(par);
                     visitats[a][b-1].setSecond(dist+1);
                     visitats[a][b-1].setFirst(1);
                 }
                 if(limite(a, b+1) == true && visitats[a][b+1].getFirst() == 0) {
                     par = new Pair<Integer, Integer>(a, b+1);
-                    System.out.println(par.getFirst()+" "+par.getSecond());
+                  //  System.out.println(par.getFirst()+" "+par.getSecond());
                     cola.add(par);
                     visitats[a][b+1].setSecond(dist+1);
                     visitats[a][b+1].setFirst(1);
                 }
                 if(limite(a+1, b-1) == true && visitats[a+1][b-1].getFirst() == 0) {
                     par = new Pair<Integer, Integer>(a+1, b-1);
-                    System.out.println(par.getFirst()+" "+par.getSecond());
+                  //  System.out.println(par.getFirst()+" "+par.getSecond());
                     cola.add(par);
                     visitats[a+1][b-1].setSecond(dist+1);
                     visitats[a+1][b-1].setFirst(1);
                 }
                 if(limite(a+1, b) == true && visitats[a+1][b].getFirst() == 0) {
                     par = new Pair<Integer, Integer>(a+1, b);
-                    System.out.println(par.getFirst()+" "+par.getSecond());
+                   // System.out.println(par.getFirst()+" "+par.getSecond());
                     cola.add(par);
                     visitats[a+1][b].setSecond(dist+1);
                     visitats[a+1][b].setFirst(1);
                 }
                 if(limite(a+1, b+1) == true && visitats[a+1][b+1].getFirst() == 0) {
                     par = new Pair<Integer, Integer>(a+1, b+1);
-                    System.out.println(par.getFirst()+" "+par.getSecond());
+                  //  System.out.println(par.getFirst()+" "+par.getSecond());
                     cola.add(par);
                     visitats[a+1][b+1].setSecond(dist+1);
                     visitats[a+1][b+1].setFirst(1);
                 }
             }
         }
-        System.out.println("contador: "+contador);
+      //  System.out.println("contador: "+contador);
     }
         
     

@@ -5,7 +5,6 @@
 package Pruebas;
 
 import Auxiliares.Pair;
-import Pruebas.testfunciones;
 import java.util.ArrayList;
 import mapa.Plano;
 
@@ -23,7 +22,9 @@ public class MainDaniel {
         Pair<Integer, Integer> aux = new Pair<Integer, Integer>(2,3);
         lista.add(aux);
         System.out.println("antes de expande");
-        plan.expande(3, 3, 1, lista);
+        plan.expande(3, 3, 1, lista, true);
+        System.out.println("matriz expandida, antes de desexande");
+        plan.expande(3, 3, 1, lista, false);
         System.out.println("Fin del programa");
         
     }
