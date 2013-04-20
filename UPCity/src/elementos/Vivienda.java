@@ -10,6 +10,7 @@ package elementos;
  */
 public class Vivienda extends Elemento {
     
+    public int TBarrio;
     public int capacidad_maxima;
     public int Tamano_x;
     public int Tamano_y;
@@ -19,12 +20,14 @@ public class Vivienda extends Elemento {
         super(OID);
     }
     
-    public Vivienda (int OID,int cap_max, int tam_x, int tam_y,int precio){
+    public Vivienda (int OID,int cap_max, int tam_x, int tam_y,int precio,
+                     int tbarr){
         super(OID);
         this.Tamano_x = tam_x;
         this.Tamano_y = tam_y;
         this.Precio = precio;
         this.capacidad_maxima = cap_max;
+        TBarrio = tbarr;
     }
     
     ////ModificdoraS////
@@ -38,11 +41,19 @@ public class Vivienda extends Elemento {
         this.Tamano_y=y;
     }
     
+    public void setTBarrio(int bar){
+        TBarrio = bar;
+    }
+    
     
     ///Consultoras/////
     
     public int Getcap_max(){
         return this.capacidad_maxima;
+    }
+    
+    public int getPrecio(){
+        return Precio;
     }
     
     public int getTamanoX(){
@@ -51,5 +62,9 @@ public class Vivienda extends Elemento {
     
     public int getTamanoY(){
         return this.Tamano_y;
+    }
+    
+    public int getTBarrio(){
+        return TBarrio;
     }
 }

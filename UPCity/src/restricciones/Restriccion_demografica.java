@@ -10,40 +10,55 @@ import elementos.*;
  * @author ronsofer
  */
 public class Restriccion_demografica extends Restriccion {
-    public int porcentaje;
-    public int OID;
-    
+    private int habitantes;
+    private String OID;
     /// CREADORA //////////
    // public Restriccion_demografica(){
     //super();
     //}
     
-     
-    public Restriccion_demografica(String id, String tipo, int OID, int por){
-    super(id, tipo);
-    this.OID = OID;
-    this.porcentaje = por;
+   /**
+    * Creadora de Restriccion_demografica
+    * @param id id de la restriccion
+    * @param tipo tipo de restriccion
+    * @param OID1 id del elemento relacionado
+    * @param habitantes cantidad minima de habitantes
+    */  
+    public Restriccion_demografica(String id, String tipo, String OID1, int habitantes){
+        super(id, tipo);
+        this.habitantes = habitantes;
+        this.OID = OID1;
     }
    
     
    /////////////////////////
     
     /// MODIFICADORES //////
-    
-    public void modificar_porcentaje(int por){
-        this.porcentaje = por;
+    /**
+     * Modifica la cantidad minima de habitantes relacionado con el elemento
+     * @param habitantes cantidad minima de habitantes para el elemento relacionado
+     */
+    public void modificar_habitantes(int habitantes){
+        this.habitantes = habitantes;
     }
     ///////////////////////
     
     /// CONSULTORES ////////
+   /**
+    * Consultora de la cantidad minima de habitantes 
+    * @return retorna la cantidad minima de habitantes
+    */
+    public int consultar_habitantes(){
+        return this.habitantes;
+    }
     
-   public int consultar_porcentaje(){
-       return this.porcentaje;
-   }
-   
-   public int consultar_OID() {
+    /**
+     * Consultora del id del elemento relacionado
+     * @return retorna el id del elemento relacionado
+     */
+    public String consultar_OID(){
         return this.OID;
-   }
+    }
    
    
    /////////////////////////

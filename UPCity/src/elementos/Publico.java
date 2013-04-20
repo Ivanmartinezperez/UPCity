@@ -15,8 +15,8 @@ public class Publico extends Elemento {
      *          2-Servicios sanitarios: hospitales, centros de atencion primaria...
      *          3- Servicios administrativos: Ayuntamiento, seguridad social...
      */
+    private int TBarrio;
     public int tipo_servicio;
-    
     public int Tamano_x;
     public int Tamano_y;
     public int Precio;
@@ -30,8 +30,10 @@ public class Publico extends Elemento {
         super(OID);
     }
     
-    public Publico(int OID,int tipo_ser,int cap_serv_pob, int tam_x, int tam_y, int precio){
+    public Publico(int OID,int tipo_ser,int cap_serv_pob, int tam_x, int tam_y, 
+                   int precio, int tbarr){
         super(OID);
+        TBarrio = tbarr;
         this.Tamano_x = tam_x;
         this.Tamano_y = tam_y;
         this.Precio = precio;
@@ -48,9 +50,13 @@ public class Publico extends Elemento {
         this.capacidad_servicio_poblacion = cap;
     }
     
-     void setTamaño(int x,int y){
+    public void setTamaño(int x,int y){
         this.Tamano_x=x;
         this.Tamano_y=y;
+    }
+     
+    public void setTBarrio(int bar){
+        TBarrio = bar;
     }
     
     
@@ -63,14 +69,20 @@ public class Publico extends Elemento {
         return this.capacidad_servicio_poblacion;
     }
     
-     int getTamanoX(){
+    public int getPrecio(){
+        return Precio;
+    }
+    
+    public int getTamanoX(){
         return this.Tamano_x;
     }
     
-    int getTamanoY(){
+    public int getTamanoY(){
         return this.Tamano_y;
     }
     
-    
+    public int getTBarrio(){
+        return TBarrio;
+    }
     
 }

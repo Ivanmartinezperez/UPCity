@@ -8,12 +8,13 @@ package controladors;
  *
  * @author arclorensarth
  */
-public class Mant_gestion_barrios {
+public class CtrlPresBarrios {
     VistaMenuMantBarrios VMMB;
     VistaMantBarrios VMB;
-    CDMantBarrios CDMB;
-    
-    public Mant_gestion_barrios() {
+    CtrlDomBarrios CDMB;
+   
+          
+    public CtrlPresBarrios() {
         int OP;
         VMMB = new VistaMenuMantBarrios();
         VMMB.visualizar();
