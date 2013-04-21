@@ -18,15 +18,21 @@ public class Barrio {
     private int Presupuesto;
     private int Poblacion;
     private int Gastado;
+    private int Viviendo;
     
   
-            
+    /////CREADORAS/////
+    
     public Barrio(String nombre,int tipo){
         Nombre = nombre;
         TipoBarrio = tipo;
         
         
     }
+    
+    
+    
+    /////MODIFICADORAS/////
     
     public void setTipoBarrio(int t){
         TipoBarrio = t;
@@ -44,8 +50,32 @@ public class Barrio {
         Gastado = Gastado + gasto;
     }
     
+    public void anadirHabitantes(int hab){
+        Viviendo = Viviendo + hab;
+    }
+    
+    
+    
+    /////CONSULTORAS/////
+    
     public int getTipoBarrio(){
         return TipoBarrio;
+    }
+    
+    public int getPresupuesto(){
+        return Presupuesto;
+    }
+    
+    public int getPoblacion(){
+        return Poblacion;
+    }
+    
+    public int getGastado(){
+        return Gastado;
+    }
+    
+    public int getViviendo(){
+        return Viviendo;
     }
     
 }

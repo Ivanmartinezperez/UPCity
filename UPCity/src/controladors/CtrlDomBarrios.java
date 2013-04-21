@@ -38,7 +38,9 @@ public class CtrlDomBarrios {
     private CtrlDomBarrios(){
         TablaBarrios = new TreeMap();
         DOMElem = CtrlDomElementos.getInstance();
+        DOMRest = CtrlDomRestricciones.getInstance();
         GDPElem = stubbedElementosGDP.getInstance();
+        GDPRest = stubbedRestriccionesGDP.getInstance();
         GDPBarr = stubbedBarriosGDP.getInstance();
     }
     
@@ -56,29 +58,32 @@ public class CtrlDomBarrios {
     }
     
     
-    public Barrio crearBarrio(String nombre, int tip){
-//        Esto basicamente creara un barrio temporal, consultando que el nombre
-//        no este en uso y podra guardar el barrio, pero de momento es temporal,
-//        hasta que el usuario diga de guardarlo despues de todas las 
-//        operaciones sobre el
-        
-        Barrio b = null;
-        if(TablaBarrios.get(nombre)==null){
+    public boolean crearBarrio(String nombre, int tip){
+        if(!TablaBarrios.containsKey(nombre) && tip>0 && tip<=3){
             B = new Barrio(nombre,tip);
             CjtElem = new Cjt_Elementos();
+            CjtRest = new TreeMap();
+            return true;
         }
-        
-        return b;
-               
+        else return false;
     }
     
-    public void putRestriccion(String Rest, Restriccion r){
+    public boolean crearMapaBarrio(int n, int m){
+        if(n>=1 && m>=1){
+            Mapa = new Plano(n,m);
+            return true;
+        }
+        else return false;
+    }
+    
+    
+    private void putRestriccion(String Rest, Restriccion r){
         CjtRest.put(Rest,r);
     }
     
     public boolean anadirRestBarrio(Barrio B, String Rest){
         Restriccion r;
-        if(r = DOMRest.getRestriccion(Rest)){
+        if(DOMRest.getRestriccion(Rest) = r){
             putRestriccion(Rest,r);
             return true;
         }
@@ -109,6 +114,7 @@ public class CtrlDomBarrios {
         if(e instanceof Vivienda){
             Vivienda e2 = (Vivienda) e;
             gasto = cant * e2.getPrecio();
+            B.anadirHabitantes(e2.Getcap_max());
         }
         else if(e instanceof Publico){
             Publico e2 = (Publico) e;
@@ -122,7 +128,7 @@ public class CtrlDomBarrios {
         putElemento(oid,v);
     }
     
-    public boolean anadirElemBarrio(Barrio B, String Elem, int cant){
+    public boolean anadirElemBarrio(String Elem, int cant){
         int tipo = B.getTipoBarrio();
         boolean b = false;
         Elemento e;
@@ -141,10 +147,26 @@ public class CtrlDomBarrios {
         return b;
     }
     
+    
+    public boolean quitarElemento(String Elem, int cant){
+        
+    }
+    
     public void modificarPlano(){
-//        Hay que tener una o varias de estas, porque como el backtracking,
-//        seguramente se hara en el CtrlDomBarrios, tendra que acceder al plano
-//        mediante el barrio. Aunque ya veremos mas adelante...
+//        esta esta por si un caso, no creo que haga falta,
+    }
+    
+    
+    private void backFUCKINGtrackingBITCH(){
+//        privada que hara el back-fucking-mother-fucking-tracking!!!
+//        Aqui tienes que ponerlo Dani, pero avisa antes, sino, nos joderemos
+//        faena!!!
+    }
+    
+    public void generarBarrio(){
+//        Esta sera la que se encargara de preparar el backtracking y SUPONGO
+//        la que reviara condiciones previas a la generacion etc!
+        
     }
     
     
