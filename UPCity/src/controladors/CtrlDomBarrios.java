@@ -11,6 +11,7 @@ import restricciones.Restriccion;
 import elementos.*;
 import elementos.Cjt_Elementos;
 import barrio.Barrio;
+import mapa.Plano;
 
 /**
  *
@@ -20,6 +21,10 @@ public class CtrlDomBarrios {
     
     private static CtrlDomBarrios INSTANCE;
     private TreeMap<String,Integer> TablaBarrios;
+    private Barrio B;
+    private Cjt_Elementos CjtElem;
+    private TreeMap<String,Restriccion> CjtRest;
+    private Plano Mapa;
     private CtrlDomRestricciones DOMRest;
     private CtrlDomElementos DOMElem;
     private stubbedElementosGDP GDPElem;
@@ -59,21 +64,42 @@ public class CtrlDomBarrios {
         
         Barrio b = null;
         if(TablaBarrios.get(nombre)==null){
-            b = new Barrio(nombre,tip);            
+            B = new Barrio(nombre,tip);
+            CjtElem = new Cjt_Elementos();
         }
         
         return b;
                
     }
     
+    public void putRestriccion(String Rest, Restriccion r){
+        CjtRest.put(Rest,r);
+    }
     
     public boolean anadirRestBarrio(Barrio B, String Rest){
         Restriccion r;
         if(r = DOMRest.getRestriccion(Rest)){
-            B.putRestriccion(Rest,r);
+            putRestriccion(Rest,r);
             return true;
         }
         else return false;
+    }
+    
+    private void removeElemento(int oid, int catn){
+        if(CjtElem.containsKey(oid)){
+            
+        }
+    }
+    
+    
+    private void putElemento(int oid, Pair<Integer,Elemento> val){
+        if(CjtElem.containsKey(oid)){
+            int c = val.getFirst();
+            CjtElem.anadir_cantidad_elementos(oid, c);
+        }
+        else{
+            CjtElem.insertar_elementos(oid, val);           
+        }        
     }
     
     private void guardarElemento(Barrio B, Elemento e, int cant){
@@ -93,7 +119,7 @@ public class CtrlDomBarrios {
             gasto = cant * e2.getPrecio();
         }
         B.anadirGasto(gasto);
-        B.putElemento(oid,v);
+        putElemento(oid,v);
     }
     
     public boolean anadirElemBarrio(Barrio B, String Elem, int cant){
@@ -114,6 +140,13 @@ public class CtrlDomBarrios {
         }
         return b;
     }
+    
+    public void modificarPlano(){
+//        Hay que tener una o varias de estas, porque como el backtracking,
+//        seguramente se hara en el CtrlDomBarrios, tendra que acceder al plano
+//        mediante el barrio. Aunque ya veremos mas adelante...
+    }
+    
     
     
 //   ESTAS 2 Estaban en el Ctrl de elementos, de momento los puse aqui para 

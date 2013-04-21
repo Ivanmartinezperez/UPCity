@@ -5,12 +5,7 @@
 package barrio;
 
 
-import Auxiliares.Pair;
-import java.util.TreeMap;
-import mapa.Plano;
-import elementos.Cjt_Elementos;
-import restricciones.Restriccion;
-//import restricciones.Restriccion;
+
 
 
 /**
@@ -20,9 +15,6 @@ import restricciones.Restriccion;
 public class Barrio {
     private String Nombre;
     private int TipoBarrio;
-    private Plano Mapa;
-    private Cjt_Elementos CjtElem;
-    private TreeMap<String,Restriccion> CjtRest;
     private int Presupuesto;
     private int Poblacion;
     private int Gastado;
@@ -48,25 +40,9 @@ public class Barrio {
         Poblacion = pob;
     }
     
-    public void putRestriccion(String Rest, Restriccion r){
-        CjtRest.put(Rest,r);
-    }
-    
-    public void putElemento(int oid, Pair val){
-        
-    }
-    
     public void anadirGasto(int gasto){
         Gastado = Gastado + gasto;
     }
-    
-    public void modificarPlano(){
-//        Hay que tener una o varias de estas, porque como el backtracking,
-//        seguramente se hara en el CtrlDomBarrios, tendra que acceder al plano
-//        mediante el barrio. Aunque ya veremos mas adelante...
-    }
-    
-    
     
     public int getTipoBarrio(){
         return TipoBarrio;
