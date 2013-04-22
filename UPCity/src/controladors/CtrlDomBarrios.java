@@ -92,6 +92,7 @@ public class CtrlDomBarrios {
     
     private void removeElemento(int oid, int catn){
         if(CjtElem.containsKey(oid)){
+            CjtElem.eliminar_cantidad_elementos(oid, catn);         
             
         }
     }
