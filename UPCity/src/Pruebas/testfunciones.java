@@ -46,9 +46,13 @@ public class testfunciones {
         }
         
     }
-    private Pair cabeEnMapa(Integer v,Plano p,int eAct,Pair lastVisited[]) throws Exception{
+    private Pair cabeEnMapa(Integer v,Plano p,int eAct,Pair lastVisited[],ArrayList<Restriccion> res) throws Exception{
         
-        AjustaInicio(lastVisited[eAct],p.tamb());
+        if(lastVisited[eAct].getFirst()!=0 && lastVisited[eAct].getSecond()!=0){
+            p.expande((int)lastVisited[eAct].getFirst(),(int)lastVisited[eAct].getSecond(), v, res, false);
+            AjustaInicio(lastVisited[eAct],p.tamb());
+        }
+            AjustaInicio(lastVisited[eAct],p.tamb());
         
         for(int i=(int)lastVisited[eAct].getFirst();i<p.tama();++i){
             for(int j=(int) lastVisited[eAct].getSecond();j<p.tamb();++j){
@@ -64,7 +68,7 @@ public class testfunciones {
         return ret;
     }
     
-    public boolean bactracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],HashMap<String,ArrayList<Restriccion>> res,Plano p) throws Exception{
+    public boolean bactracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],HashMap<Integer,ArrayList<Restriccion>> res,Plano p) throws Exception{
         
         if(k==cjt.size()){
             return true;
@@ -75,9 +79,8 @@ public class testfunciones {
         }
         
         else {
-            Integer valor = cjt.get(0);
-            cjt.remove(0);
-            Pair pos = cabeEnMapa(valor,p,k,lastVisited);//Esta funcion debe desexpandirte en caso de que tus ultimos
+            Integer valor = cjt.get(k);
+            Pair pos = cabeEnMapa(valor,p,k,lastVisited,res.get(valor));//Esta funcion debe desexpandirte en caso de que tus ultimos
                                                          // valores visitados sean difentes a 0 (puesto previamente)
             if(pos.getFirst()!=-1){
                 p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, res.get(valor), true);
