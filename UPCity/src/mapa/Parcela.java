@@ -19,6 +19,7 @@ public class Parcela {
      */
     Parcela(){
         restriccionesP = new TreeMap<Integer, Integer>();
+        OID = 0;
     }
     
     /**
