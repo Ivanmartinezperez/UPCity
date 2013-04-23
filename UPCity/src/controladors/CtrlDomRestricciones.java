@@ -9,22 +9,37 @@ import restricciones.*;
 import Auxiliares.*;
 /**
  *
- * @author ron
+ * @author ron y ArclorenSarth
  */
 public class CtrlDomRestricciones {
     private TreeMap<String, Restriccion_ubicacion> restubicacion;
     private TreeMap<String, Restriccion_demografica> restdemografica;
     private Pair<String,Restriccion_economica> resteconomica;
+    private static CtrlDomRestricciones INSTANCE;
     
     /**
      * Creadora de la clase controlador de dominio de restricciones
      * @param ubicacion estructura que contiene las restricciones de ubicacion
      * @param demografica estructura que contiene las restricciones demograficas
      */
-    public CtrlDomRestricciones(TreeMap<String, Restriccion_ubicacion> ubicacion, TreeMap<String, Restriccion_demografica> demografica){
+    private CtrlDomRestricciones(TreeMap<String, Restriccion_ubicacion> ubicacion, TreeMap<String, Restriccion_demografica> demografica){
         restubicacion = ubicacion;
         restdemografica = demografica;
         
+    }
+    
+    
+    private static void creaInstancia() {
+        if (INSTANCE == null) {
+            INSTANCE = new CtrlDomRestricciones();
+        }
+    }
+
+    public static CtrlDomRestricciones getInstance() {
+        if (INSTANCE == null) {
+            creaInstancia();
+        }
+        return INSTANCE;
     }
     
     /**
