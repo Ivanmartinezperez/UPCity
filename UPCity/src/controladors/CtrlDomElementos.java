@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  *
- * @author ivanmartinez
+ * @author ivanmartinez y ArclorenSarth
  */
 public class CtrlDomElementos {
     
@@ -114,28 +114,31 @@ public class CtrlDomElementos {
             
             System.out.println("Entra");
                 boolean ret=true;
-            
+                Elemento e;
                 switch(tipo){
                     case 1 : Vivienda v = new Vivienda(OID);
                              v.setNom(Nombre);
                              v.setDescrpcio(Des);
                              v.setTBarrio(TB);
                              anadir_a_estructuras(v,tipo,TB);
-                             GDPElem.escribirElemento();
+                             e = v;
+                             GDPElem.escribirElemento(e);
                              break;
                     case 2 : Publico p = new Publico(OID);
                              p.setNom(Nombre);
                              p.setDescrpcio(Des);
                              p.setTBarrio(TB);
                              anadir_a_estructuras(p,tipo,TB);
-                             GDPElem.escribirElemento();
+                             e = p;
+                             GDPElem.escribirElemento(e);
                              break;
                     case 3 : Comercio c = new Comercio(OID);
                              c.setNom(Nombre);
                              c.setDescrpcio(Des);
                              c.setTBarrio(TB);
                              anadir_a_estructuras(c,tipo,TB);
-                             GDPElem.escribirElemento();
+                             e = c;
+                             GDPElem.escribirElemento(e);
                              break;
                     default: ret = false;
                 }

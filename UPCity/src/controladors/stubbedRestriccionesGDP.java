@@ -15,6 +15,7 @@ public class stubbedRestriccionesGDP {
     
     private static stubbedRestriccionesGDP INSTANCE = null;
    
+    
     private stubbedRestriccionesGDP(){
         
     }
@@ -45,6 +46,10 @@ public class stubbedRestriccionesGDP {
     public void leerRestricciones(TreeMap<String,Restriccion> TablaRest){
 //        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
 //        cual tengo la duda que este del todo correcto :S
+    }
+    
+    public void escribirRestriccion(Restriccion r){
+        
     }
     
 }

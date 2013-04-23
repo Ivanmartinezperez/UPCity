@@ -58,6 +58,10 @@ public class Barrio {
     
     /////CONSULTORAS/////
     
+    public String getNombreBarrio(){
+        return Nombre;
+    }
+    
     public int getTipoBarrio(){
         return TipoBarrio;
     }

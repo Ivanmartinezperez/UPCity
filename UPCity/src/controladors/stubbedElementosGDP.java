@@ -17,6 +17,7 @@ public class stubbedElementosGDP {
     
     private static stubbedElementosGDP INSTANCE = null;
    
+    
     private stubbedElementosGDP(){
         
     }
@@ -55,7 +56,7 @@ public class stubbedElementosGDP {
 //        cual tengo la duda que este del todo correcto :S    
     }
     
-    public void escribirElemento(){
+    public void escribirElemento(Elemento e){
         
     }
     
