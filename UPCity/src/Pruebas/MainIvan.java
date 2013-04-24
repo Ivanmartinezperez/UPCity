@@ -27,12 +27,25 @@ public class MainIvan {
             elementos.add(i);
         }
         
+        System.out.println("Printo mi elementos\n");
+        for(int i=0;i<4;++i){
+            System.out.println(elementos.get(i)+" ");
+        }
+        System.out.println("\n");
+        
+        System.out.println("Printo su vector de ultima posiciones visitadas\n");
         //Crea el vector de ultimas visitas, para controlar los valores del dominio(pos en el mapa) que toman los elementos
         Pair[] lastVisited = new Pair[5];
         for(int i=1;i<=4;++i){
             Pair p = new Pair(0,0);
             lastVisited[i]=p;
         }
+        
+        for(int i=1;i<=4;++i){
+            System.out.println(lastVisited[i].getFirst()+""+lastVisited[i].getSecond()+" ");
+        }
+        System.out.println("\n");
+        
         
         //creamos las estrcuturas para las restricciones
         HashMap<Integer,ArrayList<Restriccion>> res = new HashMap<>();
@@ -68,6 +81,7 @@ public class MainIvan {
         
      
         testfunciones tt = new testfunciones();
+        System.out.println("Llamo al backtracking");
         tt.bactracking(0,elementos,lastVisited,res,p);
         
     }
