@@ -113,7 +113,7 @@ public class CtrlDomBarrios {
      * @param m Numero de columnas que tendra el Plano
      * @return Retorna si ha sido posible crear el plano.
      */
-    public boolean crearMapaBarrio(int n, int m){
+    public boolean crearMapaBarrio(int n, int m) throws Exception{
         if(n>=1 && m>=1){
             Mapa = new Plano(n,m);
             return true;
