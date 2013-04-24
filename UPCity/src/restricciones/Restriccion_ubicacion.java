@@ -12,8 +12,8 @@ import elementos.Cjt_Elementos;
  */
 public class Restriccion_ubicacion extends Restriccion {
 
-    private String OID1;
-    private String OID2;
+    private Integer OID1;
+    private Integer OID2;
     public int distancia;
     
      /// CREADORA //////////
@@ -26,7 +26,7 @@ public class Restriccion_ubicacion extends Restriccion {
      * @param OID2 id del segundo elemento relacionado
      * @param distancia distancia minima entre ambos elementos
      */
-    public Restriccion_ubicacion(String id, String tipo, String OID1, String OID2, int distancia){
+    public Restriccion_ubicacion(String id, String tipo, Integer OID1, Integer OID2, int distancia){
         super(id, tipo);
         this.OID1 = OID1;
         this.OID2 = OID1;
@@ -56,7 +56,7 @@ public class Restriccion_ubicacion extends Restriccion {
      * Consultora del primer elemento relacionado
      * @return devuelve el id del primer elemento relacionado
      */
-    public String consultar_OID1(){
+    public Integer consultar_OID1(){
         return this.OID1;
     }
     
@@ -64,7 +64,7 @@ public class Restriccion_ubicacion extends Restriccion {
      * Consultora del segundo elemento relacionado
      * @return devuelve el id del segundo elemento relacionado
      */
-    public String consultar_OID2(){
+    public Integer consultar_OID2(){
         return this.OID2;
     }
     
