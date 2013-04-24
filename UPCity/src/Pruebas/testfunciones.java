@@ -47,18 +47,19 @@ public class testfunciones {
         
     }
     private Pair cabeEnMapa(Integer v,Plano p,int eAct,Pair lastVisited[],ArrayList<Restriccion> res) throws Exception{
-        
-        if(lastVisited[eAct].getFirst()!=0 && lastVisited[eAct].getSecond()!=0){
+        System.out.println("A ver si el elemento cabe");
+        if(lastVisited[eAct+1].getFirst()!=0 && lastVisited[eAct+1].getSecond()!=0){
+            System.out.println("Desexpando");
             p.expande((int)lastVisited[eAct].getFirst(),(int)lastVisited[eAct].getSecond(), v, res, false);
             AjustaInicio(lastVisited[eAct],p.tamb());
         }
-            AjustaInicio(lastVisited[eAct],p.tamb());
+            AjustaInicio(lastVisited[eAct+1],p.tamb());
         
-        for(int i=(int)lastVisited[eAct].getFirst();i<p.tama();++i){
-            for(int j=(int) lastVisited[eAct].getSecond();j<p.tamb();++j){
+        for(int i=(int)lastVisited[eAct+1].getFirst();i<p.tama();++i){
+            for(int j=(int) lastVisited[eAct+1].getSecond();j<p.tamb();++j){
                 if(!p.consultaPar(v, i, j)){
                   Pair ret = new Pair<Integer,Integer>(i,j);
-                  lastVisited[eAct] = ret;
+                  lastVisited[eAct+1] = ret;
                   return ret;
                 } 
             }
@@ -70,6 +71,7 @@ public class testfunciones {
     
     public boolean bactracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],HashMap<Integer,ArrayList<Restriccion>> res,Plano p) throws Exception{
         
+        System.out.println("Backtracking con"+ k);
         if(k==cjt.size()){
             return true;
         }
