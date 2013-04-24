@@ -57,13 +57,13 @@ public class MainIvan {
         
         //Creamos restricciones
         Restriccion_ubicacion res12;
-        res12 = new Restriccion_ubicacion("0","0","1","2",2);
+        res12 = new Restriccion_ubicacion("0","0",1,2,2);
         Restriccion_ubicacion res21;
-        res21 = new Restriccion_ubicacion("0","0","2","1",2);
+        res21 = new Restriccion_ubicacion("0","0",2,1,2);
         Restriccion_ubicacion res34;
-        res34 = new Restriccion_ubicacion("0","0","3","4",1);
+        res34 = new Restriccion_ubicacion("0","0",3,4,1);
         Restriccion_ubicacion res43;
-        res43 = new Restriccion_ubicacion("0","0","4","3",1);
+        res43 = new Restriccion_ubicacion("0","0",4,3,1);
         
         //Añadimos las restricciones a su conjunto
         r0.add(res12);
@@ -79,10 +79,24 @@ public class MainIvan {
         
         Plano p = new Plano(10,10);
         
+        for(int i=0;i<p.tama();++i){
+            for(int j=0;j<p.tamb();++j){
+                System.out.print(""+p.pos(i, j).getoid());
+            }
+            System.out.println("\n");
+            
+        }
      
         testfunciones tt = new testfunciones();
         System.out.println("Llamo al backtracking");
         tt.bactracking(0,elementos,lastVisited,res,p);
+        
+        for(int i=0;i<p.tama();++i){
+            for(int j=0;j<p.tamb();++j){
+                System.out.print(p.pos(i, j).getoid() +"");
+            }
+            System.out.println("\n");    
+        }
         
     }
 }
