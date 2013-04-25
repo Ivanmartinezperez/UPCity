@@ -35,7 +35,7 @@ public class testfunciones {
     
     private void AjustaInicio(Pair p,int k){
         
-        if(p.getFirst()!=0 && p.getSecond()!=0){
+        if(p.getFirst()!=0 || p.getSecond()!=0){
             if((int)p.getSecond()< k-1){
                 p.setSecond((int)p.getSecond()+1);
             }
@@ -46,20 +46,22 @@ public class testfunciones {
         }
         
     }
-    private Pair cabeEnMapa(Integer v,Plano p,int eAct,Pair lastVisited[],ArrayList<Restriccion> res) throws Exception{
-        System.out.println("A ver si el elemento cabe");
-        if(lastVisited[eAct+1].getFirst()!=0 && lastVisited[eAct+1].getSecond()!=0){
-            System.out.println("Desexpando");
-            p.expande((int)lastVisited[eAct].getFirst(),(int)lastVisited[eAct].getSecond(), v, res, false);
-            AjustaInicio(lastVisited[eAct],p.tamb());
+    private Pair cabeEnMapa(Integer v,Plano p,int eAct,Pair lastVisited[],ArrayList<Restriccion_ubicacion> res) throws Exception{
+        //System.out.println("A ver si el elemento cabe");
+        //System.out.println(""+lastVisited[v].getFirst()+" "+ lastVisited[v].getSecond());
+        if(lastVisited[v].getFirst()!=0 || lastVisited[v].getSecond()!=0){
+            //p.pos((int)lastVisited[v].getFirst(), (int)lastVisited[v].getSecond()).modificarPar(0, 0);
+            //System.out.println("Desexpando");
+            p.expande((int)lastVisited[v].getFirst(),(int)lastVisited[v].getSecond(), 0, res, false);
         }
-            AjustaInicio(lastVisited[eAct+1],p.tamb());
+            AjustaInicio(lastVisited[v],p.tamb());
         
-        for(int i=(int)lastVisited[eAct+1].getFirst();i<p.tama();++i){
-            for(int j=(int) lastVisited[eAct+1].getSecond();j<p.tamb();++j){
+        for(int i=(int)lastVisited[v].getFirst();i<p.tama();++i){
+            for(int j=(int) lastVisited[v].getSecond();j<p.tamb();++j){
                 if(!p.consultaPar(v, i, j)){
                   Pair ret = new Pair<Integer,Integer>(i,j);
-                  lastVisited[eAct+1] = ret;
+                  lastVisited[v].setFirst(i);
+                  lastVisited[v].setSecond(j);
                   return ret;
                 } 
             }
@@ -69,9 +71,10 @@ public class testfunciones {
         return ret;
     }
     
-    public boolean bactracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],HashMap<Integer,ArrayList<Restriccion>> res,Plano p) throws Exception{
+    public boolean bactracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
         
-        System.out.println("Backtracking con"+ k);
+        
+        //System.out.println("Backtracking con"+ (k+1));
         if(k==cjt.size()){
             return true;
         }
@@ -83,14 +86,15 @@ public class testfunciones {
         else {
             Integer valor = cjt.get(k);
             Pair pos = cabeEnMapa(valor,p,k,lastVisited,res.get(valor));//Esta funcion debe desexpandirte en caso de que tus ultimos
-                                                         // valores visitados sean difentes a 0 (puesto previamente)
+                                                                        // valores visitados sean difentes a 0 (puesto previamente)
+            //System.out.println(""+pos.getFirst()+" "+pos.getSecond());
             if(pos.getFirst()!=-1){
                 p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, res.get(valor), true);
                 return bactracking(k+1,cjt,lastVisited,res,p);
             }
             else{
-                lastVisited[k].setFirst(0);
-                lastVisited[k].setSecond(0);
+                lastVisited[valor].setFirst(0);
+                lastVisited[valor].setSecond(0);
                 //suponemos que cabeEnMapa desexpande !!!!TODO¡¡¡¡
                 return bactracking(k-1,cjt,lastVisited,res,p);
                 

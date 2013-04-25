@@ -48,37 +48,76 @@ public class MainIvan {
         
         
         //creamos las estrcuturas para las restricciones
-        HashMap<Integer,ArrayList<Restriccion>> res = new HashMap<>();
+        HashMap<Integer,ArrayList<Restriccion_ubicacion>> res = new HashMap<>();
         
-        ArrayList<Restriccion> r0 = new ArrayList();
-        ArrayList<Restriccion> r1 = new ArrayList();
-        ArrayList<Restriccion> r2 = new ArrayList();
-        ArrayList<Restriccion> r3 = new ArrayList();
+        ArrayList<Restriccion_ubicacion> r0 = new ArrayList();
+        ArrayList<Restriccion_ubicacion> r1 = new ArrayList();
+        ArrayList<Restriccion_ubicacion> r2 = new ArrayList();
+        ArrayList<Restriccion_ubicacion> r3 = new ArrayList();
         
         //Creamos restricciones
         Restriccion_ubicacion res12;
-        res12 = new Restriccion_ubicacion("0","0",1,2,2);
+        res12 = new Restriccion_ubicacion("0","0",1,2,35);
         Restriccion_ubicacion res21;
-        res21 = new Restriccion_ubicacion("0","0",2,1,2);
+        res21 = new Restriccion_ubicacion("0","0",2,1,35);
         Restriccion_ubicacion res34;
         res34 = new Restriccion_ubicacion("0","0",3,4,1);
         Restriccion_ubicacion res43;
         res43 = new Restriccion_ubicacion("0","0",4,3,1);
+        Restriccion_ubicacion res31;
+        res31 = new Restriccion_ubicacion("0","0",3,1,1);
+        Restriccion_ubicacion res13;
+        res13 = new Restriccion_ubicacion("0","0",1,3,1);
+        Restriccion_ubicacion res14;
+        res14 = new Restriccion_ubicacion("0","0",1,4,1);
+        Restriccion_ubicacion res41;
+        res41 = new Restriccion_ubicacion("0","0",4,1,1);
+        
         
         //Añadimos las restricciones a su conjunto
         r0.add(res12);
+        r0.add(res13);
+        r0.add(res14);
         r1.add(res21);
         r2.add(res34);
+        r2.add(res31);
         r3.add(res43);
+        r3.add(res41);
         
         //añadimos todo al hashMap
-        res.put(0, r0);
-        res.put(1, r1);
-        res.put(2, r2);
-        res.put(3, r3);
+        res.put(1, r0);
+        res.put(2, r1);
+        res.put(3, r2);
+        res.put(4, r3);
         
-        Plano p = new Plano(10,10);
+        for(int i=1;i<=res.size();++i){
+            System.out.println(""+res.get(i).get(0).consultar_OID1()+""+res.get(i).get(0).consultar_OID2()+""+res.get(i).get(0).consultar_distancia());
+        }
         
+        Plano p = new Plano(50,50);
+        
+        p.pos(0, 0).modificarPar(9, 0);
+        p.pos(1, 0).modificarPar(9, 0);
+        p.pos(2, 0).modificarPar(9, 0);
+        p.pos(3, 0).modificarPar(9, 0);
+        p.pos(4, 0).modificarPar(9, 0);
+        p.pos(4, 0).modificarPar(9, 0);
+        p.pos(4, 1).modificarPar(9, 0);
+        p.pos(4, 2).modificarPar(9, 0);
+        p.pos(4, 3).modificarPar(9, 0);
+        p.pos(4, 4).modificarPar(9, 0);
+        /*p.pos(9, 0).modificarPar(9, 0);
+        p.pos(9, 1).modificarPar(9, 0);
+        p.pos(9, 2).modificarPar(9, 0);
+        p.pos(9, 3).modificarPar(9, 0);
+        p.pos(9, 4).modificarPar(9, 0);
+        p.pos(9, 5).modificarPar(9, 0);
+        p.pos(9, 6).modificarPar(9, 0);
+        p.pos(9, 7).modificarPar(9, 0);
+        p.pos(9, 8).modificarPar(9, 0);
+        p.pos(9, 9).modificarPar(9, 0);*/
+   
+            
         for(int i=0;i<p.tama();++i){
             for(int j=0;j<p.tamb();++j){
                 System.out.print(""+p.pos(i, j).getoid());
@@ -89,7 +128,8 @@ public class MainIvan {
      
         testfunciones tt = new testfunciones();
         System.out.println("Llamo al backtracking");
-        tt.bactracking(0,elementos,lastVisited,res,p);
+        boolean b=tt.bactracking(0,elementos,lastVisited,res,p);
+        if(b)System.out.println("Generado barrio satisfactoriamente");
         
         for(int i=0;i<p.tama();++i){
             for(int j=0;j<p.tamb();++j){
