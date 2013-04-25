@@ -13,8 +13,9 @@ import Auxiliares.*;
  */
 public class CtrlDomRestricciones {
     private TreeMap<String, Restriccion_ubicacion> restubicacion;
-    private TreeMap<String, Restriccion_demografica> restdemografica;
-    private Pair<String,Restriccion_economica> resteconomica;
+    //private TreeMap<String, Restriccion_demografica> restdemografica;
+    //private Pair<String,Restriccion_economica> resteconomica;
+    private stubbedRestriccionesGDP RestGDP;
     private static CtrlDomRestricciones INSTANCE;
     
     /**
@@ -22,10 +23,10 @@ public class CtrlDomRestricciones {
      * @param ubicacion estructura que contiene las restricciones de ubicacion
      * @param demografica estructura que contiene las restricciones demograficas
      */
-    private CtrlDomRestricciones(TreeMap<String, Restriccion_ubicacion> ubicacion, TreeMap<String, Restriccion_demografica> demografica){
-        restubicacion = ubicacion;
-        restdemografica = demografica;
-        
+    private CtrlDomRestricciones(){
+        RestGDP = stubbedRestriccionesGDP.getInstance();
+        RestGDP.leerRestricciones(restubicacion);
+               
     }
     
     
