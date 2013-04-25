@@ -29,7 +29,7 @@ public class Restriccion_ubicacion extends Restriccion {
     public Restriccion_ubicacion(String id, String tipo, Integer OID1, Integer OID2, int distancia){
         super(id, tipo);
         this.OID1 = OID1;
-        this.OID2 = OID1;
+        this.OID2 = OID2;
         this.distancia = distancia;
     }
     
