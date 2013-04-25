@@ -49,19 +49,19 @@ public class testfunciones {
     private Pair cabeEnMapa(Integer v,Plano p,int eAct,Pair lastVisited[],ArrayList<Restriccion_ubicacion> res) throws Exception{
         //System.out.println("A ver si el elemento cabe");
         //System.out.println(""+lastVisited[v].getFirst()+" "+ lastVisited[v].getSecond());
-        if(lastVisited[v].getFirst()!=0 || lastVisited[v].getSecond()!=0){
+        if(lastVisited[eAct].getFirst()!=0 || lastVisited[eAct].getSecond()!=0){
             //p.pos((int)lastVisited[v].getFirst(), (int)lastVisited[v].getSecond()).modificarPar(0, 0);
             //System.out.println("Desexpando");
-            p.expande((int)lastVisited[v].getFirst(),(int)lastVisited[v].getSecond(), 0, res, false);
+            p.expande((int)lastVisited[eAct].getFirst(),(int)lastVisited[eAct].getSecond(), 0, res, false);
         }
-            AjustaInicio(lastVisited[v],p.tamb());
+            AjustaInicio(lastVisited[eAct],p.tamb());
         
-        for(int i=(int)lastVisited[v].getFirst();i<p.tama();++i){
-            for(int j=(int) lastVisited[v].getSecond();j<p.tamb();++j){
+        for(int i=(int)lastVisited[eAct].getFirst();i<p.tama();++i){
+            for(int j=(int) lastVisited[eAct].getSecond();j<p.tamb();++j){
                 if(!p.consultaPar(v, i, j)){
                   Pair ret = new Pair<Integer,Integer>(i,j);
-                  lastVisited[v].setFirst(i);
-                  lastVisited[v].setSecond(j);
+                  lastVisited[eAct].setFirst(i);
+                  lastVisited[eAct].setSecond(j);
                   return ret;
                 } 
             }
@@ -74,7 +74,7 @@ public class testfunciones {
     public boolean bactracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
         
         
-        //System.out.println("Backtracking con"+ (k+1));
+        System.out.println("Backtracking con"+ (k+1));
         if(k==cjt.size()){
             return true;
         }
@@ -93,8 +93,8 @@ public class testfunciones {
                 return bactracking(k+1,cjt,lastVisited,res,p);
             }
             else{
-                lastVisited[valor].setFirst(0);
-                lastVisited[valor].setSecond(0);
+                lastVisited[k].setFirst(0);
+                lastVisited[k].setSecond(0);
                 //suponemos que cabeEnMapa desexpande !!!!TODO¡¡¡¡
                 return bactracking(k-1,cjt,lastVisited,res,p);
                 
