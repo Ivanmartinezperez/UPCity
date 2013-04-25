@@ -6,6 +6,7 @@ package controladors;
 
 import restricciones.Restriccion;
 import java.util.TreeMap;
+import restricciones.Restriccion_ubicacion;
 
 /**
  *
@@ -43,7 +44,7 @@ public class stubbedRestriccionesGDP {
      * parametro.
      * @param TablaRest 
      */
-    public void leerRestricciones(TreeMap<String,Restriccion> TablaRest){
+    public void leerRestricciones(TreeMap<String,Restriccion_ubicacion> TablaRest){
 //        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
 //        cual tengo la duda que este del todo correcto :S
     }
