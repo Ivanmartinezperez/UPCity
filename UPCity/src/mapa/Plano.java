@@ -5,9 +5,11 @@
 package mapa;
 
 import Auxiliares.Pair;
+import elementos.Cjt_Elementos;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import restricciones.*;
 
 
 /**
@@ -107,7 +109,7 @@ public class Plano {
      * @param lista es una lista con Pair, donde el first es OID i el second es distancia.
      * @param exp True = expandir. False = desexpande.
      */
-    public void expande(int x, int y, int oid, ArrayList restricciones, boolean exp) {
+    public void expande(int x, int y, int oid, ArrayList<Restriccion_ubicacion> restricciones, boolean exp) {
        // int contador = 0;
         mat[x][y].modificarPar(oid, 1);
         Queue<Pair <Integer, Integer> > cola;
@@ -130,12 +132,11 @@ public class Plano {
             int dist = visitats[a][b].getSecond();
             //if(a != x && b != y) {
                 for (int z = 0; z < restricciones.size(); ++z) {
-                    Pair<Integer, Integer> aux = new Pair<Integer, Integer>(0,0);
-                    aux = (Pair<Integer, Integer>) restricciones.get(z);
-                    int bb = aux.getSecond();
+                    Restriccion_ubicacion aux = (Restriccion_ubicacion) restricciones.get(z);
+                    int bb = aux.consultar_distancia();
                     if(bb >= dist) {
-                        if(exp == true) mat[a][b].anadirRestriccion(aux.getFirst());
-                        else mat[a][b].quitarRestriccion(aux.getFirst());
+                        if(exp == true) mat[a][b].anadirRestriccion(aux.consultar_OID2());
+                        else mat[a][b].quitarRestriccion(aux.consultar_OID2());
                         //System.out.println("expando: "+a+ " "+b);
                         //++contador;
 
