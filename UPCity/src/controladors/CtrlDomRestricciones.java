@@ -58,7 +58,7 @@ public class CtrlDomRestricciones {
      * utliza en servicios publicos
      * @return retorna booleano si se ha hecho la creacion e insercion correctamente
      */
-    public boolean CrearRestriccion(String id, String tipo, String OID1, String OID2, int aux1, int aux2, int aux3){
+    public boolean CrearRestriccion(String id, String tipo, Integer OID1, Integer OID2, int aux1, int aux2, int aux3){
         boolean ret=true;
         switch(tipo){
             case "ubicacion":   Restriccion_ubicacion u = new Restriccion_ubicacion(id, tipo, OID1, OID2, aux1);
