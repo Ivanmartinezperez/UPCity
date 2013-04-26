@@ -5,6 +5,9 @@
 package Pruebas;
 
 import Pruebas.testfunciones;
+import Vista.vistaComandos;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  *
@@ -12,11 +15,10 @@ import Pruebas.testfunciones;
  */
 public class Mainprincipal {
     
-    public static void main(String arg[]){
+    public static void main(String arg[]) throws IOException, FileNotFoundException, ClassNotFoundException, Exception{
         
-        
-        testfunciones tt = new testfunciones();
-        tt.bactracking();
+        vistaComandos a = new vistaComandos();
+        a.mainloop();
         
     }
 }
