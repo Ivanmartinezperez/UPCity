@@ -32,6 +32,25 @@ public class CtrlDomElementos {
          */
         private CtrlDomElementos(){
             GDPElem = stubbedElementosGDP.getInstance();
+            mapElem0 = new TreeMap<>();
+            mapTipoElem0 = new HashMap<>();
+            mapElem1 = new TreeMap<>();
+            mapTipoElem1 = new HashMap<>();
+            mapElem2 = new TreeMap<>();
+            mapTipoElem2 = new HashMap<>();
+            mapElem3 = new TreeMap<>();
+            mapTipoElem3 = new HashMap<>();
+                for(int j=0;j<3;++j){
+                    ArrayList<Elemento> aux1 = new ArrayList<Elemento>();
+                    ArrayList<Elemento> aux2 = new ArrayList<Elemento>();
+                    ArrayList<Elemento> aux3 = new ArrayList<Elemento>();
+                    ArrayList<Elemento> aux4 = new ArrayList<Elemento>();
+                    mapTipoElem0.put(j, aux1);
+                    mapTipoElem1.put(j, aux2);
+                    mapTipoElem2.put(j, aux3);
+                    mapTipoElem3.put(j, aux4);
+                    
+                }
             GDPElem.leerElementos(mapElem0,mapTipoElem0,mapElem1,mapTipoElem1,
                                   mapElem2,mapTipoElem2,mapElem3,mapTipoElem3);
             

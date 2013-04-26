@@ -8,6 +8,7 @@ import Pruebas.testfunciones;
 import Vista.vistaComandos;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  *
@@ -18,7 +19,8 @@ public class Mainprincipal {
     public static void main(String arg[]) throws IOException, FileNotFoundException, ClassNotFoundException, Exception{
         
         vistaComandos a = new vistaComandos();
-        a.mainloop();
+        a.mainLoop();
+
         
     }
 }

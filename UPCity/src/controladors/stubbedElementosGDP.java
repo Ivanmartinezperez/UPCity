@@ -55,6 +55,8 @@ public class stubbedElementosGDP {
                               HashMap<Integer,ArrayList<Elemento>> HE3){
         
         System.out.println("Simulando lectura de disco...Cargando Elementos"); 
+        
+        
     }
         
     
