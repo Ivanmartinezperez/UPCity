@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import elementos.Elemento;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  *
@@ -52,9 +53,10 @@ public class stubbedElementosGDP {
                               HashMap<Integer,ArrayList<Elemento>> HE2,
                               TreeMap<String,Elemento> TE3,
                               HashMap<Integer,ArrayList<Elemento>> HE3){
-//        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
-//        cual tengo la duda que este del todo correcto :S    
+        
+        System.out.println("Simulando lectura de disco...Cargando Elementos"); 
     }
+        
     
     public void escribirElemento(Elemento e){
         

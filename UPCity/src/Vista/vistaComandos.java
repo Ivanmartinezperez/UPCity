@@ -15,11 +15,7 @@ import java.util.Scanner;
 public class vistaComandos {
     
     private CtrlDomBarrios CtrlBarrio;
-    private CtrlDomElementos CtrlElementos;
-    private CtrlDomRestricciones CtrlRestricciones;
-    private stubbedBarriosGDP SimBarrioGdp;
-    private stubbedElementosGDP SimElemGdp;
-    private stubbedRestriccionesGDP SimResGdp;
+
     
     
     public void mainloop() throws IOException, FileNotFoundException, ClassNotFoundException, Exception{
@@ -28,10 +24,12 @@ public class vistaComandos {
         
         System.out.println("Esta usted ante una version beta, la carga de disco esta totalemente simulada, por favor siga las instrucciones");
         
-        System.out.println("Introduccion de elementos:\n1-Introducir Elemento\n2-Acabar la introduccion de elementos");
-        int n=0;
-        Scanner action = new Scanner(System.in);
+        CtrlBarrio = CtrlDomBarrios.getInstance();
         
+        System.out.println("\n\n CUIDADO!!! Esta usted ante una version beta, no se han cargado elementos,ni restricciones");
+        
+        System.out.println("Que desea hacer:\n1-Crear Barrio\n2-Cargar Barrio\3-Crear Elemento\n4-Crear Restriccion");
+        while(true);
         
     } 
     

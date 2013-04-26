@@ -64,12 +64,12 @@ public class CtrlDomRestricciones {
             case "ubicacion":   Restriccion_ubicacion u = new Restriccion_ubicacion(id, tipo, OID1, OID2, aux1);
                                 restubicacion.put(id, u);
                                 break;
-            case "economica":   resteconomica.setSecond(new Restriccion_economica(id, tipo, aux1, aux2, aux3));
-                                resteconomica.setFirst(id);
-                                break;
-            case "demografica": Restriccion_demografica d = new Restriccion_demografica(id, tipo, OID1, aux1);
-                                restdemografica.put(id, d);
-                                break;
+            //case "economica":   resteconomica.setSecond(new Restriccion_economica(id, tipo, aux1, aux2, aux3));
+                               // resteconomica.setFirst(id);
+                                //break;
+            //case "demografica": Restriccion_demografica d = new Restriccion_demografica(id, tipo, OID1, aux1);
+                                //restdemografica.put(id, d);
+                                //break;
             default:            ret = false;
         }
         return ret;
@@ -94,7 +94,7 @@ public class CtrlDomRestricciones {
                                 }
                                 else ret = false;
                                 break;
-            case "economica":   if (aux1 >= 0 && aux2 >= 0 && aux3 >= 0 && resteconomica.getFirst().equals(id)){
+            /*case "economica":   if (aux1 >= 0 && aux2 >= 0 && aux3 >= 0 && resteconomica.getFirst().equals(id)){
                                     Restriccion_economica e = resteconomica.getSecond();
                                     e.Modificarsaldo(aux1, aux2, aux3);
                                 }
@@ -105,7 +105,7 @@ public class CtrlDomRestricciones {
                                     d.modificar_habitantes(aux1);
                                 }
                                 else ret = false;
-                                break;
+                                break;*/
             default:            ret = false;
             }
             return ret;
@@ -123,9 +123,9 @@ public class CtrlDomRestricciones {
                     case "ubicacion":   if(restubicacion.containsKey(id)) restubicacion.remove(id);
                                         else ret = false;
                                         break;
-                    case "demografica": if(restdemografica.containsKey(id)) restdemografica.remove(id);
+                    /*case "demografica": if(restdemografica.containsKey(id)) restdemografica.remove(id);
                                         else ret = false;
-                                        break;
+                                        break;*/
                     default:            ret = false;
                 }
                 

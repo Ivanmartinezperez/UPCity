@@ -140,14 +140,14 @@ public class CtrlDomBarrios {
      * @return Retorna si se ha podido añadir la Restriccion deseada, cierto si
      * esa Restriccion existe y falso si esa Restriccion no existe.
      */
-    public boolean anadirRestBarrio(String Rest){
+   /* public boolean anadirRestBarrio(String Rest){
         Restriccion r;
         if((DOMRest.getRestriccion(Rest)!= null) = r){
             putRestriccion(Rest,r);
             return true;
         }
         else return false;
-    }
+    }*/
     
     
     /**

@@ -45,8 +45,8 @@ public class stubbedRestriccionesGDP {
      * @param TablaRest 
      */
     public void leerRestricciones(TreeMap<String,Restriccion_ubicacion> TablaRest){
-//        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
-//        cual tengo la duda que este del todo correcto :S
+        
+         System.out.println("Simulando lectura de disco...Cargando Restricciones");
     }
     
     public void escribirRestriccion(Restriccion r){
