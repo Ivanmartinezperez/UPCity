@@ -23,6 +23,7 @@ public class CtrlDomElementos {
         private TreeMap<String,Elemento> mapElem1;
         private TreeMap<String,Elemento> mapElem2;
         private TreeMap<String,Elemento> mapElem3;
+        private TreeMap<Integer,String> TradOIDtoName;
         private stubbedElementosGDP GDPElem;
         private static CtrlDomElementos INSTANCE = null;
         
@@ -40,6 +41,7 @@ public class CtrlDomElementos {
             mapTipoElem2 = new HashMap<>();
             mapElem3 = new TreeMap<>();
             mapTipoElem3 = new HashMap<>();
+            TradOIDtoName = new TreeMap<>();
                 for(int j=0;j<3;++j){
                     ArrayList<Elemento> aux1 = new ArrayList<Elemento>();
                     ArrayList<Elemento> aux2 = new ArrayList<Elemento>();
@@ -54,9 +56,11 @@ public class CtrlDomElementos {
             GDPElem.leerElementos(mapElem0,mapTipoElem0,mapElem1,mapTipoElem1,
                                   mapElem2,mapTipoElem2,mapElem3,mapTipoElem3);
             
-            OID=0;//Cada vez que se cree una instancia esto recibira el valor 
-                  //de la raiz del arbol de elementos +1, que sera el OID 
-                  //maximo del programa
+            if(TradOIDtoName.isEmpty()) OID = 1;
+            else OID=TradOIDtoName.lastKey() + 1;
+            //Cada vez que se cree una instancia esto recibira el valor 
+            //de la raiz del arbol de elementos +1, que sera el OID 
+            //maximo del programa
         }
         
         private static void creaInstancia() {
@@ -90,6 +94,7 @@ public class CtrlDomElementos {
             if(!mapElem0.containsKey(nombre) && !mapElem1.containsKey(nombre) &&
                !mapElem2.containsKey(nombre) && !mapElem3.containsKey(nombre)){
                 
+                TradOIDtoName.put(e.getId(), nombre);
                 ArrayList<Elemento> aux;
                 //añadimos elemento a la estructura que contiene los elementos y
                 //añadimos el elemento a la estructura que contiene los elementos 
@@ -116,6 +121,7 @@ public class CtrlDomElementos {
                             mapTipoElem3.put((Integer) tipo, aux);
                             break;
                 }
+                ++OID;
                 return true;         
             }
             else return false;
@@ -139,21 +145,21 @@ public class CtrlDomElementos {
                              v.setNom(Nombre);
                              v.setDescrpcio(Des);
                              v.setTBarrio(TB);
-                             anadir_a_estructuras(v,tipo,TB);
+                             ret = anadir_a_estructuras(v,tipo,TB);
                              GDPElem.escribirElemento(v);
                              break;
                     case 2 : Publico p = new Publico(OID);
                              p.setNom(Nombre);
                              p.setDescrpcio(Des);
                              p.setTBarrio(TB);
-                             anadir_a_estructuras(p,tipo,TB);
+                             ret = anadir_a_estructuras(p,tipo,TB);
                              GDPElem.escribirElemento(p);
                              break;
                     case 3 : Comercio c = new Comercio(OID);
                              c.setNom(Nombre);
                              c.setDescrpcio(Des);
                              c.setTBarrio(TB);
-                             anadir_a_estructuras(c,tipo,TB);
+                             ret = anadir_a_estructuras(c,tipo,TB);
                              GDPElem.escribirElemento(c);
                              break;
                     default: ret = false;
@@ -165,6 +171,14 @@ public class CtrlDomElementos {
         
         }
         
+        
+        /**
+         * Funcion que busca el Elemento con el Nombre Elem y devuelve su 
+         * instancia o null si ese elemento no existe.
+         * @param Elem Nombre del Elemento buscado.
+         * @return Devuelve lainstancia del Elemento con nombre Elem o null si 
+         * tal Elemento no existe.
+         */
         public Elemento getElemento(String Elem){
             Elemento e;
             if((e=mapElem0.get(Elem))!=null){}
@@ -173,6 +187,18 @@ public class CtrlDomElementos {
             else if((e=mapElem3.get(Elem))!=null){}
             else e=null;
             return e;
+        }
+        
+        
+        /**
+         * Fucnion que comprueba la existencia de un Elemento con identificador
+         * OID.
+         * @param OID Identificador del elemento del cual comprobamos la 
+         * existencia.
+         * @return Retorna true si tal Elemento existe y false si no existe.
+         */
+        public boolean existsElemento(Integer OID){
+            return TradOIDtoName.containsKey(OID);
         }
         
         
