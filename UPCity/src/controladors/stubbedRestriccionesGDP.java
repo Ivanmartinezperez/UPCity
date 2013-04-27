@@ -45,12 +45,19 @@ public class stubbedRestriccionesGDP {
      * @param TablaRest 
      */
     public void leerRestricciones(TreeMap<String,Restriccion_ubicacion> TablaRest){
-        
-         System.out.println("Simulando lectura de disco...Cargando Restricciones");
+        System.out.println("Simulando lectura de disco...Cargando Restricciones\n"
+                + "Error! Disco NOT FOUND");
     }
     
     public void escribirRestriccion(Restriccion r){
-        
+        System.out.println("Simulando escritura en disco...Guardando Restriccion\n"
+                + "Error! Disco NOT FOUND");
+    }
+    
+    public boolean existeRestEnBarrios(String id){
+        System.out.println("Simulando escritura en disco...Guardando Restriccion\n"
+                + "Error! Disco NOT FOUND, Anyway is empty");
+        return false;
     }
     
 }
