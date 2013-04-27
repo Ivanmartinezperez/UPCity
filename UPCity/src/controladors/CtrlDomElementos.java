@@ -129,44 +129,51 @@ public class CtrlDomElementos {
         
         /**
          * Encargada de crear un elemento y añadirlo a las esucturas de datos
-         * @param Nombre Nombre del elemento
-         * @param Des Descripcion del elemento
+         * @param Nombre Nombre del elemento.
+         * @param Des Descripcion del elemento.
          * @param tipo Tipo de elemento: Vivienda,publico,comercio
+         * @param TB Nos indica el tipo de barrio al que pertenece:
+         * 0-Cualquier barrio, 0-Culquier barrio 1-Barrio bajo, 2-Barrio medio,
+         * 3-Barrio alto.
+         * @param tamX Tamano X del Elemento.
+         * @param tamY Tamano Y del Elemento.
+         * @param prec Precio del Elemento creado.
+         * @param aux1 Capacidad de servicio/comercio/vivienda.
+         * @param aux2 Tipo de servicio(solo utilizada en creacion de publico.
          * @return Devuelve true en caso de que todo se realize correctamente 
          */
         
-        public boolean CrearElemento(String Nombre,String Des, int tipo, int TB){
+        public boolean CrearElemento(String Nombre,String Des, int tipo, int TB,
+                                     int tamX,int tamY,int prec,int aux1,int aux2){
             
-            System.out.println("Entra");
+            //System.out.println("Entra");
                 boolean ret=true;
                 
                 switch(tipo){
-                    case 1 : Vivienda v = new Vivienda(OID);
+                    case 1 : Vivienda v = new Vivienda(OID,aux1,tamX,tamY,prec,
+                                                       TB);
                              v.setNom(Nombre);
                              v.setDescrpcio(Des);
-                             v.setTBarrio(TB);
                              ret = anadir_a_estructuras(v,tipo,TB);
                              GDPElem.escribirElemento(v);
                              break;
-                    case 2 : Publico p = new Publico(OID);
+                    case 2 : Publico p = new Publico(OID,aux2,aux1,tamX,tamY,
+                                                     prec,TB);
                              p.setNom(Nombre);
                              p.setDescrpcio(Des);
-                             p.setTBarrio(TB);
                              ret = anadir_a_estructuras(p,tipo,TB);
                              GDPElem.escribirElemento(p);
                              break;
-                    case 3 : Comercio c = new Comercio(OID);
+                    case 3 : Comercio c = new Comercio(OID,aux1,tamX,tamY,prec, 
+                                                       TB);
                              c.setNom(Nombre);
                              c.setDescrpcio(Des);
-                             c.setTBarrio(TB);
                              ret = anadir_a_estructuras(c,tipo,TB);
                              GDPElem.escribirElemento(c);
                              break;
                     default: ret = false;
                 }
-                
-                
-                
+                             
                 return ret;
         
         }
