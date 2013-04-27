@@ -11,7 +11,7 @@ import elementos.*;
  */
 public class Restriccion_demografica extends Restriccion {
     private int habitantes;
-    private String OID;
+    private Integer OID;
     /// CREADORA //////////
    // public Restriccion_demografica(){
     //super();
@@ -24,7 +24,7 @@ public class Restriccion_demografica extends Restriccion {
     * @param OID1 id del elemento relacionado
     * @param habitantes cantidad minima de habitantes
     */  
-    public Restriccion_demografica(String id, String tipo, String OID1, int habitantes){
+    public Restriccion_demografica(String id, String tipo, Integer OID1, int habitantes){
         super(id, tipo);
         this.habitantes = habitantes;
         this.OID = OID1;
@@ -56,7 +56,7 @@ public class Restriccion_demografica extends Restriccion {
      * Consultora del id del elemento relacionado
      * @return retorna el id del elemento relacionado
      */
-    public String consultar_OID(){
+    public Integer consultar_OID(){
         return this.OID;
     }
    
