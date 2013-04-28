@@ -195,6 +195,26 @@ public class CtrlDomRestricciones {
     
     
     /**
+     * Funcion que busca la Restriccion con el nombre Rest entre las 
+     * Restricciones dentro del sistema, si esta la retorna y si no esta 
+     * retorna null.
+     * @param Rest
+     * @return Retorna la Restriccion buscada si la ha encontrado, o sino 
+     * retorna null.
+     */
+    public Restriccion getRestriccion(String Rest){
+        Restriccion r = null;
+        if(restubicacion.containsKey(Rest))
+            r = restubicacion.get(Rest);
+        else if(restdemografica.containsKey(Rest))
+            r = restdemografica.get(Rest);
+        else if(resteconomica.containsKey(Rest))
+            r = resteconomica.get(Rest);
+        return r;
+    }
+    
+    
+    /**
      * Funcion que comprueba si existe alguna Restriccion de ubicacion o 
      * demografica que se aplique sobre el Elemento con identificador ID.
      * @param ID Identificador del Elemento del cual comprobamos la existencia
