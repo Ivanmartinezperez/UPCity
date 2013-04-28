@@ -13,7 +13,7 @@ import java.util.Set;
 
 /**
  *
- * @author ivanmartinez
+ * @author ivanmartinez y ron
  */
 public class vistaComandos {
     
@@ -31,7 +31,7 @@ public class vistaComandos {
         Scanner action = new Scanner(System.in);
         
         int n=(int)action.nextInt();
-        
+        boolean aux;
         while(n!=4){
             Scanner parametros = new Scanner(System.in);
             switch(n){
@@ -42,8 +42,9 @@ public class vistaComandos {
                         System.out.println("Eliga a que tipo de barrio asociaria este elemento:");
                         System.out.println("0-Cualquiera\n1-Gama baja\n2-Gama media\n3-Gama alta");
                         int TBv = (int) parametros.nextInt();
-                        CtrlElem.CrearElemento(nombrev, Desv, 1, TBv);
-                        System.out.println("Creado correctamente");
+                        aux = CtrlElem.CrearElemento(nombrev, Desv, 1, TBv);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("El elemento no se pudo crear");
                         break;
                 case 2: System.out.println("Escriba el nombre del edificio:");
                         String nombrep = parametros.nextLine();
@@ -52,8 +53,9 @@ public class vistaComandos {
                         System.out.println("Eliga a que tipo de barrio asociaria este elemento:");
                         System.out.println("0-Cualquiera\n1-Gama baja\n2-Gama media\n3-Gama alta");
                         int TBp = (int) parametros.nextInt();
-                        CtrlElem.CrearElemento(nombrep, Desp, 1, TBp);
-                        System.out.println("Creado correctamente");
+                        aux = CtrlElem.CrearElemento(nombrep, Desp, 1, TBp);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("El elemento no se pudo crear");
                         break;
                 case 3: System.out.println("Escriba el nombre del edificio:");
                         String nombrec = parametros.nextLine();
@@ -62,8 +64,9 @@ public class vistaComandos {
                         System.out.println("Eliga a que tipo de barrio asociaria este elemento:");
                         System.out.println("0-Cualquiera\n1-Gama baja\n2-Gama media\n3-Gama alta");
                         int TBc = (int) parametros.nextInt();
-                        CtrlElem.CrearElemento(nombrec, Desc, 1, TBc);
-                        System.out.println("Creado correctamente");
+                        aux = CtrlElem.CrearElemento(nombrec, Desc, 1, TBc);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("El elemento no se pudo crear");
                         break;
                 default: System.out.println("Opcio Invalida");    
             }
@@ -124,7 +127,7 @@ public class vistaComandos {
         Scanner action = new Scanner(System.in);
         
         int n=(int)action.nextInt();
-        
+        boolean aux;
         while(n!=4){
             Scanner parametros = new Scanner(System.in);
             switch(n){
@@ -137,8 +140,9 @@ public class vistaComandos {
                         // para hacer id por ahora
                         System.out.println("Escriba el id de la restriccion");
                         String id = parametros.nextLine();
-                        CtrlRest.CrearRestriccion(id, "ubicacion", OID1, OID2, distancia, -1, -1);
-                        System.out.println("Creado correctamente");
+                        aux = CtrlRest.CrearRestriccion(id, "ubicacion", OID1, OID2, distancia, -1, -1);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("La restriccion no se pudo crear");
                         break;
                 case 2: System.out.println("Escriba cantidad de dinero para comercios");
                         int com = (int) parametros.nextInt();
@@ -146,9 +150,9 @@ public class vistaComandos {
                         int viv = (int) parametros.nextInt();
                         System.out.println("Escriba cantidad de dinero para espacio publico");
                         int pub = (int) parametros.nextInt();
-                        
-                        CtrlRest.CrearRestriccion("economica1", "economica", -1, -1, com, viv, pub);
-                        System.out.println("Creado correctamente");
+                        aux = CtrlRest.CrearRestriccion("economica1", "economica", -1, -1, com, viv, pub);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("La restriccion no se pudo crear");
                         break;
                 case 3: System.out.println("Escriba el elemento de restriccion");
                         Integer OID = (int) parametros.nextInt();
@@ -157,8 +161,9 @@ public class vistaComandos {
                         // para hacer id por ahora
                         System.out.println("Escriba el id de la restriccion");
                         String id1 = parametros.nextLine();
-                        CtrlRest.CrearRestriccion(id1, "demografica", OID, -1, habitantes, -1, -1);
-                        System.out.println("Creado correctamente");
+                        aux = CtrlRest.CrearRestriccion(id1, "demografica", OID, -1, habitantes, -1, -1);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("La restriccion no se pudo crear");
                         break;
                 default: System.out.println("Opcio Invalida");    
             }
@@ -191,7 +196,31 @@ public class vistaComandos {
     }
     
     private boolean listarRestricciones(){
-        return false;
+        System.out.println("Introduzca el tipo de restricciones que desea:");
+        System.out.println("0-todos/1-ubicacion/2-demografica/3-economica");
+        
+        Scanner action = new Scanner(System.in);
+        
+        int n=(int)action.nextInt();
+        boolean aux = true;
+        
+        switch(n){
+            
+            case 0: Set<String> lista = CtrlRest.ListaNombreRestricciones();
+                    Iterator it = lista.iterator();
+                    while(it.hasNext()) System.out.println(""+it.next());        
+            case 1: Set<String> lista1 = CtrlRest.ListaNombreRestriccionesTipo("ubicacion");
+                    Iterator it1 = lista1.iterator();
+                    while(it1.hasNext()) System.out.println(""+it1.next());
+            case 2: Set<String> lista2 = CtrlRest.ListaNombreRestriccionesTipo("demografica");
+                    Iterator it2 = lista2.iterator();
+                    while(it2.hasNext()) System.out.println(""+it2.next());
+            case 3: Set<String> lista3 = CtrlRest.ListaNombreRestriccionesTipo("economica");
+                    Iterator it3 = lista3.iterator();
+                    while(it3.hasNext()) System.out.println(""+it3.next());
+            default: aux = false; 
+        }
+        return aux;
     }
     
     private void gestionRestricciones(){
@@ -223,11 +252,11 @@ public class vistaComandos {
     private boolean crearBarrio(){
         System.out.println("Crear barrio:");
         System.out.println("Introduzca el nombre del Barrio:");
-        Scanner action = new Scanner(System.in);
-        String nombre = action.nextLine();
+        Scanner parametros = new Scanner(System.in);
+        String nombre = parametros.nextLine();
         System.out.println("Introduzca el tipo de barrio:");
         System.out.println("(0-3)");
-        int tipo = (int)action.nextInt();
+        int tipo = (int)parametros.nextInt();
         boolean aux = CtrlBarrio.crearBarrio(nombre, tipo);
         if (aux) System.out.println("Barrio creado");
         else System.out.println("Barrio no se pudo crear");
@@ -235,7 +264,13 @@ public class vistaComandos {
     }
     
     private boolean cargarBarrio(){
-        return false;
+        System.out.println("Introduzca el nombre del Barrio:");
+        Scanner parametros = new Scanner(System.in);
+        String nombre = parametros.nextLine();
+        boolean aux = CtrlBarrio.cargarBarrio(nombre);
+        if (aux) System.out.println("Barrio cargado correctamente");
+        else System.out.println("No se encuentra el barrio");
+        return aux;
     }
     
     private boolean modificarBarrio(){
