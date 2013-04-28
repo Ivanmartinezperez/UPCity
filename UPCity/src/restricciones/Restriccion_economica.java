@@ -19,6 +19,14 @@ public class Restriccion_economica extends Restriccion {
    //CREADORA///////
    
    /**
+    * Creadora vacia(necesaria para CtrlDonBarrios)
+    */
+   public Restriccion_economica(){
+       
+   }
+   
+   
+   /**
     * Creadora de restriccion economica
     * @param id id de la restriccion
     * @param tipo tipo de restriccion
