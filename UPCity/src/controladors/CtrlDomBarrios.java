@@ -7,10 +7,12 @@ package controladors;
 
 import Auxiliares.Pair;
 import java.util.TreeMap;
-import restricciones.Restriccion;
+import restricciones.*;
 import elementos.*;
 import elementos.Cjt_Elementos;
 import barrio.Barrio;
+import java.util.ArrayList;
+import java.util.HashMap;
 import mapa.Plano;
 
 /**
@@ -24,6 +26,10 @@ public class CtrlDomBarrios {
     private Barrio B;
     private Cjt_Elementos CjtElem;
     private TreeMap<String,Restriccion> CjtRest;
+    private HashMap<Integer,ArrayList<Restriccion_ubicacion>> CjtRestUbic1;
+    private HashMap<Integer,ArrayList<Restriccion_ubicacion>> CjtRestUbic2;
+    private HashMap<Integer,Restriccion_demografica> CjtRestDemog;
+    private Restriccion_economica RestEcon;
     private Plano Mapa;
     private CtrlDomRestricciones DOMRest;
     private CtrlDomElementos DOMElem;
@@ -32,8 +38,10 @@ public class CtrlDomBarrios {
     private stubbedBarriosGDP GDPBarr;
     
    
+    /////CREADORA/////
+    
     /**
-     * 
+     * Creadora del Controlador de Dominio de Barrios.
      */
     private CtrlDomBarrios(){
         TablaBarrios = new TreeMap();
@@ -42,6 +50,7 @@ public class CtrlDomBarrios {
         GDPElem = stubbedElementosGDP.getInstance();
         GDPRest = stubbedRestriccionesGDP.getInstance();
         GDPBarr = stubbedBarriosGDP.getInstance();
+        GDPBarr.leerBarriosCreados(TablaBarrios);
     }
     
     private static void creaInstancia() {
@@ -57,6 +66,9 @@ public class CtrlDomBarrios {
         return INSTANCE;
     }
     
+    
+    /////PUBLICAS/////
+    
     /**
      * Crea un barrio con el Nombre que le llega como parametro nombre y el tipo
      * de barrio tip, que le llega como parametro.
@@ -66,14 +78,22 @@ public class CtrlDomBarrios {
      * un barrio con ese nombre todavia y falso si ese barrio existe.
      */
     public boolean crearBarrio(String nombre, int tip){
-        if(!TablaBarrios.containsKey(nombre) && tip>0 && tip<=3){
-            B = new Barrio(nombre,tip);
+        if(!TablaBarrios.containsKey(nombre) && tip>=0 && tip<=3){
+            B = new Barrio();
             CjtElem = new Cjt_Elementos();
             CjtRest = new TreeMap();
+            CjtRestUbic1 = new HashMap();
+            CjtRestUbic2 = new HashMap();
+            CjtRestDemog = new HashMap();
+            RestEcon = new Restriccion_economica();
+            Mapa = new Plano();
+            B.setNombreBarrio(nombre);
+            B.setTipoBarrio(tip);
             return true;
         }
         else return false;
     }
+    
     
     /**
      * Carga un barrio previamente creado con el Nombre que le llega como 
@@ -84,14 +104,24 @@ public class CtrlDomBarrios {
      */
     public boolean cargarBarrio(String nombre){
         if(TablaBarrios.containsKey(nombre)){
+            B = new Barrio();
+            CjtElem = new Cjt_Elementos();
+            CjtRest = new TreeMap();
+            CjtRestUbic1 = new HashMap();
+            CjtRestUbic2 = new HashMap();
+            CjtRestDemog = new HashMap();
+            RestEcon = new Restriccion_economica();
+            Mapa = new Plano();
             GDPBarr.leerBarrio(nombre,B);
             GDPBarr.leerMapa(nombre,Mapa);
             GDPBarr.leerCjtRest(nombre,CjtRest);
+            transRestBarrio();
             GDPBarr.leerCjtElem(nombre,CjtElem);
             return true;
         }
         else return false;
     }
+    
     
     /**
      * Guarda el barrio sobre el cual se estaba trabajando, ya sea uno cargado
@@ -99,6 +129,7 @@ public class CtrlDomBarrios {
      */
     public void guardarBarrio(){
         String nombre = B.getNombreBarrio();
+        TablaBarrios.put(nombre,(Integer) 1);
         GDPBarr.escribirBarrio(nombre,B);
         GDPBarr.escribirMapa(nombre,Mapa);
         GDPBarr.escribirCjtRest(nombre,CjtRest);
@@ -123,31 +154,21 @@ public class CtrlDomBarrios {
     
     
     /**
-     * Añande la Restriccion r, que le llega como parametro, al CjtRest del 
-     * barrio sobre el que se trabaja.
-     * @param Rest Nombre de la restriccion que se quiere añadir.
-     * @param r Restriccion que se quiere añadir.
-     */
-    private void putRestriccion(String Rest, Restriccion r){
-        CjtRest.put(Rest,r);
-    }
-    
-    
-    /**
      * Añade la Restriccion con el nombre Rest, que le llega como parametro, al
      * Conjunto de Restricciones del barrio sobre el que se trabaja.
      * @param Rest Nombre de la Restriccion que se quiere añadir.
      * @return Retorna si se ha podido añadir la Restriccion deseada, cierto si
      * esa Restriccion existe y falso si esa Restriccion no existe.
      */
-   /* public boolean anadirRestBarrio(String Rest){
-        Restriccion r;
-        if((DOMRest.getRestriccion(Rest)!= null) = r){
-            putRestriccion(Rest,r);
+   public boolean anadirRestBarrio(String Rest){
+        Restriccion r = DOMRest.getRestriccion(Rest);
+        if(r != null){
+            CjtRest.put(Rest,r);
+            putRestriccion(r);
             return true;
         }
         else return false;
-    }*/
+    }
     
     
     /**
@@ -160,12 +181,190 @@ public class CtrlDomBarrios {
      */
     public boolean quitarRestBarrio(String Rest){
         if(CjtRest.containsKey(Rest)){
+            Restriccion r = CjtRest.get(Rest);
+            removeRestriccion(r);
             CjtRest.remove(Rest);
             return true;
         }
         else return false;
     }
     
+    
+    /**
+     * Añade cant Elementos con el nombre Elem al barrio sobre el que se
+     * trabaja, ambos pasados como parametros a la funcion.
+     * @param Elem Nombre del Elemento que se quiere añadir al barrio.
+     * @param cant Cantidad del Elemento que se quiere añadir.
+     * @return Retorna si ha sido posible añadir el Elemento deseado, cierto si
+     * el Elemento existe y su tipo sea compatible con el Tipo de Barrio del 
+     * Barrio sobre el que se trabaja o falso si el Elemento no existe o no es
+     * compatible con el Tipo de Barrio del Barrio sobre el que se trabaja.
+     */
+    public boolean anadirElemBarrio(String Elem, int cant){
+        int tipo = B.getTipoBarrio();
+        boolean b = false;
+        Elemento e;
+        int tipoel;
+        e = DOMElem.getElemento(Elem);
+        if(e != null){
+            tipoel = DOMElem.getTBElemento(e);
+            switch(tipo){
+                    case 0: b = true;
+                    case 1: b = (tipoel==1 || tipoel==0);
+                    case 2: b = (tipoel==2 || tipoel==0);
+                    case 3: b = (tipoel==3 || tipoel==0);
+            }
+            if(b) guardarElemento(e,cant);
+        }
+        return b;
+    }
+    
+    
+    /**
+     * Elimina cant elementos con el nombre de Elemento Elem, pasado por 
+     * parametro, del Barrio sobre el que se trabaja. Tambien actualiza la 
+     * informacion relacionada con ese Elemento dentro del Barrio sobre el que 
+     * se trabaja.
+     * @param Elem Nombre del Elemento que se quiere eliminar.
+     * @param cant Cantidad del Elemento que se quiere eliminar.
+     * @return Retorna si se ha podido eliminar el Elemento deseado del Barrio,
+     * cierto si ese elemento existe en el Conjunto de Elementos del Barrio o 
+     * falso si no existe.
+     */
+    public boolean quitarElemento(String Elem, int cant){
+        Elemento e = DOMElem.getElemento(Elem);
+        int oid = e.getId();
+        if(CjtElem.containsKey(oid)){
+            Pair valor = (Pair) CjtElem.get(oid);
+            int cantreal = (int) valor.getFirst();
+            if (cantreal<cant) cant = cantreal;
+            int gasto;
+            if(e instanceof Vivienda){
+                Vivienda e2 = (Vivienda) e;
+                gasto = cant * e2.getPrecio();
+                B.anadirHabitantes(-(e2.Getcap_max()));
+            }
+            else if(e instanceof Publico){
+                Publico e2 = (Publico) e;
+                gasto = cant * e2.getPrecio();
+            }
+            else {
+                Comercio e2 = (Comercio) e;
+                gasto = cant * e2.getPrecio();
+                B.anadirComercio(-(e2.getCapacidad()));
+            }
+            B.anadirGasto(-gasto);
+            removeElemento(oid,cant);
+            
+            return true;           
+        }
+        else return false;
+    }
+    
+    
+    
+    
+    
+    /////PRIVADAS/////
+    
+    
+    /**
+     * Funcion privada que reparte la informacion del CjtRest previamente
+     * cargado del disco de un barrio ya creado, entre las estructuras de 
+     * Restricciones utilizadas en el Controlador.
+     */
+    private void transRestBarrio(){
+        ArrayList<Restriccion> aux = new ArrayList();
+        aux.addAll((ArrayList<Restriccion>) CjtRest.values());
+        Restriccion r;
+        for (int i=0; i<aux.size(); ++i){
+            r = aux.get(i);
+            putRestriccion(r);
+        }
+    }
+    
+    
+    /**
+     * Añande la Restriccion r, que le llega como parametro, a las estructuras
+     * de restricciones utilizadas por el Controlador.
+     * @param r Restriccion que se quiere añadir a las estructuras.
+     */
+    private void putRestriccion(Restriccion r){
+        ArrayList<Restriccion_ubicacion> aux2;
+        if(r instanceof Restriccion_ubicacion){
+            Restriccion_ubicacion r2 = (Restriccion_ubicacion) r;
+            int oid1 = r2.consultar_OID1();
+            int oid2 = r2.consultar_OID2();
+            Restriccion_ubicacion r3 = new Restriccion_ubicacion(r2.getId(),
+                         r2.getTypeSU(),oid2,oid1,r2.consultar_distancia());
+            
+            if(CjtRestUbic1.containsKey(oid1))
+                aux2 = CjtRestUbic1.get(oid1);
+            else
+                aux2 = new ArrayList();
+            aux2.add(r2);
+            CjtRestUbic1.put((Integer) oid1, aux2);
+
+            if(CjtRestUbic2.containsKey(oid2))
+                aux2 = CjtRestUbic2.get(oid2);
+            else
+                aux2 = new ArrayList();
+            aux2.add(r3);
+            CjtRestUbic2.put((Integer) oid2, aux2);
+        }
+        else if(r instanceof Restriccion_demografica){
+            Restriccion_demografica r2 = (Restriccion_demografica) r;
+            CjtRestDemog.put(r2.consultar_OID(), r2);
+        }
+        else if(r instanceof Restriccion_economica)
+            RestEcon = (Restriccion_economica) r;
+        
+    }
+    
+    
+    /**
+     * Funcion privada que elimina una determianda Restriccion de las 
+     * estructuras de Restricciones del Controlador.
+     * @param r Restriccion que queremos eliminar.
+     */
+    private void removeRestriccion(Restriccion r){
+        ArrayList<Restriccion_ubicacion> aux2;
+        if(r instanceof Restriccion_ubicacion){
+            Restriccion_ubicacion r2 = (Restriccion_ubicacion) r;
+            int oid1 = r2.consultar_OID1().intValue();
+            int oid2 = r2.consultar_OID2().intValue();
+                      
+            aux2 = CjtRestUbic1.get(oid1);
+            aux2.remove(searchRestUbic(oid2,aux2));
+            CjtRestUbic1.put((Integer) oid1, aux2);
+            aux2 = CjtRestUbic2.get(oid2);
+            aux2.remove(searchRestUbic(oid1,aux2));
+            CjtRestUbic2.put((Integer) oid2, aux2);
+        }
+        else if(r instanceof Restriccion_demografica){
+            Restriccion_demografica r2 = (Restriccion_demografica) r;
+            CjtRestDemog.remove(r2.consultar_OID());
+        }
+        else if(r instanceof Restriccion_economica)
+            RestEcon = null;
+    }
+    
+    
+    /**
+     * Funcion privada que busca en un ArrayList que indice tiene la restriccion
+     * de ubicacion con OID2 igual al oid que le proporcionan.
+     * @param oid OID2 de la restriccion que buscamos.
+     * @param aux ArrayList donde buscamos la Restriccion.
+     * @return 
+     */
+    private int searchRestUbic(int oid,ArrayList<Restriccion_ubicacion> aux){
+        for(int i = 0; i<aux.size(); ++i){
+            if(aux.get(i).consultar_OID2()==oid){
+                return i;
+            }
+        }
+        return 0;
+    }
     
     /**
      * Añade el Elemento con el oid, que le llega como parametro, al 
@@ -211,39 +410,10 @@ public class CtrlDomBarrios {
         else {
             Comercio e2 = (Comercio) e;
             gasto = cant * e2.getPrecio();
+            B.anadirComercio(e2.getCapacidad());
         }
         B.anadirGasto(gasto);
         putElemento(oid,v);
-    }
-    
-    
-    /**
-     * Añade cant Elementos con el nombre Elem al barrio sobre el que se
-     * trabaja, ambos pasados como parametros a la funcion.
-     * @param Elem Nombre del Elemento que se quiere añadir al barrio.
-     * @param cant Cantidad del Elemento que se quiere añadir.
-     * @return Retorna si ha sido posible añadir el Elemento deseado, cierto si
-     * el Elemento existe y su tipo sea compatible con el Tipo de Barrio del 
-     * Barrio sobre el que se trabaja o falso si el Elemento no existe o no es
-     * compatible con el Tipo de Barrio del Barrio sobre el que se trabaja.
-     */
-    public boolean anadirElemBarrio(String Elem, int cant){
-        int tipo = B.getTipoBarrio();
-        boolean b = false;
-        Elemento e;
-        int tipoel;
-        e = DOMElem.getElemento(Elem);
-        if(e != null){
-            tipoel = DOMElem.getTBElemento(e);
-            switch(tipo){
-                    case 0: b = true;
-                    case 1: b = (tipoel==1 || tipoel==0);
-                    case 2: b = (tipoel==2 || tipoel==0);
-                    case 3: b = (tipoel==3 || tipoel==0);
-            }
-            if(b) guardarElemento(e,cant);
-        }
-        return b;
     }
     
     
@@ -259,110 +429,7 @@ public class CtrlDomBarrios {
             CjtElem.eliminar_cantidad_elementos(oid, catn);         
             
         }
-    } 
-    
-    
-    /**
-     * Elimina cant elementos con el nombre de Elemento Elem, pasado por 
-     * parametro, del Barrio sobre el que se trabaja. Tambien actualiza la 
-     * informacion relacionada con ese Elemento dentro del Barrio sobre el que 
-     * se trabaja.
-     * @param Elem Nombre del Elemento que se quiere eliminar.
-     * @param cant Cantidad del Elemento que se quiere eliminar.
-     * @return Retorna si se ha podido eliminar el Elemento deseado del Barrio,
-     * cierto si ese elemento existe en el Conjunto de Elementos del Barrio o 
-     * falso si no existe.
-     */
-    public boolean quitarElemento(String Elem, int cant){
-        Elemento e = DOMElem.getElemento(Elem);
-        int oid = e.getId();
-        if(CjtElem.containsKey(oid)){
-            Pair valor = (Pair) CjtElem.get(oid);
-            int cantreal = (int) valor.getFirst();
-            if (cantreal<cant) cant = cantreal;
-            int gasto;
-            if(e instanceof Vivienda){
-                Vivienda e2 = (Vivienda) e;
-                gasto = cant * e2.getPrecio();
-                B.anadirHabitantes(-(e2.Getcap_max()));
-            }
-            else if(e instanceof Publico){
-                Publico e2 = (Publico) e;
-                gasto = cant * e2.getPrecio();
-            }
-            else {
-                Comercio e2 = (Comercio) e;
-                gasto = cant * e2.getPrecio();
-            }
-            B.anadirGasto(-gasto);
-            removeElemento(oid,cant);
-            
-            return true;           
-        }
-        else return false;
     }
-    
-    
-    
-    
-    
-    
-    
 
-    public void modificarPlano(){
-//        esta esta por si un caso, no creo que haga falta,
-    }
-    
-    
-    private void backFUCKINGtrackingBITCH(){
-//        privada que hara el back-fucking-mother-fucking-tracking!!!
-//        Aqui tienes que ponerlo Dani, pero avisa antes, sino, nos joderemos
-//        faena!!!
-    }
-    
-    public void generarBarrio(){
-//        Esta sera la que se encargara de preparar el backtracking y SUPONGO
-//        la que reviara condiciones previas a la generacion etc!
-        
-    }
-    
-    
-    
 
-    
-    
-//   ESTAS 2 Estaban en el Ctrl de elementos, de momento los puse aqui para 
-//    reciclar codigo mas que nada
-    
-    /**
-     * Crea un conjunto vacio y lo añade a las estructuras
-     * @param Nombre Nombre del conjunto a crear
-     * @return Devuelve true si todo se ha realizado correctamente
-     */
-    public boolean CrearConjunto(String Nombre){
-
-        Cjt_Elementos cjt = new Cjt_Elementos();
-        //mapCjtElem.put(Nombre, cjt);
-        return true;
-
-    }
-    
-    
-    
-    /**
-     * Añade la cantidad de elemento especificada al conjunto especificado
-     * @param Nombre
-     * @param e
-     * @param cantidad
-     * @return Devuelve true en caso de que todo se reaize correctamente
-     */
-    public boolean Anadir_elemento_al_conjunto(String Nombre,Elemento e, Integer cantidad){
-            
-            if(true/*mapElem.containsKey(e.getNom()) && mapCjtElem.containsKey(Nombre)*/){
-                Pair p = new Pair(cantidad,e);
-                //mapCjtElem.get(Nombre).insertar_elementos(e.getId(), p);
-                return true;
-            }
-            return false;
-        }
 }

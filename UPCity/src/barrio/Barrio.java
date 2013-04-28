@@ -10,7 +10,7 @@ package barrio;
 
 /**
  *
- * @author elpueblo
+ * @author ArclorenSarth
  */
 public class Barrio {
     private String Nombre;
@@ -19,20 +19,26 @@ public class Barrio {
     private int Poblacion;
     private int Gastado;
     private int Viviendo;
+    private int Capacidad_comercio;
+    
     
   
     /////CREADORAS/////
     
+    public Barrio(){}
+    
+    
     public Barrio(String nombre,int tipo){
         Nombre = nombre;
         TipoBarrio = tipo;
-        
-        
     }
-    
-    
+      
     
     /////MODIFICADORAS/////
+    
+    public void setNombreBarrio(String n){
+        Nombre = n;
+    }
     
     public void setTipoBarrio(int t){
         TipoBarrio = t;
@@ -52,6 +58,10 @@ public class Barrio {
     
     public void anadirHabitantes(int hab){
         Viviendo = Viviendo + hab;
+    }
+    
+    public void anadirComercio(int C){
+        Capacidad_comercio = Capacidad_comercio + C;
     }
     
     
@@ -80,6 +90,10 @@ public class Barrio {
     
     public int getViviendo(){
         return Viviendo;
+    }
+    
+    public int getCapacidad_comercio(){
+        return Capacidad_comercio;
     }
     
 }
