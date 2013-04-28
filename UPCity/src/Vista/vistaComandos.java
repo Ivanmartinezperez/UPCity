@@ -192,7 +192,7 @@ public class vistaComandos {
         while(n == 1){
             Scanner parametros = new Scanner(System.in);
             String id = parametros.nextLine();
-            boolean aux = CtrlRest.Eliminar_Restriccion(id);
+            boolean aux = CtrlRes.Eliminar_Restriccion(id);
             if (aux) System.out.println("Restriccion eliminada");
             else System.out.println("No se pudo eliminar restriccion (error de id)");
             System.out.println("Eliminar Restriccion:");
