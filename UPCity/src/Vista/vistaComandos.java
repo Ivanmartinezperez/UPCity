@@ -35,9 +35,9 @@ public class vistaComandos {
         while(n!=4){
             Scanner parametros = new Scanner(System.in);
             switch(n){
-                case 1: System.out.println("Escriba el nombre del edificio:");
+                case 1: System.out.println("Indique el nombre del edificio:");
                         String nombrev = parametros.nextLine();
-                        System.out.println("Escriba la descripcion:");
+                        System.out.println("Escriba la descripcion de este:");
                         String Desv = parametros.nextLine();
                         System.out.println("Eliga a que tipo de barrio asociaria este elemento:");
                         System.out.println("0-Cualquiera\n1-Gama baja\n2-Gama media\n3-Gama alta");
@@ -185,7 +185,7 @@ public class vistaComandos {
         while(n == 1){
             Scanner parametros = new Scanner(System.in);
             String id = parametros.nextLine();
-            boolean aux = CtrlRest.Eliminar_Restriccion(id);
+            boolean aux = CtrlRes.Eliminar_Restriccion(id);
             if (aux) System.out.println("Restriccion eliminada");
             else System.out.println("No se pudo eliminar restriccion (error de id)");
             System.out.println("Eliminar Restriccion:");
