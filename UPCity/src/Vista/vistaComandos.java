@@ -130,7 +130,7 @@ public class vistaComandos {
     
     //////////////GESTION RESTRICCIONES///////////////////////////////////////
     private boolean crearRestriccion(){
-        System.out.println("Que tipo de edificio desea crear:");
+        System.out.println("Que tipo de restriccion desea crear:");
         System.out.println("1-Ubicacion\n2-Economica\n3-Demografica\n4-Salir");
         
         Scanner action = new Scanner(System.in);
@@ -174,7 +174,7 @@ public class vistaComandos {
                         break;
                 default: System.out.println("Opcio Invalida");    
             }
-            System.out.println("Que tipo de edificio desea crear:");
+            System.out.println("Que tipo de restriccion desea crear:");
             System.out.println("1-Ubicacion\n2-Economica\n3-Demografica\n4-Salir");
             n = (int)action.nextInt();
         }
@@ -182,7 +182,24 @@ public class vistaComandos {
     }
     
     private boolean eliminarRestriccion(){
-        return false;
+        System.out.println("Eliminar Restriccion:");
+        System.out.println("1-Proceder a eliminacion/2-Salir");
+        
+        Scanner action = new Scanner(System.in);
+        
+        int n=(int)action.nextInt();
+        
+        while(n == 1){
+            Scanner parametros = new Scanner(System.in);
+            String id = parametros.nextLine();
+            boolean aux = CtrlRest.Eliminar_Restriccion(id);
+            if (aux) System.out.println("Restriccion eliminada");
+            else System.out.println("No se pudo eliminar restriccion (error de id)");
+            System.out.println("Eliminar Restriccion:");
+            System.out.println("1-Proceder a eliminacion/2-Salir");
+            n = (int)action.nextInt();
+        }
+       return true; 
     }
     
     private boolean listarRestricciones(){
@@ -216,7 +233,17 @@ public class vistaComandos {
     
     ////////////////////////GESTION BARRIOS//////////////////////////////////////
     private boolean crearBarrio(){
-        return false;
+        System.out.println("Crear barrio:");
+        System.out.println("Introduzca el nombre del Barrio:");
+        Scanner action = new Scanner(System.in);
+        String nombre = action.nextLine();
+        System.out.println("Introduzca el tipo de barrio:");
+        System.out.println("(0-3)");
+        int tipo = (int)action.nextInt();
+        boolean aux = CtrlBarrio.crearBarrio(nombre, tipo);
+        if (aux) System.out.println("Barrio creado");
+        else System.out.println("Barrio no se pudo crear");
+        return aux;
     }
     
     private boolean cargarBarrio(){
