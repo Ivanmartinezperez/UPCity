@@ -24,8 +24,11 @@ public class CtrlDomElementos {
         private TreeMap<String,Elemento> mapElem2;
         private TreeMap<String,Elemento> mapElem3;
         private TreeMap<Integer,String> TradOIDtoName;
+        private CtrlDomRestricciones RestDOM;
         private stubbedElementosGDP GDPElem;
         private static CtrlDomElementos INSTANCE = null;
+        
+        
         
         /**
          * Creadora de la clase Controlador de elementos - DOMINIO
@@ -33,6 +36,7 @@ public class CtrlDomElementos {
          */
         private CtrlDomElementos(){
             GDPElem = stubbedElementosGDP.getInstance();
+            RestDOM = CtrlDomRestricciones.getInstance();
             mapElem0 = new TreeMap<>();
             mapTipoElem0 = new HashMap<>();
             mapElem1 = new TreeMap<>();
@@ -70,13 +74,14 @@ public class CtrlDomElementos {
             }
         }
         
-       public static CtrlDomElementos getInstance() {
+        public static CtrlDomElementos getInstance() {
             
             if (INSTANCE == null) {
                 creaInstancia();
             }
             return INSTANCE;
         }
+        
         
         /**
          * Encargado de mantener la consistencia de las estructuras de datos
@@ -127,6 +132,7 @@ public class CtrlDomElementos {
             else return false;
         }
         
+        
         /**
          * Encargada de crear un elemento y añadirlo a las esucturas de datos
          * @param Nombre Nombre del elemento.
@@ -142,7 +148,6 @@ public class CtrlDomElementos {
          * @param aux2 Tipo de servicio(solo utilizada en creacion de publico.
          * @return Devuelve true en caso de que todo se realize correctamente 
          */
-        
         public boolean CrearElemento(String Nombre,String Des, int tipo, int TB,
                                      int tamX,int tamY,int prec,int aux1,int aux2){
             
@@ -176,6 +181,120 @@ public class CtrlDomElementos {
                              
                 return ret;
         
+        }
+        
+        
+        /**
+         * Funcion privada que nos indica que tipo de Elemento es el Elemento e.
+         * @param e Elemento del cual queremos conocer el tipo.
+         * @return 
+         */
+        private int TipoElemento(Elemento e){
+            if(e instanceof Vivienda)
+                return 1;
+            else if(e instanceof Publico)
+                return 2;
+            else 
+                return 3;
+        }
+                
+        
+        /**
+         * Funcion privada que se encarga de eliminar el Elemento con nombre
+         * Elem de las estructuras de Elementos.
+         * @param Elem Nombre del Elemento que queremos eliminar.
+         * @param TBar Tipo de Barrio al que puede ir el Elemento.
+         */
+        private void eliminar_de_estructuras(String Elem,int TBar){
+            int tipo;
+            Elemento e;
+            ArrayList<Elemento> aux;
+            switch(TBar){
+                case 0:
+                    e = mapElem0.get(Elem);
+                    tipo = TipoElemento(e);
+                    aux = mapTipoElem0.get((Integer)tipo);
+                    aux.remove(e);
+                    mapElem0.remove(Elem);
+                    break;
+                case 1:
+                    e = mapElem1.get(Elem);
+                    tipo = TipoElemento(e);
+                    aux = mapTipoElem1.get((Integer)tipo);
+                    aux.remove(e);
+                    mapElem1.remove(Elem);
+                    break;
+               case 2:
+                    e = mapElem2.get(Elem);
+                    tipo = TipoElemento(e);
+                    aux = mapTipoElem2.get((Integer)tipo);
+                    aux.remove(e);
+                    mapElem2.remove(Elem);
+                    break;
+               case 3:
+                    e = mapElem3.get(Elem);
+                    tipo = TipoElemento(e);
+                    aux = mapTipoElem3.get((Integer)tipo);
+                    aux.remove(e);
+                    mapElem3.remove(Elem);
+                    break;                    
+            }
+        }
+        
+        
+        /**
+         * Funcion que se encarga de eliminar un Elemento del sistema. La 
+         * funcion primero ha de comprobar si tal elemento existe dentro del 
+         * sistema, y en caso de que exista, comprueba que ese elemento no tenga
+         * ninguna Restriccion asociada a su identificador ni que ese Elemento
+         * sea utilizado en algun Barrio. Si el Elemento si que tiene alguna
+         * Restriccion asociada a su identificador o se utiliza en algun Barrio,
+         * entonces no se podra eliminar ese Elemento hasta que no se eliminen
+         * las Restricciones que se aplican sobre el y se elimine de todos los 
+         * Barrios en los que se utiliza.
+         * @param Elem Nombre del Elemento que queremos eliminar.
+         * @return Retorna si se ha podido eliminar el Elemento correctamente.
+         */
+        public boolean EliminarElemento(String Elem){
+            boolean ret = false;
+            Elemento e;
+            if(mapElem0.containsKey(Elem)){
+                e = mapElem0.get(Elem);
+                if(!GDPElem.existeElemEnBarrios(Elem) && 
+                   !RestDOM.existeRestElem(e.getId())){
+                    eliminar_de_estructuras(Elem,0);
+                    GDPElem.eliminarElemDisco(Elem);
+                    ret = true;
+                }
+            }
+            else if(mapElem1.containsKey(Elem)){
+                e = mapElem1.get(Elem);
+                if(!GDPElem.existeElemEnBarrios(Elem) && 
+                   !RestDOM.existeRestElem(e.getId())){
+                    eliminar_de_estructuras(Elem,1);
+                    GDPElem.eliminarElemDisco(Elem);
+                    ret = true;
+                }                
+            }
+            else if(mapElem2.containsKey(Elem)){
+                e = mapElem2.get(Elem);
+                if(!GDPElem.existeElemEnBarrios(Elem) && 
+                   !RestDOM.existeRestElem(e.getId())){
+                    eliminar_de_estructuras(Elem,2);
+                    GDPElem.eliminarElemDisco(Elem);
+                    ret = true;
+                }                
+            }
+            else if(mapElem3.containsKey(Elem)){
+                e = mapElem3.get(Elem);
+                if(!GDPElem.existeElemEnBarrios(Elem) && 
+                   !RestDOM.existeRestElem(e.getId())){
+                    eliminar_de_estructuras(Elem,3);
+                    GDPElem.eliminarElemDisco(Elem);
+                    ret = true;
+                }                
+            }
+            return ret;
         }
         
         
@@ -231,6 +350,7 @@ public class CtrlDomElementos {
             return tipoel;
         }
         
+        
         /**
          * Listado de los elementos del sistema
          * @return Array de todos los elementos del sistema
@@ -244,6 +364,35 @@ public class CtrlDomElementos {
             aux.addAll((ArrayList<Elemento>) mapElem3.values());
             return aux;
             
+         }
+         
+         
+         /**
+         * Listado de un tipo de elementos del sistema de un tipo de Barrio.
+         * @param TB Tipo de Barrio del que se queire listar.
+         * @param tipo Tipo de Elemento que queremos listar: 1-Viienda, 
+         * 2-Publico y 3-Comercio.
+         * @return Array de todos los elementos del sistema de un determinado 
+         * tipo
+         */
+         public ArrayList<Elemento> ListaElementosTipo(int TB, int tipo){
+            if(TB<0 || TB>3 || tipo < 1 || tipo>3) return null; 
+            ArrayList<Elemento> aux = new ArrayList();
+            switch(TB){
+                case 0:
+                    aux.addAll(mapTipoElem0.get((Integer)tipo));
+                    break;
+                case 1:
+                    aux.addAll(mapTipoElem1.get((Integer)tipo));
+                    break;
+                case 2:
+                    aux.addAll(mapTipoElem2.get((Integer)tipo));
+                    break;
+                case 3:
+                    aux.addAll(mapTipoElem3.get((Integer)tipo));
+                    break;
+            }
+            return aux;
          }
          
          
@@ -264,6 +413,41 @@ public class CtrlDomElementos {
                 aux.addAll(mapElem3.keySet());
             
             return aux;
+         }
+         
+         
+          /**
+          * Listado de nombres de los elementos del sistema de un tipo de 
+          * elemento y de un tipo de barrio.
+          * @param TB Tipo de Barrio del que se quiere listar los elementos.
+          * @param tipo Tipo de Elemento del que se quiere listar los elementos.
+          * @return Devuelve un set con los nombres de los elementos del sistema
+          * de cierto tipo de barrio y cierto tipo de elemento.
+          */
+         public Set<String> ListaNombreElementosTipo(int TB, int tipo){
+            if(TB<0 || TB>3 || tipo < 1 || tipo>3) return null; 
+            Set<String> ret = new HashSet();
+            ArrayList<Elemento> aux=null;
+            Elemento e;
+            switch(TB){
+                case 0:
+                    aux = mapTipoElem0.get((Integer)tipo);
+                    break;
+                case 1:
+                    aux = mapTipoElem1.get((Integer)tipo);
+                    break;
+                case 2:
+                    aux = mapTipoElem2.get((Integer)tipo);
+                    break;
+                case 3:
+                    aux = mapTipoElem3.get((Integer)tipo);
+                    break;
+            }
+            for(int i=0; i<aux.size(); ++i){
+                e = aux.get(i);
+                ret.add(e.getNom());
+            }
+            return ret;
          }
 
 }
