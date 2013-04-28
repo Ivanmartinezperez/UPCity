@@ -19,6 +19,7 @@ public class vistaComandos {
     
     private CtrlDomBarrios CtrlBarrio;
     private CtrlDomElementos CtrlElem;
+    private CtrlDomRestricciones CtrlRes;
     
     
     /////////////////GESTION ELEMENTOS///////////////////////////
@@ -34,14 +35,18 @@ public class vistaComandos {
         while(n!=4){
             Scanner parametros = new Scanner(System.in);
             switch(n){
-                case 1: System.out.println("Escriba el nombre del edificio:");
+                case 1: System.out.println("Indique el nombre del edificio:");
                         String nombrev = parametros.nextLine();
-                        System.out.println("Escriba la descripcion:");
+                        System.out.println("Escriba la descripcion de este:");
                         String Desv = parametros.nextLine();
                         System.out.println("Eliga a que tipo de barrio asociaria este elemento:");
                         System.out.println("0-Cualquiera\n1-Gama baja\n2-Gama media\n3-Gama alta");
                         int TBv = (int) parametros.nextInt();
-                        CtrlElem.CrearElemento(nombrev, Desv, 1, TBv);
+                        System.out.println("Indique la cantidad de personas que puede albergar la Vivienda");
+                        int cantperv = (int) parametros.nextInt();
+                        System.out.println("Indique el precio de la vivienda");
+                        int preciov = parametros.nextInt();
+                        CtrlElem.CrearElemento(nombrev, Desv, 1, TBv,1,1,preciov,cantperv,0);
                         System.out.println("Creado correctamente");
                         break;
                 case 2: System.out.println("Escriba el nombre del edificio:");
@@ -51,7 +56,11 @@ public class vistaComandos {
                         System.out.println("Eliga a que tipo de barrio asociaria este elemento:");
                         System.out.println("0-Cualquiera\n1-Gama baja\n2-Gama media\n3-Gama alta");
                         int TBp = (int) parametros.nextInt();
-                        CtrlElem.CrearElemento(nombrep, Desp, 1, TBp);
+                        System.out.println("Indique la cantidad de personas que puede albergar la construccion");
+                        int cantperp = (int) parametros.nextInt();
+                        System.out.println("Indique el precio de la vivienda");
+                        int preciop = parametros.nextInt();
+                        CtrlElem.CrearElemento(nombrep, Desp, 1, TBp,1,1,preciop,cantperp,0);//Tipo de servicio no implementado(irrelevante de momento);
                         System.out.println("Creado correctamente");
                         break;
                 case 3: System.out.println("Escriba el nombre del edificio:");
@@ -61,7 +70,11 @@ public class vistaComandos {
                         System.out.println("Eliga a que tipo de barrio asociaria este elemento:");
                         System.out.println("0-Cualquiera\n1-Gama baja\n2-Gama media\n3-Gama alta");
                         int TBc = (int) parametros.nextInt();
-                        CtrlElem.CrearElemento(nombrec, Desc, 1, TBc);
+                        System.out.println("Indique la cantidad de personas que puede albergar la construccion");
+                        int cantperc = (int) parametros.nextInt();
+                        System.out.println("Indique el precio de la vivienda");
+                        int precioc = parametros.nextInt();
+                        CtrlElem.CrearElemento(nombrec, Desc, 1, TBc,1,1,precioc,cantperc,0);
                         System.out.println("Creado correctamente");
                         break;
                 default: System.out.println("Opcio Invalida");    
@@ -136,7 +149,7 @@ public class vistaComandos {
                         // para hacer id por ahora
                         System.out.println("Escriba el id de la restriccion");
                         String id = parametros.nextLine();
-                        CtrlDomRestricciones.CrearRestriccion(id, "ubicacion", OID1, OID2, distancia, -1, -1);
+                        CtrlRes.CrearRestriccion(id, "ubicacion", OID1, OID2, distancia, -1, -1);
                         System.out.println("Creado correctamente");
                         break;
                 case 2: System.out.println("Escriba cantidad de dinero para comercios");
@@ -146,7 +159,7 @@ public class vistaComandos {
                         System.out.println("Escriba cantidad de dinero para espacio publico");
                         int pub = (int) parametros.nextInt();
                         
-                        CtrlDomRestricciones.CrearRestriccion("economica1", "economica", -1, -1, com, viv, pub);
+                        CtrlRes.CrearRestriccion("economica1", "economica", -1, -1, com, viv, pub);
                         System.out.println("Creado correctamente");
                         break;
                 case 3: System.out.println("Escriba el elemento de restriccion");
@@ -156,7 +169,7 @@ public class vistaComandos {
                         // para hacer id por ahora
                         System.out.println("Escriba el id de la restriccion");
                         String id1 = parametros.nextLine();
-                        CtrlDomRestricciones.CrearRestriccion(id1, "demografica", OID, -1, habitantes, -1, -1);
+                        CtrlRes.CrearRestriccion(id1, "demografica", OID, -1, habitantes, -1, -1);
                         System.out.println("Creado correctamente");
                         break;
                 default: System.out.println("Opcio Invalida");    
@@ -165,6 +178,7 @@ public class vistaComandos {
             System.out.println("1-Ubicacion\n2-Economica\n3-Demografica\n4-Salir");
             n = (int)action.nextInt();
         }
+        return true;
     }
     
     private boolean eliminarRestriccion(){
