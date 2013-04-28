@@ -47,6 +47,7 @@ public class CtrlDomRestricciones {
         return INSTANCE;
     }
     
+    
     /**
      * Encargado de crear una restriccion e ingresarla en la estructura deseada
      * @param id id de la nueva restriccion
@@ -110,8 +111,7 @@ public class CtrlDomRestricciones {
         }
         return ret;
     }
-    
-    
+       
     
     /**
      * Encargado de modificar una restriccion ya creada
@@ -164,30 +164,66 @@ public class CtrlDomRestricciones {
      * @return retorna booleano si se ha hecho la eliminacion correctamente
      */
     public boolean Eliminar_Restriccion(String id){
-        boolean ret = true;
+        boolean ret = false;
         if(restubicacion.containsKey(id)){
             if(!RestGDP.existeRestEnBarrios(id)){
                 restubicacion.remove(id);
                 RestGDP.eliminarElemDisco(id);
+                ret = true;
             }
-            else ret = false;
+            
         }
         else if(resteconomica.containsKey(id)){
             if(!RestGDP.existeRestEnBarrios(id)){
                 resteconomica.remove(id);
                 RestGDP.eliminarElemDisco(id);
+                ret = true;
             }
-            else ret = false;
+            
         }
         else if(restdemografica.containsKey(id)) {
             if(!RestGDP.existeRestEnBarrios(id)){
                 restdemografica.remove(id);
                 RestGDP.eliminarElemDisco(id);
+                ret = true;
             }
-            else ret = false;
+            
         }
         return ret;
         
+    }
+    
+    
+    /**
+     * Funcion que comprueba si existe alguna Restriccion de ubicacion o 
+     * demografica que se aplique sobre el Elemento con identificador ID.
+     * @param ID Identificador del Elemento del cual comprobamos la existencia
+     * de Restricciones.
+     * @return Retorna si existe alguna Restriccion que se aplique al Elemento
+     * con el identificador ID.
+     */
+    public boolean existeRestElem(Integer ID){
+        boolean ret = false;
+        ArrayList<Restriccion> Rest = new ArrayList();
+        Rest.addAll((ArrayList<Restriccion_ubicacion>) restubicacion.values());
+        Rest.addAll((ArrayList<Restriccion_demografica>) restdemografica.values());
+        for(int i = 0; i < Rest.size(); ++i){
+            Restriccion r;
+            r = Rest.get(i);
+            if(r instanceof Restriccion_ubicacion){
+                Restriccion_ubicacion r2 = (Restriccion_ubicacion) r;
+                if(ID == r2.consultar_OID1() || ID == r2.consultar_OID2()){
+                    return true;
+                }
+            }
+            else if(r instanceof Restriccion_demografica){
+                Restriccion_demografica r2 = (Restriccion_demografica) r;
+                if(ID == r2.consultar_OID()){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     
