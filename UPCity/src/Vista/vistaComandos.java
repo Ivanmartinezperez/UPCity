@@ -117,7 +117,54 @@ public class vistaComandos {
     
     //////////////GESTION RESTRICCIONES///////////////////////////////////////
     private boolean crearRestriccion(){
-        return false;
+        System.out.println("Que tipo de edificio desea crear:");
+        System.out.println("1-Ubicacion\n2-Economica\n3-Demografica\n4-Salir");
+        
+        Scanner action = new Scanner(System.in);
+        
+        int n=(int)action.nextInt();
+        
+        while(n!=4){
+            Scanner parametros = new Scanner(System.in);
+            switch(n){
+                case 1: System.out.println("Escriba el primer elemento de restriccion");
+                        Integer OID1 = (int) parametros.nextInt();
+                        System.out.println("Escriba el segundo elemento de restriccion");
+                        Integer OID2 = (int) parametros.nextInt();
+                        System.out.println("Eliga la distancia de restriccion");
+                        int distancia = (int) parametros.nextInt();
+                        // para hacer id por ahora
+                        System.out.println("Escriba el id de la restriccion");
+                        String id = parametros.nextLine();
+                        CtrlDomRestricciones.CrearRestriccion(id, "ubicacion", OID1, OID2, distancia, -1, -1);
+                        System.out.println("Creado correctamente");
+                        break;
+                case 2: System.out.println("Escriba cantidad de dinero para comercios");
+                        int com = (int) parametros.nextInt();
+                        System.out.println("Escriba cantidad de dinero para viviendas");
+                        int viv = (int) parametros.nextInt();
+                        System.out.println("Escriba cantidad de dinero para espacio publico");
+                        int pub = (int) parametros.nextInt();
+                        
+                        CtrlDomRestricciones.CrearRestriccion("economica1", "economica", -1, -1, com, viv, pub);
+                        System.out.println("Creado correctamente");
+                        break;
+                case 3: System.out.println("Escriba el elemento de restriccion");
+                        Integer OID = (int) parametros.nextInt();
+                        System.out.println("Escriba la cantidad minima de habitantes");
+                        int habitantes = (int) parametros.nextInt();
+                        // para hacer id por ahora
+                        System.out.println("Escriba el id de la restriccion");
+                        String id1 = parametros.nextLine();
+                        CtrlDomRestricciones.CrearRestriccion(id1, "demografica", OID, -1, habitantes, -1, -1);
+                        System.out.println("Creado correctamente");
+                        break;
+                default: System.out.println("Opcio Invalida");    
+            }
+            System.out.println("Que tipo de edificio desea crear:");
+            System.out.println("1-Ubicacion\n2-Economica\n3-Demografica\n4-Salir");
+            n = (int)action.nextInt();
+        }
     }
     
     private boolean eliminarRestriccion(){
