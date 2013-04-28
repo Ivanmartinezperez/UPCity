@@ -166,18 +166,24 @@ public class CtrlDomRestricciones {
     public boolean Eliminar_Restriccion(String id){
         boolean ret = true;
         if(restubicacion.containsKey(id)){
-            if(!RestGDP.existeRestEnBarrios(id))
+            if(!RestGDP.existeRestEnBarrios(id)){
                 restubicacion.remove(id);
+                RestGDP.eliminarElemDisco(id);
+            }
             else ret = false;
         }
         else if(resteconomica.containsKey(id)){
-            if(!RestGDP.existeRestEnBarrios(id))
+            if(!RestGDP.existeRestEnBarrios(id)){
                 resteconomica.remove(id);
+                RestGDP.eliminarElemDisco(id);
+            }
             else ret = false;
         }
         else if(restdemografica.containsKey(id)) {
-            if(!RestGDP.existeRestEnBarrios(id))
+            if(!RestGDP.existeRestEnBarrios(id)){
                 restdemografica.remove(id);
+                RestGDP.eliminarElemDisco(id);
+            }
             else ret = false;
         }
         return ret;

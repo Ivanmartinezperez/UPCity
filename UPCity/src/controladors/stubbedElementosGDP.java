@@ -54,17 +54,39 @@ public class stubbedElementosGDP {
                               TreeMap<String,Elemento> TE3,
                               HashMap<Integer,ArrayList<Elemento>> HE3){
         
-        System.out.println("Simulando lectura de disco...Cargando Elementos"); 
+        System.out.println("Simulando lectura de disco...Cargando Elementos\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment.\n For now you have to keep up with temporal "
+                + "data"); 
         
         
     }
         
     
     public void escribirElemento(Elemento e){
+        System.out.println("Simulando escritura en disco...Guardando Elemento\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment");
+    }
         
+    
+    
+    public boolean existeElemEnBarrios(String Elem){
+        System.out.println("Simulando lectura de disco...Buscando Elemento\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment");
+        return false;
     }
     
     
-    
+    public void eliminarElemDisco(String Elem){
+        System.out.println("Simulando escritura en disco...Eliminando Elemento\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment");
+    }
     
 }

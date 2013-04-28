@@ -45,19 +45,37 @@ public class stubbedRestriccionesGDP {
      * @param TablaRest 
      */
     public void leerRestricciones(TreeMap<String,Restriccion_ubicacion> TablaRest){
-        System.out.println("Simulando lectura de disco...Cargando Restricciones\n"
-                + "Error! Disco NOT FOUND");
+        System.out.println("Simulando lectura de disco...Cargando "
+                + "Restricciones\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment\n For now you have to keep up with temporal "
+                + "data");
     }
     
     public void escribirRestriccion(Restriccion r){
-        System.out.println("Simulando escritura en disco...Guardando Restriccion\n"
-                + "Error! Disco NOT FOUND");
+        System.out.println("Simulando escritura en disco...Guardando "
+                + "Restriccion\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment");
     }
     
     public boolean existeRestEnBarrios(String id){
-        System.out.println("Simulando escritura en disco...Guardando Restriccion\n"
-                + "Error! Disco NOT FOUND, Anyway is empty");
+        System.out.println("Simulando escritura en disco...Buscando "
+                + "Restriccion\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment");
         return false;
+    }
+    
+    public void eliminarElemDisco(String id){
+        System.out.println("Simulando escritura en disco...Eliminando "
+                + "Restriccion\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment");
     }
     
 }
