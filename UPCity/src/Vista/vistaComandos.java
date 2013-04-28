@@ -19,6 +19,7 @@ public class vistaComandos {
     
     private CtrlDomBarrios CtrlBarrio;
     private CtrlDomElementos CtrlElem;
+    private CtrlDomRestricciones CtrlRest;
     
     
     /////////////////GESTION ELEMENTOS///////////////////////////
@@ -117,7 +118,7 @@ public class vistaComandos {
     
     //////////////GESTION RESTRICCIONES///////////////////////////////////////
     private boolean crearRestriccion(){
-        System.out.println("Que tipo de edificio desea crear:");
+        System.out.println("Que tipo de restriccion desea crear:");
         System.out.println("1-Ubicacion\n2-Economica\n3-Demografica\n4-Salir");
         
         Scanner action = new Scanner(System.in);
@@ -136,7 +137,7 @@ public class vistaComandos {
                         // para hacer id por ahora
                         System.out.println("Escriba el id de la restriccion");
                         String id = parametros.nextLine();
-                        CtrlDomRestricciones.CrearRestriccion(id, "ubicacion", OID1, OID2, distancia, -1, -1);
+                        CtrlRest.CrearRestriccion(id, "ubicacion", OID1, OID2, distancia, -1, -1);
                         System.out.println("Creado correctamente");
                         break;
                 case 2: System.out.println("Escriba cantidad de dinero para comercios");
@@ -146,7 +147,7 @@ public class vistaComandos {
                         System.out.println("Escriba cantidad de dinero para espacio publico");
                         int pub = (int) parametros.nextInt();
                         
-                        CtrlDomRestricciones.CrearRestriccion("economica1", "economica", -1, -1, com, viv, pub);
+                        CtrlRest.CrearRestriccion("economica1", "economica", -1, -1, com, viv, pub);
                         System.out.println("Creado correctamente");
                         break;
                 case 3: System.out.println("Escriba el elemento de restriccion");
@@ -156,19 +157,37 @@ public class vistaComandos {
                         // para hacer id por ahora
                         System.out.println("Escriba el id de la restriccion");
                         String id1 = parametros.nextLine();
-                        CtrlDomRestricciones.CrearRestriccion(id1, "demografica", OID, -1, habitantes, -1, -1);
+                        CtrlRest.CrearRestriccion(id1, "demografica", OID, -1, habitantes, -1, -1);
                         System.out.println("Creado correctamente");
                         break;
                 default: System.out.println("Opcio Invalida");    
             }
-            System.out.println("Que tipo de edificio desea crear:");
+            System.out.println("Que tipo de restriccion desea crear:");
             System.out.println("1-Ubicacion\n2-Economica\n3-Demografica\n4-Salir");
             n = (int)action.nextInt();
         }
+        return true;
     }
     
     private boolean eliminarRestriccion(){
-        return false;
+        System.out.println("Eliminar Restriccion:");
+        System.out.println("1-Proceder a eliminacion/2-Salir");
+        
+        Scanner action = new Scanner(System.in);
+        
+        int n=(int)action.nextInt();
+        
+        while(n == 1){
+            Scanner parametros = new Scanner(System.in);
+            String id = parametros.nextLine();
+            boolean aux = CtrlRest.Eliminar_Restriccion(id);
+            if (aux) System.out.println("Restriccion eliminada");
+            else System.out.println("No se pudo eliminar restriccion (error de id)");
+            System.out.println("Eliminar Restriccion:");
+            System.out.println("1-Proceder a eliminacion/2-Salir");
+            n = (int)action.nextInt();
+        }
+       return true; 
     }
     
     private boolean listarRestricciones(){
@@ -202,7 +221,17 @@ public class vistaComandos {
     
     ////////////////////////GESTION BARRIOS//////////////////////////////////////
     private boolean crearBarrio(){
-        return false;
+        System.out.println("Crear barrio:");
+        System.out.println("Introduzca el nombre del Barrio:");
+        Scanner action = new Scanner(System.in);
+        String nombre = action.nextLine();
+        System.out.println("Introduzca el tipo de barrio:");
+        System.out.println("(0-3)");
+        int tipo = (int)action.nextInt();
+        boolean aux = CtrlBarrio.crearBarrio(nombre, tipo);
+        if (aux) System.out.println("Barrio creado");
+        else System.out.println("Barrio no se pudo crear");
+        return aux;
     }
     
     private boolean cargarBarrio(){
