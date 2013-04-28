@@ -50,7 +50,7 @@ public class stubbedRestriccionesGDP {
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
                 + "installment\n For now you have to keep up with temporal "
-                + "data");
+                + "data\n");
     }
     
     public void escribirRestriccion(Restriccion r){
@@ -58,7 +58,7 @@ public class stubbedRestriccionesGDP {
                 + "Restriccion\n"
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
-                + "installment");
+                + "installment\n");
     }
     
     public boolean existeRestEnBarrios(String id){
@@ -66,7 +66,7 @@ public class stubbedRestriccionesGDP {
                 + "Restriccion\n"
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
-                + "installment");
+                + "installment\n");
         return false;
     }
     
@@ -75,7 +75,7 @@ public class stubbedRestriccionesGDP {
                 + "Restriccion\n"
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
-                + "installment");
+                + "installment\n");
     }
     
 }

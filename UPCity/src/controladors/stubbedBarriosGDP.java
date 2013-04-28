@@ -39,6 +39,21 @@ public class stubbedBarriosGDP {
     /////LECTURAS DEL DISCO/////
     
     /**
+     * Funcion que lee los nombres de los barrios ya creados y los guarda en el
+     * TreeMap TablaBarrio.
+     * @param TablaBarrios TreeMap que utilizamos para pasar los nombres de los
+     * barrios al controlador de dominio del barrio.
+     */
+    public void leerBarriosCreados(TreeMap<String,Integer> TablaBarrios){
+        System.out.println("Simulando lectura de disco...Cargando Barrios\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment.\n For now you have to keep up with temporal "
+                + "data");
+    }
+    
+    
+    /**
      * Lectura de datos persistentes del disco, lee los datos del barrio con el
      * nombre nomBarr, que le llega como parametro, guardado en el disco.
      * @param nomBarr Nombre del Barrio del que se solicita la lectura de los 
@@ -47,8 +62,11 @@ public class stubbedBarriosGDP {
      * controlador de barrios
      */     
     public void leerBarrio(String nomBarr, Barrio Bar){
-//        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
-//        cual tengo la duda que este del todo correcto :S    
+    System.out.println("Simulando lectura de disco...Cargando Barrio\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment.\n For now you have to keep up with temporal "
+                + "data");    
     }
     
     
@@ -63,8 +81,11 @@ public class stubbedBarriosGDP {
      * leidos del disco para pasarlos al controlador de barrios.
      */     
     public void leerCjtElem(String nomBarr, Cjt_Elementos CjtElem){
-//        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
-//        cual tengo la duda que este del todo correcto :S    
+        System.out.println("Simulando lectura de disco...Cargando CjtElementos\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment.\n For now you have to keep up with temporal "
+                + "data");
     }
     
     
@@ -79,8 +100,11 @@ public class stubbedBarriosGDP {
      * restricciones leidas del disco para pasarlos al controlador de barrios.  
      */
     public void leerCjtRest(String nomBarr, TreeMap<String,Restriccion> CjtRest){
-//        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
-//        cual tengo la duda que este del todo correcto :S
+        System.out.println("Simulando lectura de disco...Cargando CjtRestricciones\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment.\n For now you have to keep up with temporal "
+                + "data");
     }
     
     
@@ -94,8 +118,11 @@ public class stubbedBarriosGDP {
      * disco para pasarlo al controlador de barrios.  
      */
     public void leerMapa(String nomBarr, Plano Mapa){
-//        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
-//        cual tengo la duda que este del todo correcto :S
+        System.out.println("Simulando lectura de disco...Cargando Plano\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment.\n For now you have to keep up with temporal "
+                + "data");
     }
     
     
@@ -109,8 +136,10 @@ public class stubbedBarriosGDP {
      * @param Bar El Barrio que se quiere escribir al disco.
      */     
     public void escribirBarrio(String nomBarr, Barrio Bar){
-//        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
-//        cual tengo la duda que este del todo correcto :S    
+        System.out.println("Simulando escritura en disco...Guardando Barrio\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment.\n");
     }
     
     
@@ -124,8 +153,10 @@ public class stubbedBarriosGDP {
      * @param CjtElem El Cjt_Elementos que se quiere guardar en el disco.
      */     
     public void escribirCjtElem(String nomBarr, Cjt_Elementos CjtElem){
-//        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
-//        cual tengo la duda que este del todo correcto :S    
+        System.out.println("Simulando escritura en disco...Guardando CjtElementos\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment.\n");
     }
     
     
@@ -140,8 +171,10 @@ public class stubbedBarriosGDP {
      * disco.
      */
     public void escribirCjtRest(String nomBarr, TreeMap<String,Restriccion> CjtRest){
-//        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
-//        cual tengo la duda que este del todo correcto :S
+        System.out.println("Simulando escritura en disco...Guardando CjtRestricciones\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment.\n");
     }
     
     /**
@@ -153,8 +186,10 @@ public class stubbedBarriosGDP {
      * @param Mapa El Plano que se quiere guardar en el disco.
      */
     public void escribirMapa(String nomBarr, Plano Mapa){
-//        Aqui simulamos los datos persistentes itroduciendolos por consola, lo 
-//        cual tengo la duda que este del todo correcto :S
+        System.out.println("Simulando escritura en disco...Guardando Plano\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment.\n");
     }
     
     
