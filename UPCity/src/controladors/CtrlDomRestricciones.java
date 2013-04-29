@@ -23,6 +23,7 @@ public class CtrlDomRestricciones {
     private static CtrlDomRestricciones INSTANCE=null;
     private static boolean init=false;
     
+    
     /**
      * Creadora de la clase controlador de dominio de restricciones
      * @param ubicacion estructura que contiene las restricciones de ubicacion
@@ -64,11 +65,11 @@ public class CtrlDomRestricciones {
      * Encargado de crear una restriccion e ingresarla en la estructura deseada
      * @param id id de la nueva restriccion
      * @param tipo tipo de restriccion
-     * @param OID1 se utiliza en el caso de crear restriccion de ubicacion y 
-     * restriccion demografica. Es el id del primer elemento en caso de 
-     * ubicacion y es el id del elemento a restringir en caso demografica
-     * @param OID2 se utiliza solo en el caso de crear restriccion de ubicacion.
-     * Es el id del segundo elemento
+     * @param nombre1 se utiliza en el caso de crear restriccion de ubicacion y 
+     * restriccion demografica. Es el nombre del primer elemento en caso de 
+     * ubicacion y es el nombre del elemento a restringir en caso demografica
+     * @param nombre2 se utiliza solo en el caso de crear restriccion de ubicacion.
+     * Es el nombre del segundo elemento
      * @param aux1 en caso ubicacion es la distancia, en caso demografica es 
      * habitantes, y en caso economica es cantidad de dinero para comercios
      * @param aux2 se utiliza solo en caso de restriccion economica. Es la 
@@ -211,7 +212,7 @@ public class CtrlDomRestricciones {
      * Funcion que busca la Restriccion con el nombre Rest entre las 
      * Restricciones dentro del sistema, si esta la retorna y si no esta 
      * retorna null.
-     * @param Rest
+     * @param Rest Nombre de la Restriccion deseada.
      * @return Retorna la Restriccion buscada si la ha encontrado, o sino 
      * retorna null.
      */
@@ -261,52 +262,100 @@ public class CtrlDomRestricciones {
     
     
     /**
-     * Listado de instancias Restricciones del sistema.
+     * Array de instancias Restricciones del sistema.
      * @return Devuelve un Array de Restricciones del sistema.
      */
-    public ArrayList<Restriccion> ListaRestricciones(){
+    private ArrayList<Restriccion> arrayRest(){
              
             ArrayList<Restriccion> aux = new ArrayList();
-            aux.addAll((ArrayList<Restriccion_ubicacion>) restubicacion.values());
-            aux.addAll((ArrayList<Restriccion_economica>) resteconomica.values());
-            aux.addAll((ArrayList<Restriccion_demografica>) restdemografica.values());
+            aux.addAll(restubicacion.values());
+            aux.addAll(resteconomica.values());
+            aux.addAll(restdemografica.values());
             return aux;
             
          }
     
     
     /**
-     * Listado de instancias de un tipo determinado de Restricciones del sistema
-     * @param tipo El nombre del tipo de Restricciones que se desea
-     * @return 
+     * Array de instancias de un tipo determinado de Restricciones del sistema
+     * @param tipo El nombre del tipo de Restricciones que se desea.
+     * @return Devuelve un Array de Restricciones del tipo deseado.
      */
-    public ArrayList<Restriccion> ListaRestriccionesTipo(String tipo){
+    private ArrayList<Restriccion> arrayRestTipo(String tipo){
              
             ArrayList<Restriccion> aux = new ArrayList();
             
             switch(tipo){
             case "ubicacion":
-                aux.addAll((ArrayList<Restriccion_ubicacion>) restubicacion.values());
+                aux.addAll(restubicacion.values());
                 break;
             case "economica":
-            aux.addAll((ArrayList<Restriccion_economica>) resteconomica.values());
+            aux.addAll(resteconomica.values());
                 break;
             case "demografica":
-                aux.addAll((ArrayList<Restriccion_demografica>) restdemografica.values());
+                aux.addAll(restdemografica.values());
                 break;
             }
             return aux;
             
+    }
+    
+    
+    /**
+     * Funcion que lista un tipo de Restricciones que tiene el sistema.
+     * @param tipo Tipo de Restricciones que se quiere listar.
+     * @return Retorna un matriz de Strings que contiene los parametros de las
+     * Restricciones deseadas.
+     */
+    public String[][] listarRestTipo(String tipo){
+         ArrayList<Restriccion> rest = arrayRestTipo(tipo);
+         String[][] mat = null;
+         if(!rest.isEmpty()) mat = new String[rest.size()][5];
+         Restriccion_ubicacion u;
+         Restriccion_economica e;
+         Restriccion_demografica d;
+         
+         for(int i=0; i<rest.size(); ++i){
+             switch(tipo){
+                 case "ubicacion":
+                     u = (Restriccion_ubicacion) rest.get(i);
+                     mat[i][0] = u.getId();
+                     mat[i][1] = String.valueOf(u.consultar_OID1());
+                     mat[i][2] = String.valueOf(u.consultar_OID2());
+                     mat[i][3] = String.valueOf(u.consultar_distancia());
+                     mat[i][4] = "-1";
+                     break;
+
+                 case "economica":
+                     e = (Restriccion_economica) rest.get(i);
+                     mat[i][0] = e.getId();
+                     mat[i][1] = String.valueOf(e.consultar_saldo());
+                     mat[i][2] = String.valueOf(e.consultar_saldo_ind(1));
+                     mat[i][3] = String.valueOf(e.consultar_saldo_ind(2));
+                     mat[i][4] = String.valueOf(e.consultar_saldo_ind(0));
+                     break;
+
+                 case "demografica":
+                     d = (Restriccion_demografica) rest.get(i);
+                     mat[i][0] = d.getId();
+                     mat[i][1] = String.valueOf(d.consultar_OID());
+                     mat[i][2] = String.valueOf(d.consultar_habitantes());
+                     mat[i][4] = "-1";
+                     mat[i][5] = "-1";
+                     break;
+             }
          }
-         
-         
+         return mat;
+    }
+    
+    
      /**
-      * Listado de nombres de las restricciones del sistema
+      * Listado de nombres de las restricciones del sistema.
       * @return Devuelve un set con los nombres de las restricciones del 
-      * sistema 
+      * sistema. 
       */
      public Set<String> ListaNombreRestricciones(){
-             
+
             Set<String> aux = new HashSet();
             if(!restubicacion.isEmpty())
                 aux.addAll(restubicacion.keySet());
@@ -314,18 +363,18 @@ public class CtrlDomRestricciones {
                 aux.addAll(resteconomica.keySet());
             if(!restdemografica.isEmpty())
                 aux.addAll(restdemografica.keySet());
-                     
+
             return aux;
          }
-         
-        
+
+
      /**
-     * Listado de nombres de un tipo determinado de Restricciones del sistema
-     * @param tipo El nombre del tipo de Restricciones que se desea
-     * @return 
-     */
+      * Listado de nombres de un tipo determinado de Restricciones del sistema.
+      * @param tipo El nombre del tipo de Restricciones que se desea.
+      * @return Retorna un set de Restricciones de un determinado tipo.
+      */
      public Set<String> ListaNombreRestriccionesTipo(String tipo){
-             
+
             Set<String> aux = new HashSet();
             switch(tipo){
                     case "ubicacion":
@@ -341,7 +390,7 @@ public class CtrlDomRestricciones {
                             aux.addAll(restdemografica.keySet());
                         break;
             }
-                     
+
             return aux;
          }
          

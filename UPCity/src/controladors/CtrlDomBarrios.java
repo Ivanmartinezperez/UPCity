@@ -468,6 +468,186 @@ public class CtrlDomBarrios {
         }
     }
     
+    
+    /**
+     * Listar los Elementos del Conjunto de Elementos del Barrio. 
+     * @return Retorna una matriz de Strings con los parametros de los 
+     * Elementos del Conjunto.
+     */
+    public String[][] listarCjtElemBarrio(){
+        ArrayList<Pair<Integer,Elemento>> elem = new ArrayList();
+        elem.addAll(CjtElem.values());
+        String[][] mat = null;
+        if(!elem.isEmpty()) mat = new String[elem.size()][8];
+        Pair<Integer,Elemento> val;
+        int cant;
+        Elemento e;
+        Vivienda v;
+        Publico p;
+        Comercio c;
+
+        for(int i=0; i<elem.size(); ++i){
+            val = elem.get(i);
+            cant = val.getFirst();
+            e = val.getSecond();
+            if(e instanceof Vivienda){    
+                v = (Vivienda) e;
+                mat[i][0] = String.valueOf(cant);
+                mat[i][1] = v.getNom();
+                mat[i][2] = String.valueOf(v.getTBarrio());
+                mat[i][3] = String.valueOf(v.getPrecio());
+                mat[i][4] = String.valueOf(v.Getcap_max());
+                mat[i][5] = String.valueOf(v.getTamanoX());
+                mat[i][6] = String.valueOf(v.getTamanoY());
+                mat[i][7] = "-1";
+            }
+
+            else if(e instanceof Publico){
+                p = (Publico) e;
+                mat[i][0] = String.valueOf(cant);
+                mat[i][1] = p.getNom();
+                mat[i][2] = String.valueOf(p.getTBarrio());
+                mat[i][3] = String.valueOf(p.getPrecio());
+                mat[i][4] = String.valueOf(p.Gettipo());
+                mat[i][5] = String.valueOf(p.Getcapacidad_serv());
+                mat[i][6] = String.valueOf(p.getTamanoX());
+                mat[i][7] = String.valueOf(p.getTamanoY());
+            }
+
+            else {
+                c = (Comercio) e;
+                mat[i][0] = String.valueOf(cant);
+                mat[i][1] = c.getNom();
+                mat[i][2] = String.valueOf(c.getTBarrio());
+                mat[i][3] = String.valueOf(c.getPrecio());
+                mat[i][4] = String.valueOf(c.getCapacidad());
+                mat[i][5] = String.valueOf(c.getTamanoX());
+                mat[i][6] = String.valueOf(c.getTamanoY());
+                mat[i][7] = "-1";
+            }
+           
+        }
+        return mat;
+    }
+    
+    
+    /**
+     * Listar Restricciones del Conjunto de Restricciones del Barrio.
+     * @return Retorna una matriz de Strings con los parametros de las
+     * Restricciones del Conjunto.
+     */
+    public String[][] listarCjtRestBarrio(){
+        ArrayList<Restriccion> rest = new ArrayList();
+        rest.addAll(CjtRest.values());
+        String[][] mat = null;
+        if(!rest.isEmpty()) mat = new String[rest.size()][5];
+        Restriccion r;
+        Restriccion_ubicacion u;
+        Restriccion_economica e;
+        Restriccion_demografica d;
+         
+        for(int i=0; i<rest.size(); ++i){
+            r = rest.get(i);
+            if(r instanceof Restriccion_ubicacion){
+                u = (Restriccion_ubicacion) r;
+                mat[i][0] = u.getId();
+                mat[i][1] = String.valueOf(u.consultar_OID1());
+                mat[i][2] = String.valueOf(u.consultar_OID2());
+                mat[i][3] = String.valueOf(u.consultar_distancia());
+                mat[i][4] = "-1";
+            }
+
+            else if(r instanceof Restriccion_economica){
+                e = (Restriccion_economica) r;
+                mat[i][0] = e.getId();
+                mat[i][1] = String.valueOf(e.consultar_saldo());
+                mat[i][2] = String.valueOf(e.consultar_saldo_ind(1));
+                mat[i][3] = String.valueOf(e.consultar_saldo_ind(2));
+                mat[i][4] = String.valueOf(e.consultar_saldo_ind(0));
+            }
+
+            else{
+                d = (Restriccion_demografica) r;
+                mat[i][0] = d.getId();
+                mat[i][1] = String.valueOf(d.consultar_OID());
+                mat[i][2] = String.valueOf(d.consultar_habitantes());
+                mat[i][4] = "-1";
+                mat[i][5] = "-1";
+            }
+            
+        }
+        return mat;
+    }
+    
+    
+    /**
+     * Consultora del Nombre del Barrio sobre el que se trabaja.
+     * @return Retorna el Nombre del Barrio sobre el que trabaja.
+     */
+    public String getNombreBarrio(){
+        return B.getNombreBarrio();
+    }
+    
+    
+    /**
+     * Consultora del Tipo de Barrio del Barrio sobre el que se trabaja.
+     * @return Retorna el Tipo de Barrio del Barrio sobre el que se trabaja.
+     */
+    public int getTipoBarrio(){
+        return B.getTipoBarrio();
+    }
+    
+    
+    /**
+     * Consultora del Presupuesto del Barrio sobre el que se trabaja.
+     * @return Retorna el Presupuesto del Barrio sobre el que se trabaja.
+     */
+    public int getPresupuestoBarrio(){
+        return B.getPresupuesto();
+    }
+    
+    
+    /**
+     * Consultora de la Poblacion del Barrio sobre el que se trabaja.
+     * @return Retorna la Poblacion del Barrio sobre el que se trabaja.
+     */
+    public int getPoblacionBarrio(){
+        return B.getPoblacion();
+    }
+    
+    
+    /**
+     * Consultora del dinero gastado del Barrio sobre el que se trabaja.
+     * @return Retorna el dinero que se ha gastado del Barrio sobre el que se
+     * trabaja
+     */
+    public int getGastadoBarrio(){
+        return B.getGastado();
+    }
+    
+    
+    /**
+     * Consultora de la poblacion que puede albergar el Barrio sobre el que se
+     * trabaja.
+     * @return Retorna el numero de habitantes que puede albergar el barrio 
+     * sobre el que se trabaja.
+     */
+    public int getViviendoBarrio(){
+        return B.getViviendo();
+    }
+    
+    
+    /**
+     * Consultora de capacidad de comercio del Barrio sobre el que se trabaja.
+     * @return Retorna la cantidad de habitantes que pueden atender el total de 
+     * comercios disponibles en el Barrio.
+     */
+    public int getComercioBarrio(){
+        return B.getCapacidad_comercio();
+    }
+    
+    
+    
     /**
      * Ajusta el inicio de recorrido de la matriz en caso de llegar al final de la fila
      * 

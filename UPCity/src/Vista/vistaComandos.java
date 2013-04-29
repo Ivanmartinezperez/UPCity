@@ -273,6 +273,10 @@ public class vistaComandos {
     ///////////////////////////////////////////////////
     
     ////////////////////////GESTION BARRIOS//////////////////////////////////////
+    private Boolean mostrarBarrio() throws Exception {
+        return true;
+    }
+    
     private boolean crearBarrio() throws Exception{
         System.out.println("Crear barrio:");
         System.out.println("Introduzca el nombre del Barrio:");
@@ -288,37 +292,110 @@ public class vistaComandos {
         int y = (int)parametros.nextInt();
         aux = CtrlBarrio.crearMapaBarrio(x, y);
         
+        System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n6-Crear restriccion\n7-finalizar y generar mi barrio\n0-Salir");
         Scanner action = new Scanner(System.in);
-        
-        System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Salir");
-        
         int n=(int)action.nextInt();
-        
-        while(n!=5){
+        boolean aux1;
+        boolean generado = false;
+        while(n!=0){
+            String id;
             switch(n){
             
                 case 1: listarElementos();
-                        System.out.println("Escriba el nombre del elemento que desea eliminar ");
-                        //leer + llamar a añadirelemento
+                        System.out.println("Escriba el nombre del elemento que desea añadir al barrio: ");
+                        Scanner param = new Scanner(System.in);
+                        id = param.nextLine();
+                        System.out.println("Escriba la cantidad que quieres de este elemento en el barrio: ");
+                        int cant = (int)action.nextInt();
+                        aux1 = CtrlBarrio.anadirElemBarrio(id, cant);
+                        if (aux1) System.out.println("Elemento añadido correctamente");
+                        else System.out.println("No se pudo añadir el elemento");
                         break;
-                case 2: //Listar elementos del cjt + preguntar cual borrar+llamar a eliminar
+                case 2: listarElementos();
+                        System.out.println("Escriba el nombre del elemento que desea quitar del barrio: ");
+                        Scanner param2 = new Scanner(System.in);
+                        id = param2.nextLine();
+                        System.out.println("Escriba la cantidad que quieres quitar de este elemento en el barrio: ");
+                        cant = (int)action.nextInt();
+                        aux1 = CtrlBarrio.anadirElemBarrio(id, cant);
+                        if (aux1) System.out.println("Elemento eliminado correctamente");
+                        else System.out.println("No se pudo eliminar el elemento");
                         break;
-                case 3: // lo mismo que las anteriores pero con restricciones
+                case 3: listarRestricciones();
+                        System.out.println("Escriba el nombre de restriccion que desea añadir al barrio: ");
+                        Scanner param3 = new Scanner(System.in);
+                        id = param3.nextLine();              
+                        aux1 = CtrlBarrio.anadirRestBarrio(id);
+                        if (aux1) System.out.println("Restriccion añadido correctamente");
+                        else System.out.println("No se pudo añadir la restriccion");
                         break;
-                case 4://
+                case 4: listarRestricciones();
+                        System.out.println("Escriba el nombre de restriccion que desea quitar del barrio: ");
+                        Scanner param4 = new Scanner(System.in);
+                        id = param4.nextLine();               
+                        aux1 = CtrlBarrio.quitarRestBarrio(id);
+                        if (aux1) System.out.println("Restriccion eliminado correctamente");
+                        else System.out.println("No se pudo eliminar la restriccion");             
                         break;
+                case 5: crearElemento();
+                        break;
+                case 6: crearRestriccion();
+                        break;
+                case 7: System.out.println("Desea generar el barrio?\n1-Si\n2-Volver");
+                        int opc = (int) action.nextInt();
+                        while(opc != 2){
+                            switch(opc){
+                                case 1: generado = CtrlBarrio.generarBarrio();
+                                        if (generado) System.out.println("El barrio se genero correctamente");
+                                        else System.out.println("No se pudo generar el barrio");
+                                        break;
+                                default: System.out.println("Opcio Invalida");
+                             }
+                         }
+                         break;
                 default: System.out.println("Opcio Invalida");    
             }
-            System.out.println("Que desea hacer:\n1-Crear Edificio\n2-Eliminar Edificio\n3-Listar Edificios\n4-Salir");
+           if(!generado){
+               System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n6-Crear restriccion\n7-finalizar y generar mi barrio\n0-Salir");
+               n = (int)action.nextInt();
+            }
+           else n = 0;
+        }
+        if(generado){
+            System.out.println("Mostrar barrio?\n1-Si\n2-No");
             n = (int)action.nextInt();
+            boolean mostrado = false;
+            while(n != 2){
+                switch(n){
+                       case 1:  mostrado = mostrarBarrio();
+                                if (!mostrado) System.out.println("No se pudo mostrar el barrio");
+                                break;
+                       default: System.out.println("Opcio Invalida");
+                  }
+                if (mostrado) n = 2;
+                else{
+                    System.out.println("Mostrar barrio?\n1-Si\n2-No");
+                    n = (int)action.nextInt();
+                }
+             }
+            System.out.println("Desea Guardar el Barrio?\n1-Si\n2-No");
+            n = (int)action.nextInt();
+            while(n != 2){
+                switch(n){
+                       case 1:  CtrlBarrio.guardarBarrio();
+                                n = 2;
+                                break;
+                       default: System.out.println("Opcio Invalida");
+                  }
+                if (n != 2){
+                    System.out.println("Desea Guardar el Barrio?\n1-Si\n2-No");
+                    n = (int)action.nextInt();
+                }
+             }
+             
         }
         
-        if (aux) System.out.println("Barrio creado");
-        else System.out.println("Barrio no se pudo crear");
-        
-        
-        
-        return aux;
+        return true;
     }
     
     private boolean cargarBarrio(){
