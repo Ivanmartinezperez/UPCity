@@ -298,12 +298,13 @@ public class vistaComandos {
         boolean aux1;
         boolean generado = false;
         while(n!=0){
-            
+            String id;
             switch(n){
             
                 case 1: listarElementos();
                         System.out.println("Escriba el nombre del elemento que desea añadir al barrio: ");
-                        String id = action.nextLine();
+                        Scanner param = new Scanner(System.in);
+                        id = param.nextLine();
                         System.out.println("Escriba la cantidad que quieres de este elemento en el barrio: ");
                         int cant = (int)action.nextInt();
                         aux1 = CtrlBarrio.anadirElemBarrio(id, cant);
@@ -312,7 +313,8 @@ public class vistaComandos {
                         break;
                 case 2: listarElementos();
                         System.out.println("Escriba el nombre del elemento que desea quitar del barrio: ");
-                        id = action.nextLine();
+                        Scanner param2 = new Scanner(System.in);
+                        id = param2.nextLine();
                         System.out.println("Escriba la cantidad que quieres quitar de este elemento en el barrio: ");
                         cant = (int)action.nextInt();
                         aux1 = CtrlBarrio.anadirElemBarrio(id, cant);
@@ -321,14 +323,16 @@ public class vistaComandos {
                         break;
                 case 3: listarRestricciones();
                         System.out.println("Escriba el nombre de restriccion que desea añadir al barrio: ");
-                        id = action.nextLine();               
+                        Scanner param3 = new Scanner(System.in);
+                        id = param3.nextLine();              
                         aux1 = CtrlBarrio.anadirRestBarrio(id);
                         if (aux1) System.out.println("Restriccion añadido correctamente");
                         else System.out.println("No se pudo añadir la restriccion");
                         break;
                 case 4: listarRestricciones();
                         System.out.println("Escriba el nombre de restriccion que desea quitar del barrio: ");
-                        id = action.nextLine();               
+                        Scanner param4 = new Scanner(System.in);
+                        id = param4.nextLine();               
                         aux1 = CtrlBarrio.quitarRestBarrio(id);
                         if (aux1) System.out.println("Restriccion eliminado correctamente");
                         else System.out.println("No se pudo eliminar la restriccion");             
@@ -337,7 +341,7 @@ public class vistaComandos {
                         break;
                 case 6: crearRestriccion();
                         break;
-                case 7: System.out.println("n1-Generar Barrio\n2-Volver");
+                case 7: System.out.println("Desea generar el barrio?\n1-Si\n2-Volver");
                         int opc = (int) action.nextInt();
                         while(opc != 2){
                             switch(opc){
