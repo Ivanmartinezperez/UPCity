@@ -273,7 +273,7 @@ public class vistaComandos {
     ///////////////////////////////////////////////////
     
     ////////////////////////GESTION BARRIOS//////////////////////////////////////
-    private boolean crearBarrio(){
+    private boolean crearBarrio() throws Exception{
         System.out.println("Crear barrio:");
         System.out.println("Introduzca el nombre del Barrio:");
         Scanner parametros = new Scanner(System.in);
@@ -282,8 +282,42 @@ public class vistaComandos {
         System.out.println("(0-3)");
         int tipo = (int)parametros.nextInt();
         boolean aux = CtrlBarrio.crearBarrio(nombre, tipo);
+        System.out.println("Introduzca el numero de parcelas horizontales del barrio:");
+        int x = (int)parametros.nextInt();
+        System.out.println("Introduzca el numero de parcelas verticales del barrio:");
+        int y = (int)parametros.nextInt();
+        aux = CtrlBarrio.crearMapaBarrio(x, y);
+        
+        Scanner action = new Scanner(System.in);
+        
+        System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Salir");
+        
+        int n=(int)action.nextInt();
+        
+        while(n!=5){
+            switch(n){
+            
+                case 1: listarElementos();
+                        System.out.println("Escriba el nombre del elemento que desea eliminar ");
+                        //leer + llamar a añadirelemento
+                        break;
+                case 2: //Listar elementos del cjt + preguntar cual borrar+llamar a eliminar
+                        break;
+                case 3: // lo mismo que las anteriores pero con restricciones
+                        break;
+                case 4://
+                        break;
+                default: System.out.println("Opcio Invalida");    
+            }
+            System.out.println("Que desea hacer:\n1-Crear Edificio\n2-Eliminar Edificio\n3-Listar Edificios\n4-Salir");
+            n = (int)action.nextInt();
+        }
+        
         if (aux) System.out.println("Barrio creado");
         else System.out.println("Barrio no se pudo crear");
+        
+        
+        
         return aux;
     }
     
@@ -308,7 +342,7 @@ public class vistaComandos {
     
     
     
-    private void gestionBarrios(){
+    private void gestionBarrios() throws Exception{
         System.out.println("Seccion destinada a la gestion de barrios");
         Scanner action = new Scanner(System.in);
         
