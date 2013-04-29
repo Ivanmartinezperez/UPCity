@@ -141,9 +141,9 @@ public class vistaComandos {
             Scanner parametros = new Scanner(System.in);
             switch(n){
                 case 1: System.out.println("Escriba el primer elemento de restriccion");
-                        Integer OID1 = (int) parametros.nextInt();
+                        String OID1 = parametros.nextLine();
                         System.out.println("Escriba el segundo elemento de restriccion");
-                        Integer OID2 = (int) parametros.nextInt();
+                        String OID2 = parametros.nextLine();
                         System.out.println("Eliga la distancia de restriccion");
                         int distancia = (int) parametros.nextInt();
                         // para hacer id por ahora
@@ -160,19 +160,19 @@ public class vistaComandos {
                         int viv = (int) parametros.nextInt();
                         System.out.println("Escriba cantidad de dinero para espacio publico");
                         int pub = (int) parametros.nextInt();
-                        aux = CtrlRest.CrearRestriccion("economica1", "economica", -1, -1, com, viv, pub);
+                        aux = CtrlRest.CrearRestriccion("economica1", "economica", "-1", "-1", com, viv, pub);
                         if (aux) System.out.println("Creado correctamente");
                         else System.out.println("La restriccion no se pudo crear");
                         break;
                 case 3: System.out.println("Escriba el elemento de restriccion");
-                        Integer OID = (int) parametros.nextInt();
+                        String OID = parametros.nextLine();
                         System.out.println("Escriba la cantidad minima de habitantes");
                         int habitantes = (int) parametros.nextInt();
                         // para hacer id por ahora
                         System.out.println("Escriba el id de la restriccion");
                         Scanner idscann1 = new Scanner(System.in);
                         String id1 = idscann1.nextLine();
-                        aux = CtrlRest.CrearRestriccion(id1, "demografica", OID, -1, habitantes, -1, -1);
+                        aux = CtrlRest.CrearRestriccion(id1, "demografica", OID, "-1", habitantes, -1, -1);
                         if (aux) System.out.println("Creado correctamente");
                         else System.out.println("La restriccion no se pudo crear");
                         break;
