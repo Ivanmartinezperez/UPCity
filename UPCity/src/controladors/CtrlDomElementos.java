@@ -391,10 +391,10 @@ public class CtrlDomElementos {
      private ArrayList<Elemento> ArrayElem(){
 
         ArrayList<Elemento> aux = new ArrayList();
-        aux.addAll((ArrayList<Elemento>) mapElem0.values());
-        aux.addAll((ArrayList<Elemento>) mapElem1.values());
-        aux.addAll((ArrayList<Elemento>) mapElem2.values());
-        aux.addAll((ArrayList<Elemento>) mapElem3.values());
+        aux.addAll(mapElem0.values());
+        aux.addAll(mapElem1.values());
+        aux.addAll(mapElem2.values());
+        aux.addAll(mapElem3.values());
         return aux;
 
      }

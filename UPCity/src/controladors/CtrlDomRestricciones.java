@@ -268,9 +268,9 @@ public class CtrlDomRestricciones {
     private ArrayList<Restriccion> arrayRest(){
              
             ArrayList<Restriccion> aux = new ArrayList();
-            aux.addAll((ArrayList<Restriccion_ubicacion>) restubicacion.values());
-            aux.addAll((ArrayList<Restriccion_economica>) resteconomica.values());
-            aux.addAll((ArrayList<Restriccion_demografica>) restdemografica.values());
+            aux.addAll(restubicacion.values());
+            aux.addAll(resteconomica.values());
+            aux.addAll(restdemografica.values());
             return aux;
             
          }
@@ -287,13 +287,13 @@ public class CtrlDomRestricciones {
             
             switch(tipo){
             case "ubicacion":
-                aux.addAll((ArrayList<Restriccion_ubicacion>) restubicacion.values());
+                aux.addAll(restubicacion.values());
                 break;
             case "economica":
-            aux.addAll((ArrayList<Restriccion_economica>) resteconomica.values());
+            aux.addAll(resteconomica.values());
                 break;
             case "demografica":
-                aux.addAll((ArrayList<Restriccion_demografica>) restdemografica.values());
+                aux.addAll(restdemografica.values());
                 break;
             }
             return aux;
