@@ -170,9 +170,21 @@ public class CtrlDomBarrios {
         else return false;
     }
     
+    /**
+     * Retorna la matriz del mapa para ser printada por pantalla
+     * @return Mapa en formato int
+     * @throws Exception 
+     */
     public Integer[][] vistaMapa() throws Exception{
         
         Integer [][] mapa = new Integer[Mapa.tama()][Mapa.tamb()];
+        
+        for(int i=0;i<Mapa.tama();++i){
+            for(int j=0;j<Mapa.tamb();++j){
+                mapa[i][j] = Mapa.pos(i, j).getoid();
+            }
+        }
+        
         return mapa;
         
     }
