@@ -135,6 +135,25 @@ public class CtrlDomBarrios {
         GDPBarr.escribirCjtElem(nombre,CjtElem);
     }
     
+    /**
+     * 
+     * Funcion encargada de generar el barrio actual con sus restricciones y elementos
+     * @return True si el barrio se ha generado correctamente, False en caso contrario
+     * @throws Exception 
+     */
+    public boolean generarBarrio() throws Exception{
+        
+        Pair[] lastVisited = new Pair[CjtElem.size()];
+        for(int i=0;i<CjtElem.size();++i){
+            Pair p = new Pair(0,0);
+            lastVisited[i]=p;
+        }
+        
+        ArrayList<Integer> idElem = new ArrayList<>();
+        idElem.addAll(CjtElem.keySet());
+        return backtracking(0,idElem,lastVisited,CjtRestUbic1,Mapa);
+    }
+    
     
     /**
      * Crea un Plano que se le asignara a un barrio acabado de crear, con las
@@ -149,6 +168,13 @@ public class CtrlDomBarrios {
             return true;
         }
         else return false;
+    }
+    
+    public Integer[][] vistaMapa() throws Exception{
+        
+        Integer [][] mapa = new Integer[Mapa.tama()][Mapa.tamb()];
+        return mapa;
+        
     }
     
     
@@ -437,7 +463,7 @@ public class CtrlDomBarrios {
      * @param k Cantidad de columnas que tiene la matriz mapa
      */
     
-    private void AjustaInicio(Pair p,int k){
+    private void ajustaInicio(Pair p,int k){
         
         if(p.getFirst()!=0 || p.getSecond()!=0){
             if((int)p.getSecond()< k-1){
@@ -471,7 +497,7 @@ public class CtrlDomBarrios {
             //System.out.println("Desexpando");
             p.expande((int)lastVisited[eAct].getFirst(),(int)lastVisited[eAct].getSecond(), 0, res, false);
         }
-            AjustaInicio(lastVisited[eAct],p.tamb());
+            ajustaInicio(lastVisited[eAct],p.tamb());
         
         for(int i=(int)lastVisited[eAct].getFirst();i<p.tama();++i){
             for(int j=(int) lastVisited[eAct].getSecond();j<p.tamb();++j){
@@ -501,7 +527,7 @@ public class CtrlDomBarrios {
      * @throws Exception 
      */
     
-    private boolean bactracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
+    private boolean backtracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
         
         
         //System.out.println("Backtracking con"+ (k+1));
@@ -520,13 +546,13 @@ public class CtrlDomBarrios {
             //System.out.println(""+pos.getFirst()+" "+pos.getSecond());
             if(pos.getFirst()!=-1){
                 p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, res.get(valor), true);
-                return bactracking(k+1,cjt,lastVisited,res,p);
+                return backtracking(k+1,cjt,lastVisited,res,p);
             }
             else{
                 lastVisited[k].setFirst(0);
                 lastVisited[k].setSecond(0);
                 //suponemos que cabeEnMapa desexpande !!!!TODO¡¡¡¡
-                return bactracking(k-1,cjt,lastVisited,res,p);
+                return backtracking(k-1,cjt,lastVisited,res,p);
                 
             }
             
