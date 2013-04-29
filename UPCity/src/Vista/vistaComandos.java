@@ -92,6 +92,12 @@ public class vistaComandos {
     }
     
     private boolean eliminarElemento(){
+        
+        Scanner action = new Scanner(System.in);
+        listarElementos();
+        System.out.println("Escriba el nombre del elemento que desea eliminar:");
+        String nombre = action.nextLine();
+        CtrlElem.EliminarElemento(nombre);
         return true;
     }
     
