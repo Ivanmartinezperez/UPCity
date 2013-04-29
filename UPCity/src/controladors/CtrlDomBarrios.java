@@ -27,7 +27,6 @@ public class CtrlDomBarrios {
     private Cjt_Elementos CjtElem;
     private TreeMap<String,Restriccion> CjtRest;
     private HashMap<Integer,ArrayList<Restriccion_ubicacion>> CjtRestUbic1;
-    private HashMap<Integer,ArrayList<Restriccion_ubicacion>> CjtRestUbic2;
     private HashMap<Integer,Restriccion_demografica> CjtRestDemog;
     private Restriccion_economica RestEcon;
     private Plano Mapa;
@@ -85,7 +84,6 @@ public class CtrlDomBarrios {
             CjtElem = new Cjt_Elementos();
             CjtRest = new TreeMap();
             CjtRestUbic1 = new HashMap();
-            CjtRestUbic2 = new HashMap();
             CjtRestDemog = new HashMap();
             RestEcon = new Restriccion_economica();
             Mapa = new Plano();
@@ -110,7 +108,6 @@ public class CtrlDomBarrios {
             CjtElem = new Cjt_Elementos();
             CjtRest = new TreeMap();
             CjtRestUbic1 = new HashMap();
-            CjtRestUbic2 = new HashMap();
             CjtRestDemog = new HashMap();
             RestEcon = new Restriccion_economica();
             Mapa = new Plano();
@@ -307,12 +304,12 @@ public class CtrlDomBarrios {
             aux2.add(r2);
             CjtRestUbic1.put((Integer) oid1, aux2);
 
-            if(CjtRestUbic2.containsKey(oid2))
-                aux2 = CjtRestUbic2.get(oid2);
+            if(CjtRestUbic1.containsKey(oid2))
+                aux2 = CjtRestUbic1.get(oid2);
             else
                 aux2 = new ArrayList();
             aux2.add(r3);
-            CjtRestUbic2.put((Integer) oid2, aux2);
+            CjtRestUbic1.put((Integer) oid2, aux2);
         }
         else if(r instanceof Restriccion_demografica){
             Restriccion_demografica r2 = (Restriccion_demografica) r;
@@ -339,9 +336,9 @@ public class CtrlDomBarrios {
             aux2 = CjtRestUbic1.get(oid1);
             aux2.remove(searchRestUbic(oid2,aux2));
             CjtRestUbic1.put((Integer) oid1, aux2);
-            aux2 = CjtRestUbic2.get(oid2);
+            aux2 = CjtRestUbic1.get(oid2);
             aux2.remove(searchRestUbic(oid1,aux2));
-            CjtRestUbic2.put((Integer) oid2, aux2);
+            CjtRestUbic1.put((Integer) oid2, aux2);
         }
         else if(r instanceof Restriccion_demografica){
             Restriccion_demografica r2 = (Restriccion_demografica) r;
@@ -432,6 +429,110 @@ public class CtrlDomBarrios {
             
         }
     }
-
-
+    
+    /**
+     * Ajusta el inicio de recorrido de la matriz en caso de llegar al final de la fila
+     * 
+     * @param p La ultima posicion visitada del elemento actualmente tratado
+     * @param k Cantidad de columnas que tiene la matriz mapa
+     */
+    
+    private void AjustaInicio(Pair p,int k){
+        
+        if(p.getFirst()!=0 || p.getSecond()!=0){
+            if((int)p.getSecond()< k-1){
+                p.setSecond((int)p.getSecond()+1);
+            }
+            else{
+                p.setSecond(0);
+                p.setFirst((int)p.getFirst()+1);
+            }
+        }
+        
+    }
+    
+    /**
+     * 
+     * Funcion que comprueba si el elemento tratado puede introducirse en el mapa o no
+     *
+     * @param v Id del elemento que se esta tratando
+     * @param p Plano del barrio actual 
+     * @param eAct Posicion en la estructura de datos del elemento que se esta tratando
+     * @param lastVisited Vector de las ultimas posiciones visitadas por los elementos
+     * @param res Array de restricciones de elemento que se esta tratando actualmente
+     * @return
+     * @throws Exception 
+     */
+    private Pair cabeEnMapa(Integer v,Plano p,int eAct,Pair lastVisited[],ArrayList<Restriccion_ubicacion> res) throws Exception{
+        //System.out.println("A ver si el elemento cabe");
+        //System.out.println(""+lastVisited[v].getFirst()+" "+ lastVisited[v].getSecond());
+        if(lastVisited[eAct].getFirst()!=0 || lastVisited[eAct].getSecond()!=0){
+            //p.pos((int)lastVisited[v].getFirst(), (int)lastVisited[v].getSecond()).modificarPar(0, 0);
+            //System.out.println("Desexpando");
+            p.expande((int)lastVisited[eAct].getFirst(),(int)lastVisited[eAct].getSecond(), 0, res, false);
+        }
+            AjustaInicio(lastVisited[eAct],p.tamb());
+        
+        for(int i=(int)lastVisited[eAct].getFirst();i<p.tama();++i){
+            for(int j=(int) lastVisited[eAct].getSecond();j<p.tamb();++j){
+                if(!p.consultaPar(v, i, j)){
+                  Pair ret = new Pair<Integer,Integer>(i,j);
+                  lastVisited[eAct].setFirst(i);
+                  lastVisited[eAct].setSecond(j);
+                  return ret;
+                } 
+            }
+        }
+        Pair ret = new Pair<Integer,Integer>(-1,-1);
+        
+        return ret;
+    }
+    
+    /**
+     * 
+     * Funcion que introduce los elementos en el plano , cumpliendo las restricciones
+     * 
+     * @param k Indice del elemento que se esta tratando actualemnte en las estructuras
+     * @param cjt Conjunto de los elementos que deben ser introducidos al barrio
+     * @param lastVisited Vector que guarda las ultimas posiciones visitadas 
+     * @param res Restricciones de todos los elementos disponobles en el conjunto de elementos del barrio
+     * @param p Plano del barrio
+     * @return True si todos los elementos han podido introducirse en el barrio, False en caso contrario
+     * @throws Exception 
+     */
+    
+    private boolean bactracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
+        
+        
+        //System.out.println("Backtracking con"+ (k+1));
+        if(k==cjt.size()){
+            return true;
+        }
+        
+        else if(k==-1){
+            return false;
+        }
+        
+        else {
+            Integer valor = cjt.get(k);
+            Pair pos = cabeEnMapa(valor,p,k,lastVisited,res.get(valor));//Esta funcion debe desexpandirte en caso de que tus ultimos
+                                                                        // valores visitados sean difentes a 0 (puesto previamente)
+            //System.out.println(""+pos.getFirst()+" "+pos.getSecond());
+            if(pos.getFirst()!=-1){
+                p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, res.get(valor), true);
+                return bactracking(k+1,cjt,lastVisited,res,p);
+            }
+            else{
+                lastVisited[k].setFirst(0);
+                lastVisited[k].setSecond(0);
+                //suponemos que cabeEnMapa desexpande !!!!TODO¡¡¡¡
+                return bactracking(k-1,cjt,lastVisited,res,p);
+                
+            }
+            
+            
+        }
+    }
 }
+
+
