@@ -329,6 +329,7 @@ public class vistaComandos {
         
         CtrlBarrio = CtrlDomBarrios.getInstance();
         CtrlElem = CtrlDomElementos.getInstance();
+        CtrlRest = CtrlDomRestricciones.getInstance();
         
         System.out.println("\n\nCUIDADO!!! Esta usted ante una version beta, no se han cargado elementos,ni restricciones");
         
