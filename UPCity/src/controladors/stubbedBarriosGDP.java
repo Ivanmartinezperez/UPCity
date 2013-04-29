@@ -49,7 +49,7 @@ public class stubbedBarriosGDP {
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
                 + "installment.\n For now you have to keep up with temporal "
-                + "data");
+                + "data\n");
     }
     
     
@@ -66,7 +66,7 @@ public class stubbedBarriosGDP {
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
                 + "installment.\n For now you have to keep up with temporal "
-                + "data");    
+                + "data\n");    
     }
     
     
@@ -85,7 +85,7 @@ public class stubbedBarriosGDP {
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
                 + "installment.\n For now you have to keep up with temporal "
-                + "data");
+                + "data\n");
     }
     
     
@@ -104,7 +104,7 @@ public class stubbedBarriosGDP {
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
                 + "installment.\n For now you have to keep up with temporal "
-                + "data");
+                + "data\n");
     }
     
     
@@ -122,7 +122,7 @@ public class stubbedBarriosGDP {
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
                 + "installment.\n For now you have to keep up with temporal "
-                + "data");
+                + "data\n");
     }
     
     

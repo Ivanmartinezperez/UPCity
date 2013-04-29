@@ -437,13 +437,16 @@ public class CtrlDomElementos {
       * Elementos deseados.
       */
      public String[][] listarElemTipo(int TB,int tipo){
-         String[][] mat = null;
          ArrayList<Elemento> elem = arrayElemTipo(TB,tipo);
-         switch(tipo){
-             case 1:
-                 mat = new String[elem.size()][6];
-                 Vivienda v;
-                 for(int i=0; i<elem.size(); ++i){
+         String[][] mat = null;
+         if(!elem.isEmpty()) mat = new String[elem.size()][7];
+         Vivienda v;
+         Publico p;
+         Comercio c;
+         
+         for(int i=0; i<elem.size(); ++i){
+             switch(tipo){        
+                 case 1:    
                      v = (Vivienda) elem.get(i);
                      mat[i][0] = v.getNom();
                      mat[i][1] = String.valueOf(v.getTBarrio());
@@ -451,12 +454,10 @@ public class CtrlDomElementos {
                      mat[i][3] = String.valueOf(v.Getcap_max());
                      mat[i][4] = String.valueOf(v.getTamanoX());
                      mat[i][5] = String.valueOf(v.getTamanoY());
-                 }
-                 break;
-             case 2:
-                 mat = new String[elem.size()][7];
-                 Publico p;
-                 for(int i=0; i<elem.size(); ++i){
+                     mat[i][6] = "-1";
+                     break;
+
+                 case 2:
                      p = (Publico) elem.get(i);
                      mat[i][0] = p.getNom();
                      mat[i][1] = String.valueOf(p.getTBarrio());
@@ -465,12 +466,9 @@ public class CtrlDomElementos {
                      mat[i][4] = String.valueOf(p.Getcapacidad_serv());
                      mat[i][5] = String.valueOf(p.getTamanoX());
                      mat[i][6] = String.valueOf(p.getTamanoY());
-                 }
-                 break;
-             case 3:
-                 mat = new String[elem.size()][5];
-                 Comercio c;
-                 for(int i=0; i<elem.size(); ++i){
+                     break;
+
+                 case 3:
                      c = (Comercio) elem.get(i);
                      mat[i][0] = c.getNom();
                      mat[i][1] = String.valueOf(c.getTBarrio());
@@ -478,8 +476,9 @@ public class CtrlDomElementos {
                      mat[i][3] = String.valueOf(c.getCapacidad());
                      mat[i][4] = String.valueOf(c.getTamanoX());
                      mat[i][5] = String.valueOf(c.getTamanoY());
-                 }
-
+                     mat[i][6] = "-1";
+                     break;
+            }
          }
          return mat;
      }

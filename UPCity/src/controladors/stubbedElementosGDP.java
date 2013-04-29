@@ -74,7 +74,8 @@ public class stubbedElementosGDP {
     
     
     public boolean existeElemEnBarrios(String Elem){
-        System.out.println("Simulando lectura de disco...Buscando Elemento\n"
+        System.out.println("Simulando lectura de disco...Buscando Elemento en"
+                + "barrios\n"
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
                 + "installment\n");

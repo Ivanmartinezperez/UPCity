@@ -63,7 +63,7 @@ public class stubbedRestriccionesGDP {
     
     public boolean existeRestEnBarrios(String id){
         System.out.println("Simulando escritura en disco...Buscando "
-                + "Restriccion\n"
+                + "Restriccion en barrios\n"
                 + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
                 + " working on to solve this problem just before the third "
                 + "installment\n");
