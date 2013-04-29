@@ -20,7 +20,7 @@ public class CtrlDomRestricciones {
     private TreeMap<String, Restriccion_economica> resteconomica;
     private CtrlDomElementos DOMElem;
     private stubbedRestriccionesGDP RestGDP;
-    private static CtrlDomRestricciones INSTANCE;
+    private static CtrlDomRestricciones INSTANCE=null;
     
     /**
      * Creadora de la clase controlador de dominio de restricciones

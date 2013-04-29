@@ -21,7 +21,7 @@ import mapa.Plano;
  */
 public class CtrlDomBarrios {
     
-    private static CtrlDomBarrios INSTANCE;
+    private static CtrlDomBarrios INSTANCE=null;
     private TreeMap<String,Integer> TablaBarrios;
     private Barrio B;
     private Cjt_Elementos CjtElem;
