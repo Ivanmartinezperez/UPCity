@@ -46,8 +46,9 @@ public class vistaComandos {
                         int cantperv = (int) parametros.nextInt();
                         System.out.println("Indique el precio de la vivienda");
                         int preciov = parametros.nextInt();
-                        CtrlElem.CrearElemento(nombrev, Desv, 1, TBv,1,1,preciov,cantperv,0);
-                        System.out.println("Creado correctamente");
+                        aux = CtrlElem.CrearElemento(nombrev, Desv, 1, TBv,1,1,preciov,cantperv,0);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("El edificio no se pudo crear");
                         break;
                 case 2: System.out.println("Escriba el nombre del edificio:");
                         String nombrep = parametros.nextLine();
@@ -56,12 +57,13 @@ public class vistaComandos {
                         System.out.println("Eliga a que tipo de barrio asociaria este elemento:");
                         System.out.println("0-Cualquiera\n1-Gama baja\n2-Gama media\n3-Gama alta");
                         int TBp = (int) parametros.nextInt();
-                        System.out.println("Indique la cantidad de personas que puede albergar la construccion");
+                        System.out.println("Indique la cantidad de personas a las que puede ofrecer el servicio");
                         int cantperp = (int) parametros.nextInt();
-                        System.out.println("Indique el precio de la vivienda");
+                        System.out.println("Indique el precio de la construccion");
                         int preciop = parametros.nextInt();
-                        CtrlElem.CrearElemento(nombrep, Desp, 1, TBp,1,1,preciop,cantperp,0);//Tipo de servicio no implementado(irrelevante de momento);
-                        System.out.println("Creado correctamente");
+                        aux = CtrlElem.CrearElemento(nombrep, Desp, 1, TBp,1,1,preciop,cantperp,0);//Tipo de servicio no implementado(irrelevante de momento);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("El edificio no se pudo crear");
                         break;
                 case 3: System.out.println("Escriba el nombre del edificio:");
                         String nombrec = parametros.nextLine();
@@ -70,12 +72,13 @@ public class vistaComandos {
                         System.out.println("Eliga a que tipo de barrio asociaria este elemento:");
                         System.out.println("0-Cualquiera\n1-Gama baja\n2-Gama media\n3-Gama alta");
                         int TBc = (int) parametros.nextInt();
-                        System.out.println("Indique la cantidad de personas que puede albergar la construccion");
+                        System.out.println("Indique la cantidad de personas las que puede atender");
                         int cantperc = (int) parametros.nextInt();
-                        System.out.println("Indique el precio de la vivienda");
+                        System.out.println("Indique el precio del Comercio");
                         int precioc = parametros.nextInt();
-                        CtrlElem.CrearElemento(nombrec, Desc, 1, TBc,1,1,precioc,cantperc,0);
-                        System.out.println("Creado correctamente");
+                        aux = CtrlElem.CrearElemento(nombrec, Desc, 1, TBc,1,1,precioc,cantperc,0);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("El edificio no se pudo crear");
                         break;
                 default: System.out.println("Opcio Invalida");   
             }
@@ -219,16 +222,20 @@ public class vistaComandos {
             
             case 0: Set<String> lista = CtrlRest.ListaNombreRestricciones();
                     Iterator it = lista.iterator();
-                    while(it.hasNext()) System.out.println(""+it.next());        
+                    while(it.hasNext()) System.out.println(""+it.next());
+                    break;
             case 1: Set<String> lista1 = CtrlRest.ListaNombreRestriccionesTipo("ubicacion");
                     Iterator it1 = lista1.iterator();
                     while(it1.hasNext()) System.out.println(""+it1.next());
+                    break;
             case 2: Set<String> lista2 = CtrlRest.ListaNombreRestriccionesTipo("demografica");
                     Iterator it2 = lista2.iterator();
                     while(it2.hasNext()) System.out.println(""+it2.next());
+                    break;
             case 3: Set<String> lista3 = CtrlRest.ListaNombreRestriccionesTipo("economica");
                     Iterator it3 = lista3.iterator();
                     while(it3.hasNext()) System.out.println(""+it3.next());
+                    break;
             default: aux = false; 
         }
         return aux;
