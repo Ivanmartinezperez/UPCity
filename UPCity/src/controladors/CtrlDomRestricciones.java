@@ -29,6 +29,9 @@ public class CtrlDomRestricciones {
      */
     private CtrlDomRestricciones(){
         RestGDP = stubbedRestriccionesGDP.getInstance();
+        restubicacion = new TreeMap();
+        restdemografica = new TreeMap();
+        resteconomica = new TreeMap();
         RestGDP.leerRestricciones(restubicacion);
         DOMElem = CtrlDomElementos.getInstance();
     }
