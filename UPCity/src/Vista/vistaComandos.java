@@ -292,10 +292,8 @@ public class vistaComandos {
         int y = (int)parametros.nextInt();
         aux = CtrlBarrio.crearMapaBarrio(x, y);
         
-        Scanner action = new Scanner(System.in);
-        
         System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n6-Crear restriccion\n7-finalizar y generar mi barrio\n0-Salir");
-        
+        Scanner action = new Scanner(System.in);
         int n=(int)action.nextInt();
         boolean aux1;
         boolean generado = false;
@@ -354,7 +352,7 @@ public class vistaComandos {
                 default: System.out.println("Opcio Invalida");    
             }
            if(!generado){
-               System.out.println("Que desea hacer:\n1-Crear Edificio\n2-Eliminar Edificio\n3-Listar Edificios\n4-Salir");
+               System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n6-Crear restriccion\n7-finalizar y generar mi barrio\n0-Salir");
                n = (int)action.nextInt();
             }
            else n = 0;
@@ -390,15 +388,10 @@ public class vistaComandos {
                     n = (int)action.nextInt();
                 }
              }
-            
-            
+             
         }
-        if (aux) System.out.println("Barrio creado");
-        else System.out.println("Barrio no se pudo crear");
         
-        
-        
-        return aux;
+        return true;
     }
     
     private boolean cargarBarrio(){
