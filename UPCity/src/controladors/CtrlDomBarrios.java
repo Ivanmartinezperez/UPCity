@@ -17,7 +17,7 @@ import mapa.Plano;
 
 /**
  *
- * @author ArclorenSarth
+ * @author ArclorenSarth e Ivan Martinez
  */
 public class CtrlDomBarrios {
     
