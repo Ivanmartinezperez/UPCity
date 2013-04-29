@@ -148,7 +148,8 @@ public class vistaComandos {
                         int distancia = (int) parametros.nextInt();
                         // para hacer id por ahora
                         System.out.println("Escriba el id de la restriccion");
-                        String id = parametros.nextLine();
+                        Scanner idscann = new Scanner(System.in);
+                        String id = idscann.nextLine();
                         aux = CtrlRest.CrearRestriccion(id, "ubicacion", OID1, OID2, distancia, -1, -1);
                         if (aux) System.out.println("Creado correctamente");
                         else System.out.println("La restriccion no se pudo crear");
@@ -169,7 +170,8 @@ public class vistaComandos {
                         int habitantes = (int) parametros.nextInt();
                         // para hacer id por ahora
                         System.out.println("Escriba el id de la restriccion");
-                        String id1 = parametros.nextLine();
+                        Scanner idscann1 = new Scanner(System.in);
+                        String id1 = idscann1.nextLine();
                         aux = CtrlRest.CrearRestriccion(id1, "demografica", OID, -1, habitantes, -1, -1);
                         if (aux) System.out.println("Creado correctamente");
                         else System.out.println("La restriccion no se pudo crear");
