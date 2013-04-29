@@ -78,19 +78,20 @@ public class CtrlDomRestricciones {
      * @return retorna booleano si se ha hecho la creacion e insercion 
      * correctamente
      */
-    public boolean CrearRestriccion(String id, String tipo, Integer OID1, 
-                                    Integer OID2, int aux1, int aux2, int aux3){
+    public boolean CrearRestriccion(String id, String tipo, String nombre1, 
+                                    String nombre2, int aux1, int aux2, int aux3){
         
         boolean ret = true;
         if(restubicacion.containsKey(id) || resteconomica.containsKey(id) ||
            restdemografica.containsKey(id)) 
             return false;
         
-         
+        Integer OID1 = DOMElem.getOID(nombre1);
+        Integer OID2 = DOMElem.getOID(nombre2); 
         switch(tipo){
             case "ubicacion":   
-                if(DOMElem.existsElemento(OID1)&& DOMElem.existsElemento(OID2)
-                   && aux1 >= 0){                   
+                if(OID1!=null && OID2 != null && aux1 >= 0){
+                    
                     Restriccion_ubicacion u = new Restriccion_ubicacion(id, 
                                                   tipo,OID1, OID2, aux1);
                     restubicacion.put(id, u);
@@ -110,7 +111,7 @@ public class CtrlDomRestricciones {
                 break;
             
             case "demografica": 
-                if(DOMElem.existsElemento(OID1) && aux1 >= 0){
+                if(OID1 != null && aux1 >= 0){
                     Restriccion_demografica d = new Restriccion_demografica(id, 
                                                 tipo, OID1, aux1);
                     restdemografica.put(id, d);

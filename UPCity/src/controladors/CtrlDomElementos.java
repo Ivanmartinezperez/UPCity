@@ -332,7 +332,7 @@ public class CtrlDomElementos {
          * @return 
          */
         public Integer getOID(String Elem){
-            Integer OID = null;
+            Integer oid = null;
             Elemento e;
             if((e=mapElem0.get(Elem))!=null){}
             else if((e=mapElem1.get(Elem))!=null){}
@@ -340,8 +340,8 @@ public class CtrlDomElementos {
             else if((e=mapElem3.get(Elem))!=null){}
             else e=null;
             if(e!=null)
-                OID =(Integer) e.getId();
-            return OID;
+                oid =(Integer) e.getId();
+            return oid;
         }
         
         
