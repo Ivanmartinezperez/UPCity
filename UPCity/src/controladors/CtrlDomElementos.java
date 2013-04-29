@@ -218,6 +218,7 @@ public class CtrlDomElementos {
             switch(TBar){
                 case 0:
                     e = mapElem0.get(Elem);
+                    TradOIDtoName.remove(e.getId());
                     tipo = TipoElemento(e);
                     aux = mapTipoElem0.get((Integer)tipo);
                     aux.remove(e);
@@ -225,6 +226,7 @@ public class CtrlDomElementos {
                     break;
                 case 1:
                     e = mapElem1.get(Elem);
+                    TradOIDtoName.remove(e.getId());
                     tipo = TipoElemento(e);
                     aux = mapTipoElem1.get((Integer)tipo);
                     aux.remove(e);
@@ -232,6 +234,7 @@ public class CtrlDomElementos {
                     break;
                case 2:
                     e = mapElem2.get(Elem);
+                    TradOIDtoName.remove(e.getId());
                     tipo = TipoElemento(e);
                     aux = mapTipoElem2.get((Integer)tipo);
                     aux.remove(e);
@@ -239,6 +242,7 @@ public class CtrlDomElementos {
                     break;
                case 3:
                     e = mapElem3.get(Elem);
+                    TradOIDtoName.remove(e.getId());
                     tipo = TipoElemento(e);
                     aux = mapTipoElem3.get((Integer)tipo);
                     aux.remove(e);
@@ -319,6 +323,25 @@ public class CtrlDomElementos {
             else if((e=mapElem3.get(Elem))!=null){}
             else e=null;
             return e;
+        }
+        
+        
+        /**
+         * 
+         * @param Elem
+         * @return 
+         */
+        public Integer getOID(String Elem){
+            Integer OID = null;
+            Elemento e;
+            if((e=mapElem0.get(Elem))!=null){}
+            else if((e=mapElem1.get(Elem))!=null){}
+            else if((e=mapElem2.get(Elem))!=null){}
+            else if((e=mapElem3.get(Elem))!=null){}
+            else e=null;
+            if(e!=null)
+                OID =(Integer) e.getId();
+            return OID;
         }
         
         
