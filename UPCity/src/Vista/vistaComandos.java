@@ -290,22 +290,55 @@ public class vistaComandos {
         
         Scanner action = new Scanner(System.in);
         
-        System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Salir");
+        System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n6-Crear restriccion\n7-Generar barrio\n8-Mostrar barrio\n9-Guardar barrio\n0-Salir");
         
         int n=(int)action.nextInt();
         
-        while(n!=5){
+        while(n!=0){
+            
             switch(n){
             
                 case 1: listarElementos();
-                        System.out.println("Escriba el nombre del elemento que desea eliminar ");
-                        //leer + llamar a añadirelemento
+                        System.out.println("Escriba el nombre del elemento que desea añadir al barrio: ");
+                        String id = action.nextLine();
+                        System.out.println("Escriba la cantidad que quieres de este elemento en el barrio: ");
+                        int cant = (int)action.nextInt();
+                        boolean aux1 = CtrlBarrio.anadirElemBarrio(id, cant);
+                        if (aux1) System.out.println("Elemento añadido correctamente");
+                        else System.out.println("No se pudo añadir el elemento");
                         break;
-                case 2: //Listar elementos del cjt + preguntar cual borrar+llamar a eliminar
+                case 2: listarElementos();
+                        System.out.println("Escriba el nombre del elemento que desea quitar del barrio: ");
+                        id = action.nextLine();
+                        System.out.println("Escriba la cantidad que quieres quitar de este elemento en el barrio: ");
+                        cant = (int)action.nextInt();
+                        aux1 = CtrlBarrio.anadirElemBarrio(id, cant);
+                        if (aux1) System.out.println("Elemento eliminado correctamente");
+                        else System.out.println("No se pudo eliminar el elemento");
                         break;
-                case 3: // lo mismo que las anteriores pero con restricciones
+                case 3: listarRestricciones();
+                        System.out.println("Escriba el nombre de restriccion que desea añadir al barrio: ");
+                        id = action.nextLine();               
+                        aux1 = CtrlBarrio.anadirRestBarrio(id);
+                        if (aux1) System.out.println("Restriccion añadido correctamente");
+                        else System.out.println("No se pudo añadir la restriccion");
                         break;
-                case 4://
+                case 4: listarRestricciones();
+                        System.out.println("Escriba el nombre de restriccion que desea quitar del barrio: ");
+                        id = action.nextLine();               
+                        aux1 = CtrlBarrio.quitarRestBarrio(id);
+                        if (aux1) System.out.println("Restriccion eliminado correctamente");
+                        else System.out.println("No se pudo eliminar la restriccion");             
+                        break;
+                case 5: crearElemento();
+                        break;
+                case 6: crearRestriccion();
+                        break;
+                case 7: // generar barrio;
+                        break;
+                case 8: // mostrar barrio;
+                        break;
+                case 9: // guardar barrio
                         break;
                 default: System.out.println("Opcio Invalida");    
             }
