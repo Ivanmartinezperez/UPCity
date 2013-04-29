@@ -27,6 +27,7 @@ public class CtrlDomElementos {
         private CtrlDomRestricciones RestDOM;
         private stubbedElementosGDP GDPElem;
         private static CtrlDomElementos INSTANCE = null;
+        private static boolean init=false;
         
         
         
@@ -36,7 +37,6 @@ public class CtrlDomElementos {
          */
         private CtrlDomElementos(){
             GDPElem = stubbedElementosGDP.getInstance();
-            RestDOM = CtrlDomRestricciones.getInstance();
             mapElem0 = new TreeMap<>();
             mapTipoElem0 = new HashMap<>();
             mapElem1 = new TreeMap<>();
@@ -62,9 +62,7 @@ public class CtrlDomElementos {
             
             if(TradOIDtoName.isEmpty()) OID = 1;
             else OID=TradOIDtoName.lastKey() + 1;
-            //Cada vez que se cree una instancia esto recibira el valor 
-            //de la raiz del arbol de elementos +1, que sera el OID 
-            //maximo del programa
+            
         }
         
         private static void creaInstancia() {
@@ -80,6 +78,14 @@ public class CtrlDomElementos {
                 creaInstancia();
             }
             return INSTANCE;
+        }
+        
+        public void inicializar(){
+            if(!init){
+                init = true;
+                RestDOM = CtrlDomRestricciones.getInstance();
+                RestDOM.inicializar();
+            }
         }
         
         

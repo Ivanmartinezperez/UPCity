@@ -46,7 +46,9 @@ public class CtrlDomBarrios {
     private CtrlDomBarrios(){
         TablaBarrios = new TreeMap();
         DOMElem = CtrlDomElementos.getInstance();
+        DOMElem.inicializar();
         DOMRest = CtrlDomRestricciones.getInstance();
+        DOMRest.inicializar();
         GDPElem = stubbedElementosGDP.getInstance();
         GDPRest = stubbedRestriccionesGDP.getInstance();
         GDPBarr = stubbedBarriosGDP.getInstance();

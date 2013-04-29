@@ -21,6 +21,7 @@ public class CtrlDomRestricciones {
     private CtrlDomElementos DOMElem;
     private stubbedRestriccionesGDP RestGDP;
     private static CtrlDomRestricciones INSTANCE=null;
+    private static boolean init=false;
     
     /**
      * Creadora de la clase controlador de dominio de restricciones
@@ -33,7 +34,7 @@ public class CtrlDomRestricciones {
         restdemografica = new TreeMap();
         resteconomica = new TreeMap();
         RestGDP.leerRestricciones(restubicacion);
-        DOMElem = CtrlDomElementos.getInstance();
+        
     }
     
     
@@ -48,6 +49,14 @@ public class CtrlDomRestricciones {
             creaInstancia();
         }
         return INSTANCE;
+    }
+    
+    public void inicializar(){
+        if(!init){
+            init = true;
+            DOMElem = CtrlDomElementos.getInstance();
+            DOMElem.inicializar();
+        }
     }
     
     
