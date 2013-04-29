@@ -238,8 +238,8 @@ public class CtrlDomRestricciones {
     public boolean existeRestElem(Integer ID){
         boolean ret = false;
         ArrayList<Restriccion> Rest = new ArrayList();
-        Rest.addAll((ArrayList<Restriccion_ubicacion>) restubicacion.values());
-        Rest.addAll((ArrayList<Restriccion_demografica>) restdemografica.values());
+        Rest.addAll(restubicacion.values());
+        Rest.addAll(restdemografica.values());
         for(int i = 0; i < Rest.size(); ++i){
             Restriccion r;
             r = Rest.get(i);
