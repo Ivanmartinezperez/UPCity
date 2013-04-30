@@ -46,7 +46,7 @@ public class CtrlDomElementos {
         mapElem3 = new TreeMap<>();
         mapTipoElem3 = new HashMap<>();
         TradOIDtoName = new TreeMap<>();
-            for(int j=0;j<3;++j){
+            for(int j=1;j<4;++j){
                 ArrayList<Elemento> aux1 = new ArrayList<Elemento>();
                 ArrayList<Elemento> aux2 = new ArrayList<Elemento>();
                 ArrayList<Elemento> aux3 = new ArrayList<Elemento>();

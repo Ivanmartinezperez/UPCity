@@ -254,10 +254,18 @@ public class CtrlDomBarrios {
         if(e != null){
             tipoel = DOMElem.getTBElemento(e);
             switch(tipo){
-                    case 0: b = true;
-                    case 1: b = (tipoel==1 || tipoel==0);
-                    case 2: b = (tipoel==2 || tipoel==0);
-                    case 3: b = (tipoel==3 || tipoel==0);
+                    case 0: 
+                        b = true;
+                        break;
+                    case 1: 
+                        b = (tipoel==1 || tipoel==0);
+                        break;
+                    case 2: 
+                        b = (tipoel==2 || tipoel==0);
+                        break;
+                    case 3: 
+                        b = (tipoel==3 || tipoel==0);
+                        break;
             }
             if(b) guardarElemento(e,cant);
         }

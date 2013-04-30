@@ -34,13 +34,12 @@ public class Cjt_Elementos extends TreeMap {
    
    //////MODIFICADORAS//////////////////////////////
    public void insertar_elementos(Integer OID,Pair valor ){
-       System.out.println("cantdad en insertar elemento:" + valor.getFirst() + "\n");
        this.put(OID,valor);
+       Pair<Integer,Elemento> p =(Pair) this.get(OID);
    }
    
    public void anadir_cantidad_elementos(Integer OID,Integer cantidad){
        if(this.existe_elemento(OID)){
-           System.out.println("cantdad en anadir elemento:" + cantidad + "\n");
            Pair aux;
            aux = (Pair) this.get(OID);
            Integer Nuevo_valor =(Integer) aux.getFirst()+cantidad;

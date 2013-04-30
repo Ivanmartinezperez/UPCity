@@ -61,7 +61,7 @@ public class vistaComandos {
                         int cantperp = (int) parametros.nextInt();
                         System.out.println("Indique el precio de la construccion");
                         int preciop = parametros.nextInt();
-                        aux = CtrlElem.CrearElemento(nombrep, Desp, 1, TBp,1,1,preciop,cantperp,0);//Tipo de servicio no implementado(irrelevante de momento);
+                        aux = CtrlElem.CrearElemento(nombrep, Desp, 2, TBp,1,1,preciop,cantperp,0);//Tipo de servicio no implementado(irrelevante de momento);
                         if (aux) System.out.println("Creado correctamente");
                         else System.out.println("El edificio no se pudo crear");
                         break;
@@ -76,7 +76,7 @@ public class vistaComandos {
                         int cantperc = (int) parametros.nextInt();
                         System.out.println("Indique el precio del Comercio");
                         int precioc = parametros.nextInt();
-                        aux = CtrlElem.CrearElemento(nombrec, Desc, 1, TBc,1,1,precioc,cantperc,0);
+                        aux = CtrlElem.CrearElemento(nombrec, Desc, 3, TBc,1,1,precioc,cantperc,0);
                         if (aux) System.out.println("Creado correctamente");
                         else System.out.println("El edificio no se pudo crear");
                         break;
@@ -94,19 +94,88 @@ public class vistaComandos {
     private boolean eliminarElemento(){
         
         Scanner action = new Scanner(System.in);
-        listarElementos();
+        listarElementos(0);
         System.out.println("Escriba el nombre del elemento que desea eliminar:");
         String nombre = action.nextLine();
         return CtrlElem.EliminarElemento(nombre);
         
     }
     
-    private boolean listarElementos(){
-        System.out.println("\nLos elementos actuales en todo el sistema son:");
-        Set<String> lista = CtrlElem.ListaNombreElementos();
-        Iterator it = lista.iterator();
-        while(it.hasNext()){
-            System.out.println(""+it.next());
+    private boolean listarElemAux(int TB, int tipo){
+        
+        String[][] lista;
+        lista = CtrlElem.listarElemTipo(TB,tipo);
+        if(lista == null) return false;
+        switch(tipo){
+            case 1: 
+                if(lista.length>0)
+                    System.out.println("VIVIENDAS  TBarrios  Precio  Capacidad  TamX TamY");
+                break;
+            case 3:
+                if(lista.length>0)
+                    System.out.println("COMERCIOS  TBarrios  Precio  Capacidad  TamX TamY");
+                break;
+            case 2:
+                if(lista.length>0)
+                    System.out.println("PUBLICOS  TBarrios  Precio  TServicio  Capacidad  TamX TamY");
+                break;
+        }
+        for(int i=0; i<lista.length; ++i){
+            if(tipo==2) System.out.println(lista[i][0] + "        " + lista[i][1] + "        " + lista[i][2] + "        "
+                    + lista[i][3] + "        " + lista[i][4] + "        " + lista[i][5] + "    " + lista[i][6]);
+            else System.out.println(lista[i][0] + "        " + lista[i][1] + "        " + lista[i][2] + "        "
+                    + lista[i][3] + "        " + lista[i][4] + "    " + lista[i][5]);
+        }
+        return true;
+    }
+    
+    private boolean listarElementos(int TB){
+        System.out.println("\n\nLOS ELEMENTOS ACTUALES QUE CONTIENE EL SISTEMA SON:");
+        System.out.println("\nELEMENTOS PARA CUALQUIER TIPO DE BARRIO:");
+        listarElemAux(0,1);
+        listarElemAux(0,3);
+        listarElemAux(0,2);
+        System.out.println("------------------------------------------------");
+        switch(TB){
+            case 0:
+                System.out.println("\nELEMENTOS PARA BARRIOS DE GAMA BAJA:");
+                listarElemAux(1,1);
+                listarElemAux(1,3);
+                listarElemAux(1,2);
+                System.out.println("------------------------------------------------");
+                System.out.println("\nELEMENTOS PARA BARRIOS DE GAMA MEDIA:");
+                listarElemAux(2,1);
+                listarElemAux(2,3);
+                listarElemAux(2,2);
+                System.out.println("------------------------------------------------");
+                System.out.println("\nELEMENTOS PARA BARRIOS DE GAMA ALTA:");
+                listarElemAux(3,1);
+                listarElemAux(3,3);
+                listarElemAux(3,2);
+                System.out.println("------------------------------------------------");
+                break;
+            case 1:
+                System.out.println("\nELEMENTOS PARA BARRIOS DE GAMA BAJA:");
+                listarElemAux(1,1);
+                listarElemAux(1,3);
+                listarElemAux(1,2);
+                System.out.println("------------------------------------------------");
+                break;
+            case 2:
+                System.out.println("\nELEMENTOS PARA BARRIOS DE GAMA MEDIA:");
+                listarElemAux(2,1);
+                listarElemAux(2,3);
+                listarElemAux(2,2);
+                System.out.println("------------------------------------------------");
+                break;
+            case 3:
+                System.out.println("\nELEMENTOS PARA BARRIOS DE GAMA ALTA:");
+                listarElemAux(3,1);
+                listarElemAux(3,3);
+                listarElemAux(3,2);
+                System.out.println("------------------------------------------------");
+                break;
+                
         }
         return true;
     }
@@ -126,7 +195,7 @@ public class vistaComandos {
                         break;
                 case 2: eliminarElemento();
                         break;
-                case 3: listarElementos();
+                case 3: listarElementos(0);
                         break;
                 default: System.out.println("Opcio Invalida");    
             }
@@ -308,7 +377,7 @@ public class vistaComandos {
             String id;
             switch(n){
             
-                case 1: listarElementos();
+                case 1: listarElementos(CtrlBarrio.getTipoBarrio());
                         System.out.println("Escriba el nombre del elemento que desea añadir al barrio: ");
                         Scanner param = new Scanner(System.in);
                         id = param.nextLine();
@@ -318,13 +387,13 @@ public class vistaComandos {
                         if (aux1) System.out.println("Elemento añadido correctamente");
                         else System.out.println("No se pudo añadir el elemento");
                         break;
-                case 2: listarElementos();
+                case 2: listarElementos(CtrlBarrio.getTipoBarrio());
                         System.out.println("Escriba el nombre del elemento que desea quitar del barrio: ");
                         Scanner param2 = new Scanner(System.in);
                         id = param2.nextLine();
                         System.out.println("Escriba la cantidad que quieres quitar de este elemento en el barrio: ");
                         cant = (int)action.nextInt();
-                        aux1 = CtrlBarrio.anadirElemBarrio(id, cant);
+                        aux1 = CtrlBarrio.quitarElemento(id, cant);
                         if (aux1) System.out.println("Elemento eliminado correctamente");
                         else System.out.println("No se pudo eliminar el elemento");
                         break;
