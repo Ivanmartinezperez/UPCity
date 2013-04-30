@@ -130,8 +130,9 @@ public class Plano {
             int b = par.getSecond();
             //visitats[a][b].setFirst(1);
             int dist = visitats[a][b].getSecond();
+            //System.out.print(restricciones.size());
             //if(a != x && b != y) {
-            if(restricciones==null) restricciones = new ArrayList();
+            
                 for (int z = 0; z < restricciones.size(); ++z) {
                     Restriccion_ubicacion aux = (Restriccion_ubicacion) restricciones.get(z);
                     int bb = aux.consultar_distancia();
