@@ -143,14 +143,22 @@ public class CtrlDomBarrios {
      */
     public boolean generarBarrio() throws Exception{
         
-        Pair[] lastVisited = new Pair[CjtElem.size()];
+        
+        ArrayList<Integer> idElem = new ArrayList<>();
+        idElem.addAll(CjtElem.keySet());
         for(int i=0;i<CjtElem.size();++i){
+            int iterator = (int)CjtElem.consultar_elemento(idElem.get(i)).getFirst();
+            for(int j=0;j<iterator-1;++j){
+                idElem.add(idElem.get(i));
+            }
+            
+        }
+        Pair[] lastVisited = new Pair[idElem.size()];
+        for(int i=0;i<idElem.size();++i){
             Pair p = new Pair(0,0);
             lastVisited[i]=p;
         }
         
-        ArrayList<Integer> idElem = new ArrayList<>();
-        idElem.addAll(CjtElem.keySet());
         return backtracking(0,idElem,lastVisited,CjtRestUbic1,Mapa);
     }
     
