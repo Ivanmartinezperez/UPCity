@@ -733,7 +733,8 @@ public class CtrlDomBarrios {
         else {
             Integer valor = cjt.get(k);
             Pair pos;
-            if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,k,lastVisited,null); 
+            ArrayList<Restriccion_ubicacion> resaux = new ArrayList<>();
+            if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,k,lastVisited,resaux); 
             else pos = cabeEnMapa(valor,p,k,lastVisited,res.get(valor));//Esta funcion debe desexpandirte en caso de que tus ultimos
                                                                         // valores visitados sean difentes a 0 (puesto previamente)
             //System.out.println(""+pos.getFirst()+" "+pos.getSecond());
