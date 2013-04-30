@@ -6,7 +6,7 @@ package elementos;
 
 /**
  *
- * @author ivanmartinez
+ * @author Ivan Martinez Perez y Artem Cherkashin
  */
 public class Comercio extends Elemento {
     private int TBarrio;
@@ -25,22 +25,22 @@ public class Comercio extends Elemento {
                     int tbarr){
         super(OID);
         TBarrio = tbarr;
-        this.Tamano_x = tam_x;
-        this.Tamano_y = tam_y;
-        this.Precio = precio;
-        this.capacidad_del_comercio=cap;
+        Tamano_x = tam_x;
+        Tamano_y = tam_y;
+        Precio = precio;
+        capacidad_del_comercio=cap;
         
     }
     /////////////////////
     
     ///Modificadoras////////////
     public void setCapacidad(int cap){
-        this.capacidad_del_comercio=cap;
+        capacidad_del_comercio=cap;
     }
     
     public void setTamaño(int x,int y){
-        this.Tamano_x=x;
-        this.Tamano_y=y;
+        Tamano_x=x;
+        Tamano_y=y;
     }
     
     public void setTBarrio(int bar){
@@ -58,11 +58,11 @@ public class Comercio extends Elemento {
     }
     
     public int getTamanoX(){
-        return this.Tamano_x;
+        return Tamano_x;
     }
     
     public int getTamanoY(){
-        return this.Tamano_y;
+        return Tamano_y;
     }
     
     public int getTBarrio(){

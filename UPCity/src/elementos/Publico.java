@@ -6,7 +6,7 @@ package elementos;
 
 /**
  *
- * @author ivanmartinez
+ * @author Ivan Martinez Perez y Artem Cherkashin
  */
 public class Publico extends Elemento {
     /* Este parametro puede tomar los valores:
@@ -16,10 +16,10 @@ public class Publico extends Elemento {
      *          3- Servicios administrativos: Ayuntamiento, seguridad social...
      */
     private int TBarrio;
-    public int tipo_servicio;
-    public int Tamano_x;
-    public int Tamano_y;
-    public int Precio;
+    private int tipo_servicio;
+    private int Tamano_x;
+    private int Tamano_y;
+    private int Precio;
     
     /* Indica a cuanta población puede ofrecer sus servicios*/
     public int capacidad_servicio_poblacion;
@@ -34,25 +34,25 @@ public class Publico extends Elemento {
                    int precio, int tbarr){
         super(OID);
         TBarrio = tbarr;
-        this.Tamano_x = tam_x;
-        this.Tamano_y = tam_y;
-        this.Precio = precio;
-        this.tipo_servicio = tipo_ser;
-        this.capacidad_servicio_poblacion = cap_serv_pob;
+        Tamano_x = tam_x;
+        Tamano_y = tam_y;
+        Precio = precio;
+        tipo_servicio = tipo_ser;
+        capacidad_servicio_poblacion = cap_serv_pob;
     }
     
     ///////Modificadoras////////////
     public void Settipo(int tipo){
-        this.tipo_servicio = tipo;
+        tipo_servicio = tipo;
     }
     
     public void Setcapacidad_serv(int cap){
-        this.capacidad_servicio_poblacion = cap;
+        capacidad_servicio_poblacion = cap;
     }
     
     public void setTamaño(int x,int y){
-        this.Tamano_x=x;
-        this.Tamano_y=y;
+        Tamano_x=x;
+        Tamano_y=y;
     }
      
     public void setTBarrio(int bar){
@@ -62,11 +62,11 @@ public class Publico extends Elemento {
     
     //////Consultoras///////////
     public int Gettipo(){
-        return this.tipo_servicio;
+        return tipo_servicio;
     }
     
     public int Getcapacidad_serv(){
-        return this.capacidad_servicio_poblacion;
+        return capacidad_servicio_poblacion;
     }
     
     public int getPrecio(){
@@ -74,11 +74,11 @@ public class Publico extends Elemento {
     }
     
     public int getTamanoX(){
-        return this.Tamano_x;
+        return Tamano_x;
     }
     
     public int getTamanoY(){
-        return this.Tamano_y;
+        return Tamano_y;
     }
     
     public int getTBarrio(){

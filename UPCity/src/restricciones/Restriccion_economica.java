@@ -12,8 +12,8 @@ import elementos.Cjt_Elementos;
  */
 public class Restriccion_economica extends Restriccion {
      
-   public int saldo;
-   public int[] saldos;
+   private int saldo;
+   private int[] saldos;
    
    
    //CREADORA///////

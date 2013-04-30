@@ -14,7 +14,7 @@ public class Restriccion_ubicacion extends Restriccion {
 
     private Integer OID1;
     private Integer OID2;
-    public int distancia;
+    private int distancia;
     
      /// CREADORA //////////
     
