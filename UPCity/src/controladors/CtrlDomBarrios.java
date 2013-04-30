@@ -299,176 +299,6 @@ public class CtrlDomBarrios {
     }
     
     
-    
-    
-    
-    /////PRIVADAS/////
-    
-    
-    /**
-     * Funcion privada que reparte la informacion del CjtRest previamente
-     * cargado del disco de un barrio ya creado, entre las estructuras de 
-     * Restricciones utilizadas en el Controlador.
-     */
-    private void transRestBarrio(){
-        ArrayList<Restriccion> aux = new ArrayList();
-        aux.addAll((ArrayList<Restriccion>) CjtRest.values());
-        Restriccion r;
-        for (int i=0; i<aux.size(); ++i){
-            r = aux.get(i);
-            putRestriccion(r);
-        }
-    }
-    
-    
-    /**
-     * Añande la Restriccion r, que le llega como parametro, a las estructuras
-     * de restricciones utilizadas por el Controlador.
-     * @param r Restriccion que se quiere añadir a las estructuras.
-     */
-    private void putRestriccion(Restriccion r){
-        ArrayList<Restriccion_ubicacion> aux2;
-        if(r instanceof Restriccion_ubicacion){
-            Restriccion_ubicacion r2 = (Restriccion_ubicacion) r;
-            int oid1 = r2.consultar_OID1();
-            int oid2 = r2.consultar_OID2();
-            Restriccion_ubicacion r3 = new Restriccion_ubicacion(r2.getId(),
-                         r2.getTypeSU(),oid2,oid1,r2.consultar_distancia());
-            
-            if(CjtRestUbic1.containsKey(oid1))
-                aux2 = CjtRestUbic1.get(oid1);
-            else
-                aux2 = new ArrayList();
-            aux2.add(r2);
-            CjtRestUbic1.put((Integer) oid1, aux2);
-
-            if(CjtRestUbic1.containsKey(oid2))
-                aux2 = CjtRestUbic1.get(oid2);
-            else
-                aux2 = new ArrayList();
-            aux2.add(r3);
-            CjtRestUbic1.put((Integer) oid2, aux2);
-        }
-        else if(r instanceof Restriccion_demografica){
-            Restriccion_demografica r2 = (Restriccion_demografica) r;
-            CjtRestDemog.put(r2.consultar_OID(), r2);
-        }
-        else if(r instanceof Restriccion_economica)
-            RestEcon = (Restriccion_economica) r;
-        
-    }
-    
-    
-    /**
-     * Funcion privada que elimina una determianda Restriccion de las 
-     * estructuras de Restricciones del Controlador.
-     * @param r Restriccion que queremos eliminar.
-     */
-    private void removeRestriccion(Restriccion r){
-        ArrayList<Restriccion_ubicacion> aux2;
-        if(r instanceof Restriccion_ubicacion){
-            Restriccion_ubicacion r2 = (Restriccion_ubicacion) r;
-            int oid1 = r2.consultar_OID1().intValue();
-            int oid2 = r2.consultar_OID2().intValue();
-                      
-            aux2 = CjtRestUbic1.get(oid1);
-            aux2.remove(searchRestUbic(oid2,aux2));
-            CjtRestUbic1.put((Integer) oid1, aux2);
-            aux2 = CjtRestUbic1.get(oid2);
-            aux2.remove(searchRestUbic(oid1,aux2));
-            CjtRestUbic1.put((Integer) oid2, aux2);
-        }
-        else if(r instanceof Restriccion_demografica){
-            Restriccion_demografica r2 = (Restriccion_demografica) r;
-            CjtRestDemog.remove(r2.consultar_OID());
-        }
-        else if(r instanceof Restriccion_economica)
-            RestEcon = null;
-    }
-    
-    
-    /**
-     * Funcion privada que busca en un ArrayList que indice tiene la restriccion
-     * de ubicacion con OID2 igual al oid que le proporcionan.
-     * @param oid OID2 de la restriccion que buscamos.
-     * @param aux ArrayList donde buscamos la Restriccion.
-     * @return 
-     */
-    private int searchRestUbic(int oid,ArrayList<Restriccion_ubicacion> aux){
-        for(int i = 0; i<aux.size(); ++i){
-            if(aux.get(i).consultar_OID2()==oid){
-                return i;
-            }
-        }
-        return 0;
-    }
-    
-    /**
-     * Añade el Elemento con el oid, que le llega como parametro, al 
-     * Cjt_Elementos del barrio sobre el que se trabaja.
-     * @param oid Identificador numerico del elemento que se quiere añadir.
-     * @param val El Elemento junto con la cantidad de ese elemento que se 
-     * quiere añadir
-     */
-    private void putElemento(int oid, Pair<Integer,Elemento> val){
-        if(CjtElem.containsKey(oid)){
-            int c = val.getFirst();
-            CjtElem.anadir_cantidad_elementos(oid, c);
-        }
-        else{
-            CjtElem.insertar_elementos(oid, val);           
-        }        
-    }
-    
-    
-    /**
-     * Guarda toda la informacion relacionada con el Elemento e y la cantidad 
-     * cant que se quiere añadir, pasados como parametros, en el barrio sobre el
-     * que se trabaja y lo añade a su Conjunto de Elementos. La informacion 
-     * relacionada con el elemento es por ejemplo su precio y la capacidad de
-     * habitantes si es una Vivienda, esta informacion sera pasada al barrio
-     * para que la guarde.
-     * @param e Elemento que se quiere añadir.
-     * @param cant Cantidad del Elemento que se quiere añadir.
-     */
-    private void guardarElemento(Elemento e, int cant){
-        int gasto;
-        int oid = e.getId();
-        Pair v = new Pair(cant,e);
-        if(e instanceof Vivienda){
-            Vivienda e2 = (Vivienda) e;
-            gasto = cant * e2.getPrecio();
-            B.anadirHabitantes(e2.Getcap_max());
-        }
-        else if(e instanceof Publico){
-            Publico e2 = (Publico) e;
-            gasto = cant * e2.getPrecio();
-        }
-        else {
-            Comercio e2 = (Comercio) e;
-            gasto = cant * e2.getPrecio();
-            B.anadirComercio(e2.getCapacidad());
-        }
-        B.anadirGasto(gasto);
-        putElemento(oid,v);
-    }
-    
-    
-    /**
-     * Elimina cant Elementos con oid que se le pasa por parametro del 
-     * Cjt_Elementos del barrio sobre el que se trabaja.
-     * @param oid Identificador numerico del Elemento que se quiere eliminar.
-     * @param catn Cantidad de Elementos con el oid deseado que se quieren 
-     * eliminar 
-     */
-    private void removeElemento(int oid, int catn){
-        if(CjtElem.containsKey(oid)){
-            CjtElem.eliminar_cantidad_elementos(oid, catn);         
-            
-        }
-    }
-    
-    
     /**
      * Listar los Elementos del Conjunto de Elementos del Barrio. 
      * @return Retorna una matriz de Strings con los parametros de los 
@@ -646,6 +476,175 @@ public class CtrlDomBarrios {
         return B.getCapacidad_comercio();
     }
     
+    
+    
+    
+    
+    /////PRIVADAS/////
+    
+    
+    /**
+     * Funcion privada que reparte la informacion del CjtRest previamente
+     * cargado del disco de un barrio ya creado, entre las estructuras de 
+     * Restricciones utilizadas en el Controlador.
+     */
+    private void transRestBarrio(){
+        ArrayList<Restriccion> aux = new ArrayList();
+        aux.addAll((ArrayList<Restriccion>) CjtRest.values());
+        Restriccion r;
+        for (int i=0; i<aux.size(); ++i){
+            r = aux.get(i);
+            putRestriccion(r);
+        }
+    }
+    
+    
+    /**
+     * Añande la Restriccion r, que le llega como parametro, a las estructuras
+     * de restricciones utilizadas por el Controlador.
+     * @param r Restriccion que se quiere añadir a las estructuras.
+     */
+    private void putRestriccion(Restriccion r){
+        ArrayList<Restriccion_ubicacion> aux2;
+        if(r instanceof Restriccion_ubicacion){
+            Restriccion_ubicacion r2 = (Restriccion_ubicacion) r;
+            int oid1 = r2.consultar_OID1();
+            int oid2 = r2.consultar_OID2();
+            Restriccion_ubicacion r3 = new Restriccion_ubicacion(r2.getId(),
+                         r2.getTypeSU(),oid2,oid1,r2.consultar_distancia());
+            
+            if(CjtRestUbic1.containsKey(oid1))
+                aux2 = CjtRestUbic1.get(oid1);
+            else
+                aux2 = new ArrayList();
+            aux2.add(r2);
+            CjtRestUbic1.put((Integer) oid1, aux2);
+
+            if(CjtRestUbic1.containsKey(oid2))
+                aux2 = CjtRestUbic1.get(oid2);
+            else
+                aux2 = new ArrayList();
+            aux2.add(r3);
+            CjtRestUbic1.put((Integer) oid2, aux2);
+        }
+        else if(r instanceof Restriccion_demografica){
+            Restriccion_demografica r2 = (Restriccion_demografica) r;
+            CjtRestDemog.put(r2.consultar_OID(), r2);
+        }
+        else if(r instanceof Restriccion_economica)
+            RestEcon = (Restriccion_economica) r;
+        
+    }
+    
+    
+    /**
+     * Funcion privada que elimina una determianda Restriccion de las 
+     * estructuras de Restricciones del Controlador.
+     * @param r Restriccion que queremos eliminar.
+     */
+    private void removeRestriccion(Restriccion r){
+        ArrayList<Restriccion_ubicacion> aux2;
+        if(r instanceof Restriccion_ubicacion){
+            Restriccion_ubicacion r2 = (Restriccion_ubicacion) r;
+            int oid1 = r2.consultar_OID1().intValue();
+            int oid2 = r2.consultar_OID2().intValue();
+                      
+            aux2 = CjtRestUbic1.get(oid1);
+            aux2.remove(searchRestUbic(oid2,aux2));
+            CjtRestUbic1.put((Integer) oid1, aux2);
+            aux2 = CjtRestUbic1.get(oid2);
+            aux2.remove(searchRestUbic(oid1,aux2));
+            CjtRestUbic1.put((Integer) oid2, aux2);
+        }
+        else if(r instanceof Restriccion_demografica){
+            Restriccion_demografica r2 = (Restriccion_demografica) r;
+            CjtRestDemog.remove(r2.consultar_OID());
+        }
+        else if(r instanceof Restriccion_economica)
+            RestEcon = null;
+    }
+    
+    
+    /**
+     * Funcion privada que busca en un ArrayList que indice tiene la restriccion
+     * de ubicacion con OID2 igual al oid que le proporcionan.
+     * @param oid OID2 de la restriccion que buscamos.
+     * @param aux ArrayList donde buscamos la Restriccion.
+     * @return 
+     */
+    private int searchRestUbic(int oid,ArrayList<Restriccion_ubicacion> aux){
+        for(int i = 0; i<aux.size(); ++i){
+            if(aux.get(i).consultar_OID2()==oid){
+                return i;
+            }
+        }
+        return 0;
+    }
+    
+    /**
+     * Añade el Elemento con el oid, que le llega como parametro, al 
+     * Cjt_Elementos del barrio sobre el que se trabaja.
+     * @param oid Identificador numerico del elemento que se quiere añadir.
+     * @param val El Elemento junto con la cantidad de ese elemento que se 
+     * quiere añadir
+     */
+    private void putElemento(int oid, Pair<Integer,Elemento> val){
+        if(CjtElem.containsKey(oid)){
+            int c = val.getFirst();
+            CjtElem.anadir_cantidad_elementos(oid, c);
+        }
+        else{
+            CjtElem.insertar_elementos(oid, val);           
+        }        
+    }
+    
+    
+    /**
+     * Guarda toda la informacion relacionada con el Elemento e y la cantidad 
+     * cant que se quiere añadir, pasados como parametros, en el barrio sobre el
+     * que se trabaja y lo añade a su Conjunto de Elementos. La informacion 
+     * relacionada con el elemento es por ejemplo su precio y la capacidad de
+     * habitantes si es una Vivienda, esta informacion sera pasada al barrio
+     * para que la guarde.
+     * @param e Elemento que se quiere añadir.
+     * @param cant Cantidad del Elemento que se quiere añadir.
+     */
+    private void guardarElemento(Elemento e, int cant){
+        int gasto;
+        int oid = e.getId();
+        Pair v = new Pair(cant,e);
+        if(e instanceof Vivienda){
+            Vivienda e2 = (Vivienda) e;
+            gasto = cant * e2.getPrecio();
+            B.anadirHabitantes(e2.Getcap_max());
+        }
+        else if(e instanceof Publico){
+            Publico e2 = (Publico) e;
+            gasto = cant * e2.getPrecio();
+        }
+        else {
+            Comercio e2 = (Comercio) e;
+            gasto = cant * e2.getPrecio();
+            B.anadirComercio(e2.getCapacidad());
+        }
+        B.anadirGasto(gasto);
+        putElemento(oid,v);
+    }
+    
+    
+    /**
+     * Elimina cant Elementos con oid que se le pasa por parametro del 
+     * Cjt_Elementos del barrio sobre el que se trabaja.
+     * @param oid Identificador numerico del Elemento que se quiere eliminar.
+     * @param catn Cantidad de Elementos con el oid deseado que se quieren 
+     * eliminar 
+     */
+    private void removeElemento(int oid, int catn){
+        if(CjtElem.containsKey(oid)){
+            CjtElem.eliminar_cantidad_elementos(oid, catn);         
+            
+        }
+    }
     
     
     /**
