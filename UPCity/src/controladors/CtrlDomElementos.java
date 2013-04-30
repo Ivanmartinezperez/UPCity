@@ -350,14 +350,14 @@ public class CtrlDomElementos {
 
 
     /**
-     * Fucnion que comprueba la existencia de un Elemento con identificador
+     * Fucnion que obtiene el nombre de un Elemento con identificador
      * OID.
-     * @param OID Identificador del elemento del cual comprobamos la 
-     * existencia.
-     * @return Retorna true si tal Elemento existe y false si no existe.
+     * @param OID Identificador del elemento del cual queremos obtener el 
+     * nombre. 
+     * @return Retorna el nombre del Elemento con el identificador OID.
      */
-    public boolean existsElemento(Integer OID){
-        return TradOIDtoName.containsKey(OID);
+    public String NombreElemento(Integer OID){
+        return TradOIDtoName.get(OID);
     }
 
 

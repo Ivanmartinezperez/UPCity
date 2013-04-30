@@ -397,8 +397,8 @@ public class CtrlDomBarrios {
             if(r instanceof Restriccion_ubicacion){
                 u = (Restriccion_ubicacion) r;
                 mat[i][0] = u.getId();
-                mat[i][1] = String.valueOf(u.consultar_OID1());
-                mat[i][2] = String.valueOf(u.consultar_OID2());
+                mat[i][1] = String.valueOf(DOMElem.NombreElemento(u.consultar_OID1()));
+                mat[i][2] = String.valueOf(DOMElem.NombreElemento(u.consultar_OID2()));
                 mat[i][3] = String.valueOf(u.consultar_distancia());
                 mat[i][4] = "-1";
             }
@@ -415,10 +415,10 @@ public class CtrlDomBarrios {
             else{
                 d = (Restriccion_demografica) r;
                 mat[i][0] = d.getId();
-                mat[i][1] = String.valueOf(d.consultar_OID());
+                mat[i][1] = String.valueOf(DOMElem.NombreElemento(d.consultar_OID()));
                 mat[i][2] = String.valueOf(d.consultar_habitantes());
+                mat[i][3] = "-1";
                 mat[i][4] = "-1";
-                mat[i][5] = "-1";
             }
             
         }

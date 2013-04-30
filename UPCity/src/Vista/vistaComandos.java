@@ -13,7 +13,7 @@ import java.util.Set;
 
 /**
  *
- * @author ivanmartinez y ron
+ * @author ivanmartinez y ron y Artem Cherkashin
  */
 public class vistaComandos {
     
@@ -238,7 +238,10 @@ public class vistaComandos {
                         int viv = (int) parametros.nextInt();
                         System.out.println("Escriba cantidad de dinero para espacio publico");
                         int pub = (int) parametros.nextInt();
-                        aux = CtrlRest.CrearRestriccion("economica1", "economica", "-1", "-1", com, viv, pub);
+                        System.out.println("Escriba el id de la restriccion");
+                        Scanner idscann0 = new Scanner(System.in);
+                        String id0 = idscann0.nextLine();
+                        aux = CtrlRest.CrearRestriccion(id0, "economica", "-1", "-1", com, viv, pub);
                         if (aux) System.out.println("Creado correctamente");
                         else System.out.println("La restriccion no se pudo crear");
                         break;
@@ -264,56 +267,59 @@ public class vistaComandos {
     }
     
     private boolean eliminarRestriccion(){
-        System.out.println("Eliminar Restriccion:");
-        System.out.println("1-Proceder a eliminacion/2-Salir");
-        
+        boolean b;
         Scanner action = new Scanner(System.in);
-        
-        int n=(int)action.nextInt();
-        
-        while(n == 1){
-            Scanner parametros = new Scanner(System.in);
-            String id = parametros.nextLine();
-            boolean aux = CtrlRest.Eliminar_Restriccion(id);
-            if (aux) System.out.println("Restriccion eliminada");
-            else System.out.println("No se pudo eliminar restriccion (error de id)");
-            System.out.println("Eliminar Restriccion:");
-            System.out.println("1-Proceder a eliminacion/2-Salir");
-            n = (int)action.nextInt();
-        }
-       return true; 
+        listarRestricciones();
+        System.out.println("Escriba el nombre de la Restriccion que desea eliminar:");
+        String nombre = action.nextLine();
+        b = CtrlRest.Eliminar_Restriccion(nombre);
+        if(b) System.out.println("Restriccion eliminada");
+        else System.out.println("No se pudo eliminar restriccion");
+        return b;
     }
     
-    private boolean listarRestricciones(){
-        System.out.println("Introduzca el tipo de restricciones que desea:");
-        System.out.println("0-todos/1-ubicacion/2-demografica/3-economica");
+    
+    private boolean listarRestAux(String tipo){
         
-        Scanner action = new Scanner(System.in);
-        
-        int n=(int)action.nextInt();
-        boolean aux = true;
-        
-        switch(n){
-            
-            case 0: Set<String> lista = CtrlRest.ListaNombreRestricciones();
-                    Iterator it = lista.iterator();
-                    while(it.hasNext()) System.out.println(""+it.next());
+        String[][] lista;
+        lista = CtrlRest.listarRestTipo(tipo);
+        if(lista == null) return false;
+        for(int i=0; i<lista.length; ++i){
+            switch(tipo){
+                case "ubicacion":
+                    System.out.println(lista[i][0] + "        "
+                    + lista[i][1] + "        " + lista[i][2] + "        " + lista[i][3]);
                     break;
-            case 1: Set<String> lista1 = CtrlRest.ListaNombreRestriccionesTipo("ubicacion");
-                    Iterator it1 = lista1.iterator();
-                    while(it1.hasNext()) System.out.println(""+it1.next());
+                case "demografica": 
+                    System.out.println(lista[i][0] + "        " 
+                    + lista[i][1] + "        " + lista[i][2]);
                     break;
-            case 2: Set<String> lista2 = CtrlRest.ListaNombreRestriccionesTipo("demografica");
-                    Iterator it2 = lista2.iterator();
-                    while(it2.hasNext()) System.out.println(""+it2.next());
+                case "economica":
+                    System.out.println(lista[i][0] + "        " + lista[i][1] + "        " 
+                    + lista[i][2] + "        " + lista[i][3] + "        " + lista[i][4]);
                     break;
-            case 3: Set<String> lista3 = CtrlRest.ListaNombreRestriccionesTipo("economica");
-                    Iterator it3 = lista3.iterator();
-                    while(it3.hasNext()) System.out.println(""+it3.next());
-                    break;
-            default: aux = false; 
+            }
         }
-        return aux;
+        return true;
+    }
+    
+    
+    private boolean listarRestricciones(){
+        System.out.println("\n\nLAS RESTRICCIONES ACTUALES QUE CONTIENE EL SISTEMA SON:");
+        System.out.println("\nRESTRICCIONES DE UBICACION:");
+        System.out.println("NombreRest  NombreElem1  NombreElem2  Distancia");
+        listarRestAux("ubicacion");
+        System.out.println("------------------------------------------------");
+        System.out.println("\nRESTRICCIONES DEMOGRAFICAS:");
+        System.out.println("NombreRest  NombreElem1  Habitantes_minimos");
+        listarRestAux("demografica");
+        System.out.println("------------------------------------------------");
+        System.out.println("\nRESTRICCIONES ECONOMICAS:");
+        System.out.println("NombreRest  PresTotal  PresViviendas  PresPublicos  PresComercios");
+        listarRestAux("economica");
+        System.out.println("------------------------------------------------");
+       
+        return true;
     }
     
     private void gestionRestricciones(){
