@@ -42,8 +42,9 @@ public class Cjt_Elementos extends TreeMap {
            Pair aux;
            aux = (Pair) this.get(OID);
            Integer Nuevo_valor =(Integer) aux.getFirst()+cantidad;
+           aux.setSecond(Nuevo_valor);
            if(Nuevo_valor > 0){
-               this.put(OID, Nuevo_valor);
+               this.put(OID, aux);
            }
            else{
                this.remove(OID);
@@ -57,8 +58,9 @@ public class Cjt_Elementos extends TreeMap {
            Pair aux;
            aux = (Pair) this.get(OID);
            Integer Nuevo_valor =(Integer) aux.getFirst()-cantidad;
+           aux.setSecond(Nuevo_valor);
            if(Nuevo_valor > 0){
-               this.put(OID, Nuevo_valor);
+               this.put(OID, aux);
            }
            else{
                this.remove(OID);
