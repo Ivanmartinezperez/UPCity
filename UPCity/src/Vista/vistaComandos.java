@@ -274,6 +274,13 @@ public class vistaComandos {
     
     ////////////////////////GESTION BARRIOS//////////////////////////////////////
     private Boolean mostrarBarrio() throws Exception {
+        Integer mat[][] = CtrlBarrio.vistaMapa();
+        for(int i=0;i < mat.length;++i){
+            for(int j=0;j<mat[0].length;++j){
+                System.out.print(mat[i][j] +"   ");
+            }
+            System.out.println("\n");    
+        }
         return true;
     }
     
@@ -351,6 +358,11 @@ public class vistaComandos {
                                         break;
                                 default: System.out.println("Opcio Invalida");
                              }
+                            if(!generado){ 
+                                System.out.println("Desea generar el barrio?\n1-Si\n2-Volver");
+                                opc = (int) action.nextInt();
+                            }
+                            else opc = 2;
                          }
                          break;
                 default: System.out.println("Opcio Invalida");    
