@@ -22,6 +22,11 @@ public class Parcela {
         OID = 0;
     }
     
+    Parcela(Parcela p) {
+        restriccionesP = new TreeMap(p.restriccionesP);
+        OID = p.getoid();
+    }
+    
     /**
      * Creadora de una Parcela, con valores tam i ID
      * @param tam

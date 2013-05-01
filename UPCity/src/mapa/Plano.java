@@ -37,7 +37,7 @@ public class Plano {
 	mat = new Parcela[n][m];
 	for(int i = 0;i < n; ++i) {
 		for(int j = 0; j < m; ++j) {
-			mat[i][j] = p.pos(i, j);
+			mat[i][j] = new Parcela(p.pos(i, j));
 		}
 	}
         
@@ -242,7 +242,7 @@ public class Plano {
 	mat = new Parcela[n][m];
 	for(int i = 0;i < n; ++i) {
 		for(int j = 0; j < m; ++j) {
-			mat[i][j] = p.pos(i, j);
+			mat[i][j] = new Parcela(p.pos(i, j));
 		}
 	}
     }
