@@ -163,7 +163,7 @@ public class CtrlDomBarrios {
             EstaVisitado[i]=0;
         }
         
-        Mapa.copia(copia);
+        Mapa = new Plano(copia);
         
         return backtracking(0,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
     }
@@ -686,9 +686,9 @@ public class CtrlDomBarrios {
      * @param k Cantidad de columnas que tiene la matriz mapa
      */
     
-    private void ajustaInicio(Pair p,int k){
+    private void ajustaInicio(Pair p,int k, int vis){
         
-        if(p.getFirst()!=0 || p.getSecond()!=0){
+        if(vis==1){
             if((int)p.getSecond()< k-1){
                 p.setSecond((int)p.getSecond()+1);
             }
@@ -720,7 +720,7 @@ public class CtrlDomBarrios {
             //System.out.println("Desexpando");
             p.expande((int)lastVisited[eAct].getFirst(),(int)lastVisited[eAct].getSecond(), 0, res, false);
         }
-            ajustaInicio(lastVisited[eAct],p.tamb());
+            ajustaInicio(lastVisited[eAct],p.tamb(),EstaVisitado[eAct]);
         
         for(int i=(int)lastVisited[eAct].getFirst();i<p.tama();++i){
             for(int j=(int) lastVisited[eAct].getSecond();j<p.tamb();++j){
@@ -767,13 +767,12 @@ public class CtrlDomBarrios {
         else {
             Integer valor = cjt.get(k);
             Pair pos;
-            ArrayList<Restriccion_ubicacion> resaux = new ArrayList();
-            if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,resaux); 
+            if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,null); 
             else pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,res.get(valor));//Esta funcion debe desexpandirte en caso de que tus ultimos
                                                                         // valores visitados sean difentes a 0 (puesto previamente)
             //System.out.println(""+pos.getFirst()+" "+pos.getSecond());
             if(pos.getFirst()!=-1){
-                if(!res.containsKey(valor))p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, resaux, true);
+                if(!res.containsKey(valor))p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, null, true);
                 else p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, res.get(valor), true);
                 return backtracking(k+1,cjt,lastVisited,EstaVisitado,res,p);
             }

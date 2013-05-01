@@ -34,7 +34,7 @@ public class Plano {
     public Plano(Plano p) throws Exception {
         int n = p.tama();
         int m = p.tamb();
-	mat = new Parcela[n][n];
+	mat = new Parcela[n][m];
 	for(int i = 0;i < n; ++i) {
 		for(int j = 0; j < m; ++j) {
 			mat[i][j] = p.pos(i, j);
@@ -112,6 +112,7 @@ public class Plano {
     public void expande(int x, int y, int oid, ArrayList<Restriccion_ubicacion> restricciones, boolean exp) {
        // int contador = 0;
         mat[x][y].modificarPar(oid, 1);
+    if(restricciones!=null){
         Queue<Pair <Integer, Integer> > cola;
         cola = new LinkedList <Pair<Integer, Integer> >();
         Pair<Integer, Integer> par;
@@ -215,6 +216,7 @@ public class Plano {
                 }
             }
         }
+      }
       //  System.out.println("contador: "+contador);
     }
         
@@ -237,7 +239,7 @@ public class Plano {
     public void copia(Plano p) throws Exception {
        	int n = p.tama();
         int m = p.tamb();
-	mat = new Parcela[n][n];
+	mat = new Parcela[n][m];
 	for(int i = 0;i < n; ++i) {
 		for(int j = 0; j < m; ++j) {
 			mat[i][j] = p.pos(i, j);
