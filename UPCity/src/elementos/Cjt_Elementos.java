@@ -25,7 +25,7 @@ public class Cjt_Elementos extends TreeMap {
    
    /* Funcion para evitar NULLPOINTERSEXCEPTIONS*/
    private boolean existe_elemento(Integer OID){
-       return this.containsKey(OID);
+       return containsKey(OID);
         
    }
    
@@ -34,8 +34,7 @@ public class Cjt_Elementos extends TreeMap {
    
    //////MODIFICADORAS//////////////////////////////
    public void insertar_elementos(Integer OID,Pair valor ){
-       this.put(OID,valor);
-       Pair<Integer,Elemento> p =(Pair) this.get(OID);
+       put(OID,valor);
    }
    
    ////////////////////////////////////////////////
@@ -44,14 +43,14 @@ public class Cjt_Elementos extends TreeMap {
    ///////////CONSULTORAS////////////
     public Pair consultar_elemento(Integer OID){
           Pair valor;
-          valor = (Pair) this.get(OID);
+          valor = (Pair) get(OID);
           return valor;
    }
     
     /* Esta funcion retorna la raiz del arbol Y LA ELIMINA DE EL!!!*/
     public Pair primer_elemento(){
             Pair valor;
-            valor = (Pair) this.pollFirstEntry().getValue();
+            valor = (Pair) pollFirstEntry().getValue();
             return valor;
     }
     
