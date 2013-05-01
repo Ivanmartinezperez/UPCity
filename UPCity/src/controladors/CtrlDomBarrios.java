@@ -302,7 +302,7 @@ public class CtrlDomBarrios {
             if(e instanceof Vivienda){
                 Vivienda e2 = (Vivienda) e;
                 gasto = cant * e2.getPrecio();
-                B.anadirHabitantes(-(e2.Getcap_max()));
+                B.anadirHabitantes(-(e2.Getcap_max()*cant));
             }
             else if(e instanceof Publico){
                 Publico e2 = (Publico) e;
@@ -311,7 +311,7 @@ public class CtrlDomBarrios {
             else {
                 Comercio e2 = (Comercio) e;
                 gasto = cant * e2.getPrecio();
-                B.anadirComercio(-(e2.getCapacidad()));
+                B.anadirComercio(-(e2.getCapacidad()*cant));
             }
             B.anadirGasto(-gasto);
             removeElemento(oid,cant);
@@ -331,7 +331,7 @@ public class CtrlDomBarrios {
         ArrayList<Pair<Integer,Elemento>> elem = new ArrayList();
         elem.addAll(CjtElem.values());
         String[][] mat = null;
-        if(!elem.isEmpty()) mat = new String[elem.size()][8];
+        if(!elem.isEmpty()) mat = new String[elem.size()][10];
         Pair<Integer,Elemento> val;
         int cant;
         Elemento e;
@@ -345,38 +345,44 @@ public class CtrlDomBarrios {
             e = val.getSecond();
             if(e instanceof Vivienda){    
                 v = (Vivienda) e;
-                mat[i][0] = String.valueOf(cant);
-                mat[i][1] = v.getNom();
-                mat[i][2] = String.valueOf(v.getTBarrio());
-                mat[i][3] = String.valueOf(v.getPrecio());
-                mat[i][4] = String.valueOf(v.Getcap_max());
-                mat[i][5] = String.valueOf(v.getTamanoX());
-                mat[i][6] = String.valueOf(v.getTamanoY());
-                mat[i][7] = "-1";
+                mat[i][0] = "v";
+                mat[i][1] = String.valueOf(cant);
+                mat[i][2] = String.valueOf(v.getId());
+                mat[i][3] = v.getNom();
+                mat[i][4] = String.valueOf(v.getTBarrio());
+                mat[i][5] = String.valueOf(v.getPrecio());
+                mat[i][6] = String.valueOf(v.Getcap_max());
+                mat[i][7] = String.valueOf(v.getTamanoX());
+                mat[i][8] = String.valueOf(v.getTamanoY());
+                mat[i][9] = "-1";
             }
 
             else if(e instanceof Publico){
                 p = (Publico) e;
-                mat[i][0] = String.valueOf(cant);
-                mat[i][1] = p.getNom();
-                mat[i][2] = String.valueOf(p.getTBarrio());
-                mat[i][3] = String.valueOf(p.getPrecio());
-                mat[i][4] = String.valueOf(p.Gettipo());
-                mat[i][5] = String.valueOf(p.Getcapacidad_serv());
-                mat[i][6] = String.valueOf(p.getTamanoX());
-                mat[i][7] = String.valueOf(p.getTamanoY());
+                mat[i][0] = "p";
+                mat[i][1] = String.valueOf(cant);
+                mat[i][2] = String.valueOf(p.getId());
+                mat[i][3] = p.getNom();
+                mat[i][4] = String.valueOf(p.getTBarrio());
+                mat[i][5] = String.valueOf(p.getPrecio());
+                mat[i][6] = String.valueOf(p.Gettipo());
+                mat[i][7] = String.valueOf(p.Getcapacidad_serv());
+                mat[i][8] = String.valueOf(p.getTamanoX());
+                mat[i][9] = String.valueOf(p.getTamanoY());
             }
 
             else {
                 c = (Comercio) e;
-                mat[i][0] = String.valueOf(cant);
-                mat[i][1] = c.getNom();
-                mat[i][2] = String.valueOf(c.getTBarrio());
-                mat[i][3] = String.valueOf(c.getPrecio());
-                mat[i][4] = String.valueOf(c.getCapacidad());
-                mat[i][5] = String.valueOf(c.getTamanoX());
-                mat[i][6] = String.valueOf(c.getTamanoY());
-                mat[i][7] = "-1";
+                mat[i][0] = "c";
+                mat[i][1] = String.valueOf(cant);
+                mat[i][2] = String.valueOf(c.getId());
+                mat[i][3] = c.getNom();
+                mat[i][4] = String.valueOf(c.getTBarrio());
+                mat[i][5] = String.valueOf(c.getPrecio());
+                mat[i][6] = String.valueOf(c.getCapacidad());
+                mat[i][7] = String.valueOf(c.getTamanoX());
+                mat[i][8] = String.valueOf(c.getTamanoY());
+                mat[i][9] = "-1";
             }
            
         }
@@ -393,7 +399,7 @@ public class CtrlDomBarrios {
         ArrayList<Restriccion> rest = new ArrayList();
         rest.addAll(CjtRest.values());
         String[][] mat = null;
-        if(!rest.isEmpty()) mat = new String[rest.size()][5];
+        if(!rest.isEmpty()) mat = new String[rest.size()][6];
         Restriccion r;
         Restriccion_ubicacion u;
         Restriccion_economica e;
@@ -403,29 +409,32 @@ public class CtrlDomBarrios {
             r = rest.get(i);
             if(r instanceof Restriccion_ubicacion){
                 u = (Restriccion_ubicacion) r;
-                mat[i][0] = u.getId();
-                mat[i][1] = String.valueOf(DOMElem.NombreElemento(u.consultar_OID1()));
-                mat[i][2] = String.valueOf(DOMElem.NombreElemento(u.consultar_OID2()));
-                mat[i][3] = String.valueOf(u.consultar_distancia());
-                mat[i][4] = "-1";
+                mat[i][0] = "u";
+                mat[i][1] = u.getId();
+                mat[i][2] = String.valueOf(DOMElem.NombreElemento(u.consultar_OID1()));
+                mat[i][3] = String.valueOf(DOMElem.NombreElemento(u.consultar_OID2()));
+                mat[i][4] = String.valueOf(u.consultar_distancia());
+                mat[i][5] = "-1";
             }
 
             else if(r instanceof Restriccion_economica){
                 e = (Restriccion_economica) r;
-                mat[i][0] = e.getId();
-                mat[i][1] = String.valueOf(e.consultar_saldo());
-                mat[i][2] = String.valueOf(e.consultar_saldo_ind(1));
-                mat[i][3] = String.valueOf(e.consultar_saldo_ind(2));
-                mat[i][4] = String.valueOf(e.consultar_saldo_ind(0));
+                mat[i][0] = "e";
+                mat[i][1] = e.getId();
+                mat[i][2] = String.valueOf(e.consultar_saldo());
+                mat[i][3] = String.valueOf(e.consultar_saldo_ind(1));
+                mat[i][4] = String.valueOf(e.consultar_saldo_ind(2));
+                mat[i][5] = String.valueOf(e.consultar_saldo_ind(0));
             }
 
             else{
                 d = (Restriccion_demografica) r;
-                mat[i][0] = d.getId();
-                mat[i][1] = String.valueOf(DOMElem.NombreElemento(d.consultar_OID()));
-                mat[i][2] = String.valueOf(d.consultar_habitantes());
-                mat[i][3] = "-1";
+                mat[i][0] = "d";
+                mat[i][1] = d.getId();
+                mat[i][2] = String.valueOf(DOMElem.NombreElemento(d.consultar_OID()));
+                mat[i][3] = String.valueOf(d.consultar_habitantes());
                 mat[i][4] = "-1";
+                mat[i][5] = "-1";
             }
             
         }
@@ -639,7 +648,7 @@ public class CtrlDomBarrios {
         if(e instanceof Vivienda){
             Vivienda e2 = (Vivienda) e;
             gasto = cant * e2.getPrecio();
-            B.anadirHabitantes(e2.Getcap_max());
+            B.anadirHabitantes(e2.Getcap_max()*cant);
         }
         else if(e instanceof Publico){
             Publico e2 = (Publico) e;
@@ -648,7 +657,7 @@ public class CtrlDomBarrios {
         else {
             Comercio e2 = (Comercio) e;
             gasto = cant * e2.getPrecio();
-            B.anadirComercio(e2.getCapacidad());
+            B.anadirComercio(e2.getCapacidad()*cant);
         }
         B.anadirGasto(gasto);
         putElemento(oid,v);

@@ -6,10 +6,8 @@ package Vista;
 import controladors.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
+
 
 /**
  *
@@ -177,6 +175,7 @@ public class vistaComandos {
                 break;
                 
         }
+        System.out.println("\n");
         return true;
     }
     
@@ -311,14 +310,14 @@ public class vistaComandos {
         listarRestAux("ubicacion");
         System.out.println("------------------------------------------------");
         System.out.println("\nRESTRICCIONES DEMOGRAFICAS:");
-        System.out.println("NombreRest  NombreElem1  Habitantes_minimos");
+        System.out.println("NombreRest  NombreElem  Habitantes_minimos");
         listarRestAux("demografica");
         System.out.println("------------------------------------------------");
         System.out.println("\nRESTRICCIONES ECONOMICAS:");
         System.out.println("NombreRest  PresTotal  PresViviendas  PresPublicos  PresComercios");
         listarRestAux("economica");
         System.out.println("------------------------------------------------");
-       
+        System.out.println("\n");
         return true;
     }
     
@@ -348,7 +347,7 @@ public class vistaComandos {
     ///////////////////////////////////////////////////
     
     ////////////////////////GESTION BARRIOS//////////////////////////////////////
-    private Boolean mostrarBarrio() throws Exception {
+    private boolean mostrarBarrio() throws Exception {
         Integer mat[][] = CtrlBarrio.vistaMapa();
         for(int i=0;i < mat.length;++i){
             for(int j=0;j<mat[0].length;++j){
@@ -358,6 +357,84 @@ public class vistaComandos {
         }
         return true;
     }
+    
+    
+    private boolean mostrarInfoBarrio(){
+        int t = CtrlBarrio.getTipoBarrio();
+        String tipo=null;
+        switch(t){
+            case 0: tipo = "Sin Tipo";
+                break;
+            case 1: tipo = "Gama Baja";
+                break;
+            case 2: tipo = "Gama Media";
+                break;
+            case 3: tipo = "Gama Alta";
+                break;
+        }
+        System.out.println("\nLA INFORMACION ACTUAL DEL BARRIO ES LA SIGUIENTE:");
+        System.out.println("Nombre del Barrio: " + CtrlBarrio.getNombreBarrio());
+        System.out.println("Tipo de Barrio: " + tipo);
+        System.out.println("Presupuesto disponible: " + CtrlBarrio.getPresupuestoBarrio());
+        System.out.println("Presupuesto gastado: " + CtrlBarrio.getGastadoBarrio());
+        System.out.println("Poblacion deseada: " + CtrlBarrio.getPoblacionBarrio());
+        System.out.println("Poblacion posible: " + CtrlBarrio.getViviendoBarrio());
+        System.out.println("Capacidad comercial: " + CtrlBarrio.getComercioBarrio());
+        System.out.println("\n");
+        return true;
+    }
+    
+    private boolean mostrarCjtElem(){
+        System.out.println("\nEL CONJUNTO DE ELEMENTOS DEL BARRIO CONTIENE LOS SIGUIENTES ELEMENTOS:");
+        String[][] lista;
+        lista = CtrlBarrio.listarCjtElemBarrio();
+        if(lista == null) return false;
+        System.out.println("\nVIVIENDAS:");
+        System.out.println("Cantidad  OID  Nombre  TBarrios  Precio  Capacidad  TamX TamY");
+        for(int i=0; i<lista.length; ++i){
+            if(lista[i][0].contentEquals("v")) System.out.println(lista[i][1] + "        " + lista[i][2] + "        " + lista[i][3] + "        "
+                    + lista[i][4] + "        " + lista[i][5] + "        " + lista[i][6] + "        " + lista[i][7] + "    " + lista[i][8] );
+        }
+        System.out.println("\nCOMERCIOS:");
+        System.out.println("Cantidad  OID  Nombre  TBarrios  Precio  Capacidad  TamX TamY");
+        for(int i=0; i<lista.length; ++i){
+            if(lista[i][0].contentEquals("c")) System.out.println(lista[i][1] + "        " + lista[i][2] + "        " + lista[i][3] + "        "
+                    + lista[i][4] + "        " + lista[i][5] + "        " + lista[i][6] + "        " + lista[i][7] + "    " + lista[i][8] );
+        }
+        System.out.println("\nPUBLICOS:");
+        System.out.println("Cantidad  OID  Nombre  TBarrios  Precio  TServicio  Capacidad  TamX TamY");
+        for(int i=0; i<lista.length; ++i){
+            if(lista[i][0].contentEquals("p")) System.out.println(lista[i][1] + "        " + lista[i][2] + "        " + lista[i][3] + "        "
+                    + lista[i][4] + "        " + lista[i][5] + "        " + lista[i][6] + "        " + lista[i][7] + "        " + lista[i][8] + "    " + lista[i][9] );
+        }
+        System.out.println("\n");
+        return true;
+    }
+    
+    
+    private boolean mostrarCjtRest(){
+        System.out.println("\nEL CONJUNTO DE RESTRICCIONES DEL BARRIO CONTIENE LAS SIGUIENTES RESTRICCIONES:");
+        String[][] lista;
+        lista = CtrlBarrio.listarCjtRestBarrio();
+        if(lista == null) return false;
+        System.out.println("\nUBICACION  NombreElem1  NombreElem2  Distancia");
+        for(int i=0; i<lista.length; ++i){
+            if(lista[i][0].contentEquals("u")) System.out.println(lista[i][1] + "        " + lista[i][2] + "        " + lista[i][3] + "        "
+                    + lista[i][4]);
+        }
+        System.out.println("\nDEMOGRAFICAS  NombreElem  Habitantes_minimos");
+        for(int i=0; i<lista.length; ++i){
+            if(lista[i][0].contentEquals("d")) System.out.println(lista[i][1] + "        " + lista[i][2] + "        " + lista[i][3]);
+        }
+        System.out.println("\nECONOMICAS  PresTotal  PresViviendas  PresPublicos  PresComercios");
+        for(int i=0; i<lista.length; ++i){
+            if(lista[i][0].contentEquals("e")) System.out.println(lista[i][1] + "        " + lista[i][2] + "        " + lista[i][3] + "        "
+                    + lista[i][4] + "        " + lista[i][5]);
+        }
+        System.out.println("\n");
+        return true;
+    }
+    
     
     private boolean crearBarrio() throws Exception{
         System.out.println("Crear barrio:");
@@ -374,7 +451,10 @@ public class vistaComandos {
         int y = (int)parametros.nextInt();
         aux = CtrlBarrio.crearMapaBarrio(x, y);
         
-        System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Guardar mi barrio\n0-Salir");
+        System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
+                + "3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n"
+                + "6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Mostrar informacion del Barrio\n"
+                + "10-Mostrar Conjunto de Elementos\n11-Mostrar Conjunto de Restricciones\n12-Guardar mi barrio\n0-Salir");
         Scanner action = new Scanner(System.in);
         int n=(int)action.nextInt();
         boolean aux1;
@@ -393,7 +473,7 @@ public class vistaComandos {
                         if (aux1) System.out.println("Elemento añadido correctamente");
                         else System.out.println("No se pudo añadir el elemento");
                         break;
-                case 2: listarElementos(CtrlBarrio.getTipoBarrio());
+                case 2: mostrarCjtElem();
                         System.out.println("Escriba el nombre del elemento que desea quitar del barrio: ");
                         Scanner param2 = new Scanner(System.in);
                         id = param2.nextLine();
@@ -411,7 +491,7 @@ public class vistaComandos {
                         if (aux1) System.out.println("Restriccion añadido correctamente");
                         else System.out.println("No se pudo añadir la restriccion");
                         break;
-                case 4: listarRestricciones();
+                case 4: mostrarCjtRest();
                         System.out.println("Escriba el nombre de restriccion que desea quitar del barrio: ");
                         Scanner param4 = new Scanner(System.in);
                         id = param4.nextLine();               
@@ -443,13 +523,22 @@ public class vistaComandos {
                 case 8:  System.out.println("Mostrando barrio:");
                          mostrarBarrio();
                          break;
-                case 9:  System.out.println("Guardando barrio");
+                case 9:  mostrarInfoBarrio();
+                         break;
+                case 10: mostrarCjtElem();
+                         break;
+                case 11: mostrarCjtRest();
+                         break;
+                case 12: System.out.println("Guardando barrio");
                          CtrlBarrio.guardarBarrio();
                          break;
                 default: System.out.println("Opcio Invalida");    
             }
-           System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Guardar mi barrio\n0-Salir");
-           n = (int)action.nextInt();
+          System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
+                + "3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n"
+                + "6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Mostrar informacion del Barrio\n"
+                + "10-Mostrar Conjunto de Elementos\n11-Mostrar Conjunto de Restricciones\n12-Guardar mi barrio\n0-Salir");
+          n = (int)action.nextInt();
          }        
         return true;
     }
