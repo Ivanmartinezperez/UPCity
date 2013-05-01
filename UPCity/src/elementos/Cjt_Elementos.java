@@ -38,38 +38,6 @@ public class Cjt_Elementos extends TreeMap {
        Pair<Integer,Elemento> p =(Pair) this.get(OID);
    }
    
-   public void anadir_cantidad_elementos(Integer OID,Integer cantidad){
-       if(this.existe_elemento(OID)){
-           Pair aux;
-           aux = (Pair) this.get(OID);
-           Integer Nuevo_valor =(Integer) aux.getFirst()+cantidad;
-           aux.setFirst(Nuevo_valor);
-           if(Nuevo_valor > 0){
-               this.put(OID, aux);
-           }
-           else{
-               this.remove(OID);
-           }
-           
-       }
-   }
-   
-   public void eliminar_cantidad_elementos(Integer OID,Integer cantidad){
-       if(this.existe_elemento(OID)){
-           Pair aux;
-           aux = (Pair) this.get(OID);
-           Integer Nuevo_valor =(Integer) aux.getFirst()-cantidad;
-           aux.setFirst(Nuevo_valor);
-           if(Nuevo_valor > 0){
-               this.put(OID, aux);
-           }
-           else{
-               this.remove(OID);
-           }
-           
-       }
-   }
-   
    ////////////////////////////////////////////////
    
    

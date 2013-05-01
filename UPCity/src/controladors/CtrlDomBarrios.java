@@ -9,7 +9,6 @@ import Auxiliares.Pair;
 import java.util.TreeMap;
 import restricciones.*;
 import elementos.*;
-import elementos.Cjt_Elementos;
 import barrio.Barrio;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +23,7 @@ public class CtrlDomBarrios {
     private static CtrlDomBarrios INSTANCE=null;
     private TreeMap<String,Integer> TablaBarrios;
     private Barrio B;
-    private Cjt_Elementos CjtElem;
+    private Cjt_Edificios CjtElem;
     private TreeMap<String,Restriccion> CjtRest;
     private HashMap<Integer,ArrayList<Restriccion_ubicacion>> CjtRestUbic1;
     private HashMap<Integer,Restriccion_demografica> CjtRestDemog;
@@ -82,7 +81,7 @@ public class CtrlDomBarrios {
     public boolean crearBarrio(String nombre, int tip){
         if(!TablaBarrios.containsKey(nombre) && tip>=0 && tip<=3){
             B = new Barrio();
-            CjtElem = new Cjt_Elementos();
+            CjtElem = new Cjt_Edificios();
             CjtRest = new TreeMap();
             CjtRestUbic1 = new HashMap();
             CjtRestDemog = new HashMap();
@@ -107,7 +106,7 @@ public class CtrlDomBarrios {
     public boolean cargarBarrio(String nombre){
         if(TablaBarrios.containsKey(nombre)){
             B = new Barrio();
-            CjtElem = new Cjt_Elementos();
+            CjtElem = new Cjt_Edificios();
             CjtRest = new TreeMap();
             CjtRestUbic1 = new HashMap();
             CjtRestDemog = new HashMap();
