@@ -454,7 +454,7 @@ public class vistaComandos {
         System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
                 + "3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n"
                 + "6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Mostrar informacion del Barrio\n"
-                + "10-Mostrar Conjunto de Elementos\n11-Mostrar Conjunto de Restricciones\n12-Guardar mi barrio\n0-Salir");
+                + "10-Mostrar Conjunto de Elementos\n11-Mostrar Conjunto de Restricciones\n12-Guardar mi barrio\n13-Insertar carretera\n0-Salir");
         Scanner action = new Scanner(System.in);
         int n=(int)action.nextInt();
         boolean aux1;
@@ -532,12 +532,20 @@ public class vistaComandos {
                 case 12: System.out.println("Guardando barrio");
                          CtrlBarrio.guardarBarrio();
                          break;
+                case 13: System.out.println("Inserte la fila donde quiere posicionar la carretera:");
+                         Scanner param5 = new Scanner(System.in);
+                         int f = param5.nextInt();
+                         System.out.println("Inserte la columna donde quiere posicionar la carretera:");
+                         int c = param5.nextInt();
+                         boolean b =CtrlBarrio.insertarCarretera(f, c);
+                         if(!b)System.out.println("No se pudo insertar la carretera en la posicion especificada");
+                         break;
                 default: System.out.println("Opcio Invalida");    
             }
           System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
                 + "3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n"
                 + "6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Mostrar informacion del Barrio\n"
-                + "10-Mostrar Conjunto de Elementos\n11-Mostrar Conjunto de Restricciones\n12-Guardar mi barrio\n0-Salir");
+                + "10-Mostrar Conjunto de Elementos\n11-Mostrar Conjunto de Restricciones\n12-Guardar mi barrio\n13-Insertar carretera\n0-Salir");
           n = (int)action.nextInt();
          }        
         return true;

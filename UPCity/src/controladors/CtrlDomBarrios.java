@@ -441,6 +441,24 @@ public class CtrlDomBarrios {
         return mat;
     }
     
+    /**
+     * Inserta una carretera en la posicion x,y del Plano del barrio 
+     * @param x Fila del mapa donde se insertara la carretera
+     * @param y Columna del mapa donde se nsertara la carretera
+     */
+    public boolean insertarCarretera(int x,int y) throws Exception{
+        
+        if (x < 0 || x >= Mapa.tama()) return false;
+        if (y < 0 || y >= Mapa.tamb()) return false;
+        
+        if(Mapa.pos(x, y).getoid()==0){
+            Mapa.pos(x, y).modificarPar(-1, 0);
+            copia.pos(x, y).modificarPar(-1, 0);
+            return true;
+        }
+        return false;
+    }
+    
     
     /**
      * Consultora del Nombre del Barrio sobre el que se trabaja.
