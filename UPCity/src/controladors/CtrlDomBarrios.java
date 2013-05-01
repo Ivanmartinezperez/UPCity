@@ -30,6 +30,7 @@ public class CtrlDomBarrios {
     private HashMap<Integer,Restriccion_demografica> CjtRestDemog;
     private Restriccion_economica RestEcon;
     private Plano Mapa;
+    private Plano copia;
     private CtrlDomRestricciones DOMRest;
     private CtrlDomElementos DOMElem;
     private stubbedElementosGDP GDPElem;
@@ -87,6 +88,7 @@ public class CtrlDomBarrios {
             CjtRestDemog = new HashMap();
             RestEcon = new Restriccion_economica();
             Mapa = new Plano();
+            copia = new Plano();
             B.setNombreBarrio(nombre);
             B.setTipoBarrio(tip);
             return true;
@@ -154,12 +156,16 @@ public class CtrlDomBarrios {
             
         }
         Pair[] lastVisited = new Pair[idElem.size()];
+        int[] EstaVisitado = new int[idElem.size()];
         for(int i=0;i<idElem.size();++i){
             Pair p = new Pair(0,0);
             lastVisited[i]=p;
+            EstaVisitado[i]=0;
         }
         
-        return backtracking(0,idElem,lastVisited,CjtRestUbic1,Mapa);
+        Mapa.copia(copia);
+        
+        return backtracking(0,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
     }
     
     
@@ -173,6 +179,7 @@ public class CtrlDomBarrios {
     public boolean crearMapaBarrio(int n, int m) throws Exception{
         if(n>=1 && m>=1){
             Mapa = new Plano(n,m);
+            copia = new Plano(n,m);
             return true;
         }
         else return false;
@@ -696,10 +703,10 @@ public class CtrlDomBarrios {
      * @return
      * @throws Exception 
      */
-    private Pair cabeEnMapa(Integer v,Plano p,int eAct,Pair lastVisited[],ArrayList<Restriccion_ubicacion> res) throws Exception{
+    private Pair cabeEnMapa(Integer v,Plano p,int eAct,Pair lastVisited[],int EstaVisitado[],ArrayList<Restriccion_ubicacion> res) throws Exception{
         //System.out.println("A ver si el elemento cabe");
         //System.out.println(""+lastVisited[v].getFirst()+" "+ lastVisited[v].getSecond());
-        if(lastVisited[eAct].getFirst()!=0 || lastVisited[eAct].getSecond()!=0){
+        if(EstaVisitado[eAct]==1){
             //p.pos((int)lastVisited[v].getFirst(), (int)lastVisited[v].getSecond()).modificarPar(0, 0);
             //System.out.println("Desexpando");
             p.expande((int)lastVisited[eAct].getFirst(),(int)lastVisited[eAct].getSecond(), 0, res, false);
@@ -712,6 +719,8 @@ public class CtrlDomBarrios {
                   Pair ret = new Pair<Integer,Integer>(i,j);
                   lastVisited[eAct].setFirst(i);
                   lastVisited[eAct].setSecond(j);
+                  EstaVisitado[eAct]=1;
+                  
                   return ret;
                 } 
             }
@@ -734,7 +743,7 @@ public class CtrlDomBarrios {
      * @throws Exception 
      */
     
-    private boolean backtracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
+    private boolean backtracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
         
         
         //System.out.println("Backtracking con"+ (k+1));
@@ -750,20 +759,21 @@ public class CtrlDomBarrios {
             Integer valor = cjt.get(k);
             Pair pos;
             ArrayList<Restriccion_ubicacion> resaux = new ArrayList();
-            if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,k,lastVisited,resaux); 
-            else pos = cabeEnMapa(valor,p,k,lastVisited,res.get(valor));//Esta funcion debe desexpandirte en caso de que tus ultimos
+            if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,resaux); 
+            else pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,res.get(valor));//Esta funcion debe desexpandirte en caso de que tus ultimos
                                                                         // valores visitados sean difentes a 0 (puesto previamente)
             //System.out.println(""+pos.getFirst()+" "+pos.getSecond());
             if(pos.getFirst()!=-1){
                 if(!res.containsKey(valor))p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, resaux, true);
                 else p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, res.get(valor), true);
-                return backtracking(k+1,cjt,lastVisited,res,p);
+                return backtracking(k+1,cjt,lastVisited,EstaVisitado,res,p);
             }
             else{
                 lastVisited[k].setFirst(0);
                 lastVisited[k].setSecond(0);
+                EstaVisitado[k] = 0;
                 //suponemos que cabeEnMapa desexpande !!!!TODO¡¡¡¡
-                return backtracking(k-1,cjt,lastVisited,res,p);
+                return backtracking(k-1,cjt,lastVisited,EstaVisitado,res,p);
                 
             }
             
