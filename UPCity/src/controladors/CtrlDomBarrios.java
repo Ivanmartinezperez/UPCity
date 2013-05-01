@@ -164,9 +164,7 @@ public class CtrlDomBarrios {
         
         Mapa = new Plano(copia);
         
-        int ret = backtracking(0,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
-        if(ret==idElem.size()) return true;
-        else return false;
+        return backtracking(0,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
     }
     
     
@@ -771,16 +769,16 @@ public class CtrlDomBarrios {
      * @throws Exception 
      */
     
-    private int backtracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
+    private boolean backtracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
         
         
         System.out.println("Backtracking con"+ (k+1));
         if(k==cjt.size()){
-            return k;
+            return true;
         }
         
         else if(k==-1){
-            return k;
+            return false;
         }
         
         else {
@@ -793,19 +791,18 @@ public class CtrlDomBarrios {
             if(pos.getFirst()!=-1){
                 if(!res.containsKey(valor))p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, null, true);
                 else p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, res.get(valor), true);
-                k = backtracking(k+1,cjt,lastVisited,EstaVisitado,res,p);
-                
+                return backtracking(k+1,cjt,lastVisited,EstaVisitado,res,p);
             }
             else{
                 lastVisited[k].setFirst(0);
                 lastVisited[k].setSecond(0);
                 EstaVisitado[k] = 0;
                 //suponemos que cabeEnMapa desexpande !!!!TODO¡¡¡¡
-                k= k-1;
+                return backtracking(k-1,cjt,lastVisited,EstaVisitado,res,p);
                 
             }
             
-            return k;
+            
         }
     }
 }
