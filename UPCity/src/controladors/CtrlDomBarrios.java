@@ -774,7 +774,7 @@ public class CtrlDomBarrios {
     private boolean backtracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
         
         ++controlait;
-        if(controlait > 100000) return false;
+        if(controlait > 1000000) return false;
         //System.out.println("Backtracking iteracion " + controlait);
         if(k==cjt.size()){
             return true;
