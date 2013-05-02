@@ -166,7 +166,11 @@ public class CtrlDomBarrios {
         Mapa = new Plano(copia);
         
         controlait = 0;
-        return backtracking(0,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
+        boolean back = backtracking(0,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
+        if(controlait > 100000000) 
+            System.out.println("Backtracking Stoppep due the waste of time...");
+        return back;    
+        
     }
     
     
@@ -774,7 +778,9 @@ public class CtrlDomBarrios {
     private boolean backtracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
         
         ++controlait;
-        if(controlait > 100000) return false;
+        if(controlait > 100000000) {
+            return false;
+        }
         //System.out.println("Backtracking iteracion " + controlait);
         if(k==cjt.size()){
             return true;
@@ -792,6 +798,10 @@ public class CtrlDomBarrios {
                                                                         // valores visitados sean difentes a 0 (puesto previamente)
             //System.out.println(""+pos.getFirst()+" "+pos.getSecond());
             while(pos.getFirst()!=-1){
+                if(controlait > 100000000) {
+                    return false;
+                }
+                
                 if(!res.containsKey(valor))p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, null, true);
                 else p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, res.get(valor), true);
                 
