@@ -96,6 +96,7 @@ public class JuegoPruebas1 {
             System.out.println("\n");    
         }
         
+        System.out.println("en este caso, el back falla porque no hay espacio para todos los elementos");
         
         CtrlBarrio.quitarElemento("casa", 5);
         CtrlBarrio.quitarElemento("comercio", 5);
@@ -133,6 +134,6 @@ public class JuegoPruebas1 {
         }
 
         
-       
+    }    
 
 }
