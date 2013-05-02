@@ -183,7 +183,7 @@ public class vistaComandos {
         System.out.println("Seccion destinada a la creacion y eliminacion de elementos urbanisticos");
         Scanner action = new Scanner(System.in);
         
-        System.out.println("Que desea hacer:\n1-Crear Edificio\n2-Eliminar Edificio\n3-Listar Edificio\n4-Salir");
+        System.out.println("\nQue desea hacer:\n1-Crear Edificio\n2-Eliminar Edificio\n3-Listar Edificio\n4-Salir");
         
         int n=(int)action.nextInt();
         
@@ -198,7 +198,7 @@ public class vistaComandos {
                         break;
                 default: System.out.println("Opcio Invalida");    
             }
-            System.out.println("Que desea hacer:\n1-Crear Edificio\n2-Eliminar Edificio\n3-Listar Edificios\n4-Salir");
+            System.out.println("\nQue desea hacer:\n1-Crear Edificio\n2-Eliminar Edificio\n3-Listar Edificios\n4-Salir");
             n = (int)action.nextInt();
         }
         
@@ -325,7 +325,7 @@ public class vistaComandos {
         System.out.println("Seccion destinada a la creacion y eliminacion de Restricciones");
         Scanner action = new Scanner(System.in);
         
-        System.out.println("Que desea hacer:\n1-Crear Restriccion\n2-Eliminar Restriccion\n3-Listar Restricciones\n4-Salir");
+        System.out.println("\nQue desea hacer:\n1-Crear Restriccion\n2-Eliminar Restriccion\n3-Listar Restricciones\n4-Salir");
         
         int n=(int)action.nextInt();
         
@@ -340,7 +340,7 @@ public class vistaComandos {
                         break;
                 default: System.out.println("Opcio Invalida");    
             }
-            System.out.println("Que desea hacer:\n1-Crear Restriccion\n2-Eliminar Restriccion\n3-Listar Restricciones\n4-Salir");
+            System.out.println("\nQue desea hacer:\n1-Crear Restriccion\n2-Eliminar Restriccion\n3-Listar Restricciones\n4-Salir");
             n = (int)action.nextInt();
         }
     }
@@ -451,7 +451,7 @@ public class vistaComandos {
         int y = (int)parametros.nextInt();
         aux = CtrlBarrio.crearMapaBarrio(x, y);
         
-        System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
+        System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
                 + "3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n"
                 + "6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Mostrar informacion del Barrio\n"
                 + "10-Mostrar Conjunto de Elementos\n11-Mostrar Conjunto de Restricciones\n12-Guardar mi barrio\n13-Insertar carretera\n0-Salir");
@@ -503,11 +503,13 @@ public class vistaComandos {
                         break;
                 case 6: crearRestriccion();
                         break;
-                case 7: System.out.println("Desea generar el barrio?\n1-Si\n2-Volver");
+                case 7: System.out.println("\nDesea generar el barrio?\nLa distribucion actual se perderia, desea continuar?\n1-Si\n2-Volver");
                         int opc = (int) action.nextInt();
                         while(opc != 2){
                             switch(opc){
-                                case 1: generado = CtrlBarrio.generarBarrio();
+                                case 1: System.out.println("\nGENERANDO BARRIO...\n"
+                                        + "Esta operacion puede tardar varios minutos.....");
+                                        generado = CtrlBarrio.generarBarrio();
                                         if (generado) System.out.println("El barrio se genero correctamente");
                                         else System.out.println("No se pudo generar el barrio");
                                         break;
@@ -542,7 +544,7 @@ public class vistaComandos {
                          break;
                 default: System.out.println("Opcio Invalida");    
             }
-          System.out.println("Que desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
+          System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
                 + "3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n"
                 + "6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Mostrar informacion del Barrio\n"
                 + "10-Mostrar Conjunto de Elementos\n11-Mostrar Conjunto de Restricciones\n12-Guardar mi barrio\n13-Insertar carretera\n0-Salir");

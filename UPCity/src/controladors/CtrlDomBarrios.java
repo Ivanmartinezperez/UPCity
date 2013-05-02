@@ -167,8 +167,6 @@ public class CtrlDomBarrios {
         
         controlait = 0;
         boolean back = backtracking(0,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
-        if(controlait > 100000000) 
-            System.out.println("Backtracking Stoppep due the waste of time...");
         return back;    
         
     }
@@ -816,12 +814,10 @@ public class CtrlDomBarrios {
             lastVisited[k].setFirst(0);
             lastVisited[k].setSecond(0);
             EstaVisitado[k] = 0;
-            //suponemos que cabeEnMapa desexpande !!!!TODO¡¡¡¡
             return false;
             
         }
     }
 
 }
-
 
