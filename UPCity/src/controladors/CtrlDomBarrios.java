@@ -36,6 +36,7 @@ public class CtrlDomBarrios {
     private stubbedRestriccionesGDP GDPRest;
     private stubbedBarriosGDP GDPBarr;
     
+    private int controlait;
    
     /////CREADORA/////
     
@@ -164,6 +165,7 @@ public class CtrlDomBarrios {
         
         Mapa = new Plano(copia);
         
+        controlait = 0;
         return backtracking(0,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
     }
     
@@ -771,8 +773,9 @@ public class CtrlDomBarrios {
     
     private boolean backtracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
         
-        
-        System.out.println("Backtracking iteracion " + (k));
+        ++controlait;
+        if(controlait > 100000) return false;
+        //System.out.println("Backtracking iteracion " + controlait);
         if(k==cjt.size()){
             return true;
         }
