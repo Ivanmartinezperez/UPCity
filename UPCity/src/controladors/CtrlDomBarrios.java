@@ -772,7 +772,7 @@ public class CtrlDomBarrios {
     private boolean backtracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
         
         
-        System.out.println("Backtracking con"+ (k+1));
+        System.out.println("Backtracking iteracion " + (k));
         if(k==cjt.size()){
             return true;
         }
@@ -788,23 +788,27 @@ public class CtrlDomBarrios {
             else pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,res.get(valor));//Esta funcion debe desexpandirte en caso de que tus ultimos
                                                                         // valores visitados sean difentes a 0 (puesto previamente)
             //System.out.println(""+pos.getFirst()+" "+pos.getSecond());
-            if(pos.getFirst()!=-1){
+            while(pos.getFirst()!=-1){
                 if(!res.containsKey(valor))p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, null, true);
                 else p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, res.get(valor), true);
-                return backtracking(k+1,cjt,lastVisited,EstaVisitado,res,p);
-            }
-            else{
-                lastVisited[k].setFirst(0);
-                lastVisited[k].setSecond(0);
-                EstaVisitado[k] = 0;
-                //suponemos que cabeEnMapa desexpande !!!!TODO¡¡¡¡
-                return backtracking(k-1,cjt,lastVisited,EstaVisitado,res,p);
                 
+                boolean back =  backtracking(k+1,cjt,lastVisited,EstaVisitado,res,p);
+                if(!back){
+                    if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,null); 
+                    else pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,res.get(valor));
+                }
+                else return true;
             }
             
+            lastVisited[k].setFirst(0);
+            lastVisited[k].setSecond(0);
+            EstaVisitado[k] = 0;
+            //suponemos que cabeEnMapa desexpande !!!!TODO¡¡¡¡
+            return false;
             
         }
     }
+
 }
 
 
