@@ -1,3 +1,11 @@
+package Vista;
+
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -7,13 +15,32 @@
  *
  * @author ivanmartinez
  */
-public class vistaGrafica extends javax.swing.JFrame {
+public class vistaGrafica extends JFrame {
 
     /**
      * Creates new form vistaGrafica
      */
     public vistaGrafica() {
         initComponents();
+    }
+    
+    class Info extends javax.swing.JDialog{
+        
+        public Info(JFrame padre){
+            super(padre);
+            setModal(true);
+            JButton b1 = new JButton();
+            b1.setText("Aceptar");
+            b1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dispose();
+            }
+            });
+            setSize(400,200);
+            add(new JLabel("Probando los dialog"),BorderLayout.CENTER);
+            add(b1,BorderLayout.EAST);
+            setVisible(true);
+        }
     }
 
     /**
@@ -677,7 +704,8 @@ public class vistaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_modBarActionPerformed
 
     private void CreaElemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreaElemActionPerformed
-        
+       
+        Info i = new Info(this);
         
     }//GEN-LAST:event_CreaElemActionPerformed
 
