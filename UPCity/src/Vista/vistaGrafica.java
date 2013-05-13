@@ -3,8 +3,11 @@ package Vista;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this template, choose Tools | Templates
@@ -16,32 +19,26 @@ import javax.swing.JLabel;
  * @author ivanmartinez
  */
 public class vistaGrafica extends JFrame {
+    
+    private DefaultTableModel tablaElementos;
+    private int indice;
+        
 
     /**
      * Creates new form vistaGrafica
      */
     public vistaGrafica() {
         initComponents();
+        setResizable(false);
+        tablaElementos=new DefaultTableModel();
+        tablaElementos.addColumn("Nombre");
+        tablaElementos.addColumn("Capacidad");
+        tablaElementos.addColumn("Precio");
+        tablaElementos.addColumn("TB");
+        tablaElementos.setNumRows(100);
+        indice=0;
     }
     
-    class Info extends javax.swing.JDialog{
-        
-        public Info(JFrame padre){
-            super(padre);
-            setModal(true);
-            JButton b1 = new JButton();
-            b1.setText("Aceptar");
-            b1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dispose();
-            }
-            });
-            setSize(400,200);
-            add(new JLabel("Probando los dialog"),BorderLayout.CENTER);
-            add(b1,BorderLayout.EAST);
-            setVisible(true);
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -704,8 +701,51 @@ public class vistaGrafica extends JFrame {
     }//GEN-LAST:event_modBarActionPerformed
 
     private void CreaElemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreaElemActionPerformed
-       
-        Info i = new Info(this);
+        formNewElem formulario = new formNewElem(this,true);
+        formulario.setVisible(true);
+        String nombre = formulario.getNombre();
+        int capacidad = formulario.getCapacidad();
+        int precio = formulario.getPrecio();
+        int TB = formulario.getTB();
+        String desc = formulario.getDesc();
+        tablaElementos.setValueAt(nombre, indice, 0);
+        tablaElementos.setValueAt(precio, indice, 1);
+        tablaElementos.setValueAt(capacidad, indice, 2);
+        tablaElementos.setValueAt(TB, indice, 3);
+        tabViv.setModel(tablaElementos);
+        ++indice;
+        //tablaElementos.setValueAt(nombre, indice, 4);
+        /*JDialog formulario_elementos = new JDialog(this,true);
+        formulario_elementos.setSize(300, 500);
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        
+        // CREACION ELEMENTOS JDIALOG -- Formulario Nuevo Elemento
+        JLabel nombreelem = new JLabel("Nombre");
+        JLabel cantidad = new JLabel("Cantidad");
+        JLabel TB = new JLabel("Tipo de barrio");
+        JLabel TE = new JLabel ("Tipo de Elemento");
+        JLabel precio = new JLabel("precio");
+        
+        //posicionamiento 
+        nombreelem.setBounds(20,80 , 10, 20);
+        cantidad.setBounds(20, 100, 10, 20);
+        TB.setBounds(20, 120, 10, 20);
+        TE.setBounds(20, 140, 10, 20);
+        precio.setBounds(20, 160, 10, 20);
+        
+        //Añadir a JDIALOG
+        panel.add(nombreelem);
+        panel.add(cantidad);
+        panel.add(TB);
+        panel.add(precio);
+        panel.add(TE);
+        formulario_elementos.add(panel);
+        
+        //formulario_elementos.setResizable(false);
+        formulario_elementos.setVisible(true);*/
+        
+        
         
     }//GEN-LAST:event_CreaElemActionPerformed
 
