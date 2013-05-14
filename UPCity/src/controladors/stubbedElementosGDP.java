@@ -4,11 +4,10 @@
  */
 package controladors;
 
-import java.util.TreeMap;
+
 import elementos.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+
 
 /**
  *
@@ -20,8 +19,12 @@ public class stubbedElementosGDP {
     CtrlPersDisco PERSDisco;
    
     
+    /**
+     * Creadora por defecto. Se encarga de crear el archivo Elementos.o en caso
+     * de su ausencia dentro de la carpeta Data.
+     */
     private stubbedElementosGDP(){
-        PERSDisco = new CtrlPersDisco();
+        PERSDisco = CtrlPersDisco.getInstance();
         PERSDisco.crearArchivo("Elementos");
     }
     
@@ -43,9 +46,13 @@ public class stubbedElementosGDP {
     
     /**
      * Lectura de datos persistentes del disco, lee todas las instancias de 
-     * elemento del disco y las pasa al TreeMap TablaElem que le llega como 
-     * parametro.
-     * @param TablaElem 
+     * elemento del disco y los guarda en los ArrayList auxiliares que se le
+     * pasa como parametros.
+     * @param Elems ArrayList donde se guardan los Elementos leidos del disco.
+     * @param Tipos ArrayList donde se guardan los Tipos de los Elementos leidos
+     * del disco.
+     * @param TBarrios ArrayList donde se guardan los TiposBarrios de los
+     * Elementos leidos del disco.
      */     
     public void leerElementos(ArrayList<Elemento> Elems,
                               ArrayList<Integer> Tipos,
@@ -63,6 +70,61 @@ public class stubbedElementosGDP {
     }
     
     
+    /**
+     * Escritura de un Elemento a disco.
+     * @param e Elemento que se quiere guardar en disco.
+     */
+    public void escribirElemento(Elemento e){
+        ArrayList<String> elemPers = PERSDisco.leerArchivo("Elementos");
+        elemPers.add(transElemString(e));
+        PERSDisco.escribirArchivo("Elementos", elemPers);
+    }
+        
+    
+    /**
+     * Funcion que comprueba si un Elemento es utilizado en algun Barrio.
+     * @param Elem Nombre del Elemento que se quiere comprobar la existencia en 
+     * barrios.
+     * @return Retorna un booleano: true si el Elemento existe en algun conjunto
+     * de Elementos de un Barrio o false si el Elemento no existe en ningun
+     * conjunto de Elementos de ningun Barrio.
+     */
+    public boolean existeElemEnBarrios(String Elem){
+        System.out.println("Simulando lectura de disco...Buscando Elemento en"
+                + "barrios\n"
+                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
+                + " working on to solve this problem just before the third "
+                + "installment\n");
+        return false;
+    }
+    
+    
+    /**
+     * Borradora de un Elemento del disco.
+     * @param Elem Nombre del Elemento que se quiere borrar del disco.
+     */
+    public void eliminarElemDisco(String Elem){
+        ArrayList<String> elemPers = PERSDisco.leerArchivo("Elementos");
+        String[] aux;
+        boolean b=false;
+        for(int i=0; i<elemPers.size() && b==false; ++i){
+            aux = elemPers.get(i).split("\t");
+            if(aux[1].equals(Elem)){
+                b = true;
+                elemPers.remove(i);
+            }
+        }
+        PERSDisco.escribirArchivo("Elementos", elemPers);
+    }
+    
+    
+    /**
+     * Funcion privada auxiliar que crea un Elemento a partir del array de
+     * Strings que se le pasa como parametro, el cual ha de contener toda la
+     * informacion necesaria para crear el Elemento.
+     * @param elemStr array de Strings que contiene la informacion del Elemento.
+     * @return Retorna el Elemento que se ha creado.
+     */
     private Elemento crearElem(String[] elemStr){
         Elemento e = null;
         switch(elemStr[3]){
@@ -106,6 +168,12 @@ public class stubbedElementosGDP {
     }
     
     
+    /**
+     * Funcion privada auxiliar que transforma un Elemento en un String con toda
+     * la informacion del Elemento.
+     * @param e Elemento que se quiere transformar en String.
+     * @return Retorna el String resultante de la informacion.
+     */
     private String transElemString(Elemento e){
         String line = String.valueOf(e.getId());
         line = line.concat("\t" + e.getNom());
@@ -140,38 +208,6 @@ public class stubbedElementosGDP {
             
         }
         return line;
-    }
-    
-    public void escribirElemento(Elemento e){
-        ArrayList<String> elemPers = PERSDisco.leerArchivo("Elementos");
-        elemPers.add(transElemString(e));
-        PERSDisco.escribirArchivo("Elementos", elemPers);
-    }
-        
-    
-    
-    public boolean existeElemEnBarrios(String Elem){
-        System.out.println("Simulando lectura de disco...Buscando Elemento en"
-                + "barrios\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment\n");
-        return false;
-    }
-    
-    
-    public void eliminarElemDisco(String Elem){
-        ArrayList<String> elemPers = PERSDisco.leerArchivo("Elementos");
-        String[] aux;
-        boolean b=false;
-        for(int i=0; i<elemPers.size() && b==false; ++i){
-            aux = elemPers.get(i).split("\t");
-            if(aux[1].equals(Elem)){
-                b = true;
-                elemPers.remove(i);
-            }
-        }
-        PERSDisco.escribirArchivo("Elementos", elemPers);
     }
     
 }

@@ -14,16 +14,32 @@ import java.util.ArrayList;
  */
 public class CtrlPersDisco {
     
+    private static CtrlPersDisco INSTANCE = null;
+    
+    
     /**
      * Creadora por defecto. Se encarga de crear la carpeta de los datos 
      * persistentes en el directorio del programa, llamada Data, en el caso de 
      * de que no exista.
      */
-    public CtrlPersDisco() {
+    private CtrlPersDisco() {
         File Data = new File("./Data");
         if (!Data.exists()) {
             Data.mkdirs();
         }
+    }
+    
+    private static void creaInstancia() {
+        if (INSTANCE == null) {
+            INSTANCE = new CtrlPersDisco();
+        }
+    }
+
+    public static CtrlPersDisco getInstance() {
+        if (INSTANCE == null) {
+            creaInstancia();
+        }
+        return INSTANCE;
     }
 
     
