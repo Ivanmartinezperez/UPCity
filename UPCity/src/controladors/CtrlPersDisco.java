@@ -23,7 +23,7 @@ public class CtrlPersDisco {
      * de que no exista.
      */
     private CtrlPersDisco() {
-        File Data = new File("./Data");
+        File Data = new File("./Data/Barrios/");
         if (!Data.exists()) {
             Data.mkdirs();
         }
@@ -128,4 +128,49 @@ public class CtrlPersDisco {
         }
         
     }
+    
+     public void escriuBinari (String path, String nom, Object ob) /*throws FileNotFoundException, IOException*/ {
+        FileOutputStream fos;
+        ObjectOutputStream oos;
+
+        File f = new File("./Data/Barrios/" + path);
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+        f = new File("./Data/Barrios/" + path + nom + ".o");
+        try{//FileWriter fw = new FileWriter(f);
+        fos = new FileOutputStream(f);
+        oos = new ObjectOutputStream(fos);
+		
+        oos.writeObject(ob);
+            
+        fos.close();
+        oos.close();
+        }catch(Exception e){
+            System.out.println(e.getMessage() + "\n");
+        }
+    }
+    
+    
+    public Object llegeixBinari (String path, String nom) /*throws FileNotFoundException, IOException*/ {
+        Object ob = null;
+        FileInputStream fis;
+        ObjectInputStream ois;
+
+        File f = new File("./Data/Barrios/" + path + nom + ".o");
+        try{//FileWriter fw = new FileWriter(f);
+        fis = new FileInputStream(f);
+        ois = new ObjectInputStream(fis);
+		
+        
+	ob = ois.readObject();
+	fis.close();
+        ois.close();
+        } catch(Exception e){
+            System.out.println(e.getMessage() + "\n");
+        }
+        return ob;
+
+	}
+    
 }

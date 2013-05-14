@@ -115,7 +115,7 @@ public class CtrlDomBarrios {
             Mapa = new Plano();
             GDPBarr.leerBarrio(nombre,B);
             GDPBarr.leerMapa(nombre,Mapa);
-            GDPBarr.leerCjtRest(nombre,CjtRest);
+            CjtRest = GDPBarr.leerCjtRest(nombre);
             transRestBarrio();
             GDPBarr.leerCjtElem(nombre,CjtElem);
             return true;
@@ -130,7 +130,8 @@ public class CtrlDomBarrios {
      */
     public void guardarBarrio(){
         String nombre = B.getNombreBarrio();
-        TablaBarrios.put(nombre,(Integer) 1);
+        if(!TablaBarrios.containsKey(nombre))
+                TablaBarrios.put(nombre,(Integer) 1);
         GDPBarr.escribirBarrio(nombre,B);
         GDPBarr.escribirMapa(nombre,Mapa);
         GDPBarr.escribirCjtRest(nombre,CjtRest);
