@@ -543,7 +543,7 @@ public class CtrlDomBarrios {
      */
     private void transRestBarrio(){
         ArrayList<Restriccion> aux = new ArrayList();
-        aux.addAll((ArrayList<Restriccion>) CjtRest.values());
+        aux.addAll(CjtRest.values());
         Restriccion r;
         for (int i=0; i<aux.size(); ++i){
             r = aux.get(i);
