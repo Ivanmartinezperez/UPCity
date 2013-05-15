@@ -57,9 +57,13 @@ public class CtrlDomElementos {
                 mapTipoElem3.put(j, aux4);
 
             }
-        GDPElem.leerElementos(mapElem0,mapTipoElem0,mapElem1,mapTipoElem1,
-                              mapElem2,mapTipoElem2,mapElem3,mapTipoElem3);
-
+        ArrayList<Elemento> elems = new ArrayList();
+        ArrayList<Integer> tipos = new ArrayList();
+        ArrayList<Integer> tbarrios = new ArrayList();
+        GDPElem.leerElementos(elems,tipos,tbarrios);
+        for(int i=0; i<elems.size(); ++i){
+            anadir_a_estructuras(elems.get(i),(int)tipos.get(i),(int)tbarrios.get(i));
+        }
         if(TradOIDtoName.isEmpty()) OID = 1;
         else OID=TradOIDtoName.lastKey() + 1;
 
@@ -166,21 +170,21 @@ public class CtrlDomElementos {
                          v.setNom(Nombre);
                          v.setDescrpcio(Des);
                          ret = anadir_a_estructuras(v,tipo,TB);
-                         GDPElem.escribirElemento(v);
+                         if(ret) GDPElem.escribirElemento(v);
                          break;
                 case 2 : Publico p = new Publico(OID,aux2,aux1,tamX,tamY,
                                                  prec,TB);
                          p.setNom(Nombre);
                          p.setDescrpcio(Des);
                          ret = anadir_a_estructuras(p,tipo,TB);
-                         GDPElem.escribirElemento(p);
+                         if(ret) GDPElem.escribirElemento(p);
                          break;
                 case 3 : Comercio c = new Comercio(OID,aux1,tamX,tamY,prec, 
                                                    TB);
                          c.setNom(Nombre);
                          c.setDescrpcio(Des);
                          ret = anadir_a_estructuras(c,tipo,TB);
-                         GDPElem.escribirElemento(c);
+                         if(ret) GDPElem.escribirElemento(c);
                          break;
                 default: ret = false;
             }

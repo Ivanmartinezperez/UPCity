@@ -5,12 +5,13 @@
 package restricciones;
 
 import elementos.Cjt_Elementos;
+import java.io.Serializable;
 
 /**
  *
  * @author Gotha229
  */
-public abstract class Restriccion {
+public abstract class Restriccion implements Serializable{
     /* Declaración de variables */
     private String id;
     private String typeSU;

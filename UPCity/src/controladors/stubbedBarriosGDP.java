@@ -17,10 +17,10 @@ import restricciones.Restriccion;
 public class stubbedBarriosGDP {
     
     private static stubbedBarriosGDP INSTANCE = null;
-   
+    CtrlPersDisco PERSDisco;
     
     private stubbedBarriosGDP(){
-        
+        PERSDisco = CtrlPersDisco.getInstance();
     }
     
     private static void creaInstancia() {
@@ -99,12 +99,9 @@ public class stubbedBarriosGDP {
      * @param CjtRest El TreeMap de Restricciones en el cual se guardaran las 
      * restricciones leidas del disco para pasarlos al controlador de barrios.  
      */
-    public void leerCjtRest(String nomBarr, TreeMap<String,Restriccion> CjtRest){
-        System.out.println("Simulando lectura de disco...Cargando CjtRestricciones\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment.\n For now you have to keep up with temporal "
-                + "data\n");
+    public TreeMap<String,Restriccion> leerCjtRest(String nomBarr){
+        return (TreeMap<String,Restriccion>) 
+                PERSDisco.llegeixBinari(nomBarr + "/" , nomBarr + "-CjtRest");
     }
     
     
@@ -171,10 +168,7 @@ public class stubbedBarriosGDP {
      * disco.
      */
     public void escribirCjtRest(String nomBarr, TreeMap<String,Restriccion> CjtRest){
-        System.out.println("Simulando escritura en disco...Guardando CjtRestricciones\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment.\n");
+        PERSDisco.escriuBinari(nomBarr + "/" , nomBarr + "-CjtRest",CjtRest);
     }
     
     /**

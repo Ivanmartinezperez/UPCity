@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import mapa.*;
 import restricciones.*;
+import java.io.*;
 
 
 /**
@@ -103,4 +104,44 @@ public class testfunciones {
             
         }
     }
+    
+    public void escriuBinari (String nom, Object ob) throws FileNotFoundException, IOException {
+        FileOutputStream fos;
+        ObjectOutputStream oos;
+
+        File f = new File("./" + nom + ".o");
+        //FileWriter fw = new FileWriter(f);
+        fos = new FileOutputStream(f);
+        oos = new ObjectOutputStream(fos);
+		
+        oos.writeObject(ob);
+            
+        fos.close();
+        oos.close();
+    }
+    
+    
+    public Object llegeixBinari (String nom) throws FileNotFoundException, IOException {
+        Object ob = null;
+        FileInputStream fis;
+        ObjectInputStream ois;
+
+        File f = new File("./" + nom + ".o");
+        //FileWriter fw = new FileWriter(f);
+        fis = new FileInputStream(f);
+        ois = new ObjectInputStream(fis);
+		
+        try {
+			ob = ois.readObject();
+		} catch (ClassNotFoundException e) {
+			// aixo no hauria de passar mai...
+			System.err.println("ERROR");
+		}
+            
+        fis.close();
+        ois.close();
+        
+        return ob;
+
+	}
 }

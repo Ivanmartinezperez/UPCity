@@ -34,8 +34,22 @@ public class CtrlDomRestricciones {
         restubicacion = new TreeMap();
         restdemografica = new TreeMap();
         resteconomica = new TreeMap();
-        RestGDP.leerRestricciones(restubicacion);
-        
+        ArrayList<Restriccion> restPers;
+        restPers = RestGDP.leerRestricciones();
+        for(int i=0; i<restPers.size(); ++i){
+            Restriccion r = restPers.get(i);
+            switch(r.getTypeSU()){
+                case "ubicacion":
+                    restubicacion.put(r.getId(),(Restriccion_ubicacion)r);
+                    break;
+                case "economica":
+                    resteconomica.put(r.getId(),(Restriccion_economica)r);
+                    break;
+                case "demografica":
+                    restdemografica.put(r.getId(),(Restriccion_demografica)r);
+                    break;
+            }
+        }
     }
     
     
@@ -182,7 +196,7 @@ public class CtrlDomRestricciones {
         if(restubicacion.containsKey(id)){
             if(!RestGDP.existeRestEnBarrios(id)){
                 restubicacion.remove(id);
-                RestGDP.eliminarElemDisco(id);
+                RestGDP.eliminarRestDisco(id);
                 ret = true;
             }
             
@@ -190,7 +204,7 @@ public class CtrlDomRestricciones {
         else if(resteconomica.containsKey(id)){
             if(!RestGDP.existeRestEnBarrios(id)){
                 resteconomica.remove(id);
-                RestGDP.eliminarElemDisco(id);
+                RestGDP.eliminarRestDisco(id);
                 ret = true;
             }
             
@@ -198,7 +212,7 @@ public class CtrlDomRestricciones {
         else if(restdemografica.containsKey(id)) {
             if(!RestGDP.existeRestEnBarrios(id)){
                 restdemografica.remove(id);
-                RestGDP.eliminarElemDisco(id);
+                RestGDP.eliminarRestDisco(id);
                 ret = true;
             }
             
