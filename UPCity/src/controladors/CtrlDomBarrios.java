@@ -114,7 +114,7 @@ public class CtrlDomBarrios {
             RestEcon = new Restriccion_economica();
             Mapa = new Plano();
             B = GDPBarr.leerBarrio(nombre);
-            GDPBarr.leerMapa(nombre,Mapa);
+            Mapa = GDPBarr.leerMapa(nombre);
             CjtRest = GDPBarr.leerCjtRest(nombre);
             transRestBarrio();
             CjtElem = GDPBarr.leerCjtElem(nombre);

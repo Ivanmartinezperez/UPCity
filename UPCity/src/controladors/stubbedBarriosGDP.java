@@ -108,12 +108,9 @@ public class stubbedBarriosGDP {
      * @param Mapa El Plano en el cual se guardara el mapa del barrio leido del
      * disco para pasarlo al controlador de barrios.  
      */
-    public void leerMapa(String nomBarr, Plano Mapa){
-        System.out.println("Simulando lectura de disco...Cargando Plano\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment.\n For now you have to keep up with temporal "
-                + "data\n");
+    public Plano leerMapa(String nomBarr){
+        return (Plano) 
+                PERSDisco.leerObjeto(nomBarr + "/" , nomBarr + "-Mapa");
     }
     
     
@@ -168,10 +165,7 @@ public class stubbedBarriosGDP {
      * @param Mapa El Plano que se quiere guardar en el disco.
      */
     public void escribirMapa(String nomBarr, Plano Mapa){
-        System.out.println("Simulando escritura en disco...Guardando Plano\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment.\n");
+        PERSDisco.escribirObjeto(nomBarr + "/" , nomBarr + "-Mapa", Mapa);
     }
     
     

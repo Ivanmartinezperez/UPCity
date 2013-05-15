@@ -5,7 +5,7 @@
 package mapa;
 
 import Auxiliares.Pair;
-import elementos.Cjt_Elementos;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -16,7 +16,7 @@ import restricciones.*;
  *
  * @author danielsans
  */
-public class Plano {
+public class Plano implements Serializable{
     private Parcela[][]mat;
 
     /**

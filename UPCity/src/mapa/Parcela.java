@@ -4,12 +4,13 @@
  */
 package mapa;
 
+import java.io.Serializable;
 import java.util.TreeMap;
 /**
  *
  * @author danielsans
  */
-public class Parcela {
+public class Parcela implements Serializable{
     int tamanyo;
     TreeMap<Integer, Integer> restriccionesP;
     int OID;
