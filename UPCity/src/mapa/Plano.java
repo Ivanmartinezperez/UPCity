@@ -98,21 +98,125 @@ public class Plano {
         return true;
     }
  
-    
-    /**
+     /**
      * Esta funcion Expande el elemento oid, junto con su lista de restricciones.
      * Tambien modifica esa parcela con el oid.
      * PRE: El elemento oid cabe y puede estar en la posicion X Y
+     * PRE: tama > 0 i tamb > 0
      * @param x pos x del elemento oid
      * @param y pos y del elemento oid
+     * @param tama tamaño de la x
+     * @param tamb tamaño de la y
      * @param oid id del elemento a insertar en xy, y del que se expandiran sus restr.
      * @param lista es una lista con Pair, donde el first es OID i el second es distancia.
      * @param exp True = expandir. False = desexpande.
      */
+    public void expande(int x, int y, int tama, int tamb, int oid, ArrayList<Restriccion_ubicacion> restricciones, boolean exp) {
+        if(restricciones!=null){
+            Queue<Pair <Integer, Integer> > cola;
+            cola = new LinkedList <Pair<Integer, Integer> >();
+            Pair<Integer, Integer> par;
+            //par = new Pair<Integer,Integer> (x, y);
+            Pair<Integer, Integer>[][] visitats = new Pair[mat.length][mat[0].length];
+            for(int i = 0; i < mat.length;++i) {
+                for(int j = 0; j < mat[0].length; ++j) {
+                    visitats[i][j] = new Pair<Integer, Integer>(0,0);
+                }
+            }
+            for(int i = 0; i < tama; ++i){
+                for(int j = 0; j < tamb; ++j){
+                    mat[x+i][y+j].modificarPar(oid, 1);
+                    par = new Pair<Integer,Integer> (x+i, y+j);
+                    visitats[x+i][y+j].setFirst(1);
+                    visitats[x+i][y+j].setSecond(0);
+                    cola.add(par);
+                    
+                }
+            }
+            while(cola.isEmpty() == false) {
+                par = cola.poll();
+                int a = par.getFirst();
+                int b = par.getSecond();
+                int dist = visitats[a][b].getSecond();
+                //System.out.print(restricciones.size());
+                for (int z = 0; z < restricciones.size(); ++z) {
+                    Restriccion_ubicacion aux = (Restriccion_ubicacion) restricciones.get(z);
+                    int bb = aux.consultar_distancia();
+                    if(bb >= dist) {
+                            if(exp == true) mat[a][b].anadirRestriccion(aux.consultar_OID2());
+                            else mat[a][b].quitarRestriccion(aux.consultar_OID2());
+                    }
+                }
+                //visitats[a][b].setFirst(1);//marco la posicion como visitada.
+                if(restricciones.isEmpty() == false) {
+                    if(limite(a-1, b-1) == true && visitats[a-1][b-1].getFirst() == 0) {
+                        par = new Pair<Integer, Integer>(a-1, b-1);
+                        //System.out.println(par.getFirst()+" "+par.getSecond());
+                        cola.add(par);
+                        visitats[a-1][b-1].setSecond(dist+1);
+                        visitats[a-1][b-1].setFirst(1);
+                    }
+                    if(limite(a-1, b) == true && visitats[a-1][b].getFirst() == 0) {
+                        par = new Pair<Integer, Integer>(a-1, b);
+                       // System.out.println(par.getFirst()+" "+par.getSecond());
+                        cola.add(par);
+                        visitats[a-1][b].setSecond(dist+1);
+                        visitats[a-1][b].setFirst(1);
+                    }
+                    if(limite(a-1, b+1) == true && visitats[a-1][b+1].getFirst() == 0) {
+                        par = new Pair<Integer, Integer>(a-1, b+1);
+                       // System.out.println(par.getFirst()+" "+par.getSecond());
+                        cola.add(par);
+                        visitats[a-1][b+1].setSecond(dist+1);
+                        visitats[a-1][b+1].setFirst(1);
+                    }
+                    if(limite(a, b-1) == true && visitats[a][b-1].getFirst() == 0) {
+                        par = new Pair<Integer, Integer>(a, b-1);
+                       // System.out.println(par.getFirst()+" "+par.getSecond());
+                        cola.add(par);
+                        visitats[a][b-1].setSecond(dist+1);
+                        visitats[a][b-1].setFirst(1);
+                    }
+                    if(limite(a, b+1) == true && visitats[a][b+1].getFirst() == 0) {
+                        par = new Pair<Integer, Integer>(a, b+1);
+                      //  System.out.println(par.getFirst()+" "+par.getSecond());
+                        cola.add(par);
+                        visitats[a][b+1].setSecond(dist+1);
+                        visitats[a][b+1].setFirst(1);
+                    }
+                    if(limite(a+1, b-1) == true && visitats[a+1][b-1].getFirst() == 0) {
+                        par = new Pair<Integer, Integer>(a+1, b-1);
+                      //  System.out.println(par.getFirst()+" "+par.getSecond());
+                        cola.add(par);
+                        visitats[a+1][b-1].setSecond(dist+1);
+                        visitats[a+1][b-1].setFirst(1);
+                    }
+                    if(limite(a+1, b) == true && visitats[a+1][b].getFirst() == 0) {
+                        par = new Pair<Integer, Integer>(a+1, b);
+                       // System.out.println(par.getFirst()+" "+par.getSecond());
+                        cola.add(par);
+                        visitats[a+1][b].setSecond(dist+1);
+                        visitats[a+1][b].setFirst(1);
+                    }
+                    if(limite(a+1, b+1) == true && visitats[a+1][b+1].getFirst() == 0) {
+                        par = new Pair<Integer, Integer>(a+1, b+1);
+                      //  System.out.println(par.getFirst()+" "+par.getSecond());
+                        cola.add(par);
+                        visitats[a+1][b+1].setSecond(dist+1);
+                        visitats[a+1][b+1].setFirst(1);
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    /*
     public void expande(int x, int y, int oid, ArrayList<Restriccion_ubicacion> restricciones, boolean exp) {
        // int contador = 0;
         mat[x][y].modificarPar(oid, 1);
-    if(restricciones!=null){
+        if(restricciones!=null){
         Queue<Pair <Integer, Integer> > cola;
         cola = new LinkedList <Pair<Integer, Integer> >();
         Pair<Integer, Integer> par;
@@ -129,33 +233,16 @@ public class Plano {
             par = cola.poll();
             int a = par.getFirst();
             int b = par.getSecond();
-            //visitats[a][b].setFirst(1);
             int dist = visitats[a][b].getSecond();
             //System.out.print(restricciones.size());
-            //if(a != x && b != y) {
-            
-                for (int z = 0; z < restricciones.size(); ++z) {
-                    Restriccion_ubicacion aux = (Restriccion_ubicacion) restricciones.get(z);
-                    int bb = aux.consultar_distancia();
-                    if(bb >= dist) {
+            for (int z = 0; z < restricciones.size(); ++z) {
+                Restriccion_ubicacion aux = (Restriccion_ubicacion) restricciones.get(z);
+                int bb = aux.consultar_distancia();
+                if(bb >= dist) {
                         if(exp == true) mat[a][b].anadirRestriccion(aux.consultar_OID2());
                         else mat[a][b].quitarRestriccion(aux.consultar_OID2());
-                        //System.out.println("expando: "+a+ " "+b);
-                        //++contador;
-
-                    }/*
-                    else {
-                        Pair<Integer, Integer> aux2 = new Pair<Integer, Integer>(0,0);
-                        aux2 = cola.peek();
-                        int siga = aux2.getFirst();
-                        int sigb = aux2.getSecond();
-                        int dist2 = visitats[siga][sigb].getSecond();
-                        if(dist2 > bb) {
-                            restricciones.remove(z);
-                        }
-                    }*/
                 }
-            //}
+            }
             visitats[a][b].setFirst(1);//marco la posicion como visitada.
             if(restricciones.isEmpty() == false) {
                 if(limite(a-1, b-1) == true && visitats[a-1][b-1].getFirst() == 0) {
@@ -218,7 +305,7 @@ public class Plano {
         }
       }
       //  System.out.println("contador: "+contador);
-    }
+    }*/
         
     
     /**
