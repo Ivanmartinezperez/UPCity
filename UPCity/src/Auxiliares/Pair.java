@@ -4,11 +4,13 @@
  */
 package Auxiliares;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ivanmartinez
  */
-public class Pair<A,B> {
+public class Pair<A,B> implements Serializable{
     private A first;
     private B second;
     

@@ -4,11 +4,13 @@
  */
 package elementos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Pinkii
  */
-public abstract class  Elemento {
+public abstract class  Elemento implements Serializable{
     /*Declaracion de Variables */
     private int id;
     private String nom;

@@ -4,6 +4,8 @@
  */
 package barrio;
 
+import java.io.Serializable;
+
 
 
 
@@ -12,7 +14,7 @@ package barrio;
  *
  * @author ArclorenSarth
  */
-public class Barrio {
+public class Barrio implements Serializable{
     private String Nombre;
     private int TipoBarrio;
     private int Presupuesto;

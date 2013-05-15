@@ -6,7 +6,7 @@ package controladors;
 
 import barrio.Barrio;
 import java.util.TreeMap;
-import elementos.Cjt_Elementos;
+import elementos.Cjt_Edificios;
 import mapa.Plano;
 import restricciones.Restriccion;
 
@@ -41,15 +41,17 @@ public class stubbedBarriosGDP {
     /**
      * Funcion que lee los nombres de los barrios ya creados y los guarda en el
      * TreeMap TablaBarrio.
-     * @param TablaBarrios TreeMap que utilizamos para pasar los nombres de los
-     * barrios al controlador de dominio del barrio.
+     * @return TreeMap con los nombres de los Barrios guardados en disco.
      */
-    public void leerBarriosCreados(TreeMap<String,Integer> TablaBarrios){
-        System.out.println("Simulando lectura de disco...Cargando Barrios\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment.\n For now you have to keep up with temporal "
-                + "data\n");
+    public TreeMap<String,Integer> leerBarriosCreados(){
+        String[] lis = PERSDisco.listarDirectorio("./Data/Barrios/");
+        TreeMap<String,Integer> TabBar = new TreeMap();
+        for(int i=0; i<lis.length; ++i){
+            if(!lis[i].endsWith(".o")){
+                TabBar.put(lis[i],(Integer)1);
+            }
+        }
+        return TabBar;
     }
     
     
@@ -58,15 +60,11 @@ public class stubbedBarriosGDP {
      * nombre nomBarr, que le llega como parametro, guardado en el disco.
      * @param nomBarr Nombre del Barrio del que se solicita la lectura de los 
      * datos del barrio.
-     * @param Bar El Barrio donde se guardan los datos leidos para pasarlos al
-     * controlador de barrios
+     * @return El Barrio con los datos leidos del disco.
      */     
-    public void leerBarrio(String nomBarr, Barrio Bar){
-    System.out.println("Simulando lectura de disco...Cargando Barrio\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment.\n For now you have to keep up with temporal "
-                + "data\n");    
+    public Barrio leerBarrio(String nomBarr){
+        return (Barrio) 
+                PERSDisco.leerObjeto(nomBarr + "/" , nomBarr + "-Barrio");
     }
     
     
@@ -77,15 +75,11 @@ public class stubbedBarriosGDP {
      * le llega como parametro.
      * @param nomBarr Nombre del Barrio del que se solicita la lectura del 
      * Conjunto de elementos.
-     * @param CjtElem El Cjt_Elementos en el cual se guardaran los elementos 
-     * leidos del disco para pasarlos al controlador de barrios.
+     * @return El Cjt_Edificios con los elementos leidos del disco.
      */     
-    public void leerCjtElem(String nomBarr, Cjt_Elementos CjtElem){
-        System.out.println("Simulando lectura de disco...Cargando CjtElementos\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment.\n For now you have to keep up with temporal "
-                + "data\n");
+    public Cjt_Edificios leerCjtElem(String nomBarr){
+        return (Cjt_Edificios) 
+                PERSDisco.leerObjeto(nomBarr + "/" , nomBarr + "-CjtElem");
     }
     
     
@@ -96,12 +90,12 @@ public class stubbedBarriosGDP {
      * como parametro.
      * @param nomBarr Nombre del Barrio del que se solicita la lectura del 
      * Conjunto de Restricciones.
-     * @param CjtRest El TreeMap de Restricciones en el cual se guardaran las 
-     * restricciones leidas del disco para pasarlos al controlador de barrios.  
+     * @return El TreeMap de Restricciones con las restricciones leidas del 
+     * disco. 
      */
     public TreeMap<String,Restriccion> leerCjtRest(String nomBarr){
         return (TreeMap<String,Restriccion>) 
-                PERSDisco.llegeixBinari(nomBarr + "/" , nomBarr + "-CjtRest");
+                PERSDisco.leerObjeto(nomBarr + "/" , nomBarr + "-CjtRest");
     }
     
     
@@ -133,10 +127,7 @@ public class stubbedBarriosGDP {
      * @param Bar El Barrio que se quiere escribir al disco.
      */     
     public void escribirBarrio(String nomBarr, Barrio Bar){
-        System.out.println("Simulando escritura en disco...Guardando Barrio\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment.\n");
+        PERSDisco.escribirObjeto(nomBarr + "/" , nomBarr + "-Barrio",Bar);
     }
     
     
@@ -149,11 +140,8 @@ public class stubbedBarriosGDP {
      * elementos que se va guardar.
      * @param CjtElem El Cjt_Elementos que se quiere guardar en el disco.
      */     
-    public void escribirCjtElem(String nomBarr, Cjt_Elementos CjtElem){
-        System.out.println("Simulando escritura en disco...Guardando CjtElementos\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment.\n");
+    public void escribirCjtElem(String nomBarr, Cjt_Edificios CjtElem){
+        PERSDisco.escribirObjeto(nomBarr + "/" , nomBarr + "-CjtElem",CjtElem);
     }
     
     
@@ -168,7 +156,7 @@ public class stubbedBarriosGDP {
      * disco.
      */
     public void escribirCjtRest(String nomBarr, TreeMap<String,Restriccion> CjtRest){
-        PERSDisco.escriuBinari(nomBarr + "/" , nomBarr + "-CjtRest",CjtRest);
+        PERSDisco.escribirObjeto(nomBarr + "/" , nomBarr + "-CjtRest",CjtRest);
     }
     
     /**

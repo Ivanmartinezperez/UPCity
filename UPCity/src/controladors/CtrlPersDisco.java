@@ -60,26 +60,11 @@ public class CtrlPersDisco {
     
     
     
-   /* public int numArxius() {
-        return (int) new File("./Data/").length();
+    public String[] listarDirectorio(String path) {
+        File f = new File(path);
+        return f.list(); 
     }
-
     
-    public ArrayList llistaDirectori(String paraula) {
-        File f = new File("./Data/");
-        int numArxius = f.list().length;
-        String llistaArxius[] = f.list(); // llista amb els noms de tots els arxius
-        ArrayList llista = new ArrayList();
-
-        for (int i = 0; i < numArxius; ++i) {
-            if (llistaArxius[i].contains(paraula)) {
-                llista.add(llistaArxius[i]);
-            }
-        }
-
-        return llista;
-    }
-    */
     
     
     /**
@@ -129,48 +114,34 @@ public class CtrlPersDisco {
         
     }
     
-     public void escriuBinari (String path, String nom, Object ob) /*throws FileNotFoundException, IOException*/ {
-        FileOutputStream fos;
-        ObjectOutputStream oos;
-
+    public void escribirObjeto (String path, String nom, Object ob) /*throws FileNotFoundException, IOException*/ {
         File f = new File("./Data/Barrios/" + path);
         if (!f.exists()) {
             f.mkdirs();
         }
         f = new File("./Data/Barrios/" + path + nom + ".o");
-        try{//FileWriter fw = new FileWriter(f);
-        fos = new FileOutputStream(f);
-        oos = new ObjectOutputStream(fos);
-		
-        oos.writeObject(ob);
-            
-        fos.close();
-        oos.close();
+        try{
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(ob);
+            oos.close();
         }catch(Exception e){
             System.out.println(e.getMessage() + "\n");
         }
     }
     
     
-    public Object llegeixBinari (String path, String nom) /*throws FileNotFoundException, IOException*/ {
+    public Object leerObjeto (String path, String nom) /*throws FileNotFoundException, IOException*/ {
         Object ob = null;
-        FileInputStream fis;
-        ObjectInputStream ois;
-
         File f = new File("./Data/Barrios/" + path + nom + ".o");
         try{//FileWriter fw = new FileWriter(f);
-        fis = new FileInputStream(f);
-        ois = new ObjectInputStream(fis);
-		
-        
-	ob = ois.readObject();
-	fis.close();
-        ois.close();
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ob = ois.readObject();
+	    ois.close();
         } catch(Exception e){
             System.out.println(e.getMessage() + "\n");
         }
         return ob;
-
 	}
-    
 }

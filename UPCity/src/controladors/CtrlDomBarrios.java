@@ -44,7 +44,7 @@ public class CtrlDomBarrios {
      * Creadora del Controlador de Dominio de Barrios.
      */
     private CtrlDomBarrios(){
-        TablaBarrios = new TreeMap();
+        //TablaBarrios = new TreeMap();
         DOMElem = CtrlDomElementos.getInstance();
         DOMElem.inicializar();
         DOMRest = CtrlDomRestricciones.getInstance();
@@ -52,7 +52,7 @@ public class CtrlDomBarrios {
         GDPElem = stubbedElementosGDP.getInstance();
         GDPRest = stubbedRestriccionesGDP.getInstance();
         GDPBarr = stubbedBarriosGDP.getInstance();
-        GDPBarr.leerBarriosCreados(TablaBarrios);
+        TablaBarrios = GDPBarr.leerBarriosCreados();
     }
     
     private static void creaInstancia() {
@@ -113,11 +113,11 @@ public class CtrlDomBarrios {
             CjtRestDemog = new HashMap();
             RestEcon = new Restriccion_economica();
             Mapa = new Plano();
-            GDPBarr.leerBarrio(nombre,B);
+            B = GDPBarr.leerBarrio(nombre);
             GDPBarr.leerMapa(nombre,Mapa);
             CjtRest = GDPBarr.leerCjtRest(nombre);
             transRestBarrio();
-            GDPBarr.leerCjtElem(nombre,CjtElem);
+            CjtElem = GDPBarr.leerCjtElem(nombre);
             return true;
         }
         else return false;
