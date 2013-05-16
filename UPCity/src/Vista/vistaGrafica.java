@@ -21,8 +21,12 @@ import controladors.*;
  */
 public class vistaGrafica extends JFrame {
     
-    private DefaultTableModel tablaElementos;
-    private int indice;
+    private DefaultTableModel tablaVivienda;
+    private DefaultTableModel tablaPublico;
+    private DefaultTableModel tablaComercio;
+    private int indiceV;
+    private int indiceC;
+    private int indiceP;
     private CtrlDomBarrios CtrlBarrio;
     private CtrlDomElementos CtrlElem;
     private CtrlDomRestricciones CtrlRest;
@@ -37,22 +41,99 @@ public class vistaGrafica extends JFrame {
         CtrlRest = CtrlDomRestricciones.getInstance();
         initComponents();
         setResizable(false);
-        tablaElementos=new DefaultTableModel();
-        tablaElementos.addColumn("Nombre");
-        tablaElementos.addColumn("TBar");
-        tablaElementos.addColumn("Precio");
-        tablaElementos.addColumn("TPub");
-        tablaElementos.addColumn("Capacidad");
-        tablaElementos.addColumn("TamX");
-        tablaElementos.addColumn("TamY");
-        tablaElementos.setNumRows(100);
-        indice=0;
+        tablaVivienda=new DefaultTableModel();
+        tablaVivienda.addColumn("Nombre");
+        tablaVivienda.addColumn("TBar");
+        tablaVivienda.addColumn("Precio");
+        tablaVivienda.addColumn("Capacidad");
+        tablaVivienda.addColumn("TamX");
+        tablaVivienda.addColumn("TamY");
+        tablaVivienda.setNumRows(50);
+        
+        tablaPublico=new DefaultTableModel();
+        tablaPublico.addColumn("Nombre");
+        tablaPublico.addColumn("TBar");
+        tablaPublico.addColumn("Precio");
+        tablaPublico.addColumn("TipoPub");
+        tablaPublico.addColumn("Capacidad");
+        tablaPublico.addColumn("TamX");
+        tablaPublico.addColumn("TamY");
+        tablaPublico.setNumRows(50);
+
+        tablaComercio=new DefaultTableModel();
+        tablaComercio.addColumn("Nombre");
+        tablaComercio.addColumn("TBar");
+        tablaComercio.addColumn("Precio");
+        tablaComercio.addColumn("Capacidad");
+        tablaComercio.addColumn("TamX");
+        tablaComercio.addColumn("TamY");
+        tablaComercio.setNumRows(50);
+        Console.setText("Cargando el Sistema...\n");
+        initViviendas();
+        initPublicos();
+        initComercios();
+        tabViv.setModel(tablaVivienda);
+        tabPub.setModel(tablaPublico);
+        tabCom.setModel(tablaComercio);
+        Console.setText("Bienvenido a UPcity\n");
         
     }
     
-    private void initElementos(){
+    private void initViviendas(){
         
-        //CtrlElem.ListaNombreElementosTipo(i,j);
+        String[][] viv1;
+        for(int j=0;j<=3;++j){
+            viv1 = CtrlElem.listarElemTipo(j, 1);
+            if(viv1!=null){
+                for(int i=0;i<viv1.length;++i){
+                    tablaVivienda.setValueAt(viv1[i][0], i, 0);
+                    tablaVivienda.setValueAt(viv1[i][1], i, 1);
+                    tablaVivienda.setValueAt(viv1[i][2], i, 2);
+                    tablaVivienda.setValueAt(viv1[i][3], i, 3);
+                    tablaVivienda.setValueAt(viv1[i][4], i, 4);
+                    tablaVivienda.setValueAt(viv1[i][5], i, 5);
+                }
+                indiceV+=viv1.length;
+            }
+        }   
+    }
+    
+    private void initPublicos(){
+        String[][] viv1;
+        for(int j=0;j<=3;++j){
+            viv1 = CtrlElem.listarElemTipo(j, 2);
+            if(viv1!=null){
+                for(int i=0;i<viv1.length;++i){
+                    tablaPublico.setValueAt(viv1[i][0], i, 0);
+                    tablaPublico.setValueAt(viv1[i][1], i, 1);
+                    tablaPublico.setValueAt(viv1[i][2], i, 2);
+                    tablaPublico.setValueAt(viv1[i][3], i, 3);
+                    tablaPublico.setValueAt(viv1[i][4], i, 4);
+                    tablaPublico.setValueAt(viv1[i][5], i, 5);
+                    tablaPublico.setValueAt(viv1[i][6], i, 6);
+                }
+                indiceP+=viv1.length;
+            }
+        }
+        
+    }
+    
+    private void initComercios(){
+        String[][] viv1;
+        for(int j=0;j<=3;++j){
+            viv1 = CtrlElem.listarElemTipo(j, 3);
+            if(viv1!=null){
+                for(int i=0;i<viv1.length;++i){
+                    tablaComercio.setValueAt(viv1[i][0], i, 0);
+                    tablaComercio.setValueAt(viv1[i][1], i, 1);
+                    tablaComercio.setValueAt(viv1[i][2], i, 2);
+                    tablaComercio.setValueAt(viv1[i][3], i, 3);
+                    tablaComercio.setValueAt(viv1[i][4], i, 4);
+                    tablaComercio.setValueAt(viv1[i][5], i, 5);
+                }
+                indiceC+=viv1.length;
+            }
+        }
     }
 
     /**
@@ -85,12 +166,12 @@ public class vistaGrafica extends JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane15 = new javax.swing.JScrollPane();
         tabViv = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabPub = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        tabCom = new javax.swing.JTable();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -124,6 +205,7 @@ public class vistaGrafica extends JFrame {
         jTable11 = new javax.swing.JTable();
         jScrollPane13 = new javax.swing.JScrollPane();
         jTable12 = new javax.swing.JTable();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 3), new java.awt.Dimension(0, 3), new java.awt.Dimension(32767, 3));
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         newBar = new javax.swing.JMenuItem();
@@ -134,7 +216,7 @@ public class vistaGrafica extends JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1115, 615));
+        setPreferredSize(new java.awt.Dimension(1115, 625));
 
         jToolBar1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.gray));
         jToolBar1.setForeground(new java.awt.Color(51, 51, 51));
@@ -243,29 +325,15 @@ public class vistaGrafica extends JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Precio", "Nº H Max", "Tipo Barrio"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true
-            };
+        ));
+        tabViv.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane15.setViewportView(tabViv);
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
+        jTabbedPane3.addTab("VIV", jScrollPane15);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tabViv);
-
-        jTabbedPane3.addTab("VIV", jScrollPane2);
-
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        tabPub.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -276,11 +344,12 @@ public class vistaGrafica extends JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable5);
+        tabPub.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane2.setViewportView(tabPub);
 
-        jTabbedPane3.addTab("PUB", jScrollPane3);
+        jTabbedPane3.addTab("PUB", jScrollPane2);
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        tabCom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -288,27 +357,14 @@ public class vistaGrafica extends JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Precio", "Nº H Max", "Tipo Barrio"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
+        ));
+        tabCom.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tabCom.setAutoscrolls(false);
+        jScrollPane3.setViewportView(tabCom);
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(jTable6);
-
-        jTabbedPane3.addTab("COM", jScrollPane4);
+        jTabbedPane3.addTab("COM", jScrollPane3);
 
         jSplitPane1.setTopComponent(jTabbedPane3);
 
@@ -402,6 +458,7 @@ public class vistaGrafica extends JFrame {
         jSplitPane3.setDividerLocation(450);
         jSplitPane3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
+        Console.setEditable(false);
         jScrollPane1.setViewportView(Console);
 
         jSplitPane3.setBottomComponent(jScrollPane1);
@@ -414,14 +471,14 @@ public class vistaGrafica extends JFrame {
             viewBarrioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, viewBarrioLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                .add(jScrollPane14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
                 .addContainerGap())
         );
         viewBarrioLayout.setVerticalGroup(
             viewBarrioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, viewBarrioLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                .add(jScrollPane14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -681,14 +738,20 @@ public class vistaGrafica extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jSplitPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 240, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jLayeredPane1)
-                    .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jSplitPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 240, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jSplitPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 240, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jLayeredPane1)
+                            .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jSplitPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 240, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(492, 492, 492)
+                        .add(filler1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -701,7 +764,9 @@ public class vistaGrafica extends JFrame {
                         .add(jLayeredPane1))
                     .add(jSplitPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 590, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jSplitPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 590, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(filler1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(25, 25, 25))
         );
 
         pack();
@@ -723,12 +788,12 @@ public class vistaGrafica extends JFrame {
         int precio = formulario.getPrecio();
         int TB = formulario.getTB();
         String desc = formulario.getDesc();
-        tablaElementos.setValueAt(nombre, indice, 0);
+        /*tablaElementos.setValueAt(nombre, indice, 0);
         tablaElementos.setValueAt(precio, indice, 1);
         tablaElementos.setValueAt(capacidad, indice, 2);
         tablaElementos.setValueAt(TB, indice, 3);
-        tabViv.setModel(tablaElementos);
-        ++indice;
+        tabViv.setModel(tablaElementos);*/
+        //++indice;
         //tablaElementos.setValueAt(nombre, indice, 4);
         /*JDialog formulario_elementos = new JDialog(this,true);
         formulario_elementos.setSize(300, 500);
@@ -803,6 +868,7 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JMenuItem CreaElem;
     private javax.swing.JScrollPane ScrollsysRest;
     private javax.swing.JScrollPane ScrollsysRest1;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.JButton jButton1;
@@ -831,9 +897,9 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
@@ -854,8 +920,6 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JTable jTable12;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
@@ -865,6 +929,8 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JMenuItem newBar;
     private javax.swing.JMenu newElem;
     private javax.swing.JMenu newRes;
+    private javax.swing.JTable tabCom;
+    private javax.swing.JTable tabPub;
     private javax.swing.JTable tabViv;
     private javax.swing.JPanel viewBarrio;
     // End of variables declaration//GEN-END:variables

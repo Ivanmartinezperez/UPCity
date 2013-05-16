@@ -432,11 +432,11 @@ public class formNewElem extends javax.swing.JDialog {
         return valor;
     }
     
-    public int getX(){
+    public int get_X(){
         int ret = Integer.parseInt(jTextField4.getText());
         return ret;
     }
-    public int getY(){
+    public int get_Y(){
         int ret = Integer.parseInt(jTextField5.getText());
         return ret;
     }
