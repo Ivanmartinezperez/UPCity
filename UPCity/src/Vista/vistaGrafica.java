@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import controladors.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this template, choose Tools | Templates
@@ -783,50 +785,39 @@ public class vistaGrafica extends JFrame {
     private void CreaElemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreaElemActionPerformed
         formNewElem formulario = new formNewElem(this,true);
         formulario.setVisible(true);
+        boolean b;
         String nombre = formulario.getNombre();
-        int capacidad = formulario.getCapacidad();
-        int precio = formulario.getPrecio();
+        String des = formulario.getDesc();
+        int TE = formulario.getTE();
         int TB = formulario.getTB();
-        String desc = formulario.getDesc();
-        /*tablaElementos.setValueAt(nombre, indice, 0);
-        tablaElementos.setValueAt(precio, indice, 1);
-        tablaElementos.setValueAt(capacidad, indice, 2);
-        tablaElementos.setValueAt(TB, indice, 3);
-        tabViv.setModel(tablaElementos);*/
-        //++indice;
-        //tablaElementos.setValueAt(nombre, indice, 4);
-        /*JDialog formulario_elementos = new JDialog(this,true);
-        formulario_elementos.setSize(300, 500);
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-        
-        // CREACION ELEMENTOS JDIALOG -- Formulario Nuevo Elemento
-        JLabel nombreelem = new JLabel("Nombre");
-        JLabel cantidad = new JLabel("Cantidad");
-        JLabel TB = new JLabel("Tipo de barrio");
-        JLabel TE = new JLabel ("Tipo de Elemento");
-        JLabel precio = new JLabel("precio");
-        
-        //posicionamiento 
-        nombreelem.setBounds(20,80 , 10, 20);
-        cantidad.setBounds(20, 100, 10, 20);
-        TB.setBounds(20, 120, 10, 20);
-        TE.setBounds(20, 140, 10, 20);
-        precio.setBounds(20, 160, 10, 20);
-        
-        //Añadir a JDIALOG
-        panel.add(nombreelem);
-        panel.add(cantidad);
-        panel.add(TB);
-        panel.add(precio);
-        panel.add(TE);
-        formulario_elementos.add(panel);
-        
-        //formulario_elementos.setResizable(false);
-        formulario_elementos.setVisible(true);*/
-        
-        
-        
+        int x = formulario.get_X();
+        int y = formulario.get_Y();
+        int precio = formulario.getPrecio();
+        int capacidad = formulario.getCapacidad();
+        if(TE==2){
+            int TEP = formulario.tipoDePublico();
+            try {
+                b = CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad, TEP);
+                if(b){
+                    tabPub.setValueAt(nombre, indiceP, 0);
+                    tabPub.setValueAt(TB, indiceP, 1);
+                    tabPub.setValueAt(precio, indiceP, 2);
+                    tabPub.setValueAt(TEP, indiceP, 3);
+                    tabPub.setValueAt(capacidad, indiceP, 4);
+                    tabPub.setValueAt(x, indiceP, 5);
+                    tabPub.setValueAt(y, indiceP, 6);
+                    ++indiceP;
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(vistaGrafica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else try {
+            CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad, -1);
+       
+        } catch (Exception ex) {
+            Logger.getLogger(vistaGrafica.class.getName()).log(Level.SEVERE, null, ex);
+        }    
     }//GEN-LAST:event_CreaElemActionPerformed
 
     /**

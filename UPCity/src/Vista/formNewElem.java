@@ -18,6 +18,7 @@ public class formNewElem extends javax.swing.JDialog {
     public formNewElem(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jTextArea1.setLineWrap(true);
         jRadioButton1.setMnemonic(0);
         jRadioButton2.setMnemonic(1);
         jRadioButton3.setMnemonic(2);
@@ -129,6 +130,11 @@ public class formNewElem extends javax.swing.JDialog {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                evita_intro_en_desc(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Aceptar");
@@ -364,6 +370,11 @@ public class formNewElem extends javax.swing.JDialog {
         else jComboBox1.setEnabled(false);
     }//GEN-LAST:event_jRadioButton6StateChanged
 
+    private void evita_intro_en_desc(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_evita_intro_en_desc
+        
+        //if(evt) evt.consume();
+    }//GEN-LAST:event_evita_intro_en_desc
+
     /**
      * @param args the command line arguments
      */
@@ -428,7 +439,7 @@ public class formNewElem extends javax.swing.JDialog {
     }
     
     public int getTE(){
-        int valor = buttonGroup1.getSelection().getMnemonic();
+        int valor = buttonGroup4.getSelection().getMnemonic();
         return valor;
     }
     
