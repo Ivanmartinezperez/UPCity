@@ -49,15 +49,23 @@ public class vistaComandos {
                         x = parametros.nextInt();
                         System.out.println("Indique el numero de parcelas del edificio en el eje Y");
                         y = parametros.nextInt();
-                        aux = CtrlElem.CrearElemento(nombrev, Desv, 1, TBv,x,y,preciov,cantperv,0);
-                        if (aux) System.out.println("Creado correctamente");
-                        else System.out.println("El edificio no se pudo crear");
+                        
+                        try{
+                            aux = CtrlElem.CrearElemento(nombrev, Desv, 1, TBv,x,y,preciov,cantperv,0);
+                            System.out.println("Creado correctamente");
+                        }catch(Exception e){
+                            System.out.println("\nEl edificio no se pudo crear");
+                            System.out.println(e.getMessage());
+                        }
                         break;
                 case 2: System.out.println("Escriba el nombre del edificio:");
                         String nombrep = parametros.nextLine();
+                        System.out.println("Elija a que tipo de servicio publico pertenece:");
+                        System.out.println("1-Sanidad\n2-Educacion\n3-Seguridad\n4-Comunicacion\n5-Ocio\n");
+                        int TP = (int) parametros.nextInt();
                         System.out.println("Escriba la descripcion:");
                         String Desp = parametros.nextLine();
-                        System.out.println("Eliga a que tipo de barrio asociaria este elemento:");
+                        System.out.println("Elija a que tipo de barrio asociaria este elemento:");
                         System.out.println("0-Cualquiera\n1-Gama baja\n2-Gama media\n3-Gama alta");
                         int TBp = (int) parametros.nextInt();
                         System.out.println("Indique la cantidad de personas a las que puede ofrecer el servicio");
@@ -68,9 +76,14 @@ public class vistaComandos {
                         x = parametros.nextInt();
                         System.out.println("Indique el numero de parcelas del edificio en el eje Y");
                         y = parametros.nextInt();
-                        aux = CtrlElem.CrearElemento(nombrep, Desp, 2, TBp,x,y,preciop,cantperp,0);//Tipo de servicio no implementado(irrelevante de momento);
-                        if (aux) System.out.println("Creado correctamente");
-                        else System.out.println("El edificio no se pudo crear");
+                        
+                        try{
+                            aux = CtrlElem.CrearElemento(nombrep, Desp, 2, TBp,x,y,preciop,cantperp,TP);
+                            System.out.println("Creado correctamente");
+                        }catch(Exception e){
+                            System.out.println("\nEl edificio no se pudo crear");
+                            System.out.println(e.getMessage());
+                        }
                         break;
                 case 3: System.out.println("Escriba el nombre del edificio:");
                         String nombrec = parametros.nextLine();
@@ -87,9 +100,14 @@ public class vistaComandos {
                         x = parametros.nextInt();
                         System.out.println("Indique el numero de parcelas del edificio en el eje Y");
                         y = parametros.nextInt();
-                        aux = CtrlElem.CrearElemento(nombrec, Desc, 3, TBc,x,y,precioc,cantperc,0);
-                        if (aux) System.out.println("Creado correctamente");
-                        else System.out.println("El edificio no se pudo crear");
+                        
+                        try{
+                            aux = CtrlElem.CrearElemento(nombrec, Desc, 3, TBc,x,y,precioc,cantperc,0);
+                            System.out.println("Creado correctamente");
+                        }catch(Exception e){
+                            System.out.println("\nEl edificio no se pudo crear");
+                            System.out.println(e.getMessage());
+                        }
                         break;
                 default: System.out.println("Opcio Invalida");   
             }
@@ -373,7 +391,8 @@ public class vistaComandos {
     
     
     private boolean mostrarInfoBarrio(){
-        int t = CtrlBarrio.getTipoBarrio();
+        String[] info = CtrlBarrio.getInfoBarrio();
+        int t = (int) Integer.parseInt(info[1]);
         String tipo=null;
         switch(t){
             case 0: tipo = "Sin Tipo";
@@ -386,14 +405,23 @@ public class vistaComandos {
                 break;
         }
         System.out.println("\nLA INFORMACION ACTUAL DEL BARRIO ES LA SIGUIENTE:");
-        System.out.println("Nombre del Barrio: " + CtrlBarrio.getNombreBarrio());
+        System.out.println("Nombre del Barrio: " + info[0]);
         System.out.println("Tipo de Barrio: " + tipo);
-        System.out.println("Presupuesto disponible: " + CtrlBarrio.getPresupuestoBarrio());
-        System.out.println("Presupuesto gastado: " + CtrlBarrio.getGastadoBarrio());
-        System.out.println("Poblacion deseada: " + CtrlBarrio.getPoblacionBarrio());
-        System.out.println("Poblacion posible: " + CtrlBarrio.getViviendoBarrio());
-        System.out.println("Capacidad comercial: " + CtrlBarrio.getComercioBarrio());
+        System.out.println("Poblacion deseada: " + info[3]);
+        System.out.println("Poblacion posible: " + info[8]);
+        System.out.println("Presupuesto total: " + info[2]);
+        System.out.println("Presupuesto gastado: " + info[4]);
+        System.out.println("---Presupuesto gastado en Viviendas: " + info[5]);
+        System.out.println("---Presupuesto gastado en Servicios Publicos: " + info[6]);
+        System.out.println("---Presupuesto gastado en Comercios: " + info[7]);
+        System.out.println("Capacidad de Servicios de Sanidad: " + info[9]);
+        System.out.println("Capacidad de Servicios de Educacion: " + info[10]);
+        System.out.println("Capacidad de Servicios de Seguridad: " + info[11]);
+        System.out.println("Capacidad de Servicios de Comunicacion: " + info[12]);
+        System.out.println("Capacidad de Servicios de Ocio: " + info[13]);
+        System.out.println("Capacidad de Comercio: " + info[14]);
         System.out.println("\n");
+        
         return true;
     }
     

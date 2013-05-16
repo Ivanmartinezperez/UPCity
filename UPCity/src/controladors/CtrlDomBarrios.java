@@ -320,6 +320,7 @@ public class CtrlDomBarrios {
      */
     public boolean quitarElemento(String Elem, int cant){
         Elemento e = DOMElem.getElemento(Elem);
+        if (e == null) return false;
         int oid = e.getId();
         if(CjtElem.containsKey(oid)){
             Pair valor = (Pair) CjtElem.get(oid);
@@ -330,14 +331,30 @@ public class CtrlDomBarrios {
                 Vivienda e2 = (Vivienda) e;
                 gasto = cant * e2.getPrecio();
                 B.anadirHabitantes(-(e2.Getcap_max()*cant));
+                B.anadirGastoViv((-gasto));
             }
             else if(e instanceof Publico){
                 Publico e2 = (Publico) e;
                 gasto = cant * e2.getPrecio();
+                B.anadirGastoPub((-gasto));
+                int cap = (e2.Getcapacidad_serv()*cant);
+                switch(e2.Gettipo()){
+                case 1: B.anadirSanidad((-cap));
+                        break;
+                case 2: B.anadirEducacion((-cap));
+                        break;
+                case 3: B.anadirSeguridad((-cap));
+                        break;
+                case 4: B.anadirComunicacion((-cap));
+                        break;
+                case 5: B.anadirOcio((-cap));
+                        break;
+                }
             }
             else {
                 Comercio e2 = (Comercio) e;
                 gasto = cant * e2.getPrecio();
+                B.anadirGastoCom(-(gasto));
                 B.anadirComercio(-(e2.getCapacidad()*cant));
             }
             B.anadirGasto(-gasto);
@@ -555,6 +572,27 @@ public class CtrlDomBarrios {
     
     
     
+    public String[] getInfoBarrio(){
+        String[] info = new String[15];
+        info[0] = B.getNombreBarrio();
+        info[1] = String.valueOf(B.getTipoBarrio());
+        info[2] = String.valueOf(B.getPresupuesto());
+        info[3] = String.valueOf(B.getPoblacion());
+        info[4] = String.valueOf(B.getGastado());
+        info[5] = String.valueOf(B.getGastadoViv());
+        info[6] = String.valueOf(B.getGastadoPub());
+        info[7] = String.valueOf(B.getGastadoCom());
+        info[8] = String.valueOf(B.getViviendo());
+        info[9] = String.valueOf(B.getCapSanidadCom());
+        info[10] = String.valueOf(B.getCapEducacion());
+        info[11] = String.valueOf(B.getCapSeguridad());
+        info[12] = String.valueOf(B.getCapComunicacion());
+        info[13] = String.valueOf(B.getCapOcio());
+        info[14] = String.valueOf(B.getCapacidad_comercio());
+        return info;
+    }    
+    
+    
     
     
     /////PRIVADAS/////
@@ -694,15 +732,31 @@ public class CtrlDomBarrios {
             Vivienda e2 = (Vivienda) e;
             gasto = cant * e2.getPrecio();
             B.anadirHabitantes(e2.Getcap_max()*cant);
+            B.anadirGastoViv(gasto);
         }
         else if(e instanceof Publico){
             Publico e2 = (Publico) e;
             gasto = cant * e2.getPrecio();
+            B.anadirGastoPub(gasto);
+            int cap = (e2.Getcapacidad_serv()*cant);
+            switch(e2.Gettipo()){
+                case 1: B.anadirSanidad(cap);
+                        break;
+                case 2: B.anadirEducacion(cap);
+                        break;
+                case 3: B.anadirSeguridad(cap);
+                        break;
+                case 4: B.anadirComunicacion(cap);
+                        break;
+                case 5: B.anadirOcio(cap);
+                        break;
+            }
         }
         else {
             Comercio e2 = (Comercio) e;
             gasto = cant * e2.getPrecio();
             B.anadirComercio(e2.getCapacidad()*cant);
+            B.anadirGastoCom(gasto);
         }
         B.anadirGasto(gasto);
         putElemento(oid,v);

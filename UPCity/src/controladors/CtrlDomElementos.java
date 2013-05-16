@@ -159,11 +159,24 @@ public class CtrlDomElementos {
      * @return Devuelve true en caso de que todo se realize correctamente 
      */
     public boolean CrearElemento(String Nombre,String Des, int tipo, int TB,
-                                 int tamX,int tamY,int prec,int aux1,int aux2){
+                                 int tamX,int tamY,int prec,int aux1,int aux2) throws Exception{
 
         //System.out.println("Entra");
             boolean ret=true;
-
+            if(tamX<0 || tamY<0){
+                 throw new Exception("\nEl tamanoX y tamanoY del" + 
+                 "edificio han de ser mayores que 0\n");
+            }
+            if(prec<0){
+                 throw new Exception("\nEl precio ha de ser mayor que 0\n");
+            }
+            if(TB<0 || TB>3){
+                throw new Exception("\nTipo de Barrio Incorrecto\n");
+            }
+            if(aux1<0){
+                throw new Exception("\nCapacidad ha de ser mayor a 0\n");
+            }
+            
             switch(tipo){
                 case 1 : Vivienda v = new Vivienda(OID,aux1,tamX,tamY,prec,
                                                    TB);
@@ -174,6 +187,11 @@ public class CtrlDomElementos {
                          break;
                 case 2 : Publico p = new Publico(OID,aux2,aux1,tamX,tamY,
                                                  prec,TB);
+                         
+                         if(aux2<1 || aux2>5){
+                             throw new Exception("\nTipo de servicio publico" +
+                                     "Incorrecto\n");
+                         }
                          p.setNom(Nombre);
                          p.setDescrpcio(Des);
                          ret = anadir_a_estructuras(p,tipo,TB);
@@ -186,7 +204,7 @@ public class CtrlDomElementos {
                          ret = anadir_a_estructuras(c,tipo,TB);
                          if(ret) GDPElem.escribirElemento(c);
                          break;
-                default: ret = false;
+                default: throw new Exception("\nTipo de Edificio Incorrecto\n");
             }
 
             return ret;
