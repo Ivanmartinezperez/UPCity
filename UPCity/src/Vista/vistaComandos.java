@@ -25,7 +25,8 @@ public class vistaComandos {
         
         System.out.println("Que tipo de edificio desea crear:");
         System.out.println("1-Vivienda\n2-Publico\n3-Comercio\n4-Salir");
-        
+        int x;
+        int y;
         Scanner action = new Scanner(System.in);
         
         int n=(int)action.nextInt();
@@ -44,7 +45,11 @@ public class vistaComandos {
                         int cantperv = (int) parametros.nextInt();
                         System.out.println("Indique el precio de la vivienda");
                         int preciov = parametros.nextInt();
-                        aux = CtrlElem.CrearElemento(nombrev, Desv, 1, TBv,1,1,preciov,cantperv,0);
+                        System.out.println("Indique el numero de parcelas del edificio en el eje X");
+                        x = parametros.nextInt();
+                        System.out.println("Indique el numero de parcelas del edificio en el eje Y");
+                        y = parametros.nextInt();
+                        aux = CtrlElem.CrearElemento(nombrev, Desv, 1, TBv,x,y,preciov,cantperv,0);
                         if (aux) System.out.println("Creado correctamente");
                         else System.out.println("El edificio no se pudo crear");
                         break;
@@ -59,7 +64,11 @@ public class vistaComandos {
                         int cantperp = (int) parametros.nextInt();
                         System.out.println("Indique el precio de la construccion");
                         int preciop = parametros.nextInt();
-                        aux = CtrlElem.CrearElemento(nombrep, Desp, 2, TBp,1,1,preciop,cantperp,0);//Tipo de servicio no implementado(irrelevante de momento);
+                        System.out.println("Indique el numero de parcelas del edificio en el eje X");
+                        x = parametros.nextInt();
+                        System.out.println("Indique el numero de parcelas del edificio en el eje Y");
+                        y = parametros.nextInt();
+                        aux = CtrlElem.CrearElemento(nombrep, Desp, 2, TBp,x,y,preciop,cantperp,0);//Tipo de servicio no implementado(irrelevante de momento);
                         if (aux) System.out.println("Creado correctamente");
                         else System.out.println("El edificio no se pudo crear");
                         break;
@@ -74,7 +83,11 @@ public class vistaComandos {
                         int cantperc = (int) parametros.nextInt();
                         System.out.println("Indique el precio del Comercio");
                         int precioc = parametros.nextInt();
-                        aux = CtrlElem.CrearElemento(nombrec, Desc, 3, TBc,1,1,precioc,cantperc,0);
+                        System.out.println("Indique el numero de parcelas del edificio en el eje X");
+                        x = parametros.nextInt();
+                        System.out.println("Indique el numero de parcelas del edificio en el eje Y");
+                        y = parametros.nextInt();
+                        aux = CtrlElem.CrearElemento(nombrec, Desc, 3, TBc,x,y,precioc,cantperc,0);
                         if (aux) System.out.println("Creado correctamente");
                         else System.out.println("El edificio no se pudo crear");
                         break;

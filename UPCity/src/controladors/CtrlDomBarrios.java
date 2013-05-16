@@ -158,16 +158,37 @@ public class CtrlDomBarrios {
         }
         Pair[] lastVisited = new Pair[idElem.size()];
         int[] EstaVisitado = new int[idElem.size()];
+        Pair[] coordenadas = new Pair[idElem.size()];
         for(int i=0;i<idElem.size();++i){
             Pair p = new Pair(0,0);
             lastVisited[i]=p;
             EstaVisitado[i]=0;
+            Elemento e = (Elemento) CjtElem.consultar_elemento(idElem.get(i)).getSecond();
+            int tipoel = TipoElemento(e);
+            switch(tipoel){
+                    case 1: 
+                        Vivienda v = (Vivienda) e;
+                        coordenadas[i] = new Pair(v.getTamanoX(),v.getTamanoY());
+                        break;
+                    case 2: 
+                        Publico p2 = (Publico) e;
+                        coordenadas[i] = new Pair(p2.getTamanoX(),p2.getTamanoY());
+                        break;
+                    case 3: 
+                        Comercio c = (Comercio) e;
+                        coordenadas[i] = new Pair(c.getTamanoX(),c.getTamanoY());
+                        break;
+            }
+        }
+        
+        for(int i=0;i<idElem.size();++i){
+            System.out.println(""+coordenadas[i].getFirst()+" "+coordenadas[i].getSecond());
         }
         
         Mapa = new Plano(copia);
         
         controlait = 0;
-        boolean back = backtracking(0,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
+        boolean back = backtracking(0,coordenadas,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
         return back;    
         
     }
@@ -734,13 +755,13 @@ public class CtrlDomBarrios {
      * @return
      * @throws Exception 
      */
-    private Pair cabeEnMapa(Integer v,Plano p,int eAct,Pair lastVisited[],int EstaVisitado[],ArrayList<Restriccion_ubicacion> res) throws Exception{
+    private Pair cabeEnMapa(Integer v,Plano p,int tamx,int tamy,int eAct,Pair lastVisited[],int EstaVisitado[],ArrayList<Restriccion_ubicacion> res) throws Exception{
         //System.out.println("A ver si el elemento cabe");
         //System.out.println(""+lastVisited[v].getFirst()+" "+ lastVisited[v].getSecond());
         if(EstaVisitado[eAct]==1){
             //p.pos((int)lastVisited[v].getFirst(), (int)lastVisited[v].getSecond()).modificarPar(0, 0);
             //System.out.println("Desexpando");
-            p.expande((int)lastVisited[eAct].getFirst(),(int)lastVisited[eAct].getSecond(), 0, res, false);
+            p.expande((int)lastVisited[eAct].getFirst(),(int)lastVisited[eAct].getSecond(),tamx,tamy, 0, res, false);
         }
             ajustaInicio(lastVisited[eAct],p.tamb(),EstaVisitado[eAct]);
         
@@ -774,7 +795,7 @@ public class CtrlDomBarrios {
      * @throws Exception 
      */
     
-    private boolean backtracking(int k,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
+    private boolean backtracking(int k,Pair[] coordenadas,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
         
         ++controlait;
         if(controlait > 100000000) {
@@ -792,8 +813,8 @@ public class CtrlDomBarrios {
         else {
             Integer valor = cjt.get(k);
             Pair pos;
-            if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,null); 
-            else pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,res.get(valor));//Esta funcion debe desexpandirte en caso de que tus ultimos
+            if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,(int)coordenadas[k].getFirst(),(int)coordenadas[k].getSecond(),k,lastVisited,EstaVisitado,null); 
+            else pos = cabeEnMapa(valor,p,(int) coordenadas[k].getFirst(),(int)coordenadas[k].getSecond(),k,lastVisited,EstaVisitado,res.get(valor));//Esta funcion debe desexpandirte en caso de que tus ultimos
                                                                         // valores visitados sean difentes a 0 (puesto previamente)
             //System.out.println(""+pos.getFirst()+" "+pos.getSecond());
             while(pos.getFirst()!=-1){
@@ -801,13 +822,13 @@ public class CtrlDomBarrios {
                     return false;
                 }
                 
-                if(!res.containsKey(valor))p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, null, true);
-                else p.expande((int)pos.getFirst(), (int)pos.getSecond(), valor, res.get(valor), true);
+                if(!res.containsKey(valor))p.expande((int)pos.getFirst(), (int)pos.getSecond(),(int)coordenadas[k].getFirst(),(int)coordenadas[k].getSecond(), valor, null, true);
+                else p.expande((int)pos.getFirst(), (int)pos.getSecond(),(int)coordenadas[k].getFirst(),(int)coordenadas[k].getSecond(), valor, res.get(valor), true);
                 
-                boolean back =  backtracking(k+1,cjt,lastVisited,EstaVisitado,res,p);
+                boolean back =  backtracking(k+1,coordenadas,cjt,lastVisited,EstaVisitado,res,p);
                 if(!back){
-                    if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,null); 
-                    else pos = cabeEnMapa(valor,p,k,lastVisited,EstaVisitado,res.get(valor));
+                    if(!res.containsKey(valor)) pos = cabeEnMapa(valor,p,(int)coordenadas[k].getFirst(),(int)coordenadas[k].getSecond(),k,lastVisited,EstaVisitado,null); 
+                    else pos = cabeEnMapa(valor,p,(int)coordenadas[k].getFirst(),(int)coordenadas[k].getSecond(),k,lastVisited,EstaVisitado,res.get(valor));
                 }
                 else return true;
             }
@@ -820,5 +841,19 @@ public class CtrlDomBarrios {
         }
     }
 
+     /**
+     * Funcion privada que nos indica que tipo de Elemento es el Elemento e.
+     * @param e Elemento del cual queremos conocer el tipo.
+     * @return Retorna el tipo de Elemento que es e: 1-Vivienda, 2-Publico,
+     * 3-Comercio.
+     */
+    private int TipoElemento(Elemento e){
+        if(e instanceof Vivienda)
+            return 1;
+        else if(e instanceof Publico)
+            return 2;
+        else 
+            return 3;
+    }
 }
 
