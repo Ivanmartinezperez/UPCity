@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import controladors.*;
 
 /*
  * To change this template, choose Tools | Templates
@@ -22,23 +23,37 @@ public class vistaGrafica extends JFrame {
     
     private DefaultTableModel tablaElementos;
     private int indice;
+    private CtrlDomBarrios CtrlBarrio;
+    private CtrlDomElementos CtrlElem;
+    private CtrlDomRestricciones CtrlRest;
         
 
     /**
      * Creates new form vistaGrafica
      */
     public vistaGrafica() {
+        CtrlBarrio = CtrlDomBarrios.getInstance();
+        CtrlElem = CtrlDomElementos.getInstance();
+        CtrlRest = CtrlDomRestricciones.getInstance();
         initComponents();
         setResizable(false);
         tablaElementos=new DefaultTableModel();
         tablaElementos.addColumn("Nombre");
-        tablaElementos.addColumn("Capacidad");
+        tablaElementos.addColumn("TBar");
         tablaElementos.addColumn("Precio");
-        tablaElementos.addColumn("TB");
+        tablaElementos.addColumn("TPub");
+        tablaElementos.addColumn("Capacidad");
+        tablaElementos.addColumn("TamX");
+        tablaElementos.addColumn("TamY");
         tablaElementos.setNumRows(100);
         indice=0;
+        
     }
     
+    private void initElementos(){
+        
+        //CtrlElem.ListaNombreElementosTipo(i,j);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -399,14 +414,14 @@ public class vistaGrafica extends JFrame {
             viewBarrioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, viewBarrioLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+                .add(jScrollPane14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                 .addContainerGap())
         );
         viewBarrioLayout.setVerticalGroup(
             viewBarrioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, viewBarrioLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                .add(jScrollPane14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
