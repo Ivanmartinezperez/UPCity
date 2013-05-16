@@ -298,6 +298,9 @@ public class CtrlDomBarrios {
                         b = (tipoel==3 || tipoel==0);
                         break;
             }
+            if(B.getPresupuesto()!=0){
+                
+            }
             if(b) guardarElemento(e,cant);
         }
         return b;
