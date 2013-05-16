@@ -757,7 +757,7 @@ public class CtrlDomBarrios {
      */
     private Pair cabeEnMapa(Integer v,Plano p,int tamx,int tamy,int eAct,Pair lastVisited[],int EstaVisitado[],ArrayList<Restriccion_ubicacion> res) throws Exception{
         //System.out.println("A ver si el elemento cabe");
-        //System.out.println(""+lastVisited[v].getFirst()+" "+ lastVisited[v].getSecond());
+        System.out.println(""+tamx+" "+ tamy);
         if(EstaVisitado[eAct]==1){
             //p.pos((int)lastVisited[v].getFirst(), (int)lastVisited[v].getSecond()).modificarPar(0, 0);
             //System.out.println("Desexpando");
