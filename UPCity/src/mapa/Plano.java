@@ -112,7 +112,6 @@ public class Plano implements Serializable{
      * @param exp True = expandir. False = desexpande.
      */
     public void expande(int x, int y, int tama, int tamb, int oid, ArrayList<Restriccion_ubicacion> restricciones, boolean exp) {
-        if(restricciones!=null){
             Queue<Pair <Integer, Integer> > cola;
             cola = new LinkedList <Pair<Integer, Integer> >();
             Pair<Integer, Integer> par;
@@ -123,8 +122,10 @@ public class Plano implements Serializable{
                     visitats[i][j] = new Pair<Integer, Integer>(0,0);
                 }
             }
+            System.out.println("MODIFICANDO MAPA");
             for(int i = 0; i < tama; ++i){
                 for(int j = 0; j < tamb; ++j){
+                    System.out.println(""+(x+i)+" "+(y+j));
                     mat[x+i][y+j].modificarPar(oid, 1);
                     par = new Pair<Integer,Integer> (x+i, y+j);
                     visitats[x+i][y+j].setFirst(1);
@@ -133,6 +134,7 @@ public class Plano implements Serializable{
                     
                 }
             }
+        if(restricciones !=null){
             while(cola.isEmpty() == false) {
                 par = cola.poll();
                 int a = par.getFirst();
