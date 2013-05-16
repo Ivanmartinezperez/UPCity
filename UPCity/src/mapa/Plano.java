@@ -31,7 +31,7 @@ public class Plano implements Serializable{
      * @param p
      * @throws Exception 
      */
-    public Plano(Plano p) throws Exception {
+    public Plano(Plano p){
         int n = p.tama();
         int m = p.tamb();
 	mat = new Parcela[n][m];
@@ -49,7 +49,7 @@ public class Plano implements Serializable{
      * @param b
      * @throws Exception 
      */
-    public Plano(int a, int b) throws Exception {
+    public Plano(int a, int b) {
         mat = new Parcela[a][b];
         for(int i = 0; i < a; ++i) {
             for(int j = 0; j < b; ++j) {
@@ -63,7 +63,7 @@ public class Plano implements Serializable{
      * @return in con el tamano
      * @throws Exception 
      */
-    public int tama() throws Exception {
+    public int tama() {
         return mat.length;
     }
     
@@ -72,7 +72,7 @@ public class Plano implements Serializable{
      * @return int con el tamano
      * @throws Exception 
      */
-    public int tamb() throws Exception {
+    public int tamb(){
         return mat[0].length;
     }
     
@@ -325,7 +325,7 @@ public class Plano implements Serializable{
       * @param p
       * @throws Exception 
       */
-    public void copia(Plano p) throws Exception {
+    public void copia(Plano p) {
        	int n = p.tama();
         int m = p.tamb();
 	mat = new Parcela[n][m];
