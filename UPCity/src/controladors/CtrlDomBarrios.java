@@ -113,8 +113,10 @@ public class CtrlDomBarrios {
             CjtRestDemog = new HashMap();
             RestEcon = new Restriccion_economica();
             Mapa = new Plano();
+            copia = new Plano();
             B = GDPBarr.leerBarrio(nombre);
             Mapa = GDPBarr.leerMapa(nombre);
+            copia = GDPBarr.leerCopiaMapa(nombre);
             CjtRest = GDPBarr.leerCjtRest(nombre);
             transRestBarrio();
             CjtElem = GDPBarr.leerCjtElem(nombre);
@@ -134,6 +136,7 @@ public class CtrlDomBarrios {
                 TablaBarrios.put(nombre,(Integer) 1);
         GDPBarr.escribirBarrio(nombre,B);
         GDPBarr.escribirMapa(nombre,Mapa);
+        GDPBarr.escribirCopiaMapa(nombre,copia);
         GDPBarr.escribirCjtRest(nombre,CjtRest);
         GDPBarr.escribirCjtElem(nombre,CjtElem);
     }

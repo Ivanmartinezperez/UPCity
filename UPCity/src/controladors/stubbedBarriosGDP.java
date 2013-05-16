@@ -105,12 +105,25 @@ public class stubbedBarriosGDP {
      * como parametro, y lo pasa al Plano Mapa que le llega como parametro.
      * @param nomBarr Nombre del Barrio del que se solicita la lectura del 
      * Plano.
-     * @param Mapa El Plano en el cual se guardara el mapa del barrio leido del
-     * disco para pasarlo al controlador de barrios.  
+     * @return El Plano con el mapa del barrio leido del disco.  
      */
     public Plano leerMapa(String nomBarr){
         return (Plano) 
                 PERSDisco.leerObjeto(nomBarr + "/" , nomBarr + "-Mapa");
+    }
+    
+    
+    /**
+     * Lectura de datos persistentes del disco, lee el Plano guardado en el 
+     * disco que le corresponde al barrio con el nombre nomBarr, que le llega 
+     * como parametro, y lo pasa al Plano Mapa que le llega como parametro.
+     * @param nomBarr Nombre del Barrio del que se solicita la lectura del 
+     * Plano.
+     * @return El Plano con la copia de mapa del barrio leido del disco.  
+     */
+    public Plano leerCopiaMapa(String nomBarr){
+        return (Plano) 
+                PERSDisco.leerObjeto(nomBarr + "/" , nomBarr + "-MapaCopia");
     }
     
     
@@ -166,6 +179,19 @@ public class stubbedBarriosGDP {
      */
     public void escribirMapa(String nomBarr, Plano Mapa){
         PERSDisco.escribirObjeto(nomBarr + "/" , nomBarr + "-Mapa", Mapa);
+    }
+    
+    
+    /**
+     * Escritura de datos persistentes al disco, escribe el Plano Mapa que le 
+     * llega como parametro, guardandolo en el disco como el que le corresponde 
+     * al barrio con el nombre nomBarr, que le llega como parametro.
+     * @param nomBarr Nombre del Barrio al que le corresponde el Plano que se va
+     * guardar.
+     * @param Mapa El Plano que se quiere guardar en el disco.
+     */
+    public void escribirCopiaMapa(String nomBarr, Plano Mapa){
+        PERSDisco.escribirObjeto(nomBarr + "/" , nomBarr + "-MapaCopia", Mapa);
     }
     
     
