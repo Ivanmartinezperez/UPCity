@@ -184,10 +184,6 @@ public class CtrlDomBarrios {
             }
         }
         
-        for(int i=0;i<idElem.size();++i){
-            System.out.println(""+coordenadas[i].getFirst()+" "+coordenadas[i].getSecond());
-        }
-        
         Mapa = new Plano(copia);
         
         controlait = 0;
@@ -760,7 +756,7 @@ public class CtrlDomBarrios {
      */
     private Pair cabeEnMapa(Integer v,Plano p,int tamx,int tamy,int eAct,Pair lastVisited[],int EstaVisitado[],ArrayList<Restriccion_ubicacion> res) throws Exception{
         //System.out.println("A ver si el elemento cabe");
-        System.out.println(""+tamx+" "+ tamy);
+        //System.out.println(""+tamx+" "+ tamy);
         if(EstaVisitado[eAct]==1){
             //p.pos((int)lastVisited[v].getFirst(), (int)lastVisited[v].getSecond()).modificarPar(0, 0);
             //System.out.println("Desexpando");
@@ -768,16 +764,30 @@ public class CtrlDomBarrios {
         }
             ajustaInicio(lastVisited[eAct],p.tamb(),EstaVisitado[eAct]);
         
+        boolean check;
         for(int i=(int)lastVisited[eAct].getFirst();i<p.tama();++i){
             for(int j=(int) lastVisited[eAct].getSecond();j<p.tamb();++j){
+                //System.out.println("posicion consultada: "+i+" "+j);
                 if(!p.consultaPar(v, i, j)){
-                  Pair ret = new Pair<Integer,Integer>(i,j);
-                  lastVisited[eAct].setFirst(i);
-                  lastVisited[eAct].setSecond(j);
-                  EstaVisitado[eAct]=1;
-                  
-                  return ret;
-                } 
+                    //System.out.println("    posicion check");
+                    check = true;
+                  for(int k=i;k<i+tamx && k<=p.tama() && check;++k){
+                      for(int q=j;q<j+tamy && q<=p.tamb() && check;++q){
+                          //System.out.println("      "+k+" "+q);
+                          if(k<p.tama() && q<p.tamb()){
+                            check = !(p.consultaPar(v, k, q));
+                          }
+                          else check = false;
+                      }
+                  }
+                  if(check){
+                    Pair ret = new Pair<Integer,Integer>(i,j);
+                    lastVisited[eAct].setFirst(i);
+                    lastVisited[eAct].setSecond(j);
+                    EstaVisitado[eAct]=1;
+                    return ret;
+                  } 
+                }
             }
         }
         Pair ret = new Pair<Integer,Integer>(-1,-1);
