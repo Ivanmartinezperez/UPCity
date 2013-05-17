@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import controladors.CtrlDomRestricciones;
+
 /**
  *
  * @author daniel
@@ -145,6 +147,11 @@ public class formNewRestriccion extends javax.swing.JDialog {
         jButton1.setText("Cancelar");
 
         jButton2.setText("Crear Restriccion");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -422,6 +429,31 @@ public class formNewRestriccion extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jTextField6KeyTyped
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        String nombre = jTextField6.getText();
+        CtrlRest = CtrlDomRestricciones.getInstance();
+        if(jRadioButton1.isSelected() == true) {//crear un restricion de ubicacion
+            String a = (String) jComboBox1.getSelectedItem();
+            String b = (String) jComboBox2.getSelectedItem();
+            int c = Integer.parseInt(jTextField3.getText());
+            System.out.println("Selecion1"+a+" "+b+" "+c);
+            CtrlRest.CrearRestriccion(b, b, nombre, nombre, c, c, c);
+            
+        }
+        else if(jRadioButton2.isSelected() == true) {//crear una restricion demografica
+            String a = (String) jComboBox3.getSelectedItem();
+            int b = Integer.parseInt(jTextField5.getText());
+            System.out.println("SELECION2 "+a+" "+b);
+        }
+        else if(jRadioButton3.isSelected() == true) {//creacion restricion economica
+            int a = Integer.parseInt(jTextField7.getText());
+            int b = Integer.parseInt(jTextField8.getText());
+            int c = Integer.parseInt(jTextField9.getText());
+            System.out.println("SELECION3: "+a+" "+b+" "+c);
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -463,6 +495,8 @@ public class formNewRestriccion extends javax.swing.JDialog {
             }
         });
     }
+    
+    private CtrlDomRestricciones CtrlRest;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
