@@ -126,7 +126,8 @@ public class Plano implements Serializable{
             for(int i = 0; i < tama; ++i){
                 for(int j = 0; j < tamb; ++j){
                     System.out.println(""+(x+i)+" "+(y+j));
-                    mat[x+i][y+j].modificarPar(oid, 1);
+                    if(exp == true) mat[x+i][y+j].modificarPar(oid, 1);
+                    else mat[x+i][y+j].modificarPar(0, 1);
                     par = new Pair<Integer,Integer> (x+i, y+j);
                     visitats[x+i][y+j].setFirst(1);
                     visitats[x+i][y+j].setSecond(0);
