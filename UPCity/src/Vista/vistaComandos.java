@@ -575,11 +575,25 @@ public class vistaComandos {
                         int opc = (int) action.nextInt();
                         while(opc != 2){
                             switch(opc){
-                                case 1: System.out.println("\nGENERANDO BARRIO...\n"
+                                case 1: System.out.println("\nDesea comprobar la suficiencia de los Servicios Publicos?\n1-Si\n2-No");
+                                        opc = (int) action.nextInt();
+                                        while(opc!=1 && opc!=2){
+                                            System.out.println("Opcio Invalida");
+                                            opc = (int) action.nextInt();
+                                        }
+                                        boolean comp;
+                                        if(opc==1)
+                                            comp = true;
+                                        else 
+                                            comp = false;
+                                        System.out.println("\nGENERANDO BARRIO...\n"
                                         + "Esta operacion puede tardar varios minutos.....");
-                                        generado = CtrlBarrio.generarBarrio();
-                                        if (generado) System.out.println("El barrio se genero correctamente");
-                                        else System.out.println("No se pudo generar el barrio");
+                                        try{
+                                            CtrlBarrio.generarBarrio(comp);
+                                            System.out.println("El barrio se genero correctamente");
+                                        }catch(Exception e){
+                                            System.out.println(e.getMessage());
+                                        }
                                         break;
                                 default: System.out.println("Opcio Invalida");
                              }
@@ -719,12 +733,26 @@ public class vistaComandos {
                             int opc = (int) action.nextInt();
                             while(opc != 2){
                                 switch(opc){
-                                    case 1: System.out.println("\nGENERANDO BARRIO...\n"
-                                            + "Esta operacion puede tardar varios minutos.....");
-                                            generado = CtrlBarrio.generarBarrio();
-                                            if (generado) System.out.println("El barrio se genero correctamente");
-                                            else System.out.println("No se pudo generar el barrio");
-                                            break;
+                                    case 1: System.out.println("\nDesea comprobar la suficiencia de los Servicios Publicos?\n1-Si\n2-No");
+                                        opc = (int) action.nextInt();
+                                        while(opc!=1 && opc!=2){
+                                            System.out.println("Opcio Invalida");
+                                            opc = (int) action.nextInt();
+                                        }
+                                        boolean comp;
+                                        if(opc==1)
+                                            comp = true;
+                                        else 
+                                            comp = false;
+                                        System.out.println("\nGENERANDO BARRIO...\n"
+                                        + "Esta operacion puede tardar varios minutos.....");
+                                        try{
+                                            CtrlBarrio.generarBarrio(comp);
+                                            System.out.println("El barrio se genero correctamente");
+                                        }catch(Exception e){
+                                            System.out.println(e.getMessage());
+                                        }
+                                        break;
                                     default: System.out.println("Opcio Invalida");
                                  }
                                 if(!generado){ 
