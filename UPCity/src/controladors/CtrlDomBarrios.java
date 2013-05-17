@@ -86,7 +86,7 @@ public class CtrlDomBarrios {
             CjtRest = new TreeMap();
             CjtRestUbic1 = new HashMap();
             CjtRestDemog = new HashMap();
-            RestEcon = new Restriccion_economica();
+            RestEcon = null;
             Mapa = new Plano();
             copia = new Plano();
             B.setNombreBarrio(nombre);
@@ -104,25 +104,26 @@ public class CtrlDomBarrios {
      * @return Retorna si ha sido posible cargar el barrio, cierto si existe el 
      * barrio con ese nombre y falso si ese barrio no existe.
      */
-    public boolean cargarBarrio(String nombre){
-        if(TablaBarrios.containsKey(nombre)){
-            B = new Barrio();
-            CjtElem = new Cjt_Edificios();
-            CjtRest = new TreeMap();
-            CjtRestUbic1 = new HashMap();
-            CjtRestDemog = new HashMap();
-            RestEcon = new Restriccion_economica();
-            Mapa = new Plano();
-            copia = new Plano();
-            B = GDPBarr.leerBarrio(nombre);
-            Mapa = GDPBarr.leerMapa(nombre);
-            copia = GDPBarr.leerCopiaMapa(nombre);
-            CjtRest = GDPBarr.leerCjtRest(nombre);
-            transRestBarrio();
-            CjtElem = GDPBarr.leerCjtElem(nombre);
-            return true;
+    public boolean cargarBarrio(String nombre)throws Exception{
+        if(!TablaBarrios.containsKey(nombre)){
+            throw new Exception("\nEl barrio que solicita no existe\n");
         }
-        else return false;
+        B = new Barrio();
+        CjtElem = new Cjt_Edificios();
+        CjtRest = new TreeMap();
+        CjtRestUbic1 = new HashMap();
+        CjtRestDemog = new HashMap();
+        RestEcon = null;
+        Mapa = new Plano();
+        copia = new Plano();
+        B = GDPBarr.leerBarrio(nombre);
+        Mapa = GDPBarr.leerMapa(nombre);
+        copia = GDPBarr.leerCopiaMapa(nombre);
+        CjtRest = GDPBarr.leerCjtRest(nombre);
+        transRestBarrio();
+        CjtElem = GDPBarr.leerCjtElem(nombre);
+        return true;
+        
     }
     
     
@@ -141,13 +142,18 @@ public class CtrlDomBarrios {
         GDPBarr.escribirCjtElem(nombre,CjtElem);
     }
     
+    
+    public void eliminarBarrio(String nomBar){
+        
+    }
+    
     /**
      * 
      * Funcion encargada de generar el barrio actual con sus restricciones y elementos
      * @return True si el barrio se ha generado correctamente, False en caso contrario
      * @throws Exception 
      */
-    public boolean generarBarrio() throws Exception{
+    public boolean generarBarrio(){
         
         
         ArrayList<Integer> idElem = new ArrayList<>();
@@ -200,7 +206,7 @@ public class CtrlDomBarrios {
      * @param m Numero de columnas que tendra el Plano
      * @return Retorna si ha sido posible crear el plano.
      */
-    public boolean crearMapaBarrio(int n, int m) throws Exception{
+    public boolean crearMapaBarrio(int n, int m){
         if(n>=1 && m>=1){
             Mapa = new Plano(n,m);
             copia = new Plano(n,m);
@@ -214,7 +220,7 @@ public class CtrlDomBarrios {
      * @return Mapa en formato int
      * @throws Exception 
      */
-    public Integer[][] vistaMapa() throws Exception{
+    public Integer[][] vistaMapa() {
         
         Integer [][] mapa = new Integer[Mapa.tama()][Mapa.tamb()];
         
@@ -236,14 +242,15 @@ public class CtrlDomBarrios {
      * @return Retorna si se ha podido añadir la Restriccion deseada, cierto si
      * esa Restriccion existe y falso si esa Restriccion no existe.
      */
-   public boolean anadirRestBarrio(String Rest){
+   public boolean anadirRestBarrio(String Rest) throws Exception{
         Restriccion r = DOMRest.getRestriccion(Rest);
-        if(r != null){
-            CjtRest.put(Rest,r);
-            putRestriccion(r);
-            return true;
+        if(r == null){
+            throw new Exception("\nLa restriccion no existe\n");
         }
-        else return false;
+        boolean b;
+        b = putRestriccion(r);
+        if(b) CjtRest.put(Rest,r);
+        return b;
     }
     
     
@@ -276,33 +283,43 @@ public class CtrlDomBarrios {
      * Barrio sobre el que se trabaja o falso si el Elemento no existe o no es
      * compatible con el Tipo de Barrio del Barrio sobre el que se trabaja.
      */
-    public boolean anadirElemBarrio(String Elem, int cant){
+    public boolean anadirElemBarrio(String Elem, int cant) throws Exception{
         int tipo = B.getTipoBarrio();
         boolean b = false;
         Elemento e;
         int tipoel;
         e = DOMElem.getElemento(Elem);
-        if(e != null){
-            tipoel = DOMElem.getTBElemento(e);
-            switch(tipo){
-                    case 0: 
-                        b = true;
-                        break;
-                    case 1: 
-                        b = (tipoel==1 || tipoel==0);
-                        break;
-                    case 2: 
-                        b = (tipoel==2 || tipoel==0);
-                        break;
-                    case 3: 
-                        b = (tipoel==3 || tipoel==0);
-                        break;
-            }
-            if(B.getPresupuesto()!=0){
-                
-            }
-            if(b) guardarElemento(e,cant);
+        if(e == null){
+            throw new Exception("\nEl solicitado edificio no existe\n");
         }
+        tipoel = DOMElem.getTBElemento(e);
+        switch(tipo){
+                case 0: 
+                    b = true;
+                    break;
+                case 1: 
+                    b = (tipoel==1 || tipoel==0);
+                    break;
+                case 2: 
+                    b = (tipoel==2 || tipoel==0);
+                    break;
+                case 3: 
+                    b = (tipoel==3 || tipoel==0);
+                    break;
+        }
+        if(b==false){
+            throw new Exception("\nEste edificio no puede colocarse en este tipo"
+                    + "de barrios\n");
+        }
+        if(CjtRestDemog.containsKey(e.getId())){
+            Restriccion_demografica dem = CjtRestDemog.get(e.getId());
+            if((B.getPoblacion()!= 0 && B.getPoblacion()<dem.consultar_habitantes())
+                || (B.getPoblacion()==0 && B.getViviendo()<dem.consultar_habitantes())){
+                throw new Exception("\nNo tiene el minimo de poblacion para colocar este"
+                        + " edificio, consulte sus Restricciones Demograficas\n");
+            }
+        }
+        guardarElemento(e,cant);
         return b;
     }
     
@@ -490,7 +507,7 @@ public class CtrlDomBarrios {
      * @param x Fila del mapa donde se insertara la carretera
      * @param y Columna del mapa donde se nsertara la carretera
      */
-    public boolean insertarCarretera(int x,int y) throws Exception{
+    public boolean insertarCarretera(int x,int y) {
         
         if (x < 0 || x >= Mapa.tama()) return false;
         if (y < 0 || y >= Mapa.tamb()) return false;
@@ -501,6 +518,20 @@ public class CtrlDomBarrios {
             return true;
         }
         return false;
+    }
+    
+    
+    public void setPresupuestoBarrio(int pres) throws Exception{
+        if(pres < B.getGastado()){
+            throw new Exception("\nEl presupuesto ha de ser mayor o igual al"
+                    + "gastado actualmente\n");
+        }
+        B.setPresupuesto(pres);
+    }
+    
+    
+    public void setPoblacionbarrio(int pob){
+        B.setPoblacion(pob);
     }
     
     
@@ -603,7 +634,7 @@ public class CtrlDomBarrios {
      * cargado del disco de un barrio ya creado, entre las estructuras de 
      * Restricciones utilizadas en el Controlador.
      */
-    private void transRestBarrio(){
+    private void transRestBarrio()throws Exception{
         ArrayList<Restriccion> aux = new ArrayList();
         aux.addAll(CjtRest.values());
         Restriccion r;
@@ -619,7 +650,8 @@ public class CtrlDomBarrios {
      * de restricciones utilizadas por el Controlador.
      * @param r Restriccion que se quiere añadir a las estructuras.
      */
-    private void putRestriccion(Restriccion r){
+    private boolean putRestriccion(Restriccion r) throws Exception{
+        boolean b = true;
         ArrayList<Restriccion_ubicacion> aux2;
         if(r instanceof Restriccion_ubicacion){
             Restriccion_ubicacion r2 = (Restriccion_ubicacion) r;
@@ -646,8 +678,33 @@ public class CtrlDomBarrios {
             Restriccion_demografica r2 = (Restriccion_demografica) r;
             CjtRestDemog.put(r2.consultar_OID(), r2);
         }
-        else if(r instanceof Restriccion_economica)
+        else if(r instanceof Restriccion_economica){
+            Restriccion_economica aux = (Restriccion_economica) r;
+            if(aux.consultar_saldo() <  B.getGastado()){
+                throw new Exception("\nEl presupuesto total de la restriccion"
+                        + " economica ha de ser mayor o igual al presupuesto gastado "
+                        + "actual\n");
+            }
+            if(aux.consultar_saldo_ind(1) <  B.getGastadoViv()){
+                throw new Exception("\nEl presupuesto en vivienda de la restriccion"
+                        + " economica ha de ser mayor o igual al presupuesto gastado "
+                        + "en viviendas actual\n");
+            }
+            if(aux.consultar_saldo_ind(2) <  B.getGastadoPub()){
+                throw new Exception("\nEl presupuesto en servicios publicos de la restriccion"
+                        + " economica ha de ser mayor o igual al presupuesto gastado "
+                        + "en servicios publicos actual\n");
+            }
+            if(aux.consultar_saldo_ind(0) <  B.getGastadoCom()){
+                throw new Exception("\nEl presupuesto en comercios de la restriccion"
+                        + " economica ha de ser mayor o igual al presupuesto gastado "
+                        + "en comercios actual\n");
+            }
+            
             RestEcon = (Restriccion_economica) r;
+            
+        }
+        return b;
         
     }
     
@@ -675,8 +732,10 @@ public class CtrlDomBarrios {
             Restriccion_demografica r2 = (Restriccion_demografica) r;
             CjtRestDemog.remove(r2.consultar_OID());
         }
-        else if(r instanceof Restriccion_economica)
+        else if(r instanceof Restriccion_economica){
             RestEcon = null;
+            
+        }
     }
     
     
@@ -811,7 +870,7 @@ public class CtrlDomBarrios {
      * @return
      * @throws Exception 
      */
-    private Pair cabeEnMapa(Integer v,Plano p,int tamx,int tamy,int eAct,Pair lastVisited[],int EstaVisitado[],ArrayList<Restriccion_ubicacion> res) throws Exception{
+    private Pair cabeEnMapa(Integer v,Plano p,int tamx,int tamy,int eAct,Pair lastVisited[],int EstaVisitado[],ArrayList<Restriccion_ubicacion> res){
         //System.out.println("A ver si el elemento cabe");
         //System.out.println(""+tamx+" "+ tamy);
         if(EstaVisitado[eAct]==1){
@@ -865,7 +924,7 @@ public class CtrlDomBarrios {
      * @throws Exception 
      */
     
-    private boolean backtracking(int k,Pair[] coordenadas,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p) throws Exception{
+    private boolean backtracking(int k,Pair[] coordenadas,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p){
         
         ++controlait;
         if(controlait > 100000000) {

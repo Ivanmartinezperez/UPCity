@@ -30,7 +30,7 @@ public class Barrio implements Serializable{
     private int CapComunicacion;
     private int CapOcio;
     private int Capacidad_comercio;
-    
+    private int PresAnterior;
     
   
     /////CREADORAS/////
@@ -50,6 +50,7 @@ public class Barrio implements Serializable{
         CapComunicacion = 0;
         CapOcio = 0;
         Capacidad_comercio = 0;
+        PresAnterior = 0;
     }
     
     
@@ -69,6 +70,7 @@ public class Barrio implements Serializable{
         CapComunicacion = 0;
         CapOcio = 0;
         Capacidad_comercio = 0;
+        PresAnterior = 0;
     }
       
     
@@ -83,6 +85,7 @@ public class Barrio implements Serializable{
     }
     
     public void setPresupuesto(int pres){
+        PresAnterior = Presupuesto;
         Presupuesto = pres;
     }
     
@@ -132,6 +135,10 @@ public class Barrio implements Serializable{
     
     public void anadirComercio(int C){
         Capacidad_comercio = Capacidad_comercio + C;
+    }
+    
+    public void volverPresAnterior(){
+        Presupuesto = PresAnterior;
     }
     
     
