@@ -122,10 +122,10 @@ public class Plano implements Serializable{
                     visitats[i][j] = new Pair<Integer, Integer>(0,0);
                 }
             }
-            System.out.println("MODIFICANDO MAPA");
+            //System.out.println("MODIFICANDO MAPA");
             for(int i = 0; i < tama; ++i){
                 for(int j = 0; j < tamb; ++j){
-                    System.out.println(""+(x+i)+" "+(y+j));
+                    //System.out.println(""+(x+i)+" "+(y+j));
                     if(exp == true) mat[x+i][y+j].modificarPar(oid, 1);
                     else mat[x+i][y+j].modificarPar(0, 1);
                     par = new Pair<Integer,Integer> (x+i, y+j);

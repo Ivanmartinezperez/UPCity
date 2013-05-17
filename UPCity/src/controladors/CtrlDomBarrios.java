@@ -153,7 +153,7 @@ public class CtrlDomBarrios {
      * @return True si el barrio se ha generado correctamente, False en caso contrario
      * @throws Exception 
      */
-    public boolean generarBarrio(){
+    public void generarBarrio(boolean comp)throws Exception{
         
         
         ArrayList<Integer> idElem = new ArrayList<>();
@@ -189,12 +189,96 @@ public class CtrlDomBarrios {
                         break;
             }
         }
-        
+        try{    
+            comprobarRestPresServ(comp);
+        }catch(Exception e){
+            throw new Exception(e.getMessage());
+        }
+        Plano seguro = new Plano(Mapa);
         Mapa = new Plano(copia);
-        
         controlait = 0;
-        boolean back = backtracking(0,coordenadas,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
-        return back;    
+        boolean back=false;
+        try{
+            back = backtracking(0,coordenadas,idElem,lastVisited,EstaVisitado,CjtRestUbic1,Mapa);
+        }catch(Exception e){
+            Mapa = seguro;
+            throw new Exception(e.getMessage());
+        }
+        if(!back){
+            Mapa = seguro;
+            throw new Exception("\n No se ha podido generar el Barrio con este"
+                    + "Conjunto de Edificios y Restricciones.\n");
+        }
+        
+        
+        
+    }
+    
+    private void comprobarRestPresServ(boolean comp) throws Exception{
+        int Poblac = B.getViviendo();
+        if(B.getPoblacion()!= 0)
+            Poblac = B.getPoblacion();
+        
+        //COMPROBACION DEL PRESUPUESTO DEL BARRIO//
+        if(B.getPresupuesto() != 0 && B.getPresupuesto() < B.getGastado()){
+            throw new Exception("\nEl presupuesto del Barrio no se ajusta al "
+                    + "presupuesto gastado actualmente.\n");
+        }
+        
+        //COMPROBACION DE LA RESTRICCION ECONOMICA//
+        if(RestEcon!=null){
+            if(RestEcon.consultar_saldo()<B.getGastado()){
+                throw new Exception("\nEl presupuesto total de la Restriccion "
+                        + "Economica del Barrio no se ajusta al presupuesto "
+                        + "gastado actualmente.\n");
+            }
+            if(RestEcon.consultar_saldo_ind(1)<B.getGastadoViv()){
+                throw new Exception("\nEl presupuesto en Viviendas de la Restriccion "
+                        + "Economica del Barrio no se ajusta al presupuesto "
+                        + "gastado en Viviendas actualmente.\n");
+            }
+            if(RestEcon.consultar_saldo_ind(2)<B.getGastadoPub()){
+                throw new Exception("\nEl presupuesto en Servicios Publicos de la Restriccion "
+                        + "Economica del Barrio no se ajusta al presupuesto "
+                        + "gastado en Servicios Publicos actualmente.\n");
+            }
+            if(RestEcon.consultar_saldo_ind(0)<B.getGastadoCom()){
+                throw new Exception("\nEl presupuesto en Comercios de la Restriccion "
+                        + "Economica del Barrio no se ajusta al presupuesto "
+                        + "gastado en Comercios actualmente.\n");
+            }
+        }
+        
+        //COMPROBACION DE QUE HAYA SUFICIENTES VIVIENDAS//
+        if(B.getPoblacion()!=0 && B.getPoblacion()>B.getViviendo()){
+            throw new Exception("\nNo hay suficientes Viviendas para la poblacion "
+                    + "actual del Barrio\n");
+            
+        }
+        
+        //COMPROBACION DE SERVICIOS PUBLICOS//
+        if(comp){
+            if(B.getCapSanidadCom()<Poblac){
+                throw new Exception("\nNo hay suficientes Servicios Sanitarios en el "
+                        + "Barrio para la poblacion actual\n");
+            }
+            if(B.getCapEducacion()<Poblac){
+                throw new Exception("\nNo hay suficientes Servicios Educativos en el "
+                        + "Barrio para la poblacion actual\n");
+            }
+            if(B.getCapSeguridad()<Poblac){
+                throw new Exception("\nNo hay suficientes Servicios de Seguridad en el "
+                        + "Barrio para la poblacion actual\n");
+            }
+            if(B.getCapComunicacion()<Poblac){
+                throw new Exception("\nNo hay suficientes Servicios Comunicativos en el "
+                        + "Barrio para la poblacion actual\n");
+            }
+            if(B.getCapOcio()<Poblac){
+                throw new Exception("\nNo hay suficientes Servicios de Ocio en el "
+                        + "Barrio para la poblacion actual\n");
+            }
+        }
         
     }
     
@@ -522,7 +606,7 @@ public class CtrlDomBarrios {
     
     
     public void setPresupuestoBarrio(int pres) throws Exception{
-        if(pres < B.getGastado()){
+        if(pres < B.getGastado() && pres!=0){
             throw new Exception("\nEl presupuesto ha de ser mayor o igual al"
                     + "gastado actualmente\n");
         }
@@ -924,11 +1008,11 @@ public class CtrlDomBarrios {
      * @throws Exception 
      */
     
-    private boolean backtracking(int k,Pair[] coordenadas,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p){
+    private boolean backtracking(int k,Pair[] coordenadas,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p)throws Exception{
         
         ++controlait;
         if(controlait > 100000000) {
-            return false;
+            throw new Exception("\nAlcanzado tiempo limite del Backtracking\n");
         }
         //System.out.println("Backtracking iteracion " + controlait);
         if(k==cjt.size()){
