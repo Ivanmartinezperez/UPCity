@@ -606,6 +606,9 @@ public class CtrlDomBarrios {
     
     
     public void setPresupuestoBarrio(int pres) throws Exception{
+        if(pres < 0){
+            throw new Exception("\nEl presupuesto ha de ser mayor o igual a 0\n");
+        }
         if(pres < B.getGastado() && pres!=0){
             throw new Exception("\nEl presupuesto ha de ser mayor o igual al"
                     + "gastado actualmente\n");
@@ -614,7 +617,10 @@ public class CtrlDomBarrios {
     }
     
     
-    public void setPoblacionbarrio(int pob){
+    public void setPoblacionbarrio(int pob)throws Exception{
+        if(pob < 0){
+            throw new Exception("\nLa poblacion ha de ser mayor o igual a 0\n");
+        }
         B.setPoblacion(pob);
     }
     

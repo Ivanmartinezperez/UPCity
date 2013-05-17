@@ -491,17 +491,31 @@ public class vistaComandos {
         System.out.println("Introduzca el presupuesto disponible para el barrio:");
         System.out.println("Nota: Si no quiere limitar su barrio a un presupuesto, introduzca un 0,\n"
                 + "asi simplmente se le mostrara el presupuesto gastado como valor informativo");
-        int Presupuesto = (int)parametros.nextInt();
-        try{
-            CtrlBarrio.setPresupuestoBarrio(Presupuesto);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+        int Presupuesto;
+        boolean b=false;;
+        while(!b){
+            Presupuesto = (int)parametros.nextInt();
+            try{
+                CtrlBarrio.setPresupuestoBarrio(Presupuesto);
+                b = true;
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
         }
         System.out.println("Introduzca la poblacion del barrio:");
         System.out.println("Nota: Si no quiere limitar el barrio a una poblacion, introduzca un 0\n"
                 + "asi simplemente se le mostrara la poblacion posible como valor informativo");
-        int Poblacion = (int)parametros.nextInt();
-        CtrlBarrio.setPoblacionbarrio(Poblacion);
+        int Poblacion;
+        b=false;;
+        while(!b){
+            Poblacion = (int)parametros.nextInt();
+            try{
+                CtrlBarrio.setPoblacionbarrio(Poblacion);
+                b = true;
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
         System.out.println("Introduzca el numero de parcelas horizontales del barrio:");
         int x = (int)parametros.nextInt();
         System.out.println("Introduzca el numero de parcelas verticales del barrio:");
@@ -623,7 +637,11 @@ public class vistaComandos {
                          System.out.println("Nota: Si no quiere limitar el barrio a una poblacion, introduzca un 0\n"
                          + "asi simplemente se le mostrara la poblacion posible como valor informativo");
                          Poblacion = (int)parametros.nextInt();
-                         CtrlBarrio.setPoblacionbarrio(Poblacion);
+                         try{
+                             CtrlBarrio.setPoblacionbarrio(Poblacion);
+                         }catch(Exception e){
+                             System.out.println(e.getMessage());
+                         }
                          break;
                 case 12: mostrarCjtElem();
                          break;
@@ -637,7 +655,7 @@ public class vistaComandos {
                          int f = param5.nextInt();
                          System.out.println("Inserte la columna donde quiere posicionar la carretera:");
                          int c = param5.nextInt();
-                         boolean b =CtrlBarrio.insertarCarretera(f, c);
+                         b =CtrlBarrio.insertarCarretera(f, c);
                          if(!b)System.out.println("No se pudo insertar la carretera en la posicion especificada");
                          break;
                 default: System.out.println("Opcio Invalida");    
@@ -781,7 +799,11 @@ public class vistaComandos {
                              System.out.println("Nota: Si no quiere limitar el barrio a una poblacion, introduzca un 0\n"
                              + "asi simplemente se le mostrara la poblacion posible como valor informativo");
                              int Poblacion = (int)parametros.nextInt();
-                             CtrlBarrio.setPoblacionbarrio(Poblacion);
+                             try{
+                                 CtrlBarrio.setPoblacionbarrio(Poblacion);
+                             }catch(Exception e){
+                                 System.out.println(e.getMessage());
+                             }
                              break;    
                         
                         
