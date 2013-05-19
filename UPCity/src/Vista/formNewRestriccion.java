@@ -436,22 +436,38 @@ public class formNewRestriccion extends javax.swing.JDialog {
         if(jRadioButton1.isSelected() == true) {//crear un restricion de ubicacion
             String a = (String) jComboBox1.getSelectedItem();
             String b = (String) jComboBox2.getSelectedItem();
-            int c = Integer.parseInt(jTextField3.getText());
-            System.out.println("Selecion1"+a+" "+b+" "+c);
-            CtrlRest.CrearRestriccion(b, b, nombre, nombre, c, c, c);
-            
+            String aux = (String) jTextField3.getText();
+            if (aux == null && aux.isEmpty() == true) System.out.println("ERROR EN 1");
+            else {
+                System.out.println("entro");
+                Integer c = Integer.parseInt(jTextField3.getText());
+                System.out.print("Crear una restricion de ubicacion ");
+                System.out.println(a+" "+b+" "+c);
+                CtrlRest.CrearRestriccion(nombre, "ubicacion", a, b, c, c, c);
+            }
         }
         else if(jRadioButton2.isSelected() == true) {//crear una restricion demografica
+            System.out.println("entro");
             String a = (String) jComboBox3.getSelectedItem();
-            int b = Integer.parseInt(jTextField5.getText());
-            System.out.println("SELECION2 "+a+" "+b);
+            Integer b = Integer.parseInt(jTextField5.getText());
+            if(b == null)System.out.println("ERROR EN EL 2");
+            else {
+                System.out.print("Crear una restriccion demografica ");
+                System.out.println(a+" "+b);
+                CtrlRest.CrearRestriccion(nombre, "demografica", a, a, b, b, b);
+            }
+
         }
         else if(jRadioButton3.isSelected() == true) {//creacion restricion economica
+            System.out.println("entro");
             int a = Integer.parseInt(jTextField7.getText());
             int b = Integer.parseInt(jTextField8.getText());
             int c = Integer.parseInt(jTextField9.getText());
-            System.out.println("SELECION3: "+a+" "+b+" "+c);
+            System.out.print("Crear una restriccion economica ");
+            System.out.println(a+" "+b+" "+c);
+            CtrlRest.CrearRestriccion(nombre, nombre, nombre, nombre, a, b, c);
         }
+        else System.out.println("ERROR 4");
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
