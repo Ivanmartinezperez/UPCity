@@ -12,12 +12,14 @@ import javax.swing.ButtonModel;
  */
 public class formNewElem extends javax.swing.JDialog {
 
+     private boolean accepted;
     /**
      * Creates new form formNewElem
      */
     public formNewElem(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        accepted=false;
         jTextArea1.setLineWrap(true);
         jRadioButton1.setMnemonic(0);
         jRadioButton2.setMnemonic(1);
@@ -145,6 +147,11 @@ public class formNewElem extends javax.swing.JDialog {
         });
 
         jButton2.setText("Cancelar");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jLabel6.setText("Tipo Elemento");
 
@@ -331,7 +338,8 @@ public class formNewElem extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        
+        accepted = true;
+        dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
@@ -369,6 +377,10 @@ public class formNewElem extends javax.swing.JDialog {
         
         //if(evt) evt.consume();
     }//GEN-LAST:event_evita_intro_en_desc
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        dispose();
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -467,6 +479,10 @@ public class formNewElem extends javax.swing.JDialog {
     }
     public String getDesc(){
         return jTextArea1.getText();
+    }
+    
+    public boolean aceptado(){
+        return accepted;
     }
     
    

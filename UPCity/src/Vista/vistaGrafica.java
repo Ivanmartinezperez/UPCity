@@ -42,6 +42,7 @@ public class vistaGrafica extends JFrame {
         CtrlElem = CtrlDomElementos.getInstance();
         CtrlRest = CtrlDomRestricciones.getInstance();
         initComponents();
+        jToolBar1.setFloatable(false);
         setResizable(false);
         tablaVivienda=new DefaultTableModel();
         tablaVivienda.addColumn("Nombre");
@@ -151,7 +152,7 @@ public class vistaGrafica extends JFrame {
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jPopupMenu3 = new javax.swing.JPopupMenu();
         jToolBar1 = new javax.swing.JToolBar();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(50, 32767));
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(12, 0), new java.awt.Dimension(14, 0), new java.awt.Dimension(9, 32767));
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -161,7 +162,7 @@ public class vistaGrafica extends JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(50, 32767));
+        jButton10 = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         ScrollsysRest = new javax.swing.JScrollPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -212,10 +213,13 @@ public class vistaGrafica extends JFrame {
         jMenu1 = new javax.swing.JMenu();
         newBar = new javax.swing.JMenuItem();
         modBar = new javax.swing.JMenuItem();
+        Eliminar_barrio = new javax.swing.JMenuItem();
         newElem = new javax.swing.JMenu();
         CreaElem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         newRes = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1115, 625));
@@ -223,45 +227,58 @@ public class vistaGrafica extends JFrame {
         jToolBar1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.gray));
         jToolBar1.setForeground(new java.awt.Color(51, 51, 51));
         jToolBar1.setRollover(true);
-        jToolBar1.add(filler2);
+        jToolBar1.add(filler3);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("+E");
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setMaximumSize(new java.awt.Dimension(57, 18));
+        jButton1.setMinimumSize(new java.awt.Dimension(57, 18));
+        jButton1.setPreferredSize(new java.awt.Dimension(57, 18));
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton1);
 
-        jButton2.setText("jButton2");
+        jButton2.setText("-E");
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setMaximumSize(new java.awt.Dimension(57, 18));
+        jButton2.setMinimumSize(new java.awt.Dimension(57, 18));
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton2);
 
-        jButton3.setText("jButton3");
+        jButton3.setText("+R");
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setMaximumSize(new java.awt.Dimension(57, 18));
+        jButton3.setMinimumSize(new java.awt.Dimension(57, 18));
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton3);
 
-        jButton4.setText("jButton4");
+        jButton4.setText("-R");
         jButton4.setFocusable(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setMaximumSize(new java.awt.Dimension(57, 18));
+        jButton4.setMinimumSize(new java.awt.Dimension(57, 18));
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton4);
 
-        jButton5.setText("jButton5");
+        jButton5.setText("+C");
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setMaximumSize(new java.awt.Dimension(57, 18));
+        jButton5.setMinimumSize(new java.awt.Dimension(57, 18));
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton5);
 
-        jButton6.setText("jButton6");
+        jButton6.setText("-C");
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setMaximumSize(new java.awt.Dimension(57, 18));
+        jButton6.setMinimumSize(new java.awt.Dimension(57, 18));
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton6);
 
-        jButton7.setText("jButton7");
+        jButton7.setText("Info barrio");
         jButton7.setFocusable(false);
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -278,7 +295,12 @@ public class vistaGrafica extends JFrame {
         jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton9);
-        jToolBar1.add(filler3);
+
+        jButton10.setText("jButton10");
+        jButton10.setFocusable(false);
+        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton10);
 
         jSplitPane1.setDividerLocation(292);
         jSplitPane1.setDividerSize(2);
@@ -710,6 +732,14 @@ public class vistaGrafica extends JFrame {
         });
         jMenu1.add(modBar);
 
+        Eliminar_barrio.setText("Eliminar Barrio");
+        Eliminar_barrio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Eliminar_barrioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(Eliminar_barrio);
+
         jMenuBar1.add(jMenu1);
 
         newElem.setText("Elementos");
@@ -723,6 +753,9 @@ public class vistaGrafica extends JFrame {
         });
         newElem.add(CreaElem);
 
+        jMenuItem1.setText("Eliminar Elemento");
+        newElem.add(jMenuItem1);
+
         jMenuBar1.add(newElem);
 
         newRes.setText("Restricciones");
@@ -730,6 +763,9 @@ public class vistaGrafica extends JFrame {
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem4.setText("Nueva Restriccion");
         newRes.add(jMenuItem4);
+
+        jMenuItem2.setText("Eliminar Restriccion");
+        newRes.add(jMenuItem2);
 
         jMenuBar1.add(newRes);
 
@@ -747,7 +783,7 @@ public class vistaGrafica extends JFrame {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jLayeredPane1)
-                            .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE))
+                            .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 611, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jSplitPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 240, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
@@ -786,39 +822,72 @@ public class vistaGrafica extends JFrame {
         formNewElem formulario = new formNewElem(this,true);
         formulario.setVisible(true);
         boolean b;
-        String nombre = formulario.getNombre();
-        String des = formulario.getDesc();
-        int TE = formulario.getTE();
-        int TB = formulario.getTB();
-        int x = formulario.get_X();
-        int y = formulario.get_Y();
-        int precio = formulario.getPrecio();
-        int capacidad = formulario.getCapacidad();
-        if(TE==2){
-            int TEP = formulario.tipoDePublico();
-            try {
-                b = CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad, TEP);
-                if(b){
-                    tabPub.setValueAt(nombre, indiceP, 0);
-                    tabPub.setValueAt(TB, indiceP, 1);
-                    tabPub.setValueAt(precio, indiceP, 2);
-                    tabPub.setValueAt(TEP, indiceP, 3);
-                    tabPub.setValueAt(capacidad, indiceP, 4);
-                    tabPub.setValueAt(x, indiceP, 5);
-                    tabPub.setValueAt(y, indiceP, 6);
-                    ++indiceP;
+        if(formulario.aceptado()){
+            String nombre = formulario.getNombre();
+            String des = formulario.getDesc();
+            int TE = formulario.getTE();
+            int TB = formulario.getTB();
+            int x = formulario.get_X();
+            int y = formulario.get_Y();
+            int precio = formulario.getPrecio();
+            int capacidad = formulario.getCapacidad();
+            if(TE==1){
+                try {
+                    b = CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad,0);
+                    if(b){
+                        tabViv.setValueAt(nombre, indiceP, 0);
+                        tabViv.setValueAt(TB, indiceP, 1);
+                        tabViv.setValueAt(precio, indiceP, 2);
+                        tabViv.setValueAt(capacidad, indiceP, 3);
+                        tabViv.setValueAt(x, indiceP, 4);
+                        tabViv.setValueAt(y, indiceP, 5);
+                        ++indiceV;
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(vistaGrafica.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(vistaGrafica.class.getName()).log(Level.SEVERE, null, ex);
             }
+            else if(TE==2){
+                int TEP = formulario.tipoDePublico();
+                try {
+                    b = CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad, TEP);
+                    if(b){
+                        tabPub.setValueAt(nombre, indiceP, 0);
+                        tabPub.setValueAt(TB, indiceP, 1);
+                        tabPub.setValueAt(precio, indiceP, 2);
+                        tabPub.setValueAt(TEP, indiceP, 3);
+                        tabPub.setValueAt(capacidad, indiceP, 4);
+                        tabPub.setValueAt(x, indiceP, 5);
+                        tabPub.setValueAt(y, indiceP, 6);
+                        ++indiceP;
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(vistaGrafica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else if(TE==3){
+                try {
+                    b = CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad,0);
+                    if(b){
+                        tabCom.setValueAt(nombre, indiceP, 0);
+                        tabCom.setValueAt(TB, indiceP, 1);
+                        tabCom.setValueAt(precio, indiceP, 2);
+                        tabCom.setValueAt(capacidad, indiceP, 3);
+                        tabCom.setValueAt(x, indiceP, 4);
+                        tabCom.setValueAt(y, indiceP, 5);
+                        ++indiceC;
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(vistaGrafica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+           
         }
-        else try {
-            CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad, -1);
-       
-        } catch (Exception ex) {
-            Logger.getLogger(vistaGrafica.class.getName()).log(Level.SEVERE, null, ex);
-        }    
     }//GEN-LAST:event_CreaElemActionPerformed
+
+    private void Eliminar_barrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_barrioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Eliminar_barrioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -857,12 +926,13 @@ public class vistaGrafica extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane Console;
     private javax.swing.JMenuItem CreaElem;
+    private javax.swing.JMenuItem Eliminar_barrio;
     private javax.swing.JScrollPane ScrollsysRest;
     private javax.swing.JScrollPane ScrollsysRest1;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -874,6 +944,8 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
