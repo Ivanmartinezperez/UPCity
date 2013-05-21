@@ -19,6 +19,13 @@ public class formNewBar extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         accepted=false;
+        jRadioButton1.setMnemonic(1);
+        jRadioButton2.setMnemonic(2);
+        jRadioButton3.setMnemonic(3);
+        jRadioButton7.setMnemonic(0);
+        jRadioButton6.setMnemonic(1);
+        jRadioButton5.setMnemonic(2);
+        jRadioButton5.setMnemonic(3);
         jTextField3.setEnabled(false);
         jTextField2.setEnabled(false);
         jRadioButton4.setEnabled(false);
@@ -409,11 +416,11 @@ public class formNewBar extends javax.swing.JDialog {
         return jTextField1.getText();
     }
     public int get_X(){
-        int ret = Integer.parseInt(jTextField2.getText());
+        int ret = Integer.parseInt(jTextField4.getText());
         return ret;
     }
     public int get_Y(){
-        int ret = Integer.parseInt(jTextField3.getText());
+        int ret = Integer.parseInt(jTextField5.getText());
         return ret;
     }
     public int getPresupuesto(){

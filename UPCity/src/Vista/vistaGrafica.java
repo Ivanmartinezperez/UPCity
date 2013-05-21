@@ -9,8 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import controladors.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /*
@@ -61,6 +63,7 @@ public class vistaGrafica extends JFrame {
         tabViv.setModel(tablaVivienda);
         tabPub.setModel(tablaPublico);
         tabCom.setModel(tablaComercio);
+        barrioNoCargado();
         Console.setText("Bienvenido a UPcity\n");
         
     }
@@ -154,6 +157,36 @@ public class vistaGrafica extends JFrame {
         
     }
     
+    private void barrioNoCargado(){
+       addElem.setEnabled(false);
+        jButton2.setEnabled(false);
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(false);
+        jButton4.setEnabled(false);
+        jButton5.setEnabled(false);
+        jButton6.setEnabled(false);
+        InfoBarrio.setEnabled(false);
+        jButton8.setEnabled(false);
+        jButton9.setEnabled(false);
+        jButton10.setEnabled(false);
+        guardarBarrio.setEnabled(false);
+    }
+    
+    private void barrioCargado(){
+         addElem.setEnabled(true);
+        jButton2.setEnabled(true);
+        jButton2.setEnabled(true);
+        jButton3.setEnabled(true);
+        jButton4.setEnabled(true);
+        jButton5.setEnabled(true);
+        jButton6.setEnabled(true);
+        InfoBarrio.setEnabled(true);
+        jButton8.setEnabled(true);
+        jButton9.setEnabled(true);
+        jButton10.setEnabled(true);
+        guardarBarrio.setEnabled(true);
+    }
+    
     private void modoLibre(){
         addElem.setEnabled(false);
         jButton2.setEnabled(false);
@@ -178,14 +211,13 @@ public class vistaGrafica extends JFrame {
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jPopupMenu3 = new javax.swing.JPopupMenu();
         jToolBar1 = new javax.swing.JToolBar();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(12, 0), new java.awt.Dimension(14, 0), new java.awt.Dimension(9, 32767));
         addElem = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        InfoBarrio = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -235,11 +267,12 @@ public class vistaGrafica extends JFrame {
         jScrollPane13 = new javax.swing.JScrollPane();
         jTable12 = new javax.swing.JTable();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 3), new java.awt.Dimension(0, 3), new java.awt.Dimension(32767, 3));
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(32767, 5));
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        gestBarrio = new javax.swing.JMenu();
         newBar = new javax.swing.JMenuItem();
-        modBar = new javax.swing.JMenuItem();
         Eliminar_barrio = new javax.swing.JMenuItem();
+        guardarBarrio = new javax.swing.JMenuItem();
         newElem = new javax.swing.JMenu();
         CreaElem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -248,14 +281,13 @@ public class vistaGrafica extends JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1115, 625));
+        setPreferredSize(new java.awt.Dimension(1115, 640));
 
         jToolBar1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.gray));
         jToolBar1.setForeground(new java.awt.Color(51, 51, 51));
         jToolBar1.setRollover(true);
-        jToolBar1.add(filler3);
 
-        addElem.setText("+E");
+        addElem.setText("+Elem");
         addElem.setFocusable(false);
         addElem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         addElem.setMaximumSize(new java.awt.Dimension(57, 18));
@@ -269,65 +301,80 @@ public class vistaGrafica extends JFrame {
         });
         jToolBar1.add(addElem);
 
-        jButton2.setText("-E");
+        jButton2.setText("-Elem");
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setMaximumSize(new java.awt.Dimension(57, 18));
         jButton2.setMinimumSize(new java.awt.Dimension(57, 18));
+        jButton2.setPreferredSize(new java.awt.Dimension(57, 18));
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton2);
 
-        jButton3.setText("+R");
+        jButton3.setText("+Res");
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setMaximumSize(new java.awt.Dimension(57, 18));
         jButton3.setMinimumSize(new java.awt.Dimension(57, 18));
+        jButton3.setPreferredSize(new java.awt.Dimension(57, 18));
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton3);
 
-        jButton4.setText("-R");
+        jButton4.setText("-Res");
         jButton4.setFocusable(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setMaximumSize(new java.awt.Dimension(57, 18));
         jButton4.setMinimumSize(new java.awt.Dimension(57, 18));
+        jButton4.setPreferredSize(new java.awt.Dimension(57, 18));
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton4);
 
-        jButton5.setText("+C");
+        jButton5.setText("+Car");
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setMaximumSize(new java.awt.Dimension(57, 18));
-        jButton5.setMinimumSize(new java.awt.Dimension(57, 18));
+        jButton5.setMinimumSize(new java.awt.Dimension(50, 18));
+        jButton5.setPreferredSize(new java.awt.Dimension(50, 18));
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton5);
 
-        jButton6.setText("-C");
+        jButton6.setText("-Car");
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setMaximumSize(new java.awt.Dimension(57, 18));
-        jButton6.setMinimumSize(new java.awt.Dimension(57, 18));
+        jButton6.setMinimumSize(new java.awt.Dimension(50, 18));
+        jButton6.setPreferredSize(new java.awt.Dimension(50, 18));
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton6);
 
-        jButton7.setText("Info barrio");
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton7);
+        InfoBarrio.setText("Info barrio");
+        InfoBarrio.setFocusable(false);
+        InfoBarrio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        InfoBarrio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        InfoBarrio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoBarrio(evt);
+            }
+        });
+        jToolBar1.add(InfoBarrio);
 
-        jButton8.setText("jButton8");
+        jButton8.setText("Presupuesto");
         jButton8.setFocusable(false);
         jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton8);
 
-        jButton9.setText("jButton9");
+        jButton9.setText("Poblacion");
         jButton9.setFocusable(false);
         jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton9);
 
-        jButton10.setText("jButton10");
+        jButton10.setText("Generar");
         jButton10.setFocusable(false);
         jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -750,7 +797,7 @@ public class vistaGrafica extends JFrame {
 
         jSplitPane4.setRightComponent(jTabbedPane7);
 
-        jMenu1.setText("Barrios");
+        gestBarrio.setText("Barrios");
 
         newBar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         newBar.setText("Crear Barrio");
@@ -759,16 +806,7 @@ public class vistaGrafica extends JFrame {
                 newBarActionPerformed(evt);
             }
         });
-        jMenu1.add(newBar);
-
-        modBar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        modBar.setText("Modificar Barrio");
-        modBar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modBarActionPerformed(evt);
-            }
-        });
-        jMenu1.add(modBar);
+        gestBarrio.add(newBar);
 
         Eliminar_barrio.setText("Eliminar Barrio");
         Eliminar_barrio.addActionListener(new java.awt.event.ActionListener() {
@@ -776,9 +814,18 @@ public class vistaGrafica extends JFrame {
                 Eliminar_barrioActionPerformed(evt);
             }
         });
-        jMenu1.add(Eliminar_barrio);
+        gestBarrio.add(Eliminar_barrio);
 
-        jMenuBar1.add(jMenu1);
+        guardarBarrio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        guardarBarrio.setText("Guardar Barrio");
+        guardarBarrio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardaBarrio(evt);
+            }
+        });
+        gestBarrio.add(guardarBarrio);
+
+        jMenuBar1.add(gestBarrio);
 
         newElem.setText("Elementos");
 
@@ -827,7 +874,8 @@ public class vistaGrafica extends JFrame {
                     .add(layout.createSequentialGroup()
                         .add(492, 492, 492)
                         .add(filler1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(0, 0, Short.MAX_VALUE)))
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(filler2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -840,7 +888,9 @@ public class vistaGrafica extends JFrame {
                         .add(jLayeredPane1))
                     .add(jSplitPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 590, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jSplitPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 590, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(filler2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(filler1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(25, 25, 25))
         );
@@ -852,6 +902,7 @@ public class vistaGrafica extends JFrame {
         formNewBar formulario = new formNewBar(this,true);
         formulario.setVisible(true);
         if(formulario.aceptado()){
+            try{
             String Nombre = formulario.getNombre();
             int X=formulario.get_X();
             int Y=formulario.get_Y();
@@ -859,24 +910,53 @@ public class vistaGrafica extends JFrame {
                 try{
                     CtrlBarrio.crearBarrio(Nombre, 0);
                     CtrlBarrio.crearMapaBarrio(X, Y);
+                    barrioCargado();
+                    modoLibre();
                 }
                 catch(Exception e){
-                    
+                    Console.setText(e.getMessage());
                 }
                 
             }
+            else if(formulario.getModo()==2){
+                int TB = formulario.getTB();
+                try{
+                    CtrlBarrio.crearBarrio(Nombre, TB);
+                    CtrlBarrio.crearMapaBarrio(X, Y);
+                    barrioCargado();
+                }
+                catch(Exception e){
+                    Console.setText(e.getMessage());
+                }
+            }
+            else if(formulario.getModo()==3){
+                int TB = formulario.getTB();
+                int presupuesto = formulario.getPresupuesto();
+                int poblacion = formulario.getPoblacion();
+                try{
+                    CtrlBarrio.crearBarrio(Nombre, TB);
+                    CtrlBarrio.crearMapaBarrio(X, Y);
+                    CtrlBarrio.setPresupuestoBarrio(presupuesto);
+                    CtrlBarrio.setPoblacionbarrio(poblacion);
+                    barrioCargado();
+                }
+                catch(Exception e){
+                    Console.setText(e.getMessage());
+                }
+            }
+        }
+        catch(Exception e){
+            Console.setText("No ha podido crearse el barrio por falta de algun dato");
+        }
         }
     }//GEN-LAST:event_newBarActionPerformed
-
-    private void modBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modBarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_modBarActionPerformed
 
     private void CreaElemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreaElemActionPerformed
         formNewElem formulario = new formNewElem(this,true);
         formulario.setVisible(true);
         boolean b;
         if(formulario.aceptado()){
+            try{
             String nombre = formulario.getNombre();
             String des = formulario.getDesc();
             int TE = formulario.getTE();
@@ -898,7 +978,7 @@ public class vistaGrafica extends JFrame {
                         ++indiceV;
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(vistaGrafica.class.getName()).log(Level.SEVERE, null, ex);
+                    Console.setText(ex.getMessage());
                 }
             }
             else if(TE==2){
@@ -916,7 +996,7 @@ public class vistaGrafica extends JFrame {
                         ++indiceP;
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(vistaGrafica.class.getName()).log(Level.SEVERE, null, ex);
+                    Console.setText(ex.getMessage());
                 }
             }
             else if(TE==3){
@@ -932,15 +1012,44 @@ public class vistaGrafica extends JFrame {
                         ++indiceC;
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(vistaGrafica.class.getName()).log(Level.SEVERE, null, ex);
+                    Console.setText(ex.getMessage());
                 }
             }
            
         }
+        catch(Exception e){
+            Console.setText("No ha podido crearse el elemento por falta de algun dato");
+        }
+        
+}
     }//GEN-LAST:event_CreaElemActionPerformed
 
     private void Eliminar_barrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_barrioActionPerformed
-        // TODO add your handling code here:
+        //Formulario_eliminacion formulario = new formulario_eliminacio();
+        ArrayList<String> barrios = CtrlBarrio.listarBarrios();
+        String add = new String("Lista de Barrios\n");
+        for(int i=0;i<barrios.size();++i){
+             add = add.concat(barrios.get(i)+"\n");  
+        }
+        Console.setText(add);
+        //forumulario.setVisible();
+        if(false/*formulario.accepted()*/){
+            try{
+                //String Nombre = formulario.getNombre();
+                try{
+                    CtrlBarrio.eliminarBarrio(null);
+                }
+                catch(Exception e){
+                    Console.setText(e.getMessage());
+                }
+                
+            }
+            catch(Exception e){
+                Console.setText("Introduzca un nombre porfavor");
+                JOptionPane warning = new JOptionPane();
+                //warning.
+            }
+        }
     }//GEN-LAST:event_Eliminar_barrioActionPerformed
 
     private void anadirElemento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirElemento
@@ -957,6 +1066,61 @@ public class vistaGrafica extends JFrame {
             }
           }
     }//GEN-LAST:event_anadirElemento
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void guardaBarrio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaBarrio
+        
+        try{
+            CtrlBarrio.guardarBarrio();
+            Console.setText("Guardado Correctamente");
+        }
+        catch(Exception e){
+            Console.setText(e.getMessage());
+        }
+    }//GEN-LAST:event_guardaBarrio
+
+    private void infoBarrio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoBarrio
+        
+        try{
+            String[] info = CtrlBarrio.getInfoBarrio();
+            String f = new String("LA INFORMACION ACTUAL DEL BARRIO ES LA SIGUIENTE:\n");
+            f = f.concat("Nombre del Barrio: " + info[0]+"\n");
+            int t = (int) Integer.parseInt(info[1]);
+            String tipo=null;
+            switch(t){
+                case 0: tipo = "Sin Tipo";
+                        break;
+                case 1: tipo = "Gama Baja";
+                        break;
+                case 2: tipo = "Gama Media";
+                        break;
+                case 3: tipo = "Gama Alta";
+                        break;
+            }
+            f = f.concat("Tipo de Barrio: " + tipo+"\n");
+            f = f.concat("Poblacion deseada: "+info[3]+"\n");
+            f = f.concat("Poblacion posible: " + info[8]+"\n");
+            f = f.concat("Presupuesto total: " + info[2]+"\n");
+            f = f.concat("Presupuesto gastado: " + info[4]+"\n");
+            f = f.concat("---Presupuesto gastado en Viviendas:" + info[5]+"\n");
+            f = f.concat("---Presupuesto gastado en Servicios Publicos: " + info[6]+"\n");
+            f = f.concat("---Presupuesto gastado en Comercios: " + info[7]+"\n");
+            f = f.concat("Capacidad de Servicios de Sanidad: " + info[9]+"\n");
+            f = f.concat("Capacidad de Servicios de Educacion: " + info[10]+"\n");
+            f = f.concat("Capacidad de Servicios de Seguridad: " + info[11]+"\n");
+            f = f.concat("Capacidad de Servicios de Comunicacion: " + info[12]+"\n");
+            f = f.concat("Capacidad de Servicios de Ocio: " + info[13]+"\n");
+            f = f.concat("Capacidad de Comercio: " + info[14]+"\n");
+            
+            Console.setText(f); 
+        }
+        catch(Exception e){
+            
+        }
+    }//GEN-LAST:event_infoBarrio
 
     /**
      * @param args the command line arguments
@@ -996,23 +1160,24 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JTextPane Console;
     private javax.swing.JMenuItem CreaElem;
     private javax.swing.JMenuItem Eliminar_barrio;
+    private javax.swing.JButton InfoBarrio;
     private javax.swing.JScrollPane ScrollsysRest;
     private javax.swing.JScrollPane ScrollsysRest1;
     private javax.swing.JButton addElem;
     private javax.swing.JTabbedPane elemSisTab;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.JMenu gestBarrio;
+    private javax.swing.JMenuItem guardarBarrio;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -1057,7 +1222,6 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JTable jTable9;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JMenuItem modBar;
     private javax.swing.JMenuItem newBar;
     private javax.swing.JMenu newElem;
     private javax.swing.JMenu newRes;
