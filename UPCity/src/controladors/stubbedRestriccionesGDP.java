@@ -5,6 +5,7 @@
 package controladors;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 import restricciones.*;
 
 
@@ -81,12 +82,24 @@ public class stubbedRestriccionesGDP {
      * conjunto de Restricciones de un Barrio o false si la Restriccion no 
      * existe en ningun conjunto de Restricciones de ningun Barrio.
      */
-    public boolean existeRestEnBarrios(String id){
-        System.out.println("Simulando escritura en disco...Buscando "
-                + "Restriccion en barrios\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment\n");
+    public boolean existeRestEnBarrios(String id) throws Exception{
+        String[] bars = PERSDisco.listarDirectorio("./Data/Barrios/");
+        TreeMap<String,Restriccion> cjt;
+        boolean b=false;
+        String men = "\nLa restriccion se usa en los siguientes Barrios:\n";
+        for(int i=0; i<bars.length; ++i){
+            cjt = (TreeMap<String,Restriccion>) 
+                   PERSDisco.leerObjeto(bars[i] + "/" , bars[i] + "-CjtRest");
+            if(cjt.containsKey(id)){
+                b = true;
+                men = men.concat(bars[i] + "\n");
+            }
+        }
+        men = men.concat("Ha de eliminar la restriccion de todos los barrios antes de "
+                + "poder eliminarla completamente del sistema.");
+        if(b){
+            throw new Exception(men);
+        }
         return false;
     }
     

@@ -302,16 +302,19 @@ public class vistaComandos {
         return true;
     }
     
-    private boolean eliminarRestriccion(){
-        boolean b;
+    private void eliminarRestriccion(){
+        
         Scanner action = new Scanner(System.in);
         listarRestricciones();
         System.out.println("Escriba el nombre de la Restriccion que desea eliminar:");
         String nombre = action.nextLine();
-        b = CtrlRest.Eliminar_Restriccion(nombre);
-        if(b) System.out.println("Restriccion eliminada");
-        else System.out.println("No se pudo eliminar restriccion");
-        return b;
+        try{
+            CtrlRest.Eliminar_Restriccion(nombre);
+            System.out.println("Restriccion eliminada  correctamente");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
     }
     
     

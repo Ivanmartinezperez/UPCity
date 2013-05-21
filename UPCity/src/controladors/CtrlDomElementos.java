@@ -529,7 +529,63 @@ public class CtrlDomElementos {
 
         return aux;
      }
-
+     
+     
+     /**
+      * Funcion que ayuda a la interfaz grafica obtener los parametros para cada
+      * elemento.
+      * @param Elem Elemento del cual queremos obtener lo parametros.
+      * @return Retorna un Array de Strings con los parametros del Elemento.
+      */
+     public String[] elemParms(String Elem){
+         Elemento e;
+         String[] par = new String[4];
+         if(mapElem0.containsKey(Elem))
+             e = mapElem0.get(Elem);
+         else if(mapElem1.containsKey(Elem))
+             e = mapElem1.get(Elem);
+         else if(mapElem2.containsKey(Elem))
+             e = mapElem1.get(Elem);
+         else
+             e = mapElem3.get(Elem);
+         
+         if(e instanceof Vivienda){
+             Vivienda v = (Vivienda) e;
+             par[0] = "v";
+             par[1] = String.valueOf(v.getPrecio());
+             par[2] = String.valueOf(v.Getcap_max());
+             par[3] = "none";
+         }
+         else if(e instanceof Comercio){
+             Comercio c = (Comercio) e;
+             par[0] = "c";
+             par[1] = String.valueOf(c.getPrecio());
+             par[2] = String.valueOf(c.getCapacidad());
+             par[3] = "none";
+         }
+         else {
+             Publico p = (Publico) e;
+             par[0] = "p";
+             par[1] = String.valueOf(p.getPrecio());
+             par[2] = String.valueOf(p.Getcapacidad_serv());
+             String t = new String();
+             switch(p.Gettipo()){
+                 case 1: t="Sanidad";
+                         break;
+                 case 2: t="Educacion";
+                         break;
+                 case 3: t="Seguridad";
+                         break;
+                 case 4: t="Comunicacion";
+                         break;
+                 case 5: t="Ocio";
+                         break;
+             }
+             par[3] = t;
+         }
+         return par;
+         
+     }
 
       /**
       * Listado de nombres de los elementos del sistema de un tipo de 

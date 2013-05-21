@@ -191,7 +191,7 @@ public class CtrlDomRestricciones {
      * @param tipo tipo de la restriccion que hay que eliminar
      * @return retorna booleano si se ha hecho la eliminacion correctamente
      */
-    public boolean Eliminar_Restriccion(String id){
+    public boolean Eliminar_Restriccion(String id) throws Exception{
         boolean ret = false;
         if(restubicacion.containsKey(id)){
             if(!RestGDP.existeRestEnBarrios(id)){
@@ -217,6 +217,8 @@ public class CtrlDomRestricciones {
             }
             
         }
+        else 
+            throw new Exception("\nLa restriccion no existe\n");
         return ret;
         
     }
@@ -369,6 +371,36 @@ public class CtrlDomRestricciones {
              }
          }
          return mat;
+    }
+    
+    
+    public String[] restParams(String Rest){
+        String[] par = new String[5];
+        if(restubicacion.containsKey(Rest)){
+             Restriccion_ubicacion r = restubicacion.get(Rest);
+             par[0] = "u";
+             par[1] = String.valueOf((int)r.consultar_OID1());
+             par[2] = String.valueOf((int)r.consultar_OID2());
+             par[3] = String.valueOf(r.consultar_distancia());
+             par[4] = "none";
+        }
+        else if (restdemografica.containsKey(Rest)){
+             Restriccion_demografica r = restdemografica.get(Rest);
+             par[0] = "d";
+             par[1] = String.valueOf((int)r.consultar_OID());
+             par[2] = String.valueOf(r.consultar_habitantes());
+             par[3] = "none";
+             par[4] = "none";
+        }
+        else{ 
+             Restriccion_economica r = resteconomica.get(Rest);
+             par[0] = "e";
+             par[1] = String.valueOf(r.consultar_saldo());
+             par[2] = String.valueOf(r.consultar_saldo_ind(1));
+             par[3] = String.valueOf(r.consultar_saldo_ind(2));
+             par[4] = String.valueOf(r.consultar_saldo_ind(0));
+        }
+        return par;   
     }
     
     
