@@ -294,16 +294,6 @@ public class formNewRestriccion extends javax.swing.JDialog {
             jTextField8.setEnabled(false);
             jTextField9.setEnabled(false);
         }
-        else {
-            jComboBox1.setEnabled(false);
-            jComboBox2.setEnabled(false);
-            jTextField3.setEnabled(false);
-            jComboBox3.setEnabled(false);
-            jTextField5.setEnabled(false);
-            jTextField7.setEnabled(false);
-            jTextField8.setEnabled(false);
-            jTextField9.setEnabled(false);
-        }
     }//GEN-LAST:event_jRadioButton1StateChanged
 
     private void jRadioButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton2StateChanged
@@ -314,16 +304,6 @@ public class formNewRestriccion extends javax.swing.JDialog {
             jTextField3.setEnabled(false);
             jComboBox3.setEnabled(true);
             jTextField5.setEnabled(true);
-            jTextField7.setEnabled(false);
-            jTextField8.setEnabled(false);
-            jTextField9.setEnabled(false);
-        }
-        else {
-            jComboBox1.setEnabled(false);
-            jComboBox2.setEnabled(false);
-            jTextField3.setEnabled(false);
-            jComboBox3.setEnabled(false);
-            jTextField5.setEnabled(false);
             jTextField7.setEnabled(false);
             jTextField8.setEnabled(false);
             jTextField9.setEnabled(false);
@@ -341,16 +321,6 @@ public class formNewRestriccion extends javax.swing.JDialog {
             jTextField7.setEnabled(true);
             jTextField8.setEnabled(true);
             jTextField9.setEnabled(true);
-        }
-        else {
-            jComboBox1.setEnabled(false);
-            jComboBox2.setEnabled(false);
-            jTextField3.setEnabled(false);
-            jComboBox3.setEnabled(false);
-            jTextField5.setEnabled(false);
-            jTextField7.setEnabled(false);
-            jTextField8.setEnabled(false);
-            jTextField9.setEnabled(false);
         }
     }//GEN-LAST:event_jRadioButton3StateChanged
 
