@@ -290,14 +290,13 @@ public class CtrlDomElementos {
      * las Restricciones que se aplican sobre el y se elimine de todos los 
      * Barrios en los que se utiliza.
      * @param Elem Nombre del Elemento que queremos eliminar.
-     * @return Retorna si se ha podido eliminar el Elemento correctamente.
      */
-    public boolean EliminarElemento(String Elem){
+    public void eliminarElemento(String Elem) throws Exception{
         boolean ret = false;
         Elemento e;
         if(mapElem0.containsKey(Elem)){
             e = mapElem0.get(Elem);
-            if(!GDPElem.existeElemEnBarrios(Elem) && 
+            if(!GDPElem.existeElemEnBarrios(e.getId()) && 
                !RestDOM.existeRestElem(e.getId())){
                 eliminar_de_estructuras(Elem,0);
                 GDPElem.eliminarElemDisco(Elem);
@@ -306,7 +305,7 @@ public class CtrlDomElementos {
         }
         else if(mapElem1.containsKey(Elem)){
             e = mapElem1.get(Elem);
-            if(!GDPElem.existeElemEnBarrios(Elem) && 
+            if(!GDPElem.existeElemEnBarrios(e.getId()) && 
                !RestDOM.existeRestElem(e.getId())){
                 eliminar_de_estructuras(Elem,1);
                 GDPElem.eliminarElemDisco(Elem);
@@ -315,7 +314,7 @@ public class CtrlDomElementos {
         }
         else if(mapElem2.containsKey(Elem)){
             e = mapElem2.get(Elem);
-            if(!GDPElem.existeElemEnBarrios(Elem) && 
+            if(!GDPElem.existeElemEnBarrios(e.getId()) && 
                !RestDOM.existeRestElem(e.getId())){
                 eliminar_de_estructuras(Elem,2);
                 GDPElem.eliminarElemDisco(Elem);
@@ -324,14 +323,16 @@ public class CtrlDomElementos {
         }
         else if(mapElem3.containsKey(Elem)){
             e = mapElem3.get(Elem);
-            if(!GDPElem.existeElemEnBarrios(Elem) && 
+            if(!GDPElem.existeElemEnBarrios(e.getId()) && 
                !RestDOM.existeRestElem(e.getId())){
                 eliminar_de_estructuras(Elem,3);
                 GDPElem.eliminarElemDisco(Elem);
                 ret = true;
             }                
         }
-        return ret;
+        else
+            throw new Exception("El elemento no existe");
+        
     }
 
 

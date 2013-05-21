@@ -121,13 +121,18 @@ public class vistaComandos {
         return true;
     }
     
-    private boolean eliminarElemento(){
+    private void eliminarElemento(){
         
         Scanner action = new Scanner(System.in);
         listarElementos(0);
         System.out.println("Escriba el nombre del elemento que desea eliminar:");
         String nombre = action.nextLine();
-        return CtrlElem.EliminarElemento(nombre);
+        try{
+            CtrlElem.eliminarElemento(nombre);
+            System.out.println("Elemento eliminado correctamente");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
         
     }
     

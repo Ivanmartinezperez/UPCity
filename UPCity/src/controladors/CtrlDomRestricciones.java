@@ -250,27 +250,36 @@ public class CtrlDomRestricciones {
      * @return Retorna si existe alguna Restriccion que se aplique al Elemento
      * con el identificador ID.
      */
-    public boolean existeRestElem(Integer ID){
+    public boolean existeRestElem(Integer ID) throws Exception{
         boolean ret = false;
         ArrayList<Restriccion> Rest = new ArrayList();
         Rest.addAll(restubicacion.values());
         Rest.addAll(restdemografica.values());
+        boolean b = false;
+        String men = "\nExisten las siguientes restricciones "
+                + "sobre el elemento:";
         for(int i = 0; i < Rest.size(); ++i){
             Restriccion r;
             r = Rest.get(i);
             if(r instanceof Restriccion_ubicacion){
                 Restriccion_ubicacion r2 = (Restriccion_ubicacion) r;
                 if(ID == r2.consultar_OID1() || ID == r2.consultar_OID2()){
-                    return true;
+                    b = true;
+                    men = men.concat("\n" + r2.getId());
                 }
             }
             else if(r instanceof Restriccion_demografica){
                 Restriccion_demografica r2 = (Restriccion_demografica) r;
                 if(ID == r2.consultar_OID()){
-                    return true;
+                    b = true;
+                    men = men.concat("\n" + r2.getId());
                 }
             }
         }
+        men = men.concat("\nHa de eliminar las restricciones sobre el elemento "
+                + "antes de poder eliminar el elemento completamente del sistema.");
+        if(b)
+            throw new Exception(men);
         return false;
     }
     

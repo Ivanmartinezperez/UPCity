@@ -89,12 +89,24 @@ public class stubbedElementosGDP {
      * de Elementos de un Barrio o false si el Elemento no existe en ningun
      * conjunto de Elementos de ningun Barrio.
      */
-    public boolean existeElemEnBarrios(String Elem){
-        System.out.println("Simulando lectura de disco...Buscando Elemento en"
-                + "barrios\n"
-                + "Error! Disco NOT FOUND!\n Don't be alarm, our technicals are"
-                + " working on to solve this problem just before the third "
-                + "installment\n");
+    public boolean existeElemEnBarrios(Integer oid) throws Exception{
+        String[] bars = PERSDisco.listarDirectorio("./Data/Barrios/");
+        Cjt_Edificios cjt;
+        boolean b=false;
+        String men = "\nEl elemento se usa en los siguientes Barrios:\n";
+        for(int i=0; i<bars.length; ++i){
+            cjt = (Cjt_Edificios) 
+                    PERSDisco.leerObjeto(bars[i] + "/" , bars[i] + "-CjtElem");
+            if(cjt.containsKey(oid)){
+                b = true;
+                men = men.concat(bars[i] + "\n");
+            }
+        }
+        men = men.concat("Ha de eliminar el elemento de todos los barrios antes de "
+                + "poder eliminarlo completamente del sistema.");
+        if(b){
+            throw new Exception(men);
+        }
         return false;
     }
     
