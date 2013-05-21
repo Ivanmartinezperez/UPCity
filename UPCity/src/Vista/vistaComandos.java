@@ -6,6 +6,7 @@ package Vista;
 import controladors.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -378,6 +379,16 @@ public class vistaComandos {
     ///////////////////////////////////////////////////
     
     ////////////////////////GESTION BARRIOS//////////////////////////////////////
+    private void mostrarBarrios(){
+        ArrayList<String> bars = CtrlBarrio.listarBarrios();
+        System.out.println("\nLos barrios que hay disponibles son: ");
+        for(int i=0; i<bars.size(); ++i){
+            System.out.println(bars.get(i));
+        }
+        System.out.println("------------------------------------\n");
+    }
+    
+    
     private boolean mostrarBarrio(){
         Integer mat[][] = CtrlBarrio.vistaMapa();
         for(int i=0;i < mat.length;++i){
@@ -674,6 +685,7 @@ public class vistaComandos {
     }
     
     private void cargarBarrio(){
+        mostrarBarrios();
         System.out.println("Introduzca el nombre del Barrio:");
         Scanner parametros = new Scanner(System.in);
         String nombre = parametros.nextLine();
@@ -862,7 +874,7 @@ public class vistaComandos {
         System.out.println("Seccion destinada a la gestion de barrios");
         Scanner action = new Scanner(System.in);
         
-        System.out.println("Que desea hacer:\n1-Crear Barrio\n2-Cargar Barrio\n3-Eliminar Barrio\n5-Salir");
+        System.out.println("Que desea hacer:\n1-Crear Barrio\n2-Cargar Barrio\n3-Eliminar Barrio\n4-Mostrar Barrios Creados\n5-Salir");
         
         int n=(int)action.nextInt();
         
@@ -875,9 +887,11 @@ public class vistaComandos {
                         break;
                 case 3: eliminarBarrio();
                         break;
+                case 4: mostrarBarrios();
+                        break;
                 default: System.out.println("Opcio Invalida");    
             }
-            System.out.println("Que desea hacer:\n1-Crear Barrio\n2-Cargar Barrio\n3-Eliminar Barrio\n5-Salir");
+            System.out.println("Que desea hacer:\n1-Crear Barrio\n2-Cargar Barrio\n3-Eliminar Barrio\n4-Mostrar Barrios Creados\n5-Salir");
             n = (int)action.nextInt();
         }
     }

@@ -147,6 +147,17 @@ public class CtrlDomBarrios {
         
     }
     
+    
+    /**
+     * 
+     */
+    public ArrayList<String> listarBarrios(){
+        ArrayList<String> nom = new ArrayList();
+        nom.addAll(TablaBarrios.keySet());
+        return nom;
+    }
+    
+    
     /**
      * 
      * Funcion encargada de generar el barrio actual con sus restricciones y elementos
