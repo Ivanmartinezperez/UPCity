@@ -234,6 +234,12 @@ public class CtrlDomBarrios {
         if(B.getPoblacion()!= 0)
             Poblac = B.getPoblacion();
         
+        //COMPROBACION DEL ESPACIO DEL BARRIO//
+        if((Mapa.tama()*Mapa.tamb()) < areaCjtElem()){
+            throw new Exception("\nEl area del Plano es demasiado pequena para "
+                    + "el conjunto de elementos que quiere colocar.\n");
+        }
+        
         //COMPROBACION DEL PRESUPUESTO DEL BARRIO//
         if(B.getPresupuesto() != 0 && B.getPresupuesto() < B.getGastado()){
             throw new Exception("\nEl presupuesto del Barrio no se ajusta al "
@@ -271,7 +277,7 @@ public class CtrlDomBarrios {
             
         }
         
-        //COMPROBACION DE SERVICIOS PUBLICOS//
+        //COMPROBACION DE SERVICIOS PUBLICOS y COMERCIALES//
         if(comp){
             if(B.getCapSanidadCom()<Poblac){
                 throw new Exception("\nNo hay suficientes Servicios Sanitarios en el "
@@ -293,8 +299,41 @@ public class CtrlDomBarrios {
                 throw new Exception("\nNo hay suficientes Servicios de Ocio en el "
                         + "Barrio para la poblacion actual\n");
             }
+            if(B.getCapacidad_comercio()<Poblac){
+                throw new Exception("\nNo hay suficientes Servicios Comerciales en el "
+                        + "Barrio para la poblacion actual\n");
+            }
         }
         
+    }
+    
+    
+    private int areaCjtElem(){
+        ArrayList<Pair<Integer,Elemento>> aux = new ArrayList();
+        aux.addAll(CjtElem.values());
+        Elemento e;
+        int suma = 0;
+        for(int i=0; i<aux.size(); ++i){
+            e = aux.get(i).getSecond();
+            int x,y;
+            if(e instanceof Vivienda){
+                Vivienda v = (Vivienda) e;
+                x = v.getTamanoX();
+                y = v.getTamanoY();
+            }
+            else if(e instanceof Publico){
+                Publico p = (Publico) e;
+                x = p.getTamanoX();
+                y = p.getTamanoY();
+            }
+            else{
+                Comercio c = (Comercio) e;
+                x = c.getTamanoX();
+                y = c.getTamanoY();
+            }
+            suma = suma + x*y*aux.get(i).getFirst();
+        }
+        return suma;
     }
     
     
