@@ -146,6 +146,24 @@ public class vistaGrafica extends JFrame {
             }
         }
     }
+    
+    private void initViviendasBarrio(){
+        tablaViviendaUser.addColumn("Nombre");
+        tablaViviendaUser.addColumn("Cantidad");
+        tablaViviendaUser.setNumRows(50);
+        
+    }
+    
+    private void modoLibre(){
+        addElem.setEnabled(false);
+        jButton2.setEnabled(false);
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(false);
+        jButton4.setEnabled(false);
+        jButton5.setEnabled(false);
+        jButton6.setEnabled(false);
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -831,7 +849,23 @@ public class vistaGrafica extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void newBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBarActionPerformed
-        // TODO add your handling code here:
+        formNewBar formulario = new formNewBar(this,true);
+        formulario.setVisible(true);
+        if(formulario.aceptado()){
+            String Nombre = formulario.getNombre();
+            int X=formulario.get_X();
+            int Y=formulario.get_Y();
+            if(formulario.getModo()==1){
+                try{
+                    CtrlBarrio.crearBarrio(Nombre, 0);
+                    CtrlBarrio.crearMapaBarrio(X, Y);
+                }
+                catch(Exception e){
+                    
+                }
+                
+            }
+        }
     }//GEN-LAST:event_newBarActionPerformed
 
     private void modBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modBarActionPerformed
