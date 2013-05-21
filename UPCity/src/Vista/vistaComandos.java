@@ -862,7 +862,7 @@ public class vistaComandos {
             System.out.println("Se ha eliminado el Barrio correctamente\n");
         }catch(Exception e){
             System.out.println(e.getMessage());
-            System.out.println("El Barrio no se ha podido eliminar\n");
+            
         }
         return true;
     }

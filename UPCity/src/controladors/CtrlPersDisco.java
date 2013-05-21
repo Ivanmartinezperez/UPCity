@@ -59,12 +59,40 @@ public class CtrlPersDisco {
     }
     
     
-    
+    /**
+     * Esta funcion lista los directorios y archivos que contiene el directorio
+     * representado por el path que llega por parametro.
+     * @param path Path del directorio del cual queremos listar el contenido.
+     * @return Retorna un Array de Strings con los nombres de los archivos o 
+     * directorios que contiene el directorio que listamos.
+     */
     public String[] listarDirectorio(String path) {
         File f = new File(path);
         return f.list(); 
     }
     
+    
+    /**
+     * Esta funcion elimina el directorio representado por el path que le llega
+     * como parametro.
+     * @param path Path del directorio que queremos eliminar.
+     * @return Retorna si se ha podido o no eliminar el directorio.
+     */
+    public boolean eliminarDirectorio(String path) {
+        File f = new File(path);
+        
+        if (f.exists()){
+            File f2;
+            String[] files = f.list();
+            for(int i = 0; i<files.length; ++i){
+                f2 = new File(path + files[i]);
+                f2.delete();
+            }
+            f.delete();
+            return true;
+        }
+        else return false;
+    }
     
     
     /**

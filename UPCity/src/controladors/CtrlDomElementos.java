@@ -163,6 +163,10 @@ public class CtrlDomElementos {
 
         //System.out.println("Entra");
             boolean ret=true;
+            if(mapElem0.containsKey(Nombre) || mapElem1.containsKey(Nombre) ||
+            mapElem2.containsKey(Nombre) || mapElem3.containsKey(Nombre)){
+                throw new Exception("\nYa existe un elemento con el ese nombre\n");
+            }
             if(tamX<0 || tamY<0){
                  throw new Exception("\nEl tamanoX y tamanoY del" + 
                  "edificio han de ser mayores que 0\n");

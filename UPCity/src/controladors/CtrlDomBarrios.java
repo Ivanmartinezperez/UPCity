@@ -143,13 +143,17 @@ public class CtrlDomBarrios {
     }
     
     
-    public void eliminarBarrio(String nomBar){
-        
+    public void eliminarBarrio(String nomBar) throws Exception{
+        if(!GDPBarr.eliminarBarrio(nomBar)){
+            throw new Exception("\nNo existe el barrio\n");
+        }
+        TablaBarrios.remove(nomBar);
     }
     
     
     /**
-     * 
+     * Funcion que devuelve un ArrayList con todos los nombres de los Barrios
+     * ya creados.
      */
     public ArrayList<String> listarBarrios(){
         ArrayList<String> nom = new ArrayList();

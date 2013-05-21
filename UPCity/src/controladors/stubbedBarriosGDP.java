@@ -194,7 +194,10 @@ public class stubbedBarriosGDP {
         PERSDisco.escribirObjeto(nomBarr + "/" , nomBarr + "-MapaCopia", Mapa);
     }
     
-    
+    public boolean eliminarBarrio(String nomBarr){
+        boolean b = PERSDisco.eliminarDirectorio("./Data/Barrios/" + nomBarr + "/");
+        return b;
+    }
      
     
 }
