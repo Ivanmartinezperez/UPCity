@@ -94,70 +94,45 @@ public class CtrlDomRestricciones {
      * correctamente
      */
     public boolean CrearRestriccion(String id, String tipo, String nombre1, 
-                                    String nombre2, int aux1, int aux2, int aux3) throws Exception{
+                                    String nombre2, int aux1, int aux2, int aux3){
         
         boolean ret = true;
         if(restubicacion.containsKey(id) || resteconomica.containsKey(id) ||
-           restdemografica.containsKey(id)){ 
-            throw new Exception("\nYa existe una Restriccion con este nombre\n");
-        }
+           restdemografica.containsKey(id)) 
+            return false;
+        
         Integer OID1 = DOMElem.getOID(nombre1);
         Integer OID2 = DOMElem.getOID(nombre2); 
         switch(tipo){
             case "ubicacion":   
-                if(OID1==null){
-                    throw new Exception("\nEl primer elemento de la restriccion"
-                            + " de ubicacion no existe.\n");
+                if(OID1!=null && OID2 != null && aux1 >= 0){
+                    
+                    Restriccion_ubicacion u = new Restriccion_ubicacion(id, 
+                                                  tipo,OID1, OID2, aux1);
+                    restubicacion.put(id, u);
+                    RestGDP.escribirRestriccion(u);
                 }
-                if(OID2==null){
-                    throw new Exception("\nEl segundo elemento de la restriccion"
-                            + " de ubicacion no existe.\n");
-                }
-                if(aux1<=0){
-                    throw new Exception("\nLa distancia de la restriccion de "
-                            + "ubicacion ha de ser mayor que 0.\n");
-                }
-                Restriccion_ubicacion u = new Restriccion_ubicacion(id, 
-                                              tipo,OID1, OID2, aux1);
-                restubicacion.put(id, u);
-                RestGDP.escribirRestriccion(u);
+                else ret = false;
                 break;
             
             case "economica":   
-                if(aux1<0){
-                    throw new Exception("\nEl presupuesto en comercios de la "
-                            + "restriccion economica ha de ser mayor o igual a 0.\n");
+                if(aux1 >= 0 && aux2 >= 0 && aux3 >= 0){
+                    Restriccion_economica e = new Restriccion_economica(id, 
+                                                  tipo,aux1, aux2, aux3);
+                    resteconomica.put(id, e);
+                    RestGDP.escribirRestriccion(e);
                 }
-                if(aux2<0){
-                    throw new Exception("\nEl presupuesto en viviendas de la "
-                            + "restriccion economica ha de ser mayor o igual a 0.\n");
-                } 
-                if(aux3<0){
-                    throw new Exception("\nEl presupuesto en servicios publicos de la "
-                            + "restriccion economica ha de ser mayor o igual a 0.\n");
-                }
-                Restriccion_economica e = new Restriccion_economica(id, 
-                                              tipo,aux1, aux2, aux3);
-                resteconomica.put(id, e);
-                RestGDP.escribirRestriccion(e);
-                
-                
+                else ret = false;
                 break;
             
             case "demografica": 
-                if(OID1==null){
-                    throw new Exception("\nEl elemento de la restriccion"
-                            + " demografica no existe.\n");
+                if(OID1 != null && aux1 >= 0){
+                    Restriccion_demografica d = new Restriccion_demografica(id, 
+                                                tipo, OID1, aux1);
+                    restdemografica.put(id, d);
+                    RestGDP.escribirRestriccion(d);
                 }
-                if(aux1<=0){
-                    throw new Exception("\nLa poblacion minima de la restriccion "
-                            + "demografica ha de ser mayor 0.\n");
-                }   
-                Restriccion_demografica d = new Restriccion_demografica(id, 
-                                            tipo, OID1, aux1);
-                restdemografica.put(id, d);
-                RestGDP.escribirRestriccion(d);
-                RestGDP.guardarRestGeneral(id);
+                else ret = false;
                 break;
             
             default: ret = false;
@@ -179,7 +154,7 @@ public class CtrlDomRestricciones {
      * dinero para servicios publicos.
      * @return retorna booleano si se ha hecho la modificacion correctamente
      */
-    /*public boolean ModificarRestriccion(String id, String tipo, int aux1, 
+    public boolean ModificarRestriccion(String id, String tipo, int aux1, 
                                         int aux2, int aux3){
         boolean ret=true;
         switch(tipo){
@@ -208,48 +183,7 @@ public class CtrlDomRestricciones {
             default: ret = false;
             }
             return ret;
-     }*/
-    
-    /**
-     * Añade una nueva Restriccion General, que se aplicara en los futuros 
-     * barrios nuevos.
-     * @param id Nombre de la Restriccion que se convierte en general.
-     * @throws Exception Lanza Exception si la retriccion no existe.
-     */
-    public void anadirRestGeneral(String id) throws Exception{
-        if(!restubicacion.containsKey(id) && !resteconomica.containsKey(id) &&
-           !restdemografica.containsKey(id)){
-            throw new Exception("\nLa restriccion no existe\n");
-        }
-        RestGDP.guardarRestGeneral(id);
-    }
-    
-    
-    /**
-     * Quita una Restriccion General, que ya no se aplicara en los futuros 
-     * barrios nuevos.
-     * @param id Nombre de la Restriccion que se quita de las restricciones 
-     * generales.
-     * @throws Exception Lanza Exception si la retriccion no existe.
-     */
-    public void quitarRestGeneral(String id) throws Exception{
-        if(!restubicacion.containsKey(id) && !resteconomica.containsKey(id) &&
-           !restdemografica.containsKey(id)){
-            throw new Exception("\nLa restriccion no existe\n");
-        }
-        RestGDP.borrarRestGeneral(id);
-    }
-    
-    
-    /**
-     * Lista las Restricciones Generales actuales.
-     * @return Retorna un ArrayList con los nombres de las restricciones 
-     * generales que hay actualmente.
-     */
-    public ArrayList<String> listarRestGenerales(){
-        return RestGDP.leerRestGenerales();
-    }
-    
+     }
     
     /**
      * Encargado de eliminar una restriccion de la estructura
@@ -261,25 +195,24 @@ public class CtrlDomRestricciones {
         boolean ret = false;
         if(restubicacion.containsKey(id)){
             if(!RestGDP.existeRestEnBarrios(id)){
-                RestGDP.eliminarRestDisco(id);
                 restubicacion.remove(id);
+                RestGDP.eliminarRestDisco(id);
                 ret = true;
             }
             
         }
         else if(resteconomica.containsKey(id)){
             if(!RestGDP.existeRestEnBarrios(id)){
-                RestGDP.eliminarRestDisco(id);
                 resteconomica.remove(id);
+                RestGDP.eliminarRestDisco(id);
                 ret = true;
             }
             
         }
         else if(restdemografica.containsKey(id)) {
             if(!RestGDP.existeRestEnBarrios(id)){
-                RestGDP.eliminarRestDisco(id);
-                RestGDP.borrarRestGeneral(id);
                 restdemografica.remove(id);
+                RestGDP.eliminarRestDisco(id);
                 ret = true;
             }
             

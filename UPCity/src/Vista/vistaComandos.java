@@ -264,12 +264,9 @@ public class vistaComandos {
                         System.out.println("Escriba el id de la restriccion");
                         Scanner idscann = new Scanner(System.in);
                         String id = idscann.nextLine();
-                        try{
-                            CtrlRest.CrearRestriccion(id, "ubicacion", OID1, OID2, distancia, -1, -1);
-                            System.out.println("\nRestriccion creada correctamente\n");
-                        }catch(Exception e){
-                            System.out.println(e.getMessage());
-                        }
+                        aux = CtrlRest.CrearRestriccion(id, "ubicacion", OID1, OID2, distancia, -1, -1);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("La restriccion no se pudo crear");
                         break;
                 case 2: System.out.println("Escriba cantidad de dinero para comercios");
                         int com = (int) parametros.nextInt();
@@ -280,12 +277,9 @@ public class vistaComandos {
                         System.out.println("Escriba el id de la restriccion");
                         Scanner idscann0 = new Scanner(System.in);
                         String id0 = idscann0.nextLine();
-                        try{
-                            CtrlRest.CrearRestriccion(id0, "economica", "-1", "-1", com, viv, pub);
-                            System.out.println("\nRestriccion creada correctamente\n");
-                        }catch(Exception e){
-                            System.out.println(e.getMessage());
-                        }
+                        aux = CtrlRest.CrearRestriccion(id0, "economica", "-1", "-1", com, viv, pub);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("La restriccion no se pudo crear");
                         break;
                 case 3: System.out.println("Escriba el elemento de restriccion");
                         String OID = parametros.nextLine();
@@ -295,12 +289,9 @@ public class vistaComandos {
                         System.out.println("Escriba el id de la restriccion");
                         Scanner idscann1 = new Scanner(System.in);
                         String id1 = idscann1.nextLine();
-                        try{
-                            CtrlRest.CrearRestriccion(id1, "demografica", OID, "-1", habitantes, -1, -1);
-                            System.out.println("\nRestriccion creada correctamente\n");
-                        }catch(Exception e){
-                            System.out.println(e.getMessage());
-                        }
+                        aux = CtrlRest.CrearRestriccion(id1, "demografica", OID, "-1", habitantes, -1, -1);
+                        if (aux) System.out.println("Creado correctamente");
+                        else System.out.println("La restriccion no se pudo crear");
                         break;
                 default: System.out.println("Opcio Invalida");    
             }
@@ -324,43 +315,6 @@ public class vistaComandos {
             System.out.println(e.getMessage());
         }
         
-    }
-    
-    private void anadirGeneral(){
-        Scanner parametros = new Scanner(System.in);
-        System.out.println("Escriba el nombre de la restriccion que desea "
-                + "anadir a Restricciones Generales:");
-        String id = parametros.nextLine();
-        try{
-            CtrlRest.anadirRestGeneral(id);
-            System.out.println("Restriccion anadida a Restricciones generales");
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    
-    private void quitarGeneral(){
-        Scanner parametros = new Scanner(System.in);
-        System.out.println("Escriba el nombre de la restriccion que desea "
-                + "quitar de Restricciones Generales:");
-        String id = parametros.nextLine();
-        try{
-            CtrlRest.quitarRestGeneral(id);
-            System.out.println("Restriccion eliminada de Restricciones generales");
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    
-    private void listarRestGenerales(){
-        System.out.println("\nLAS RESTRICCIONES GENERALES ACTUALES SON:\n");
-        ArrayList<String> res = CtrlRest.listarRestGenerales();
-        for(int i = 0; i<res.size(); ++i){
-            System.out.println(res.get(i));
-        }
-        System.out.println("\n");
     }
     
     
@@ -411,11 +365,11 @@ public class vistaComandos {
         System.out.println("Seccion destinada a la creacion y eliminacion de Restricciones");
         Scanner action = new Scanner(System.in);
         
-        System.out.println("\nQue desea hacer:\n1-Crear Restriccion\n2-Eliminar Restriccion\n3-Anadir Restriccion General\n4-Quitar Restriccion General\n5-Listar Restricciones\n6-Listar Restriciones Generales\n0-Salir");
+        System.out.println("\nQue desea hacer:\n1-Crear Restriccion\n2-Eliminar Restriccion\n3-Listar Restricciones\n4-Salir");
         
         int n=(int)action.nextInt();
         
-        while(n!=0){
+        while(n!=4){
             switch(n){
             
                 case 1: crearRestriccion();
@@ -423,18 +377,10 @@ public class vistaComandos {
                 case 2: eliminarRestriccion();
                         break;
                 case 3: listarRestricciones();
-                        anadirGeneral();
-                        break;
-                case 4: listarRestGenerales();
-                        quitarGeneral();
-                        break;
-                case 5: listarRestricciones();
-                        break;
-                case 6: listarRestGenerales();
                         break;
                 default: System.out.println("Opcio Invalida");    
             }
-            System.out.println("\nQue desea hacer:\n1-Crear Restriccion\n2-Eliminar Restriccion\n3-Anadir Restriccion General\n4-Quitar Restriccion General\n5-Listar Restricciones\n6-Listar Restriciones Generales\n0-Salir");
+            System.out.println("\nQue desea hacer:\n1-Crear Restriccion\n2-Eliminar Restriccion\n3-Listar Restricciones\n4-Salir");
             n = (int)action.nextInt();
         }
     }

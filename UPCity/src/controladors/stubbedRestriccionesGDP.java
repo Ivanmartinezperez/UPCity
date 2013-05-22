@@ -27,8 +27,6 @@ public class stubbedRestriccionesGDP {
     private stubbedRestriccionesGDP(){
         PERSDisco = CtrlPersDisco.getInstance();
         PERSDisco.crearArchivo("Restricciones");
-        PERSDisco.crearArchivo("RestriccionesSistema");
-        PERSDisco.crearArchivo("RestriccionesGenerales");
         
     }
     
@@ -77,65 +75,6 @@ public class stubbedRestriccionesGDP {
     
     
     /**
-     * Escritura que guarda la restriccion con el nombre id como restriccion
-     * general que se aplicara a todos los futuros barrios nuevos.
-     * @param id Nombre de la Restriccion a ser restriccion general.
-     * @throws Exception Lanza Exception si la restriccion ya es una restriccion
-     * general.
-     */
-    public void guardarRestGeneral(String id) throws Exception{
-        ArrayList<String>restPers = PERSDisco.leerArchivo("RestriccionesGenerales");
-        String aux;
-        boolean b=false;
-        for(int i=0; i<restPers.size() && b==false; ++i){
-            aux = restPers.get(i);
-            if(aux.equals(id)){
-                b = true;
-            }
-        }
-        if(b){
-            throw new Exception("\nEsta restriccion ya es una Restriccion General\n");
-        }
-        restPers.add(id);
-        PERSDisco.escribirArchivo("RestriccionesGenerales", restPers);
-    }
-    
-    
-    /**
-     * Escritura que borra la restriccion con el nombre id como restriccion
-     * general y ya no se aplicara a los futuros barrios nuevos.
-     * @param id Nombre de la Restriccion a ser quitade de restricciones generales.
-     * @throws Exception Lanza Exception si la restriccion no es una restriccion
-     * general.
-     */
-    public void borrarRestGeneral(String id) throws Exception{
-        ArrayList<String>restPers = PERSDisco.leerArchivo("RestriccionesGenerales");
-        String aux;
-        boolean b=false;
-        for(int i=0; i<restPers.size() && b==false; ++i){
-            aux = restPers.get(i);
-            if(aux.equals(id)){
-                b = true;
-                restPers.remove(i);
-            }
-        }
-        if(!b){
-            throw new Exception("\nEsta restriccion no es una Restriccion General\n");
-        }
-        PERSDisco.escribirArchivo("RestriccionesGenerales", restPers);
-    }
-    
-    
-    /**
-     * Lectura de Restricciones Generales actuales.
-     * @return Retorna un ArrayList con los nombres de las Restricciones Generales.
-     */
-    public ArrayList<String> leerRestGenerales(){
-        return PERSDisco.leerArchivo("RestriccionesGenerales");
-    }
-    
-    
-    /**
      * Funcion que comprueba si una Restriccion es utilizada en algun Barrio.
      * @param id Nombre de la Restriccion que se quiere comprobar la existencia 
      * en barrios.
@@ -169,24 +108,10 @@ public class stubbedRestriccionesGDP {
      * Borradora de una Restriccion del disco.
      * @param id Nombre de la Restriccion que se quiere borrar del disco.
      */
-    public void eliminarRestDisco(String id) throws Exception{
-        ArrayList<String> restPers = PERSDisco.leerArchivo("RestriccionesSistema");
-        String aux2;
-        boolean b=false;
-        for(int i=0; i<restPers.size() && b==false; ++i){
-            aux2= restPers.get(i);
-            if(aux2.equals(id)){
-                b = true;
-            }
-        }
-        if(b){
-            throw new Exception("\nEsta restriccion pertenece al sistema.\n"
-                    + "Las Restricciones del sistema no se pueden eliminar\n");
-        }
-        
-        restPers = PERSDisco.leerArchivo("Restricciones");
+    public void eliminarRestDisco(String id){
+        ArrayList<String> restPers = PERSDisco.leerArchivo("Restricciones");
         String[] aux;
-        b=false;
+        boolean b=false;
         for(int i=0; i<restPers.size() && b==false; ++i){
             aux = restPers.get(i).split("\t");
             if(aux[0].equals(id)){
@@ -195,17 +120,6 @@ public class stubbedRestriccionesGDP {
             }
         }
         PERSDisco.escribirArchivo("Restricciones", restPers);
-        
-        restPers = PERSDisco.leerArchivo("RestriccionesGenerales");
-        b=false;
-        for(int i=0; i<restPers.size() && b==false; ++i){
-            aux2 = restPers.get(i);
-            if(aux2.equals(id)){
-                b = true;
-                restPers.remove(i);
-            }
-        }
-        if(b)PERSDisco.escribirArchivo("RestriccionesGenerales", restPers);
     }
     
     
