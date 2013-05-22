@@ -296,6 +296,10 @@ public class CtrlDomElementos {
         Elemento e;
         if(mapElem0.containsKey(Elem)){
             e = mapElem0.get(Elem);
+            if(e.getId()<=100){
+                throw new Exception("\nEste elemento pertenece al sistema.\n"
+                    + "Los elementos del sistema no se pueden eliminar\n");
+            }
             if(!GDPElem.existeElemEnBarrios(e.getId()) && 
                !RestDOM.existeRestElem(e.getId())){
                 eliminar_de_estructuras(Elem,0);
@@ -305,6 +309,10 @@ public class CtrlDomElementos {
         }
         else if(mapElem1.containsKey(Elem)){
             e = mapElem1.get(Elem);
+            if(e.getId()<=100){
+                throw new Exception("\nEste elemento pertenece al sistema.\n"
+                    + "Los elementos del sistema no se pueden eliminar\n");
+            }
             if(!GDPElem.existeElemEnBarrios(e.getId()) && 
                !RestDOM.existeRestElem(e.getId())){
                 eliminar_de_estructuras(Elem,1);
@@ -314,6 +322,10 @@ public class CtrlDomElementos {
         }
         else if(mapElem2.containsKey(Elem)){
             e = mapElem2.get(Elem);
+            if(e.getId()<=100){
+                throw new Exception("\nEste elemento pertenece al sistema.\n"
+                    + "Los elementos del sistema no se pueden eliminar\n");
+            }
             if(!GDPElem.existeElemEnBarrios(e.getId()) && 
                !RestDOM.existeRestElem(e.getId())){
                 eliminar_de_estructuras(Elem,2);
@@ -323,6 +335,10 @@ public class CtrlDomElementos {
         }
         else if(mapElem3.containsKey(Elem)){
             e = mapElem3.get(Elem);
+            if(e.getId()<=100){
+                throw new Exception("\nEste elemento pertenece al sistema.\n"
+                    + "Los elementos del sistema no se pueden eliminar\n");
+            }
             if(!GDPElem.existeElemEnBarrios(e.getId()) && 
                !RestDOM.existeRestElem(e.getId())){
                 eliminar_de_estructuras(Elem,3);
