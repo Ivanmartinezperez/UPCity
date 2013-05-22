@@ -32,6 +32,8 @@ public class Barrio implements Serializable{
     private int Capacidad_comercio;
     private int PresAnterior;
     
+    private int Modo;
+    
   
     /////CREADORAS/////
     
@@ -141,6 +143,11 @@ public class Barrio implements Serializable{
         Presupuesto = PresAnterior;
     }
     
+    //0-Modo Generador, 1-Modo Drag&Drop//
+    public void setModo(int m){
+        Modo = m;
+    }
+    
     
     
     /////CONSULTORAS/////
@@ -203,6 +210,10 @@ public class Barrio implements Serializable{
     
     public int getCapacidad_comercio(){
         return Capacidad_comercio;
+    }
+    
+    public int getModo(){
+        return Modo;
     }
     
 }
