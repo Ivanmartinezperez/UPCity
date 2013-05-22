@@ -91,6 +91,14 @@ public class CtrlDomBarrios {
             copia = new Plano();
             B.setNombreBarrio(nombre);
             B.setTipoBarrio(tip);
+            ArrayList<String> res = DOMRest.listarRestGenerales();
+            for(int i=0; i<res.size(); ++i){
+                try{
+                    anadirRestBarrio(res.get(i));
+                }catch(Exception e){
+                    
+                }
+            }
             return true;
         }
         else return false;
