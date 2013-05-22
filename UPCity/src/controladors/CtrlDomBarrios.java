@@ -79,7 +79,7 @@ public class CtrlDomBarrios {
      * @return Retorna si ha sido posible crear el barrio, cierto si no existe
      * un barrio con ese nombre todavia y falso si ese barrio existe.
      */
-    public boolean crearBarrio(String nombre, int tip){
+    public boolean crearBarrio(String nombre, int tip, int modo){
         if(!TablaBarrios.containsKey(nombre) && tip>=0 && tip<=3){
             B = new Barrio();
             CjtElem = new Cjt_Edificios();
@@ -91,6 +91,7 @@ public class CtrlDomBarrios {
             copia = new Plano();
             B.setNombreBarrio(nombre);
             B.setTipoBarrio(tip);
+            B.setModo(modo);
             ArrayList<String> res = DOMRest.listarRestGenerales();
             for(int i=0; i<res.size(); ++i){
                 try{
@@ -112,9 +113,15 @@ public class CtrlDomBarrios {
      * @return Retorna si ha sido posible cargar el barrio, cierto si existe el 
      * barrio con ese nombre y falso si ese barrio no existe.
      */
-    public boolean cargarBarrio(String nombre)throws Exception{
+    public boolean cargarBarrio(String nombre, int modo)throws Exception{
         if(!TablaBarrios.containsKey(nombre)){
             throw new Exception("\nEl barrio que solicita no existe\n");
+        }
+        Barrio aux = GDPBarr.leerBarrio(nombre);
+        if(modo != aux.getModo()){
+            throw new Exception("\nEl barrio que solicita se ha creado con un"
+                    + " modo distinto al suyo.\nLos barrios creado con el generador"
+                    + " son incompatibles con el modo Drag&Drop, y viceversa.\n");
         }
         B = new Barrio();
         CjtElem = new Cjt_Edificios();
@@ -124,7 +131,7 @@ public class CtrlDomBarrios {
         RestEcon = null;
         Mapa = new Plano();
         copia = new Plano();
-        B = GDPBarr.leerBarrio(nombre);
+        B = aux;
         Mapa = GDPBarr.leerMapa(nombre);
         copia = GDPBarr.leerCopiaMapa(nombre);
         CjtRest = GDPBarr.leerCjtRest(nombre);

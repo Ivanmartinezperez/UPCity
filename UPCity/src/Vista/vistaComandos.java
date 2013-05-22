@@ -558,7 +558,7 @@ public class vistaComandos {
         System.out.println("Introduzca el tipo de barrio:");
         System.out.println("(0-3)");
         int tipo = (int)parametros.nextInt();
-        boolean aux = CtrlBarrio.crearBarrio(nombre, tipo);
+        boolean aux = CtrlBarrio.crearBarrio(nombre, tipo,0);
         
         if(aux){
         System.out.println("Introduzca el presupuesto disponible para el barrio:");
@@ -753,7 +753,7 @@ public class vistaComandos {
         String nombre = parametros.nextLine();
         boolean aux;
         try{
-            CtrlBarrio.cargarBarrio(nombre);
+            CtrlBarrio.cargarBarrio(nombre,0);
         
         
             System.out.println("Barrio cargado correctamente");
