@@ -723,7 +723,8 @@ public class vistaComandos {
                 case 14: System.out.println("Guardando barrio");
                          CtrlBarrio.guardarBarrio();
                          break;
-                case 15: System.out.println("Inserte la fila donde quiere posicionar la carretera:");
+                case 15: mostrarBarrio();
+                         System.out.println("Inserte la fila donde quiere posicionar la carretera:");
                          Scanner param5 = new Scanner(System.in);
                          int f = param5.nextInt();
                          System.out.println("Inserte la columna donde quiere posicionar la carretera:");
@@ -893,7 +894,8 @@ public class vistaComandos {
                     case 14: System.out.println("Guardando barrio");
                              CtrlBarrio.guardarBarrio();
                              break;
-                    case 15: System.out.println("Inserte la fila donde quiere posicionar la carretera:");
+                    case 15: mostrarBarrio();
+                             System.out.println("Inserte la fila donde quiere posicionar la carretera:");
                              Scanner param5 = new Scanner(System.in);
                              int f = param5.nextInt();
                              System.out.println("Inserte la columna donde quiere posicionar la carretera:");
@@ -931,11 +933,8 @@ public class vistaComandos {
         System.out.println("Introduzca el nombre del Barrio:");
         Scanner parametros = new Scanner(System.in);
         String nombre = parametros.nextLine();
-        System.out.println("Introduzca el tipo de barrio:");
-        System.out.println("(0-3)");
-        int tipo = (int)parametros.nextInt();
         try{
-            CtrlBarrio.crearBarrio(nombre, tipo,1);
+            CtrlBarrio.crearBarrio(nombre, 0,1);
             System.out.println("Introduzca el presupuesto disponible para el barrio:");
             System.out.println("Nota: Si no quiere limitar su barrio a un presupuesto, introduzca un 0,\n"
                     + "asi simplmente se le mostrara el presupuesto gastado como valor informativo");
@@ -986,33 +985,38 @@ public class vistaComandos {
                 switch(n){
 
                     case 1: listarElementos(CtrlBarrio.getTipoBarrio());
+                            mostrarBarrio();
                             System.out.println("Escriba el nombre del elemento que desea añadir al barrio: ");
-                            id = param.nextLine();
+                            Scanner param2 = new Scanner(System.in);
+                            id = param2.nextLine();
                             System.out.println("Escriba la fila donde quiere ubicar el Elemento:");
                             x = (int) param.nextInt();
                             System.out.println("Escriba la columna donde quiere ubicar el Elemento:");
                             y = (int) param.nextInt();
                             try{
                                 CtrlBarrio.draguearElemBarrio(id, x, y);
+                                System.out.println("\nEl elemento se ha añadido correctamente");
                             }catch(Exception e){
                                 System.out.println(e.getMessage());
                             }
                             break;
                     case 2: mostrarCjtElem();
+                            mostrarBarrio();
                             System.out.println("Escriba la fila donde se ubica el Elemento que desea retirar:");
                             x = (int) param.nextInt();
                             System.out.println("Escriba la columna donde se ubica el Elemento que desea retirar:");
                             y = (int) param.nextInt();
                             try{
                                 CtrlBarrio.takearElemBarrio(x, y);
-                                System.out.println("Elemento eliminado correctamente");
+                                System.out.println("\nElemento eliminado correctamente");
                             }catch(Exception e){
                                 System.out.println(e.getMessage());
                             }
                             break;
                     case 3: crearElemento();
                             break;
-                    case 4: System.out.println("Inserte la fila donde quiere posicionar la carretera:");
+                    case 4: mostrarBarrio();
+                            System.out.println("Inserte la fila donde quiere posicionar la carretera:");
                             Scanner param5 = new Scanner(System.in);
                             int f = param5.nextInt();
                             System.out.println("Inserte la columna donde quiere posicionar la carretera:");
@@ -1090,33 +1094,38 @@ public class vistaComandos {
                 switch(n){
 
                     case 1: listarElementos(CtrlBarrio.getTipoBarrio());
+                            mostrarBarrio();
                             System.out.println("Escriba el nombre del elemento que desea añadir al barrio: ");
-                            id = param.nextLine();
+                            Scanner param2 = new Scanner(System.in);
+                            id = param2.nextLine();
                             System.out.println("Escriba la fila donde quiere ubicar el Elemento:");
                             int x = (int) param.nextInt();
                             System.out.println("Escriba la columna donde quiere ubicar el Elemento:");
                             int y = (int) param.nextInt();
                             try{
                                 CtrlBarrio.draguearElemBarrio(id, x, y);
+                                System.out.println("\nEl elemento se ha añadido correctamente");
                             }catch(Exception e){
                                 System.out.println(e.getMessage());
                             }
                             break;
                     case 2: mostrarCjtElem();
+                            mostrarBarrio();
                             System.out.println("Escriba la fila donde se ubica el Elemento que desea retirar:");
                             x = (int) param.nextInt();
                             System.out.println("Escriba la columna donde se ubica el Elemento que desea retirar:");
                             y = (int) param.nextInt();
                             try{
                                 CtrlBarrio.takearElemBarrio(x, y);
-                                System.out.println("Elemento eliminado correctamente");
+                                System.out.println("\nElemento eliminado correctamente");
                             }catch(Exception e){
                                 System.out.println(e.getMessage());
                             }
                             break;
                     case 3: crearElemento();
                             break;
-                    case 4: System.out.println("Inserte la fila donde quiere posicionar la carretera:");
+                    case 4: mostrarBarrio();
+                            System.out.println("Inserte la fila donde quiere posicionar la carretera:");
                             Scanner param5 = new Scanner(System.in);
                             int f = param5.nextInt();
                             System.out.println("Inserte la columna donde quiere posicionar la carretera:");
