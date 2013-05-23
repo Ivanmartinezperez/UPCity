@@ -120,16 +120,12 @@ public class CtrlDomBarrios {
      * @return Retorna si ha sido posible cargar el barrio, cierto si existe el 
      * barrio con ese nombre y falso si ese barrio no existe.
      */
-    public boolean cargarBarrio(String nombre, int modo)throws Exception{
+    public int cargarBarrio(String nombre)throws Exception{
         if(!TablaBarrios.containsKey(nombre)){
             throw new Exception("\nEl barrio que solicita no existe\n");
         }
         Barrio aux = GDPBarr.leerBarrio(nombre);
-        if(modo != aux.getModo()){
-            throw new Exception("\nEl barrio que solicita se ha creado con un"
-                    + " modo distinto al suyo.\nLos barrios creado con el generador"
-                    + " son incompatibles con el modo Drag&Drop, y viceversa.\n");
-        }
+        int modo = aux.getModo();
         B = new Barrio();
         CjtElem = new Cjt_Edificios();
         CjtRest = new TreeMap();
@@ -146,7 +142,7 @@ public class CtrlDomBarrios {
             transRestBarrio();
         }
         CjtElem = GDPBarr.leerCjtElem(nombre);
-        return true;
+        return modo;
         
     }
     
