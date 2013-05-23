@@ -490,7 +490,7 @@ public class CtrlDomBarrios {
                     + "nota: Ha de seleccionar la esquina superior izquierda del elemento\n");
         }
         B.setPosiciones(posiciones);
-        Parcela aux = Mapa.pos(posY, posY);
+        Parcela aux = Mapa.pos(posX, posY);
         Pair<Integer,Elemento> par = (Pair) CjtElem.get(aux.getoid());
         Elemento e = par.getSecond();
         String Elem = e.getNom();
