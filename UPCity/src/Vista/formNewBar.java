@@ -424,11 +424,11 @@ public class formNewBar extends javax.swing.JDialog {
         return ret;
     }
     public int getPresupuesto(){
-        int valor = Integer.parseInt(jTextField4.getText());
+        int valor = Integer.parseInt(jTextField2.getText());
         return valor;
     }
     public int getPoblacion(){
-        int valor = Integer.parseInt(jTextField5.getText());
+        int valor = Integer.parseInt(jTextField3.getText());
         return valor;
     }
     public boolean aceptado(){

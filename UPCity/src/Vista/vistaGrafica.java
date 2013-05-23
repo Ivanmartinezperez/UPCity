@@ -40,18 +40,6 @@ public class vistaGrafica extends JFrame {
     private DefaultTableModel tablaUbicUser;
     private DefaultTableModel tablaDemUser;
     private DefaultTableModel tablaEcoUser;
-    private int indiceV;
-    private int indiceC;
-    private int indiceP;
-    private int indiceVU;
-    private int indiceCU;
-    private int indicePU;
-    private int indiceU;
-    private int indiceD;
-    private int indiceE;
-    private int indiceUU;
-    private int indiceDU;
-    private int indiceEU;
     private CtrlDomBarrios CtrlBarrio;
     private CtrlDomElementos CtrlElem;
     private CtrlDomRestricciones CtrlRest;
@@ -68,36 +56,36 @@ public class vistaGrafica extends JFrame {
         jToolBar1.setFloatable(false);
         setResizable(false);
         Console.setText("Cargando el Sistema...\n");
-        indiceV=0;
-        indiceP=0;
-        indiceC=0;
-        indiceVU=0;
-        indiceCU=0;
-        indicePU=0;
-        indiceU=0;
-        indiceD=0;
-        indiceE=0;
-        indiceUU=0;
-        indiceDU=0;
-        indiceEU=0;
+        initModelTablasSistema();
+        initTablasBarrioModel();
         initViviendas();
         initPublicos();
         initComercios();
         initUbicacion();
         initDemograficas();
         initEconomicas();
+        initTablasEnVista();
+        barrioNoCargado();
+        Console.setText("Bienvenido a UPcity\n");
+        
+    }
+    
+    private void initTablasEnVista(){
         tabViv.setModel(tablaVivienda);
         tabPub.setModel(tablaPublico);
         tabCom.setModel(tablaComercio);
         tabUbi.setModel(tablaUbic);
         tabDem.setModel(tablaDem);
         tabEco.setModel(tablaEco);
-        barrioNoCargado();
-        Console.setText("Bienvenido a UPcity\n");
-        
+        tabVivU.setModel(tablaViviendaUser);
+        tabPubU.setModel(tablaPublicoUser);
+        tabComU.setModel(tablaComercioUser);
+        tabUbiU.setModel(tablaUbicUser);
+        tabDemU.setModel(tablaDemUser);
+        tabEcoU.setModel(tablaEcoUser);
     }
     
-    private void initViviendas(){
+    private void initModelTablasSistema(){
         tablaVivienda=new DefaultTableModel();
         tablaVivienda.addColumn("Nombre");
         tablaVivienda.addColumn("TBar");
@@ -105,14 +93,58 @@ public class vistaGrafica extends JFrame {
         tablaVivienda.addColumn("Capacidad");
         tablaVivienda.addColumn("TamX");
         tablaVivienda.addColumn("TamY");
-        tablaVivienda.setNumRows(50);
+        tablaVivienda.setNumRows(25);
         
+        tablaPublico=new DefaultTableModel();
+        tablaPublico.addColumn("Nombre");
+        tablaPublico.addColumn("TBar");
+        tablaPublico.addColumn("Precio");
+        tablaPublico.addColumn("TipoPub");
+        tablaPublico.addColumn("Capacidad");
+        tablaPublico.addColumn("TamX");
+        tablaPublico.addColumn("TamY");
+        tablaPublico.setNumRows(25);
+        
+        tablaComercio=new DefaultTableModel();
+        tablaComercio.addColumn("Nombre");
+        tablaComercio.addColumn("TBar");
+        tablaComercio.addColumn("Precio");
+        tablaComercio.addColumn("Capacidad");
+        tablaComercio.addColumn("TamX");
+        tablaComercio.addColumn("TamY");
+        tablaComercio.setNumRows(25);
+        
+        tablaUbic = new DefaultTableModel();
+        tablaUbic.addColumn("Nombre");
+        tablaUbic.addColumn("Elemento 1");
+        tablaUbic.addColumn("Elemento 2");
+        tablaUbic.addColumn("Distancia");
+        tablaUbic.setNumRows(25);
+        
+        tablaDem=new DefaultTableModel();
+        tablaDem.addColumn("Nombre");
+        tablaDem.addColumn("Elemento");
+        tablaDem.addColumn("Poblacion minima");
+        tablaDem.setNumRows(25);
+        
+        tablaEco=new DefaultTableModel();
+        tablaEco.addColumn("Nombre");
+        tablaEco.addColumn("Total");
+        tablaEco.addColumn("Viviendas");
+        tablaEco.addColumn("Publicos");
+        tablaEco.addColumn("Comercios");
+        tablaEco.setNumRows(25);
+    }
+    
+    private void initViviendas(){
+
+        int indiceV=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
             viv1 = CtrlElem.listarElemTipo(j, 1);
             if(viv1!=null){
-                int i=0;
-                for(;i<viv1.length;++indiceV){
+                int i;
+                for(i=0;i<viv1.length;++indiceV){
                     tablaVivienda.setValueAt(viv1[i][0], indiceV, 0);
                     tablaVivienda.setValueAt(viv1[i][1], indiceV, 1);
                     tablaVivienda.setValueAt(viv1[i][2], indiceV, 2);
@@ -126,21 +158,13 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initPublicos(){
-        tablaPublico=new DefaultTableModel();
-        tablaPublico.addColumn("Nombre");
-        tablaPublico.addColumn("TBar");
-        tablaPublico.addColumn("Precio");
-        tablaPublico.addColumn("TipoPub");
-        tablaPublico.addColumn("Capacidad");
-        tablaPublico.addColumn("TamX");
-        tablaPublico.addColumn("TamY");
-        tablaPublico.setNumRows(50);
+        int indiceP=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
             viv1 = CtrlElem.listarElemTipo(j, 2);
             if(viv1!=null){
-                int i=0;
-                for(;i<viv1.length;++indiceP){
+                int i;
+                for(i=0;i<viv1.length;++indiceP){
                     tablaPublico.setValueAt(viv1[i][0], indiceP, 0);
                     tablaPublico.setValueAt(viv1[i][1], indiceP, 1);
                     tablaPublico.setValueAt(viv1[i][2], indiceP, 2);
@@ -156,20 +180,13 @@ public class vistaGrafica extends JFrame {
     }
         
     private void initComercios(){
-        tablaComercio=new DefaultTableModel();
-        tablaComercio.addColumn("Nombre");
-        tablaComercio.addColumn("TBar");
-        tablaComercio.addColumn("Precio");
-        tablaComercio.addColumn("Capacidad");
-        tablaComercio.addColumn("TamX");
-        tablaComercio.addColumn("TamY");
-        tablaComercio.setNumRows(50);
+        int indiceC=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
             viv1 = CtrlElem.listarElemTipo(j, 3);
             if(viv1!=null){
-                int i=0;
-                for(;i<viv1.length;++indiceC){
+                int i;
+                for(i=0;i<viv1.length;++indiceC){
                     tablaComercio.setValueAt(viv1[i][0], indiceC, 0);
                     tablaComercio.setValueAt(viv1[i][1], indiceC, 1);
                     tablaComercio.setValueAt(viv1[i][2], indiceC, 2);
@@ -183,12 +200,7 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initUbicacion(){
-        tablaUbic=new DefaultTableModel();
-        tablaUbic.addColumn("Nombre");
-        tablaUbic.addColumn("Elemento1");
-        tablaUbic.addColumn("Elemento2");
-        tablaUbic.addColumn("Distancia");
-        tablaUbic.setNumRows(25);
+        int indiceU;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("ubicacion");
         if(viv1!=null){
@@ -202,11 +214,7 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initDemograficas(){
-        tablaDem=new DefaultTableModel();
-        tablaDem.addColumn("Nombre");
-        tablaDem.addColumn("Elemento");
-        tablaDem.addColumn("Poblacion minima");
-        tablaDem.setNumRows(25);
+        int indiceD;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("demografica");
         if(viv1!=null){
@@ -219,13 +227,7 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initEconomicas(){
-        tablaEco=new DefaultTableModel();
-        tablaEco.addColumn("Nombre");
-        tablaEco.addColumn("Total");
-        tablaEco.addColumn("Viviendas");
-        tablaEco.addColumn("Publicos");
-        tablaEco.addColumn("Comercios");
-        tablaEco.setNumRows(25);
+        int indiceE;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("economica");
         if(viv1!=null){
@@ -239,10 +241,105 @@ public class vistaGrafica extends JFrame {
         }
     }
     
-    private void initViviendasBarrio(){
+    private void initTablasBarrioModel(){
+        tablaViviendaUser = new DefaultTableModel();
         tablaViviendaUser.addColumn("Nombre");
         tablaViviendaUser.addColumn("Cantidad");
-        tablaViviendaUser.setNumRows(50);
+        tablaViviendaUser.setNumRows(25);
+        
+        tablaPublicoUser = new DefaultTableModel();
+        tablaPublicoUser.addColumn("Nombre");
+        tablaPublicoUser.addColumn("Cantidad");
+        tablaPublicoUser.setNumRows(25);
+        
+        tablaComercioUser = new DefaultTableModel();
+        tablaComercioUser.addColumn("Nombre");
+        tablaComercioUser.addColumn("Cantidad");
+        tablaComercioUser.setNumRows(25);
+        
+        tablaUbicUser = new DefaultTableModel();
+        tablaUbicUser.addColumn("Nombre");
+        tablaUbicUser.addColumn("Elemento 1");
+        tablaUbicUser.addColumn("Elemento 2");
+        tablaUbicUser.addColumn("Distancia");
+        tablaUbicUser.setNumRows(25);
+        
+        tablaDemUser=new DefaultTableModel();
+        tablaDemUser.addColumn("Nombre");
+        tablaDemUser.addColumn("Elemento");
+        tablaDemUser.addColumn("Poblacion minima");
+        tablaDemUser.setNumRows(25);
+        
+        tablaEcoUser=new DefaultTableModel();
+        tablaEcoUser.addColumn("Nombre");
+        tablaEcoUser.addColumn("Total");
+        tablaEcoUser.addColumn("Viviendas");
+        tablaEcoUser.addColumn("Publicos");
+        tablaEcoUser.addColumn("Comercios");
+        tablaEcoUser.setNumRows(25);
+        
+        
+    }
+    
+    private void initTablasBarrioElem(){
+        String[][] list = CtrlBarrio.listarCjtElemBarrio();
+        int indiceVU=0;
+        int indicePU=0;
+        int indiceCU=0;
+        if(list!=null){
+            for(int i=0;i<list.length;++i){
+                if(list[i][0].equals("v")){
+                    tablaViviendaUser.setValueAt(list[i][3], indiceVU, 0);
+                    tablaViviendaUser.setValueAt(list[i][1], indiceVU, 1);
+                    ++indiceVU;
+                }
+                if(list[i][0].equals("p")){
+                    tablaPublicoUser.setValueAt(list[i][3], indicePU, 0);
+                    tablaPublicoUser.setValueAt(list[i][1], indicePU, 1);
+                    ++indicePU;
+                }
+                if(list[i][0].equals("c")){
+                    tablaComercioUser.setValueAt(list[i][3], indiceCU, 0);
+                    tablaComercioUser.setValueAt(list[i][1], indiceCU, 1);
+                    ++indiceCU;
+                }
+            }
+        }
+        
+    }
+    
+    private void initTablasBarrioRest(){
+        String [][] list = CtrlBarrio.listarCjtRestBarrio();
+        int indiceUU=0;
+        int indiceDU=0;
+        int indiceEU=0;
+        System.out.println("CHIVATOO");
+        if(list!=null){
+            for(int i=0;i<list.length;++i){
+                System.out.println("CHIVATOO");
+                if(list[i][0].equals("u")){
+                    tablaUbicUser.setValueAt(list[i][1], indiceUU, 0);
+                    tablaUbicUser.setValueAt(list[i][2], indiceUU, 1);
+                    tablaUbicUser.setValueAt(list[i][3], indiceUU, 2);
+                    tablaUbicUser.setValueAt(list[i][4], indiceUU, 3);
+                    ++indiceUU;
+                }
+                if(list[i][0].equals("d")){
+                    tablaDemUser.setValueAt(list[i][1], indiceUU, 0);
+                    tablaDemUser.setValueAt(list[i][2], indiceUU, 1);
+                    tablaDemUser.setValueAt(list[i][3], indiceUU, 2);
+                    ++indiceDU;
+                }
+                if(list[i][0].equals("e")){
+                    tablaEcoUser.setValueAt(list[i][1], indiceUU, 0);
+                    tablaEcoUser.setValueAt(list[i][2], indiceUU, 1);
+                    tablaEcoUser.setValueAt(list[i][3], indiceUU, 2);
+                    tablaEcoUser.setValueAt(list[i][4], indiceUU, 3);
+                    tablaEcoUser.setValueAt(list[i][5], indiceUU, 4);
+                    ++indiceEU;
+                }
+            }
+        }
         
     }
     
@@ -285,6 +382,18 @@ public class vistaGrafica extends JFrame {
         jButton5.setEnabled(false);
         jButton6.setEnabled(false);
         
+    }
+    
+    private void mostrarBarrio(){
+        Integer mat[][] = CtrlBarrio.vistaMapa();
+        String p = "Su barrio es el siguiente\n";
+        for(int i=0;i < mat.length;++i){
+            for(int j=0;j<mat[0].length;++j){
+                p=p.concat(mat[i][j] +"   ");
+            }
+            p=p.concat("\n");    
+        }
+        Mapa.setText(p);
     }
 
     /**
@@ -335,7 +444,7 @@ public class vistaGrafica extends JFrame {
         Console = new javax.swing.JTextPane();
         viewBarrio = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        Mapa = new javax.swing.JTextPane();
         jSplitPane4 = new javax.swing.JSplitPane();
         ScrollsysRest1 = new javax.swing.JScrollPane();
         jTabbedPane5 = new javax.swing.JTabbedPane();
@@ -343,18 +452,18 @@ public class vistaGrafica extends JFrame {
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane6 = new javax.swing.JTabbedPane();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        tabVivU = new javax.swing.JTable();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
+        tabPubU = new javax.swing.JTable();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTable9 = new javax.swing.JTable();
+        tabComU = new javax.swing.JTable();
         jTabbedPane7 = new javax.swing.JTabbedPane();
         jScrollPane11 = new javax.swing.JScrollPane();
-        jTable10 = new javax.swing.JTable();
+        tabUbiU = new javax.swing.JTable();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTable11 = new javax.swing.JTable();
+        tabDemU = new javax.swing.JTable();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTable12 = new javax.swing.JTable();
+        tabEcoU = new javax.swing.JTable();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 3), new java.awt.Dimension(0, 3), new java.awt.Dimension(32767, 3));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(32767, 5));
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -362,6 +471,7 @@ public class vistaGrafica extends JFrame {
         newBar = new javax.swing.JMenuItem();
         Eliminar_barrio = new javax.swing.JMenuItem();
         guardarBarrio = new javax.swing.JMenuItem();
+        cargaBarrioMenu = new javax.swing.JMenuItem();
         newElem = new javax.swing.JMenu();
         CreaElem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -406,6 +516,11 @@ public class vistaGrafica extends JFrame {
         jButton3.setMinimumSize(new java.awt.Dimension(57, 18));
         jButton3.setPreferredSize(new java.awt.Dimension(57, 18));
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anadirRestBarrio(evt);
+            }
+        });
         jToolBar1.add(jButton3);
 
         jButton4.setText("-Res");
@@ -415,6 +530,11 @@ public class vistaGrafica extends JFrame {
         jButton4.setMinimumSize(new java.awt.Dimension(57, 18));
         jButton4.setPreferredSize(new java.awt.Dimension(57, 18));
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elimResBarrio(evt);
+            }
+        });
         jToolBar1.add(jButton4);
 
         jButton5.setText("+Car");
@@ -426,7 +546,7 @@ public class vistaGrafica extends JFrame {
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                anadirCarretera(evt);
             }
         });
         jToolBar1.add(jButton5);
@@ -438,6 +558,11 @@ public class vistaGrafica extends JFrame {
         jButton6.setMinimumSize(new java.awt.Dimension(50, 18));
         jButton6.setPreferredSize(new java.awt.Dimension(50, 18));
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarCarretera(evt);
+            }
+        });
         jToolBar1.add(jButton6);
 
         InfoBarrio.setText("Info barrio");
@@ -455,18 +580,33 @@ public class vistaGrafica extends JFrame {
         jButton8.setFocusable(false);
         jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editPresupuesto(evt);
+            }
+        });
         jToolBar1.add(jButton8);
 
         jButton9.setText("Poblacion");
         jButton9.setFocusable(false);
         jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editPoblacion(evt);
+            }
+        });
         jToolBar1.add(jButton9);
 
         jButton10.setText("Generar");
         jButton10.setFocusable(false);
         jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generarBarrio(evt);
+            }
+        });
         jToolBar1.add(jButton10);
 
         jSplitPane1.setDividerLocation(292);
@@ -656,7 +796,7 @@ public class vistaGrafica extends JFrame {
 
         jSplitPane3.setBottomComponent(jScrollPane1);
 
-        jScrollPane14.setViewportView(jTextPane1);
+        jScrollPane14.setViewportView(Mapa);
 
         org.jdesktop.layout.GroupLayout viewBarrioLayout = new org.jdesktop.layout.GroupLayout(viewBarrio);
         viewBarrio.setLayout(viewBarrioLayout);
@@ -719,7 +859,7 @@ public class vistaGrafica extends JFrame {
 
         jSplitPane4.setRightComponent(ScrollsysRest1);
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        tabVivU.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -745,12 +885,11 @@ public class vistaGrafica extends JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable7.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane8.setViewportView(jTable7);
+        jScrollPane8.setViewportView(tabVivU);
 
         jTabbedPane6.addTab("VIV", jScrollPane8);
 
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+        tabPubU.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -761,12 +900,11 @@ public class vistaGrafica extends JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable8.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane9.setViewportView(jTable8);
+        jScrollPane9.setViewportView(tabPubU);
 
         jTabbedPane6.addTab("PUB", jScrollPane9);
 
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+        tabComU.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -792,14 +930,13 @@ public class vistaGrafica extends JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable9.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane10.setViewportView(jTable9);
+        jScrollPane10.setViewportView(tabComU);
 
         jTabbedPane6.addTab("COM", jScrollPane10);
 
         jSplitPane4.setTopComponent(jTabbedPane6);
 
-        jTable10.setModel(new javax.swing.table.DefaultTableModel(
+        tabUbiU.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -825,12 +962,12 @@ public class vistaGrafica extends JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable10.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane11.setViewportView(jTable10);
+        tabUbiU.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane11.setViewportView(tabUbiU);
 
         jTabbedPane7.addTab("UBI", jScrollPane11);
 
-        jTable11.setModel(new javax.swing.table.DefaultTableModel(
+        tabDemU.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -849,11 +986,11 @@ public class vistaGrafica extends JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane12.setViewportView(jTable11);
+        jScrollPane12.setViewportView(tabDemU);
 
         jTabbedPane7.addTab("DEM", jScrollPane12);
 
-        jTable12.setModel(new javax.swing.table.DefaultTableModel(
+        tabEcoU.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -879,8 +1016,8 @@ public class vistaGrafica extends JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable12.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane13.setViewportView(jTable12);
+        tabEcoU.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane13.setViewportView(tabEcoU);
 
         jTabbedPane7.addTab("ECO", jScrollPane13);
 
@@ -913,6 +1050,14 @@ public class vistaGrafica extends JFrame {
             }
         });
         gestBarrio.add(guardarBarrio);
+
+        cargaBarrioMenu.setText("Cargar Barrio");
+        cargaBarrioMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarBarrio(evt);
+            }
+        });
+        gestBarrio.add(cargaBarrioMenu);
 
         jMenuBar1.add(gestBarrio);
 
@@ -1058,7 +1203,6 @@ public class vistaGrafica extends JFrame {
     private void CreaElemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreaElemActionPerformed
         formNewElem formulario = new formNewElem(this,true);
         formulario.setVisible(true);
-        boolean b;
         if(formulario.aceptado()){
             try{
             String nombre = formulario.getNombre();
@@ -1071,16 +1215,9 @@ public class vistaGrafica extends JFrame {
             int capacidad = formulario.getCapacidad();
             if(TE==1){
                 try {
-                    b = CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad,0);
-                    if(b){
-                        tabViv.setValueAt(nombre, indiceV, 0);
-                        tabViv.setValueAt(TB, indiceV, 1);
-                        tabViv.setValueAt(precio, indiceV, 2);
-                        tabViv.setValueAt(capacidad, indiceV, 3);
-                        tabViv.setValueAt(x, indiceV, 4);
-                        tabViv.setValueAt(y, indiceV, 5);
-                        ++indiceV;
-                    }
+                    CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad,0);
+                    initViviendas();
+                    Console.setText("Elemento creado correctamente");
                 } catch (Exception ex) {
                     Console.setText(ex.getMessage());
                 }
@@ -1088,33 +1225,18 @@ public class vistaGrafica extends JFrame {
             else if(TE==2){
                 int TEP = formulario.tipoDePublico();
                 try {
-                    b = CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad, TEP);
-                    if(b){
-                        tabPub.setValueAt(nombre, indiceP, 0);
-                        tabPub.setValueAt(TB, indiceP, 1);
-                        tabPub.setValueAt(precio, indiceP, 2);
-                        tabPub.setValueAt(TEP, indiceP, 3);
-                        tabPub.setValueAt(capacidad, indiceP, 4);
-                        tabPub.setValueAt(x, indiceP, 5);
-                        tabPub.setValueAt(y, indiceP, 6);
-                        ++indiceP;
-                    }
+                    CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad, TEP);
+                    initPublicos();
+                    Console.setText("Elemento creado correctamente");
                 } catch (Exception ex) {
                     Console.setText(ex.getMessage());
                 }
             }
             else if(TE==3){
                 try {
-                    b = CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad,0);
-                    if(b){
-                        tabCom.setValueAt(nombre, indiceC, 0);
-                        tabCom.setValueAt(TB, indiceC, 1);
-                        tabCom.setValueAt(precio, indiceC, 2);
-                        tabCom.setValueAt(capacidad, indiceC, 3);
-                        tabCom.setValueAt(x, indiceC, 4);
-                        tabCom.setValueAt(y, indiceC, 5);
-                        ++indiceC;
-                    }
+                    CtrlElem.CrearElemento(nombre, des, TE, TB, x, y, precio, capacidad,0);
+                    initComercios();
+                    Console.setText("Elemento creado correctamente");
                 } catch (Exception ex) {
                     Console.setText(ex.getMessage());
                 }
@@ -1165,22 +1287,20 @@ public class vistaGrafica extends JFrame {
 
     private void anadirElemento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirElemento
           addElemBar formulario = new addElemBar(this,true);
+          formulario.setVisible(true);
           if(formulario.Aceptado()){
                 String id = formulario.getNombre();
                 int cant = formulario.getCantidad();
             try{
                 CtrlBarrio.anadirElemBarrio(id, cant);
-                System.out.println("Elemento añadido correctamente");
+                initTablasBarrioElem();
+                Console.setText("Elemento añadido correctamente");
             }catch(Exception e){
-                System.out.println("No se pudo añadir el elemento");
-                System.out.println(e.getMessage());
+                Console.setText("No se pudo añadir el elemento: "+e.getMessage());
+                
             }
           }
     }//GEN-LAST:event_anadirElemento
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void guardaBarrio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaBarrio
         
@@ -1244,8 +1364,8 @@ public class vistaGrafica extends JFrame {
         
         Object seleccion = JOptionPane.showInputDialog(
                             this,
+                            "Seleccione el elemento que desea eliminar ",
                             "Eliminar Elemento",
-                            "Selecccione el elemento que desea eliminar",
                             JOptionPane.QUESTION_MESSAGE,
                             null,  // null para icono defecto
                              list," ");
@@ -1253,27 +1373,9 @@ public class vistaGrafica extends JFrame {
             try{
                 try{
                     CtrlElem.eliminarElemento(seleccion.toString());
-                    for(int i = 0;i<tablaVivienda.getRowCount();++i){
-                        if(tablaVivienda.getValueAt(i, 0).equals(seleccion)){
-                            tablaVivienda.removeRow(i);
-                            tablaVivienda.moveRow(i+1, tablaVivienda.getRowCount()-1, i);
-                            --indiceV;
-                        }
-                    }
-                    for(int i = 0;i<tablaComercio.getRowCount();++i){
-                        if(tablaComercio.getValueAt(i, 0).equals(seleccion)){
-                            tablaComercio.removeRow(i);
-                            tablaComercio.moveRow(i+1, tablaComercio.getRowCount()-1, i);
-                            --indiceC;
-                        }
-                    }
-                    for(int i = 0;i<tablaPublico.getRowCount();++i){
-                        if(tablaPublico.getValueAt(i, 0).equals(seleccion)){
-                            tablaPublico.removeRow(i);
-                            tablaPublico.moveRow(i+1, tablaPublico.getRowCount()-1, i);
-                            --indiceP;
-                        }
-                    }
+                    initViviendas();
+                    initPublicos();
+                    initComercios();
                     Console.setText("El Elemento "+seleccion.toString()+" ha sido eliminado correctamente");
                 }
                 catch(Exception e){
@@ -1309,7 +1411,10 @@ public class vistaGrafica extends JFrame {
             try{
                 try{
                     CtrlRest.Eliminar_Restriccion(seleccion.toString());
-                    for(int i = 0;i<tablaUbic.getRowCount();++i){
+                    initUbicacion();
+                    initDemograficas();
+                    initEconomicas();
+                    /*for(int i = 0;i<tablaUbic.getRowCount();++i){
                         if(tablaUbic.getValueAt(i, 0).equals(seleccion)){
                             tablaUbic.removeRow(i);
                             tablaUbic.moveRow(i+1, tablaUbic.getRowCount()-1, i);
@@ -1329,7 +1434,7 @@ public class vistaGrafica extends JFrame {
                             tablaEco.moveRow(i+1, tablaEco.getRowCount()-1, i);
                             --indiceE;
                         }
-                    }
+                    }*/
                     Console.setText("La restriccion "+seleccion.toString()+" ha sido eliminado correctamente");
                 }
                 catch(Exception e){
@@ -1368,11 +1473,7 @@ public class vistaGrafica extends JFrame {
                         int distancia = formulario.getDistancia();
                         try{
                             CtrlRest.CrearRestriccion(nombre, "ubicacion", e1, e2, distancia, 0, 0);
-                            tabUbi.setValueAt(nombre, indiceU, 0);
-                            tabUbi.setValueAt(e1, indiceU, 1);
-                            tabUbi.setValueAt(e2, indiceU, 2);
-                            tabUbi.setValueAt(distancia, indiceU, 3);
-                            indiceU++;
+                            initUbicacion();
                             Console.setText("Restriccion de ubicacion creada correctamente");
                         }
                         catch(Exception e){
@@ -1391,10 +1492,7 @@ public class vistaGrafica extends JFrame {
                         int hab = formulario.getHabitantes();
                         try{
                             CtrlRest.CrearRestriccion(nombre, "demografica", e1, "-1", hab, 0, 0);
-                            tabDem.setValueAt(nombre, indiceD, 0);
-                            tabDem.setValueAt(e1, indiceD, 1);
-                            tabDem.setValueAt(hab, indiceD, 2);
-                            indiceD++;
+                            initDemograficas();
                             Console.setText("Restriccion de ubicacion creada correctamente");
                         }
                         catch(Exception e){
@@ -1407,17 +1505,12 @@ public class vistaGrafica extends JFrame {
                         
                 }
                 
-                if(formulario.getTipo() == 1) {
+                if(formulario.getTipo() == 3) {
                     try{
                         int [] pres = formulario.getPresupuestos();
                         try{
                             CtrlRest.CrearRestriccion(nombre, "economica", "-1", "-1", pres[0], pres[1], pres[2]);
-                            tabDem.setValueAt(nombre, indiceD, 0);
-                            tabDem.setValueAt(pres[0]+pres[1]+pres[2], indiceD, 1);
-                            tabDem.setValueAt(pres[0], indiceD, 2);
-                            tabDem.setValueAt(pres[1], indiceD, 3);
-                            tabDem.setValueAt(pres[2], indiceD, 4);
-                            indiceD++;
+                            initDemograficas();
                             Console.setText("Restriccion de ubicacion creada correctamente");
                         }
                         catch(Exception e){
@@ -1436,6 +1529,155 @@ public class vistaGrafica extends JFrame {
             }
         }   
     }//GEN-LAST:event_creaRes
+
+    private void cargarBarrio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarBarrio
+        ArrayList<String> barrios = CtrlBarrio.listarBarrios();
+        Object[] list = new Object[barrios.size()];
+        for(int i=0;i<barrios.size();++i){
+            list[i] = barrios.get(i);
+        }
+        
+        Object seleccion = JOptionPane.showInputDialog(
+                            this,
+                            "Eliminar Barrio",
+                            "Seleccione el barrio que desea eliminar",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,  // null para icono defecto
+                             list," ");
+        if(seleccion!=null){
+            try {
+                int tipo = CtrlBarrio.cargarBarrio(seleccion.toString());
+                initTablasBarrioElem();
+                initTablasBarrioRest();
+                barrioCargado();
+                if(tipo==1)modoLibre();
+                Console.setText("Barrio Cargado correctamentes");
+            } catch (Exception ex) {
+                System.out.println("CHIVATOO");
+                Console.setText(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_cargarBarrio
+
+    private void anadirRestBarrio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirRestBarrio
+        Set<String> rest = CtrlRest.ListaNombreRestricciones();
+        Object[] list = new Object[rest.size()+1];
+        Iterator j = rest.iterator();
+        for(int i=0;j.hasNext();++i){
+            list[i] = j.next();
+            //elementos.iterator().
+        }
+        
+        Object seleccion = JOptionPane.showInputDialog(
+                            this,
+                            "Añadir restriccion al barrio",
+                            "Seleccione la restriccion que desea añadir",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,  // null para icono defecto
+                             list,"  ");
+        if(seleccion!=null){
+            try{
+                CtrlBarrio.anadirRestBarrio(seleccion.toString());
+                initTablasBarrioRest();
+                Console.setText("La Restriccion "+seleccion.toString()+" ha sido añadida a tu barrio!");
+                
+            }catch(Exception e){
+                Console.setText(e.getMessage());
+            }
+        }
+        
+    }//GEN-LAST:event_anadirRestBarrio
+
+    private void anadirCarretera(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirCarretera
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anadirCarretera
+
+    private void eliminarCarretera(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarCarretera
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarCarretera
+
+    private void editPresupuesto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPresupuesto
+        FormPresPob formulario = new FormPresPob(this,true);
+        formulario.setVisible(true);
+        if(formulario.aceptado()){
+            try{
+                int cantidad = formulario.getCantidad();
+                try{
+                    CtrlBarrio.setPresupuestoBarrio(cantidad);
+                }catch(Exception e){
+                    Console.setText(e.getMessage());
+                }
+            }catch(Exception e){
+                Console.setText("Introduza una cantidad porfavor");
+                JOptionPane.showMessageDialog(
+                            this,
+                            "NO VAYAS DE TROLL Y PON UNA CANTIDAD!!");
+            }
+        }
+    }//GEN-LAST:event_editPresupuesto
+
+    private void editPoblacion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPoblacion
+        FormPresPob formulario = new FormPresPob(this,true);
+        formulario.setVisible(true);
+        if(formulario.aceptado()){
+            try{
+                int cantidad = formulario.getCantidad();
+                try{
+                    CtrlBarrio.setPoblacionbarrio(cantidad);
+                }catch(Exception e){
+                    Console.setText(e.getMessage());
+                }
+            }catch(Exception e){
+                Console.setText("Introduza una cantidad porfavor");
+                JOptionPane.showMessageDialog(
+                            this,
+                            "NO VAYAS DE TROLL Y PON UNA CANTIDAD!!");
+            }
+        }
+    }//GEN-LAST:event_editPoblacion
+
+    private void generarBarrio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarBarrio
+        int seleccion = JOptionPane.showOptionDialog(
+                        this,
+                        "El barrio actual se perdera, quiere continuar de todos modos?", 
+                        "Generar Barrio",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,    // null para icono por defecto.
+                        new Object[] { "Si", "No"},   // null para YES, NO y CANCEL
+                        "Si");
+        if(seleccion==0){
+            int seleccion2 = JOptionPane.showOptionDialog(
+                            this,
+                            "Desea comprobar si dispone de suficientes servicios publicos para atender a la poblacion? ", 
+                            "Generar Barrio",
+                            JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,    // null para icono por defecto.
+                            new Object[] { "Si", "No"},   // null para YES, NO y CANCEL
+                            "Si");
+            if(seleccion2==0){
+                try {
+                    CtrlBarrio.generarBarrio(true);
+                } catch (Exception ex) {
+                    Console.setText(ex.getMessage());
+                }
+            }
+            else {
+               try {
+                    CtrlBarrio.generarBarrio(false);
+                } catch (Exception ex) {
+                    Console.setText(ex.getMessage());
+                } 
+            }
+            
+        }
+        mostrarBarrio();
+    }//GEN-LAST:event_generarBarrio
+
+    private void elimResBarrio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elimResBarrio
+        // TODO add your handling code here:
+    }//GEN-LAST:event_elimResBarrio
 
     /**
      * @param args the command line arguments
@@ -1476,9 +1718,11 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JMenuItem CreaElem;
     private javax.swing.JMenuItem Eliminar_barrio;
     private javax.swing.JButton InfoBarrio;
+    private javax.swing.JTextPane Mapa;
     private javax.swing.JScrollPane ScrollsysRest;
     private javax.swing.JScrollPane ScrollsysRest1;
     private javax.swing.JButton addElem;
+    private javax.swing.JMenuItem cargaBarrioMenu;
     private javax.swing.JTabbedPane elemSisTab;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
@@ -1526,23 +1770,22 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JTabbedPane jTabbedPane6;
     private javax.swing.JTabbedPane jTabbedPane7;
-    private javax.swing.JTable jTable10;
-    private javax.swing.JTable jTable11;
-    private javax.swing.JTable jTable12;
-    private javax.swing.JTable jTable7;
-    private javax.swing.JTable jTable8;
-    private javax.swing.JTable jTable9;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem newBar;
     private javax.swing.JMenu newElem;
     private javax.swing.JMenu newRes;
     private javax.swing.JTable tabCom;
+    private javax.swing.JTable tabComU;
     private javax.swing.JTable tabDem;
+    private javax.swing.JTable tabDemU;
     private javax.swing.JTable tabEco;
+    private javax.swing.JTable tabEcoU;
     private javax.swing.JTable tabPub;
+    private javax.swing.JTable tabPubU;
     private javax.swing.JTable tabUbi;
+    private javax.swing.JTable tabUbiU;
     private javax.swing.JTable tabViv;
+    private javax.swing.JTable tabVivU;
     private javax.swing.JPanel viewBarrio;
     // End of variables declaration//GEN-END:variables
 }
