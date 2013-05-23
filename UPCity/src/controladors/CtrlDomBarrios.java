@@ -36,7 +36,7 @@ public class CtrlDomBarrios {
     private stubbedElementosGDP GDPElem;
     private stubbedRestriccionesGDP GDPRest;
     private stubbedBarriosGDP GDPBarr;
-    private ArrayList<Pair<Integer,Integer>> vectorPosiciones;
+    
     
     private int controlait;
    
@@ -96,16 +96,17 @@ public class CtrlDomBarrios {
         RestEcon = null;
         Mapa = new Plano();
         copia = new Plano();
-        vectorPosiciones = new ArrayList();
         B.setNombreBarrio(nombre);
         B.setTipoBarrio(tip);
         B.setModo(modo);
+        if(modo == 0){
         ArrayList<String> res = DOMRest.listarRestGenerales();
-        for(int i=0; i<res.size(); ++i){
-            try{
-                anadirRestBarrio(res.get(i));
-            }catch(Exception e){
+            for(int i=0; i<res.size(); ++i){
+                try{
+                    anadirRestBarrio(res.get(i));
+                }catch(Exception e){
 
+                }
             }
         }
         return true;
@@ -137,12 +138,13 @@ public class CtrlDomBarrios {
         RestEcon = null;
         Mapa = new Plano();
         copia = new Plano();
-        vectorPosiciones = new ArrayList();
         B = aux;
         Mapa = GDPBarr.leerMapa(nombre);
         copia = GDPBarr.leerCopiaMapa(nombre);
-        CjtRest = GDPBarr.leerCjtRest(nombre);
-        transRestBarrio();
+        if(modo == 0){
+            CjtRest = GDPBarr.leerCjtRest(nombre);
+            transRestBarrio();
+        }
         CjtElem = GDPBarr.leerCjtElem(nombre);
         return true;
         
@@ -439,9 +441,38 @@ public class CtrlDomBarrios {
         } 
         anadirElemBarrio(Elem, 1);
         Elemento e = DOMElem.getElemento(Elem);
-        dropElemento(e.getId(),posX,posY);
+        int tamX,tamY;
+        if(e instanceof Vivienda){
+            Vivienda v = (Vivienda) e;
+            tamX = v.getTamanoX();
+            tamY = v.getTamanoY();
+        }
+        else if(e instanceof Publico){
+            Publico p = (Publico) e;
+            tamX = p.getTamanoX();
+            tamY = p.getTamanoY();
+        }
+        else{
+            Comercio c = (Comercio) e;
+            tamX = c.getTamanoX();
+            tamY = c.getTamanoY();
+        }
+        for(int i=posX; i<posX+tamX; ++i){
+            for(int j=posY; j<posY+tamY; ++j){
+                if (i < 0 || i >= Mapa.tama() || j < 0 || j >= Mapa.tamb()){
+                    throw new Exception("\nEl elemento no cabe en esa posicion.\n");
+                }
+                Parcela aux = Mapa.pos(i, j);
+                if (aux.getoid() != 0){
+                    throw new Exception("\nYa hay un Elemento o carretera en esa ubicacion.\n");
+                }
+            }
+        }
+        Mapa.expande(posX,posY,tamX,tamY,(int)e.getId(), null, true);
         Pair<Integer,Integer> pos = new Pair(posX,posY);
-        vectorPosiciones.add(pos);
+        ArrayList<Pair<Integer,Integer>> posiciones = B.getPosiciones();
+        posiciones.add(pos);
+        B.setPosiciones(posiciones);
     }
     
     
@@ -450,30 +481,45 @@ public class CtrlDomBarrios {
             throw new Exception("\nLa posicion no es correcta.\n");
         }
         boolean b=false;
-        for(int i=0; i<vectorPosiciones.size() && b==false; ++i){
-            if(posX == vectorPosiciones.get(i).getFirst() &&
-               posY == vectorPosiciones.get(i).getSecond()){
+        ArrayList<Pair<Integer,Integer>> posiciones = B.getPosiciones();
+        for(int i=0; i<posiciones.size() && b==false; ++i){
+            if(posX == posiciones.get(i).getFirst() &&
+               posY == posiciones.get(i).getSecond()){
                b = true;
+               posiciones.remove(i);
             }
         }
         if(!b){
             throw new Exception("\nEn esta posicion no hay ningun elemento.\n"
                     + "nota: Ha de seleccionar la esquina superior izquierda del elemento\n");
         }
+        B.setPosiciones(posiciones);
         Parcela aux = Mapa.pos(posY, posY);
-        String Elem = DOMElem.NombreElemento(aux.getoid());
+        Pair<Integer,Elemento> par = (Pair) CjtElem.get(aux.getoid());
+        Elemento e = par.getSecond();
+        String Elem = e.getNom();
+        int tamX,tamY;
+        if(e instanceof Vivienda){
+            Vivienda v = (Vivienda) e;
+            tamX = v.getTamanoX();
+            tamY = v.getTamanoY();
+        }
+        else if(e instanceof Publico){
+            Publico p = (Publico) e;
+            tamX = p.getTamanoX();
+            tamY = p.getTamanoY();
+        }
+        else{
+            Comercio c = (Comercio) e;
+            tamX = c.getTamanoX();
+            tamY = c.getTamanoY();
+        }
         quitarElemento(Elem, 1);
+        Mapa.expande(posX,posY,tamX,tamY,0,null,false);
     }
     
     
-    private void dropElemento(Integer oid,int posX,int posY){
-        
-    }
     
-    
-    private void takeElemento(int posX, int posY){
-        
-    }
     
     
     /**

@@ -4,7 +4,9 @@
  */
 package barrio;
 
+import Auxiliares.Pair;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 
@@ -32,6 +34,7 @@ public class Barrio implements Serializable{
     private int Capacidad_comercio;
     private int PresAnterior;
     
+    private ArrayList<Pair<Integer,Integer>> posiciones;
     private int Modo;
     
   
@@ -53,6 +56,8 @@ public class Barrio implements Serializable{
         CapOcio = 0;
         Capacidad_comercio = 0;
         PresAnterior = 0;
+        posiciones = new ArrayList();
+        Modo = 0;
     }
     
     
@@ -73,6 +78,8 @@ public class Barrio implements Serializable{
         CapOcio = 0;
         Capacidad_comercio = 0;
         PresAnterior = 0;
+        posiciones = new ArrayList();
+        Modo = 0;
     }
       
     
@@ -148,6 +155,10 @@ public class Barrio implements Serializable{
         Modo = m;
     }
     
+    public void setPosiciones(ArrayList<Pair<Integer,Integer>> pos){
+        posiciones = pos;
+    }
+    
     
     
     /////CONSULTORAS/////
@@ -214,6 +225,10 @@ public class Barrio implements Serializable{
     
     public int getModo(){
         return Modo;
+    }
+    
+    public ArrayList<Pair<Integer,Integer>> getPosiciones(){
+        return posiciones;
     }
     
 }
