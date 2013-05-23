@@ -278,7 +278,6 @@ public class CtrlDomRestricciones {
         else if(restdemografica.containsKey(id)) {
             if(!RestGDP.existeRestEnBarrios(id)){
                 RestGDP.eliminarRestDisco(id);
-                RestGDP.borrarRestGeneral(id);
                 restdemografica.remove(id);
                 ret = true;
             }

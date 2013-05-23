@@ -12,6 +12,7 @@ import elementos.*;
 import barrio.Barrio;
 import java.util.ArrayList;
 import java.util.HashMap;
+import mapa.Parcela;
 import mapa.Plano;
 
 /**
@@ -35,6 +36,7 @@ public class CtrlDomBarrios {
     private stubbedElementosGDP GDPElem;
     private stubbedRestriccionesGDP GDPRest;
     private stubbedBarriosGDP GDPBarr;
+    private ArrayList<Pair<Integer,Integer>> vectorPosiciones;
     
     private int controlait;
    
@@ -79,30 +81,34 @@ public class CtrlDomBarrios {
      * @return Retorna si ha sido posible crear el barrio, cierto si no existe
      * un barrio con ese nombre todavia y falso si ese barrio existe.
      */
-    public boolean crearBarrio(String nombre, int tip, int modo){
-        if(!TablaBarrios.containsKey(nombre) && tip>=0 && tip<=3){
-            B = new Barrio();
-            CjtElem = new Cjt_Edificios();
-            CjtRest = new TreeMap();
-            CjtRestUbic1 = new HashMap();
-            CjtRestDemog = new HashMap();
-            RestEcon = null;
-            Mapa = new Plano();
-            copia = new Plano();
-            B.setNombreBarrio(nombre);
-            B.setTipoBarrio(tip);
-            B.setModo(modo);
-            ArrayList<String> res = DOMRest.listarRestGenerales();
-            for(int i=0; i<res.size(); ++i){
-                try{
-                    anadirRestBarrio(res.get(i));
-                }catch(Exception e){
-                    
-                }
-            }
-            return true;
+    public boolean crearBarrio(String nombre, int tip, int modo) throws Exception{
+        if(TablaBarrios.containsKey(nombre)){
+            throw new Exception("\nYa existe un barrio con este nombre.\n");
         }
-        else return false;
+        if(tip<0 || tip>3){
+            throw new Exception("\nTipo de barrio incorrecto.\n");
+        }
+        B = new Barrio();
+        CjtElem = new Cjt_Edificios();
+        CjtRest = new TreeMap();
+        CjtRestUbic1 = new HashMap();
+        CjtRestDemog = new HashMap();
+        RestEcon = null;
+        Mapa = new Plano();
+        copia = new Plano();
+        vectorPosiciones = new ArrayList();
+        B.setNombreBarrio(nombre);
+        B.setTipoBarrio(tip);
+        B.setModo(modo);
+        ArrayList<String> res = DOMRest.listarRestGenerales();
+        for(int i=0; i<res.size(); ++i){
+            try{
+                anadirRestBarrio(res.get(i));
+            }catch(Exception e){
+
+            }
+        }
+        return true;
     }
     
     
@@ -131,6 +137,7 @@ public class CtrlDomBarrios {
         RestEcon = null;
         Mapa = new Plano();
         copia = new Plano();
+        vectorPosiciones = new ArrayList();
         B = aux;
         Mapa = GDPBarr.leerMapa(nombre);
         copia = GDPBarr.leerCopiaMapa(nombre);
@@ -426,6 +433,49 @@ public class CtrlDomBarrios {
     }
     
     
+    public void draguearElemBarrio(String Elem,int posX, int posY) throws Exception{
+        if (posX < 0 || posX >= Mapa.tama() || posY < 0 || posY >= Mapa.tamb()){
+            throw new Exception("\nLa posicion no es correcta.\n");
+        } 
+        anadirElemBarrio(Elem, 1);
+        Elemento e = DOMElem.getElemento(Elem);
+        dropElemento(e.getId(),posX,posY);
+        Pair<Integer,Integer> pos = new Pair(posX,posY);
+        vectorPosiciones.add(pos);
+    }
+    
+    
+    public void takearElemBarrio(int posX, int posY) throws Exception{
+        if (posX < 0 || posX >= Mapa.tama() || posY < 0 || posY >= Mapa.tamb()){
+            throw new Exception("\nLa posicion no es correcta.\n");
+        }
+        boolean b=false;
+        for(int i=0; i<vectorPosiciones.size() && b==false; ++i){
+            if(posX == vectorPosiciones.get(i).getFirst() &&
+               posY == vectorPosiciones.get(i).getSecond()){
+               b = true;
+            }
+        }
+        if(!b){
+            throw new Exception("\nEn esta posicion no hay ningun elemento.\n"
+                    + "nota: Ha de seleccionar la esquina superior izquierda del elemento\n");
+        }
+        Parcela aux = Mapa.pos(posY, posY);
+        String Elem = DOMElem.NombreElemento(aux.getoid());
+        quitarElemento(Elem, 1);
+    }
+    
+    
+    private void dropElemento(Integer oid,int posX,int posY){
+        
+    }
+    
+    
+    private void takeElemento(int posX, int posY){
+        
+    }
+    
+    
     /**
      * Añade cant Elementos con el nombre Elem al barrio sobre el que se
      * trabaja, ambos pasados como parametros a la funcion.
@@ -660,17 +710,17 @@ public class CtrlDomBarrios {
      * @param x Fila del mapa donde se insertara la carretera
      * @param y Columna del mapa donde se nsertara la carretera
      */
-    public boolean insertarCarretera(int x,int y) {
+    public boolean insertarCarretera(int x,int y) throws Exception {
         
-        if (x < 0 || x >= Mapa.tama()) return false;
-        if (y < 0 || y >= Mapa.tamb()) return false;
-        
-        if(Mapa.pos(x, y).getoid()==0){
-            Mapa.pos(x, y).modificarPar(-1, 0);
-            copia.pos(x, y).modificarPar(-1, 0);
-            return true;
+        if (x < 0 || x >= Mapa.tama() || y < 0 || y >= Mapa.tamb()){
+            throw new Exception("\nLa posicion no es correcta.\n");
         }
-        return false;
+        if(Mapa.pos(x, y).getoid()!=0){
+            throw new Exception("\nLa posicion esta ocupada.\n");
+        }
+        Mapa.pos(x, y).modificarPar(-1, 0);
+        copia.pos(x, y).modificarPar(-1, 0);
+        return true;
     }
     
     

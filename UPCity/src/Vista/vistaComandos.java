@@ -550,7 +550,7 @@ public class vistaComandos {
     }
     
     
-    private boolean crearBarrio(){
+    private void crearBarrio(){
         System.out.println("Crear barrio:");
         System.out.println("Introduzca el nombre del Barrio:");
         Scanner parametros = new Scanner(System.in);
@@ -558,14 +558,14 @@ public class vistaComandos {
         System.out.println("Introduzca el tipo de barrio:");
         System.out.println("(0-3)");
         int tipo = (int)parametros.nextInt();
-        boolean aux = CtrlBarrio.crearBarrio(nombre, tipo,0);
+        try{
+        CtrlBarrio.crearBarrio(nombre, tipo,0);
         
-        if(aux){
         System.out.println("Introduzca el presupuesto disponible para el barrio:");
         System.out.println("Nota: Si no quiere limitar su barrio a un presupuesto, introduzca un 0,\n"
                 + "asi simplmente se le mostrara el presupuesto gastado como valor informativo");
         int Presupuesto;
-        boolean b=false;;
+        boolean b=false;
         while(!b){
             Presupuesto = (int)parametros.nextInt();
             try{
@@ -579,7 +579,7 @@ public class vistaComandos {
         System.out.println("Nota: Si no quiere limitar el barrio a una poblacion, introduzca un 0\n"
                 + "asi simplemente se le mostrara la poblacion posible como valor informativo");
         int Poblacion;
-        b=false;;
+        b=false;
         while(!b){
             Poblacion = (int)parametros.nextInt();
             try{
@@ -593,7 +593,7 @@ public class vistaComandos {
         int x = (int)parametros.nextInt();
         System.out.println("Introduzca el numero de parcelas verticales del barrio:");
         int y = (int)parametros.nextInt();
-        aux = CtrlBarrio.crearMapaBarrio(x, y);
+        CtrlBarrio.crearMapaBarrio(x, y);
         
         System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
                 + "3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n"
@@ -728,8 +728,12 @@ public class vistaComandos {
                          int f = param5.nextInt();
                          System.out.println("Inserte la columna donde quiere posicionar la carretera:");
                          int c = param5.nextInt();
-                         b =CtrlBarrio.insertarCarretera(f, c);
-                         if(!b)System.out.println("No se pudo insertar la carretera en la posicion especificada");
+                         try{
+                            CtrlBarrio.insertarCarretera(f, c);
+                            System.out.println("La carretera se ha insertado correctamente");
+                         }catch(Exception e){
+                            System.out.println(e.getMessage());
+                         }
                          break;
                 default: System.out.println("Opcio Invalida");    
             }
@@ -741,9 +745,10 @@ public class vistaComandos {
                 + "15-Insertar carretera\n0-Salir");
           n = (int)action.nextInt();
          }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
-        else System.out.println("No se ha podido crear Barrio");
-        return true;
+        
     }
     
     private void cargarBarrio(){
@@ -893,9 +898,13 @@ public class vistaComandos {
                              int f = param5.nextInt();
                              System.out.println("Inserte la columna donde quiere posicionar la carretera:");
                              int c = param5.nextInt();
-                             boolean b =CtrlBarrio.insertarCarretera(f, c);
-                             if(!b)System.out.println("No se pudo insertar la carretera en la posicion especificada");
-                             break;
+                            try{
+                                CtrlBarrio.insertarCarretera(f, c);
+                                System.out.println("La carretera se ha insertado correctamente");
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;
                     default: System.out.println("Opcio Invalida");    
                 }
               System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
@@ -913,6 +922,253 @@ public class vistaComandos {
             
         }
         
+    }
+    
+    
+    private void crearBarrioDrag(){
+        
+        System.out.println("Crear barrio:");
+        System.out.println("Introduzca el nombre del Barrio:");
+        Scanner parametros = new Scanner(System.in);
+        String nombre = parametros.nextLine();
+        System.out.println("Introduzca el tipo de barrio:");
+        System.out.println("(0-3)");
+        int tipo = (int)parametros.nextInt();
+        try{
+            CtrlBarrio.crearBarrio(nombre, tipo,1);
+            System.out.println("Introduzca el presupuesto disponible para el barrio:");
+            System.out.println("Nota: Si no quiere limitar su barrio a un presupuesto, introduzca un 0,\n"
+                    + "asi simplmente se le mostrara el presupuesto gastado como valor informativo");
+            int Presupuesto;
+            boolean b=false;
+            while(!b){
+                Presupuesto = (int)parametros.nextInt();
+                try{
+                    CtrlBarrio.setPresupuestoBarrio(Presupuesto);
+                    b = true;
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+            System.out.println("Introduzca la poblacion del barrio:");
+            System.out.println("Nota: Si no quiere limitar el barrio a una poblacion, introduzca un 0\n"
+                    + "asi simplemente se le mostrara la poblacion posible como valor informativo");
+            int Poblacion;
+            b=false;
+            while(!b){
+                Poblacion = (int)parametros.nextInt();
+                try{
+                    CtrlBarrio.setPoblacionbarrio(Poblacion);
+                    b = true;
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+            System.out.println("Introduzca el numero de parcelas horizontales del barrio:");
+            int x = (int)parametros.nextInt();
+            System.out.println("Introduzca el numero de parcelas verticales del barrio:");
+            int y = (int)parametros.nextInt();
+            CtrlBarrio.crearMapaBarrio(x, y);
+
+             
+             
+             System.out.println("Barrio creado correctamente");
+             System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
+                 + "3-Crear Elemento\n4-Insertar carretera\n5-Mostrar mi barrio\n6-Mostrar informacion del Barrio\n"
+                 + "7-Modificar Presupuesto del Barrio\n8-Modificar Poblacion del Barrio\n"
+                 + "9-Mostrar Conjunto de Elementos\n10-Guardar mi barrio\n0-Salir");
+             
+             Scanner action = new Scanner(System.in);
+             int n=(int)action.nextInt();
+             Scanner param = new Scanner(System.in);
+             while(n!=0){
+                String id;
+                switch(n){
+
+                    case 1: listarElementos(CtrlBarrio.getTipoBarrio());
+                            System.out.println("Escriba el nombre del elemento que desea añadir al barrio: ");
+                            id = param.nextLine();
+                            System.out.println("Escriba la fila donde quiere ubicar el Elemento:");
+                            x = (int) param.nextInt();
+                            System.out.println("Escriba la columna donde quiere ubicar el Elemento:");
+                            y = (int) param.nextInt();
+                            try{
+                                CtrlBarrio.draguearElemBarrio(id, x, y);
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+                    case 2: mostrarCjtElem();
+                            System.out.println("Escriba la fila donde se ubica el Elemento que desea retirar:");
+                            x = (int) param.nextInt();
+                            System.out.println("Escriba la columna donde se ubica el Elemento que desea retirar:");
+                            y = (int) param.nextInt();
+                            try{
+                                CtrlBarrio.takearElemBarrio(x, y);
+                                System.out.println("Elemento eliminado correctamente");
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+                    case 3: crearElemento();
+                            break;
+                    case 4: System.out.println("Inserte la fila donde quiere posicionar la carretera:");
+                            Scanner param5 = new Scanner(System.in);
+                            int f = param5.nextInt();
+                            System.out.println("Inserte la columna donde quiere posicionar la carretera:");
+                            int c = param5.nextInt();
+                            try{
+                                CtrlBarrio.insertarCarretera(f, c);
+                                System.out.println("La carretera se ha insertado correctamente");
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+                   case 5:  System.out.println("Mostrando barrio:");
+                            mostrarBarrio();
+                            break;
+                   case 6:  mostrarInfoBarrio();
+                            break;
+                   case 7:  System.out.println("Introduzca el presupuesto disponible para el barrio:");
+                            System.out.println("Nota: Si no quiere limitar su barrio a un presupuesto, introduzca un 0,\n"
+                            + "asi simplmente se le mostrara el presupuesto gastado como valor informativo");
+                            Presupuesto = (int)parametros.nextInt();
+                            try{
+                                CtrlBarrio.setPresupuestoBarrio(Presupuesto);
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+                   case 8:  System.out.println("Introduzca la poblacion del barrio:");
+                            System.out.println("Nota: Si no quiere limitar el barrio a una poblacion, introduzca un 0\n"
+                            + "asi simplemente se le mostrara la poblacion posible como valor informativo");
+                            Poblacion = (int)parametros.nextInt();
+                            try{
+                                CtrlBarrio.setPoblacionbarrio(Poblacion);
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;    
+                    case 9: mostrarCjtElem();
+                            break;
+                    case 10: System.out.println("Guardando barrio");
+                             CtrlBarrio.guardarBarrio();
+                             break;
+                    default: System.out.println("Opcio Invalida");    
+                }
+                System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
+                 + "3-Crear Elemento\n4-Insertar carretera\n5-Mostrar mi barrio\n6-Mostrar informacion del Barrio\n"
+                 + "7-Modificar Presupuesto del Barrio\n8-Modificar Poblacion del Barrio\n"
+                 + "9-Mostrar Conjunto de Elementos\n10-Guardar mi barrio\n0-Salir");
+                n=(int)action.nextInt();
+             }
+         }catch(Exception e){
+             System.out.println(e.getMessage());
+         }
+    }
+    
+    
+    private void cargarBarrioDrag(){
+         mostrarBarrios();
+         System.out.println("Introduzca el nombre del Barrio:");
+         Scanner parametros = new Scanner(System.in);
+         String nombre = parametros.nextLine();
+         
+         try{
+             CtrlBarrio.cargarBarrio(nombre,1);
+             System.out.println("Barrio cargado correctamente");
+             System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
+                 + "3-Crear Elemento\n4-Insertar carretera\n5-Mostrar mi barrio\n6-Mostrar informacion del Barrio\n"
+                 + "7-Modificar Presupuesto del Barrio\n8-Modificar Poblacion del Barrio\n"
+                 + "9-Mostrar Conjunto de Elementos\n10-Guardar mi barrio\n0-Salir");
+             
+             Scanner action = new Scanner(System.in);
+             int n=(int)action.nextInt();
+             Scanner param = new Scanner(System.in);
+             while(n!=0){
+                String id;
+                switch(n){
+
+                    case 1: listarElementos(CtrlBarrio.getTipoBarrio());
+                            System.out.println("Escriba el nombre del elemento que desea añadir al barrio: ");
+                            id = param.nextLine();
+                            System.out.println("Escriba la fila donde quiere ubicar el Elemento:");
+                            int x = (int) param.nextInt();
+                            System.out.println("Escriba la columna donde quiere ubicar el Elemento:");
+                            int y = (int) param.nextInt();
+                            try{
+                                CtrlBarrio.draguearElemBarrio(id, x, y);
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+                    case 2: mostrarCjtElem();
+                            System.out.println("Escriba la fila donde se ubica el Elemento que desea retirar:");
+                            x = (int) param.nextInt();
+                            System.out.println("Escriba la columna donde se ubica el Elemento que desea retirar:");
+                            y = (int) param.nextInt();
+                            try{
+                                CtrlBarrio.takearElemBarrio(x, y);
+                                System.out.println("Elemento eliminado correctamente");
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+                    case 3: crearElemento();
+                            break;
+                    case 4: System.out.println("Inserte la fila donde quiere posicionar la carretera:");
+                            Scanner param5 = new Scanner(System.in);
+                            int f = param5.nextInt();
+                            System.out.println("Inserte la columna donde quiere posicionar la carretera:");
+                            int c = param5.nextInt();
+                            try{
+                                CtrlBarrio.insertarCarretera(f, c);
+                                System.out.println("La carretera se ha insertado correctamente");
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+                   case 5:  System.out.println("Mostrando barrio:");
+                            mostrarBarrio();
+                            break;
+                   case 6:  mostrarInfoBarrio();
+                            break;
+                   case 7:  System.out.println("Introduzca el presupuesto disponible para el barrio:");
+                            System.out.println("Nota: Si no quiere limitar su barrio a un presupuesto, introduzca un 0,\n"
+                            + "asi simplmente se le mostrara el presupuesto gastado como valor informativo");
+                            int Presupuesto = (int)parametros.nextInt();
+                            try{
+                                CtrlBarrio.setPresupuestoBarrio(Presupuesto);
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+                   case 8:  System.out.println("Introduzca la poblacion del barrio:");
+                            System.out.println("Nota: Si no quiere limitar el barrio a una poblacion, introduzca un 0\n"
+                            + "asi simplemente se le mostrara la poblacion posible como valor informativo");
+                            int Poblacion = (int)parametros.nextInt();
+                            try{
+                                CtrlBarrio.setPoblacionbarrio(Poblacion);
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            break;    
+                    case 9: mostrarCjtElem();
+                            break;
+                    case 10: System.out.println("Guardando barrio");
+                             CtrlBarrio.guardarBarrio();
+                             break;
+                    default: System.out.println("Opcio Invalida");    
+                }
+                System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
+                 + "3-Crear Elemento\n4-Insertar carretera\n5-Mostrar mi barrio\n6-Mostrar informacion del Barrio\n"
+                 + "7-Modificar Presupuesto del Barrio\n8-Modificar Poblacion del Barrio\n"
+                 + "9-Mostrar Conjunto de Elementos\n10-Guardar mi barrio\n0-Salir");
+                n=(int)action.nextInt();
+             }
+         }catch(Exception e){
+             System.out.println(e.getMessage());
+         }
     }
     
     private boolean eliminarBarrio(){
@@ -943,9 +1199,31 @@ public class vistaComandos {
         while(n!=5){
             switch(n){
             
-                case 1: crearBarrio();
+                case 1: System.out.println("\nQue modo desea utilizar en la creacion?\n"
+                        + "nota: El modo no se puede modificar y ambos modos son incompatibles entre si\n"
+                        + "Si se crea un barrio en un modo solo se puede cargar con ese mismo modo.\n"
+                        + "1-Modo Generador\n2-Modo Drah&Drop\n");
+                        int m = (int)action.nextInt();
+                        switch(m){
+                            case 1: crearBarrio();
+                                    break;
+                            case 2: crearBarrioDrag();
+                                    break;
+                            default: System.out.println("Opcio Invalida");
+                        }
                         break;
-                case 2: cargarBarrio();
+                case 2: System.out.println("\nQue modo desea utilizar para cargar?\n"
+                        + "nota: Ambos modos son incompatibles entre si\n"
+                        + "Cada modo solo puede cargar barrios creados mediante ese mismo modo.\n"
+                        + "1-Modo Generador\n2-Modo Drah&Drop\n");
+                        m = (int)action.nextInt();
+                        switch(m){
+                            case 1: cargarBarrio();
+                                    break;
+                            case 2: cargarBarrioDrag();
+                                    break;
+                            default: System.out.println("Opcio Invalida");
+                        }
                         break;
                 case 3: eliminarBarrio();
                         break;
