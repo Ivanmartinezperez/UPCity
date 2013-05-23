@@ -26,7 +26,8 @@ public class MapaVista extends javax.swing.JPanel {
         int x,y;
         setLayout(new java.awt.GridLayout(size, size));
         this.tipoTablero = tipo;
-        cargarImagenes();
+        agua = new ImageIcon("src/imatges/casa.jpg");
+        tocado = new ImageIcon("src/imatges/comercio.jpg");
         casillas = new Casilla[size][size];
         for (int i = 0; i < size; i++){
             for (int j = 0; j < size; j++){
@@ -48,22 +49,7 @@ public class MapaVista extends javax.swing.JPanel {
         this.casillas[x][y].setFondo(tocado);
         this.repaint();
     }
-    
-    private void cargarImagenes() {
-        this.agua = this.cargarFondo("Imatges/casa.jpg");
-        this.tocado = this.cargarFondo("Imatges/comercio.png");
-    }
-    
-    protected static ImageIcon cargarFondo(String ruta) {
-        java.net.URL localizacion = MapaVista.class.getResource(ruta);
-        if (localizacion != null) {
-            return new ImageIcon(localizacion);
-        } else {
-            System.err.println("No se ha encontrado el archivo: " + ruta);
-            return null;
-        }
-    }
-    
+
     public int[] getCoordenadas(Casilla casilla) {
         int [] coordenadas = new int[2];
         for (int i=0; i < this.casillas.length; i++) {
