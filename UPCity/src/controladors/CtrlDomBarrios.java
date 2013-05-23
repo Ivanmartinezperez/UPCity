@@ -435,7 +435,6 @@ public class CtrlDomBarrios {
         if (posX < 0 || posX >= Mapa.tama() || posY < 0 || posY >= Mapa.tamb()){
             throw new Exception("\nLa posicion no es correcta.\n");
         } 
-        anadirElemBarrio(Elem, 1);
         Elemento e = DOMElem.getElemento(Elem);
         int tamX,tamY;
         if(e instanceof Vivienda){
@@ -465,6 +464,7 @@ public class CtrlDomBarrios {
             }
         }
         Mapa.expande(posX,posY,tamX,tamY,(int)e.getId(), null, true);
+        anadirElemBarrio(Elem, 1);
         Pair<Integer,Integer> pos = new Pair(posX,posY);
         ArrayList<Pair<Integer,Integer>> posiciones = B.getPosiciones();
         posiciones.add(pos);
