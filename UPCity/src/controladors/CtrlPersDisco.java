@@ -53,7 +53,8 @@ public class CtrlPersDisco {
             try{
                 arch.createNewFile();
             } catch(IOException ex){
-                System.out.println(ex.getMessage());
+                System.out.println("\nDATA CORRUPTED!!!");
+                System.out.println(ex.getMessage() + "\n");
             }
         }
     }
@@ -114,7 +115,8 @@ public class CtrlPersDisco {
         } catch (FileNotFoundException ex) {
             crearArchivo(nombre);
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("\nDATA CORRUPTED!!!");
+            System.out.println(ex.getMessage() + "\n");
         }
         return datos;
     }
@@ -137,7 +139,8 @@ public class CtrlPersDisco {
         } catch (FileNotFoundException ex) {
             crearArchivo(nombre);
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("\nDATA CORRUPTED!!!");
+            System.out.println(ex.getMessage() + "\n");
         }
         
     }
@@ -154,6 +157,7 @@ public class CtrlPersDisco {
             oos.writeObject(ob);
             oos.close();
         }catch(Exception e){
+            System.out.println("\nDATA CORRUPTED!!!");
             System.out.println(e.getMessage() + "\n");
         }
     }
@@ -168,6 +172,7 @@ public class CtrlPersDisco {
             ob = ois.readObject();
 	    ois.close();
         } catch(Exception e){
+            System.out.println("\nDATA CORRUPTED!!!");
             System.out.println(e.getMessage() + "\n");
         }
         return ob;

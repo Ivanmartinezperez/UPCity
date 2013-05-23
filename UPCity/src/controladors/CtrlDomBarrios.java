@@ -364,13 +364,13 @@ public class CtrlDomBarrios {
      * @param m Numero de columnas que tendra el Plano
      * @return Retorna si ha sido posible crear el plano.
      */
-    public boolean crearMapaBarrio(int n, int m){
-        if(n>=1 && m>=1){
-            Mapa = new Plano(n,m);
-            copia = new Plano(n,m);
-            return true;
+    public void crearMapaBarrio(int n, int m) throws Exception{
+        if(n<1 && m<1){
+            throw new Exception("\nEl tamano de filas y tamano de columnas han "
+                    + "de ser mayores que 0\n");
         }
-        else return false;
+        Mapa = new Plano(n,m);
+        copia = new Plano(n,m);
     }
     
     /**
@@ -403,7 +403,11 @@ public class CtrlDomBarrios {
    public boolean anadirRestBarrio(String Rest) throws Exception{
         Restriccion r = DOMRest.getRestriccion(Rest);
         if(r == null){
-            throw new Exception("\nLa restriccion no existe\n");
+            throw new Exception("\nLa restriccion no existe.\n");
+        }
+        if(CjtRest.containsKey(Rest)){
+            throw new Exception("\nLa restriccion ya se encuentra en el "
+                    + "Conjunto de Restricciones del Barrio.\n");
         }
         boolean b;
         b = putRestriccion(r);
@@ -420,14 +424,19 @@ public class CtrlDomBarrios {
      * si la Restriccion existe en el Conjunto de Restricciones del Barrio o
      * falso si dicha Restriccion no existe en el Conjunto.
      */
-    public boolean quitarRestBarrio(String Rest){
-        if(CjtRest.containsKey(Rest)){
-            Restriccion r = CjtRest.get(Rest);
-            removeRestriccion(r);
-            CjtRest.remove(Rest);
-            return true;
+    public void quitarRestBarrio(String Rest) throws Exception{
+        Restriccion r = DOMRest.getRestriccion(Rest);
+        if(r == null){
+            throw new Exception("\nLa restriccion no existe.\n");
         }
-        else return false;
+        if(!CjtRest.containsKey(Rest)){
+            throw new Exception("\nEsta restriccion no se encuentra en el "
+                    + "Conjunto de Restricciones del Barrio.\n");
+        }
+        r = CjtRest.get(Rest);
+        removeRestriccion(r);
+        CjtRest.remove(Rest);
+        
     }
     
     
@@ -535,7 +544,10 @@ public class CtrlDomBarrios {
         int tipoel;
         e = DOMElem.getElemento(Elem);
         if(e == null){
-            throw new Exception("\nEl solicitado edificio no existe\n");
+            throw new Exception("\nEl elemento solicitado no existe\n");
+        }
+        if(cant<1){
+            throw new Exception("\nLa cantidad ha de ser al menos 1\n");
         }
         tipoel = DOMElem.getTBElemento(e);
         switch(tipo){
@@ -553,7 +565,7 @@ public class CtrlDomBarrios {
                     break;
         }
         if(b==false){
-            throw new Exception("\nEste edificio no puede colocarse en este tipo"
+            throw new Exception("\nEste elemento no puede colocarse en este tipo"
                     + "de barrios\n");
         }
         if(CjtRestDemog.containsKey(e.getId())){
@@ -561,7 +573,7 @@ public class CtrlDomBarrios {
             if((B.getPoblacion()!= 0 && B.getPoblacion()<dem.consultar_habitantes())
                 || (B.getPoblacion()==0 && B.getViviendo()<dem.consultar_habitantes())){
                 throw new Exception("\nNo tiene el minimo de poblacion para colocar este"
-                        + " edificio, consulte sus Restricciones Demograficas\n");
+                        + " elemento, consulte sus Restricciones Demograficas\n");
             }
         }
         guardarElemento(e,cant);
@@ -580,51 +592,59 @@ public class CtrlDomBarrios {
      * cierto si ese elemento existe en el Conjunto de Elementos del Barrio o 
      * falso si no existe.
      */
-    public boolean quitarElemento(String Elem, int cant){
+    public void quitarElemento(String Elem, int cant) throws Exception{
         Elemento e = DOMElem.getElemento(Elem);
-        if (e == null) return false;
-        int oid = e.getId();
-        if(CjtElem.containsKey(oid)){
-            Pair valor = (Pair) CjtElem.get(oid);
-            int cantreal = (int) valor.getFirst();
-            if (cantreal<cant) cant = cantreal;
-            int gasto;
-            if(e instanceof Vivienda){
-                Vivienda e2 = (Vivienda) e;
-                gasto = cant * e2.getPrecio();
-                B.anadirHabitantes(-(e2.Getcap_max()*cant));
-                B.anadirGastoViv((-gasto));
-            }
-            else if(e instanceof Publico){
-                Publico e2 = (Publico) e;
-                gasto = cant * e2.getPrecio();
-                B.anadirGastoPub((-gasto));
-                int cap = (e2.Getcapacidad_serv()*cant);
-                switch(e2.Gettipo()){
-                case 1: B.anadirSanidad((-cap));
-                        break;
-                case 2: B.anadirEducacion((-cap));
-                        break;
-                case 3: B.anadirSeguridad((-cap));
-                        break;
-                case 4: B.anadirComunicacion((-cap));
-                        break;
-                case 5: B.anadirOcio((-cap));
-                        break;
-                }
-            }
-            else {
-                Comercio e2 = (Comercio) e;
-                gasto = cant * e2.getPrecio();
-                B.anadirGastoCom(-(gasto));
-                B.anadirComercio(-(e2.getCapacidad()*cant));
-            }
-            B.anadirGasto(-gasto);
-            removeElemento(oid,cant);
-            
-            return true;           
+        if (e == null) {
+            throw new Exception("\nEl Elemento que ha solicitado no existe.\n");
         }
-        else return false;
+        int oid = e.getId();
+        if(!CjtElem.containsKey(oid)){
+            throw new Exception("\nEl Elemento que ha solicitado no "
+                    + "no se encuentra en el Conjunto de Elementos del Barrio.\n");
+        }
+        if(cant<1){
+            throw new Exception("\nLa cantidad ha de ser al menos 1\n");
+        }
+        Pair valor = (Pair) CjtElem.get(oid);
+        int cantreal = (int) valor.getFirst();
+        if (cantreal<cant) cant = cantreal;
+        int gasto;
+        if(e instanceof Vivienda){
+            Vivienda e2 = (Vivienda) e;
+            gasto = cant * e2.getPrecio();
+            B.anadirHabitantes(-(e2.Getcap_max()*cant));
+            B.anadirGastoViv((-gasto));
+        }
+        else if(e instanceof Publico){
+            Publico e2 = (Publico) e;
+            gasto = cant * e2.getPrecio();
+            B.anadirGastoPub((-gasto));
+            int cap = (e2.Getcapacidad_serv()*cant);
+            switch(e2.Gettipo()){
+            case 1: B.anadirSanidad((-cap));
+                    break;
+            case 2: B.anadirEducacion((-cap));
+                    break;
+            case 3: B.anadirSeguridad((-cap));
+                    break;
+            case 4: B.anadirComunicacion((-cap));
+                    break;
+            case 5: B.anadirOcio((-cap));
+                    break;
+            }
+        }
+        else {
+            Comercio e2 = (Comercio) e;
+            gasto = cant * e2.getPrecio();
+            B.anadirGastoCom(-(gasto));
+            B.anadirComercio(-(e2.getCapacidad()*cant));
+        }
+        B.anadirGasto(-gasto);
+        removeElemento(oid,cant);
+
+                  
+        
+        
     }
     
     

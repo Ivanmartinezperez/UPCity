@@ -589,11 +589,20 @@ public class vistaComandos {
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("Introduzca el numero de parcelas horizontales del barrio:");
-        int x = (int)parametros.nextInt();
-        System.out.println("Introduzca el numero de parcelas verticales del barrio:");
-        int y = (int)parametros.nextInt();
-        CtrlBarrio.crearMapaBarrio(x, y);
+        boolean b2=false;
+        while(!b2){
+            try{
+                System.out.println("Introduzca el numero de parcelas horizontales del barrio:");
+                int x = (int)parametros.nextInt();
+                System.out.println("Introduzca el numero de parcelas verticales del barrio:");
+                int y = (int)parametros.nextInt();
+                CtrlBarrio.crearMapaBarrio(x, y);
+                System.out.println("Mapa creado correctamente");
+                b2 = true;
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
         
         System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
                 + "3-Añadir restriccion a mi barrio\n4-Eliminar restriccion de mi barrio\n5-Crear Elemento\n"
@@ -629,9 +638,12 @@ public class vistaComandos {
                         id = param2.nextLine();
                         System.out.println("Escriba la cantidad que quieres quitar de este elemento en el barrio: ");
                         cant = (int)action.nextInt();
-                        aux1 = CtrlBarrio.quitarElemento(id, cant);
-                        if (aux1) System.out.println("Elemento eliminado correctamente");
-                        else System.out.println("No se pudo eliminar el elemento");
+                        try{
+                            CtrlBarrio.quitarElemento(id, cant);
+                            System.out.println("Elemento eliminado correctamente");
+                        }catch(Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                         break;
                 case 3: listarRestricciones();
                         System.out.println("Escriba el nombre de restriccion que desea añadir al barrio: ");
@@ -650,9 +662,12 @@ public class vistaComandos {
                         System.out.println("Escriba el nombre de restriccion que desea quitar del barrio: ");
                         Scanner param4 = new Scanner(System.in);
                         id = param4.nextLine();               
-                        aux1 = CtrlBarrio.quitarRestBarrio(id);
-                        if (aux1) System.out.println("Restriccion eliminado correctamente");
-                        else System.out.println("No se pudo eliminar la restriccion");             
+                        try{
+                            CtrlBarrio.quitarRestBarrio(id);
+                            System.out.println("Restriccion eliminado correctamente");
+                        }catch(Exception e){
+                            System.out.println(e.getMessage());
+                        }
                         break;
                 case 5: crearElemento();
                         break;
@@ -793,9 +808,12 @@ public class vistaComandos {
                         id = param2.nextLine();
                         System.out.println("Escriba la cantidad que quieres quitar de este elemento en el barrio: ");
                         cant = (int)action.nextInt();
-                        aux1 = CtrlBarrio.quitarElemento(id, cant);
-                        if (aux1) System.out.println("Elemento eliminado correctamente");
-                        else System.out.println("No se pudo eliminar el elemento");
+                        try{
+                            CtrlBarrio.quitarElemento(id, cant);
+                            System.out.println("Elemento eliminado correctamente");
+                        }catch(Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                         break;
                 case 3: listarRestricciones();
                         System.out.println("Escriba el nombre de restriccion que desea añadir al barrio: ");
@@ -813,9 +831,12 @@ public class vistaComandos {
                         System.out.println("Escriba el nombre de restriccion que desea quitar del barrio: ");
                         Scanner param4 = new Scanner(System.in);
                         id = param4.nextLine();               
-                        aux1 = CtrlBarrio.quitarRestBarrio(id);
-                        if (aux1) System.out.println("Restriccion eliminado correctamente");
-                        else System.out.println("No se pudo eliminar la restriccion");             
+                        try{
+                            CtrlBarrio.quitarRestBarrio(id);
+                            System.out.println("Restriccion eliminado correctamente");
+                        }catch(Exception e){
+                            System.out.println(e.getMessage());
+                        }
                         break;
                 case 5: crearElemento();
                         break;
@@ -954,12 +975,21 @@ public class vistaComandos {
                     System.out.println(e.getMessage());
                 }
             }
-            System.out.println("Introduzca el numero de parcelas horizontales del barrio:");
-            int x = (int)parametros.nextInt();
-            System.out.println("Introduzca el numero de parcelas verticales del barrio:");
-            int y = (int)parametros.nextInt();
-            CtrlBarrio.crearMapaBarrio(x, y);
-
+            int x,y;
+            boolean b2=false;
+            while(!b2){
+                try{
+                    System.out.println("Introduzca el numero de parcelas horizontales del barrio:");
+                    x = (int)parametros.nextInt();
+                    System.out.println("Introduzca el numero de parcelas verticales del barrio:");
+                    y = (int)parametros.nextInt();
+                    CtrlBarrio.crearMapaBarrio(x, y);
+                    System.out.println("Mapa creado correctamente");
+                    b2 = true;
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
              
              
              System.out.println("Barrio creado correctamente");

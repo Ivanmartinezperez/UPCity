@@ -167,50 +167,6 @@ public class CtrlDomRestricciones {
        
     
     /**
-     * Encargado de modificar una restriccion ya creada
-     * @param id id de la restriccion que hay que modificar
-     * @param tipo tipo de la restriccion que hay que modificar
-     * @param aux1 en caso ubicacion es la distancia nueva, en caso economica 
-     * es la nueva cantidad de dineropara invertir en comercios, en caso 
-     * demografico es la nueva cantidad minima de habitantes.
-     * @param aux2 se utiliza solo en caso economica, es la nueva cantidad de 
-     * dinero para viviendas.
-     * @param aux3 se utiliza solo en caso economica, es la nueva cantidad de 
-     * dinero para servicios publicos.
-     * @return retorna booleano si se ha hecho la modificacion correctamente
-     */
-    /*public boolean ModificarRestriccion(String id, String tipo, int aux1, 
-                                        int aux2, int aux3){
-        boolean ret=true;
-        switch(tipo){
-            case "ubicacion":   
-                if(aux1 > 0 && restubicacion.containsKey(id)){
-                    Restriccion_ubicacion u = restubicacion.get(id);
-                    u.modificar_distancia(aux1);
-                }
-                else ret = false;
-                break;
-            case "economica":
-                if (aux1 >= 0 && aux2 >= 0 && aux3 >= 0 && 
-                    resteconomica.containsKey(id)){
-                    Restriccion_economica e = resteconomica.get(id);
-                    e.Modificarsaldo(aux1, aux2, aux3);
-                }
-                else ret = false;
-                break;
-            case "demografica": 
-                if(aux1 >= 0 && restdemografica.containsKey(id)){
-                    Restriccion_demografica d = restdemografica.get(id);
-                    d.modificar_habitantes(aux1);
-                }
-                else ret = false;
-                break;
-            default: ret = false;
-            }
-            return ret;
-     }*/
-    
-    /**
      * Añade una nueva Restriccion General, que se aplicara en los futuros 
      * barrios nuevos.
      * @param id Nombre de la Restriccion que se convierte en general.
