@@ -137,7 +137,9 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initViviendas(){
-
+        for(int i=0;i<tablaVivienda.getRowCount();++i){
+            tablaVivienda.removeRow(i);
+        }
         int indiceV=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
@@ -158,6 +160,9 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initPublicos(){
+        for(int i=0;i<tablaPublico.getRowCount();++i){
+            tablaPublico.removeRow(i);
+        }
         int indiceP=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
@@ -180,6 +185,9 @@ public class vistaGrafica extends JFrame {
     }
         
     private void initComercios(){
+        for(int i=0;i<tablaComercio.getRowCount();++i){
+            tablaComercio.removeRow(i);
+        }
         int indiceC=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
@@ -200,6 +208,9 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initUbicacion(){
+        for(int i=0;i<tablaUbic.getRowCount();++i){
+            tablaUbic.removeRow(i);
+        }
         int indiceU;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("ubicacion");
@@ -214,6 +225,9 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initDemograficas(){
+        for(int i=0;i<tablaDem.getRowCount();++i){
+            tablaDem.removeRow(i);
+        }
         int indiceD;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("demografica");
@@ -227,6 +241,9 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initEconomicas(){
+        for(int i=0;i<tablaEco.getRowCount();++i){
+            tablaEco.removeRow(i);
+        }
         int indiceE;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("economica");
@@ -282,6 +299,15 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initTablasBarrioElem(){
+        for(int i=0;i<tablaViviendaUser.getRowCount();++i){
+            tablaViviendaUser.removeRow(i);
+        }
+        for(int i=0;i<tablaComercioUser.getRowCount();++i){
+            tablaComercioUser.removeRow(i);
+        }
+        for(int i=0;i<tablaPublicoUser.getRowCount();++i){
+            tablaPublicoUser.removeRow(i);
+        }
         String[][] list = CtrlBarrio.listarCjtElemBarrio();
         int indiceVU=0;
         int indicePU=0;
@@ -309,6 +335,15 @@ public class vistaGrafica extends JFrame {
     }
     
     private void initTablasBarrioRest(){
+        for(int i=0;i<tablaUbicUser.getRowCount();++i){
+            tablaUbicUser.removeRow(i);
+        }
+        for(int i=0;i<tablaDemUser.getRowCount();++i){
+            tablaDemUser.removeRow(i);
+        }
+        for(int i=0;i<tablaEcoUser.getRowCount();++i){
+            tablaEcoUser.removeRow(i);
+        }
         String [][] list = CtrlBarrio.listarCjtRestBarrio();
         int indiceUU=0;
         int indiceDU=0;
@@ -507,6 +542,11 @@ public class vistaGrafica extends JFrame {
         jButton2.setMinimumSize(new java.awt.Dimension(57, 18));
         jButton2.setPreferredSize(new java.awt.Dimension(57, 18));
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                QuitarElemento(evt);
+            }
+        });
         jToolBar1.add(jButton2);
 
         jButton3.setText("+Res");
@@ -1676,8 +1716,57 @@ public class vistaGrafica extends JFrame {
     }//GEN-LAST:event_generarBarrio
 
     private void elimResBarrio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elimResBarrio
-        // TODO add your handling code here:
+        
+        String[][] rest = CtrlBarrio.listarCjtRestBarrio();
+        Object[] list = new Object[rest.length+1];
+        for(int i=0;i<rest.length;++i){
+            list[i] = rest[i][1];
+        }
+        
+        Object seleccion = JOptionPane.showInputDialog(
+                            this,
+                            "Añadir restriccion al barrio",
+                            "Seleccione la restriccion que desea añadir",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,  // null para icono defecto
+                             list,"  ");
+        if(seleccion!=null){
+            try{
+                CtrlBarrio.quitarRestBarrio(seleccion.toString());
+                initTablasBarrioRest();
+                Console.setText("La Restriccion "+seleccion.toString()+" se elimino correctamente de tu barrio");
+            }catch(Exception e){
+                Console.setText(e.getMessage());
+            }
+        }
     }//GEN-LAST:event_elimResBarrio
+
+    private void QuitarElemento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitarElemento
+        String[][] rest = CtrlBarrio.listarCjtElemBarrio();
+        Object[] list = new Object[rest.length+1];
+        for(int i=0;i<rest.length;++i){
+            list[i] = rest[i][3];
+        }
+        
+        Object seleccion = JOptionPane.showInputDialog(
+                            this,
+                            "Añadir restriccion al barrio",
+                            "Seleccione la restriccion que desea añadir",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,  // null para icono defecto
+                             list,"  ");
+        FormPresPob formulario = new FormPresPob(this,true);
+        formulario.setVisible(true);
+        if(seleccion!=null && formulario.aceptado()){
+            try{
+                CtrlBarrio.quitarElemento(seleccion.toString(),formulario.getCantidad());
+                initTablasBarrioElem();
+                Console.setText("Se han quitado "+formulario.getCantidad()+" "+seleccion.toString()+" de tu barrio");
+            }catch(Exception e){
+                Console.setText(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_QuitarElemento
 
     /**
      * @param args the command line arguments
