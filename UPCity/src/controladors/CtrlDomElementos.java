@@ -561,10 +561,9 @@ public class CtrlDomElementos {
          else if(mapElem1.containsKey(Elem))
              e = mapElem1.get(Elem);
          else if(mapElem2.containsKey(Elem))
-             e = mapElem1.get(Elem);
+             e = mapElem2.get(Elem);
          else
              e = mapElem3.get(Elem);
-         
          if(e instanceof Vivienda){
              Vivienda v = (Vivienda) e;
              par[0] = "v";
