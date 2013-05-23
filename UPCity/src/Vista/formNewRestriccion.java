@@ -11,16 +11,29 @@ import controladors.CtrlDomRestricciones;
  * @author daniel
  */
 public class formNewRestriccion extends javax.swing.JDialog {
+    
+    private boolean aceptado;
+    static private Object[] e;
 
     /**
      * Creates new form formNewRestriccion
      */
-    public formNewRestriccion(java.awt.Frame parent, boolean modal) {
+    public formNewRestriccion(java.awt.Frame parent, boolean modal,Object[] elem) {
         super(parent, modal);
         initComponents();
+        aceptado=false;
+        jRadioButton1.setMnemonic(1);
+        jRadioButton2.setMnemonic(2);
+        jRadioButton3.setMnemonic(3);
         buttonGroup1.add(jRadioButton1);
         buttonGroup1.add(jRadioButton2);
         buttonGroup1.add(jRadioButton3);
+        e = elem;
+        for(int i=0;i<elem.length;++i){
+            jComboBox1.addItem(elem[i]);
+            jComboBox2.addItem(elem[i]);
+            jComboBox3.addItem(elem[i]);
+        }
     }
 
     /**
@@ -145,11 +158,16 @@ public class formNewRestriccion extends javax.swing.JDialog {
         });
 
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Crear Restriccion");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -399,46 +417,15 @@ public class formNewRestriccion extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jTextField6KeyTyped
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        // TODO add your handling code here:
-        String nombre = jTextField6.getText();
-        CtrlRest = CtrlDomRestricciones.getInstance();
-        if(jRadioButton1.isSelected() == true) {//crear un restricion de ubicacion
-            String a = (String) jComboBox1.getSelectedItem();
-            String b = (String) jComboBox2.getSelectedItem();
-            String aux = (String) jTextField3.getText();
-            if (aux == null && aux.isEmpty() == true) System.out.println("ERROR EN 1");
-            else {
-                System.out.println("entro");
-                Integer c = Integer.parseInt(jTextField3.getText());
-                System.out.print("Crear una restricion de ubicacion ");
-                System.out.println(a+" "+b+" "+c);
-                CtrlRest.CrearRestriccion(nombre, "ubicacion", a, b, c, c, c);
-            }
-        }
-        else if(jRadioButton2.isSelected() == true) {//crear una restricion demografica
-            System.out.println("entro");
-            String a = (String) jComboBox3.getSelectedItem();
-            Integer b = Integer.parseInt(jTextField5.getText());
-            if(b == null)System.out.println("ERROR EN EL 2");
-            else {
-                System.out.print("Crear una restriccion demografica ");
-                System.out.println(a+" "+b);
-                CtrlRest.CrearRestriccion(nombre, "demografica", a, a, b, b, b);
-            }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        aceptado=true;
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-        }
-        else if(jRadioButton3.isSelected() == true) {//creacion restricion economica
-            System.out.println("entro");
-            int a = Integer.parseInt(jTextField7.getText());
-            int b = Integer.parseInt(jTextField8.getText());
-            int c = Integer.parseInt(jTextField9.getText());
-            System.out.print("Crear una restriccion economica ");
-            System.out.println(a+" "+b+" "+c);
-            CtrlRest.CrearRestriccion(nombre, nombre, nombre, nombre, a, b, c);
-        }
-        else System.out.println("ERROR 4");
-    }//GEN-LAST:event_jButton2MouseClicked
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -470,7 +457,7 @@ public class formNewRestriccion extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                formNewRestriccion dialog = new formNewRestriccion(new javax.swing.JFrame(), true);
+                formNewRestriccion dialog = new formNewRestriccion(new javax.swing.JFrame(), true,e);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -482,7 +469,50 @@ public class formNewRestriccion extends javax.swing.JDialog {
         });
     }
     
-    private CtrlDomRestricciones CtrlRest;
+    
+    
+    public boolean aceptado(){
+        return aceptado;
+    }
+    
+    public String Nombre(){
+        return jTextField6.getText();
+    }
+    
+    public String getElemUb1(){
+        return jComboBox1.getSelectedItem().toString();
+    }
+    
+    public String getElemUb2(){
+        return jComboBox2.getSelectedItem().toString();
+    }
+    
+    public String getElemDem(){
+        return jComboBox3.getSelectedItem().toString();
+    }
+    
+    public int getTipo(){
+        int valor = buttonGroup1.getSelection().getMnemonic();
+        return valor;
+    }
+    
+    public int getDistancia(){
+        return Integer.parseInt(jTextField3.getText());
+    }
+    
+    public int getHabitantes(){
+        return Integer.parseInt(jTextField5.getText());
+    }
+    
+    public int[] getPresupuestos(){
+        int[] presupuestos = new int[3];
+        presupuestos[0] = Integer.parseInt(jTextField7.getText());
+        presupuestos[1] = Integer.parseInt(jTextField8.getText());
+        presupuestos[2] = Integer.parseInt(jTextField9.getText());
+        return presupuestos;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
