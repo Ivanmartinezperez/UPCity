@@ -5,7 +5,6 @@
 package Vista;
 
 import javax.swing.*;
-import mapa.Plano;
 
 
 /**
@@ -13,11 +12,13 @@ import mapa.Plano;
  * @author daniel
  */
 public class MapaVista extends javax.swing.JPanel {
-    private ImageIcon agua, tocado;
     private boolean tipoTablero;
     private Casilla [][] casillas ;
     private int tamx, tamy, tamcx, tamcy;
     boolean cuadrado;
+    private ImageIcon[] imagenespre;
+    private ImageIcon[] imagenesusu;
+    private ImageIcon calle;
         
     public MapaVista() {
         initComponents();
@@ -52,12 +53,21 @@ public class MapaVista extends javax.swing.JPanel {
         initComponents();
         setLayout(new java.awt.GridLayout(tamx, tamy));
         this.tipoTablero = tipo;
-        agua = new ImageIcon("src/imatges/casa.jpg");
-        tocado = new ImageIcon("src/imatges/comercio.jpg");
+        calle = new ImageIcon("src/imatges/calle.jpg");
+        imagenespre = new ImageIcon[5];
+        imagenesusu = new ImageIcon[10];
+        imagenespre[0] = new ImageIcon("src/imatges/casa.jpg");
+        imagenespre[1] = new ImageIcon("src/imatges/comercio.jpg");
+        imagenesusu[1] = new ImageIcon("src/imatges/1.jpg");
+        imagenesusu[2] = new ImageIcon("src/imatges/2.jpg");
+        imagenesusu[3] = new ImageIcon("src/imatges/3.jpg");
+        imagenesusu[4] = new ImageIcon("src/imatges/4.jpg");
+        imagenesusu[5] = new ImageIcon("src/imatges/5.jpg");
+        
         for (int i = 0; i < tamx; i++){
             for (int j = 0; j < tamy; j++){
                 casillas[i][j] = new Casilla(this); 
-                casillas[i][j].setFondo(agua);
+                casillas[i][j].setFondo(calle);
                 x = (i * tamcx)+1;
                 y = (j * tamcy)+1;
                 casillas[i][j].setBounds(x, y, (tamcx)-2, (tamcy)-2);
@@ -71,7 +81,7 @@ public class MapaVista extends javax.swing.JPanel {
     }
     
     public void pintar(int x, int y){
-        this.casillas[x][y].setFondo(tocado);
+        this.casillas[x][y].setFondo(imagenesusu[1]);
         this.repaint();
     }
 
@@ -103,7 +113,11 @@ public class MapaVista extends javax.swing.JPanel {
         this.tipoTablero = tipoTablero;
     }
     
-    public void leerMapa(Plano p){
+    public void leerMapa(String[][] mapa){
+        boolean inverso = false;
+        if(cuadrado == false && tamx < tamy) {
+            inverso = true;
+        }
         for(int i = 0; i < tamx; ++i) {
             for(int j = 0; j < tamy; ++j) {
                 
