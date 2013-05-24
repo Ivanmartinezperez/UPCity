@@ -5,6 +5,7 @@
 package Vista;
 
 import javax.swing.*;
+import mapa.Plano;
 
 
 /**
@@ -15,7 +16,7 @@ public class MapaVista extends javax.swing.JPanel {
     private ImageIcon agua, tocado;
     private boolean tipoTablero;
     private Casilla [][] casillas ;
-    private int tamx, tamy, tamc;
+    private int tamx, tamy, tamcx, tamcy;
     boolean cuadrado;
         
     public MapaVista() {
@@ -27,30 +28,39 @@ public class MapaVista extends javax.swing.JPanel {
         if(x == y) {
             cuadrado = true;
             tamx = x;
-            tamc = x;
+            tamcx = 700/x;
+            tamcy = 700/x;
             tamy = x;
+            casillas = new Casilla[x][x];
         }
         else {
             tamx = x;
             tamy = y;
             cuadrado = false;
-            if(x > y) tamc = x;
-            else tamc = tamy;
+            if(x > y) {
+                tamcx = x;
+                tamcy = y;
+            }
+            else {
+                tamcy = x;
+                tamcx = y;
+            }
+            tamcx = 1000/tamcx;
+            tamcy = 700/tamcy;
+            casillas = new Casilla[tamcx][tamcy];
         }
         initComponents();
         setLayout(new java.awt.GridLayout(tamx, tamy));
         this.tipoTablero = tipo;
         agua = new ImageIcon("src/imatges/casa.jpg");
         tocado = new ImageIcon("src/imatges/comercio.jpg");
-        if(cuadrado == true) casillas = new Casilla[tamc][tamc];
-        else casillas = new Casilla[tamx][tamy];
         for (int i = 0; i < tamx; i++){
             for (int j = 0; j < tamy; j++){
                 casillas[i][j] = new Casilla(this); 
                 casillas[i][j].setFondo(agua);
-                x = (i * 1000/tamc)+1;
-                y = (j * 700/tamc)+1;
-                casillas[i][j].setBounds(x, y, (1000/tamc)-2, (700/tamc)-2);
+                x = (i * tamcx)+1;
+                y = (j * tamcy)+1;
+                casillas[i][j].setBounds(x, y, (tamcx)-2, (tamcy)-2);
                 this.add(casillas[i][j]);
             }
         }
@@ -92,6 +102,14 @@ public class MapaVista extends javax.swing.JPanel {
     public void setTipoTablero(boolean tipoTablero) {
         this.tipoTablero = tipoTablero;
     }
+    
+    public void leerMapa(Plano p){
+        for(int i = 0; i < tamx; ++i) {
+            for(int j = 0; j < tamy; ++j) {
+                
+            }
+        }
+    }
                               
     private void initComponents() {
 
@@ -99,7 +117,8 @@ public class MapaVista extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(0, 0, 0));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        setPreferredSize(new java.awt.Dimension(1000, 700));
+        if(tamx == tamy) setPreferredSize(new java.awt.Dimension(700, 700));
+        else setPreferredSize(new java.awt.Dimension(1000, 700));
     }                      
                      
 }
