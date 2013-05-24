@@ -44,6 +44,7 @@ public class vistaGrafica extends JFrame {
     private CtrlDomBarrios CtrlBarrio;
     private CtrlDomElementos CtrlElem;
     private CtrlDomRestricciones CtrlRest;
+    private boolean computando;
         
 
     /**
@@ -67,6 +68,7 @@ public class vistaGrafica extends JFrame {
         initEconomicas();
         initTablasEnVista();
         barrioNoCargado();
+        computando = false;
         Console.setText("Bienvenido a UPcity\n");
         
     }
@@ -442,6 +444,47 @@ public class vistaGrafica extends JFrame {
             p=p.concat("\n");    
         }
         Mapa.setText(p);
+    }
+    
+    private void lanzathread(final boolean b){
+        System.out.println("Entro");
+        Thread hilo = new Thread()
+        {
+            public void run()
+            {
+                try
+                {
+                    Console.setText("Vamos a generar su barrio!\n"
+                            + "Por favor no realice cambios en el sistema mientras se genera,"
+                            + "ya le avisaremos cuando este este terminado!");
+                    CtrlBarrio.generarBarrio(b);
+                    guardaBarrioActualizacion();
+                    computando=false;
+                    Console.setText("Mira, ya hemos terminado tu barrio!");
+                    
+                }
+                catch ( Exception e )
+                {
+                    Console.setText(e.getMessage());
+                }
+            }
+        };
+        hilo.start();
+        System.out.println("salgo");
+    }
+    
+    private void mensajeEnGeneracion(){
+        System.out.println("Mensaje que no saleeee");
+        int contador=0;
+        while(computando){
+            if(contador==0)Console.setText("Generando Barrio.");
+            if(contador==1)Console.setText("Generando Barrio..");
+            if(contador==2){
+                Console.setText("Generando Barrio...");
+                contador=-1;
+            }
+            ++contador;
+        }
     }
     
     private void guardaBarrioActualizacion(){
@@ -1724,15 +1767,18 @@ public class vistaGrafica extends JFrame {
                             "Si");
             if(seleccion2==0){
                 try {
-                    CtrlBarrio.generarBarrio(true);
-                    guardaBarrioActualizacion();
+                    computando = true;
+                    lanzathread(true);
+                    //mensajeEnGeneracion();
                 } catch (Exception ex) {
                     Console.setText(ex.getMessage());
                 }
             }
             else {
                try {
-                    CtrlBarrio.generarBarrio(false);
+                    computando = true;
+                    lanzathread(false);
+                    //mensajeEnGeneracion();                   
                 } catch (Exception ex) {
                     Console.setText(ex.getMessage());
                 } 
