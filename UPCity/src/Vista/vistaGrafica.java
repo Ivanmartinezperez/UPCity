@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import controladors.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
@@ -140,6 +141,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaVivienda.getRowCount();++i){
             tablaVivienda.removeRow(i);
         }
+        tablaVivienda.setNumRows(25);
         int indiceV=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
@@ -163,6 +165,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaPublico.getRowCount();++i){
             tablaPublico.removeRow(i);
         }
+        tablaPublico.setNumRows(25);
         int indiceP=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
@@ -188,6 +191,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaComercio.getRowCount();++i){
             tablaComercio.removeRow(i);
         }
+        tablaComercio.setNumRows(25);
         int indiceC=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
@@ -211,6 +215,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaUbic.getRowCount();++i){
             tablaUbic.removeRow(i);
         }
+        tablaUbic.setNumRows(25);
         int indiceU;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("ubicacion");
@@ -228,6 +233,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaDem.getRowCount();++i){
             tablaDem.removeRow(i);
         }
+        tablaDem.setNumRows(25);
         int indiceD;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("demografica");
@@ -244,6 +250,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaEco.getRowCount();++i){
             tablaEco.removeRow(i);
         }
+        tablaEco.setNumRows(25);
         int indiceE;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("economica");
@@ -308,6 +315,9 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaPublicoUser.getRowCount();++i){
             tablaPublicoUser.removeRow(i);
         }
+        tablaViviendaUser.setNumRows(25);
+        tablaComercioUser.setNumRows(25);
+        tablaPublicoUser.setNumRows(25);
         String[][] list = CtrlBarrio.listarCjtElemBarrio();
         int indiceVU=0;
         int indicePU=0;
@@ -344,6 +354,9 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaEcoUser.getRowCount();++i){
             tablaEcoUser.removeRow(i);
         }
+        tablaUbicUser.setNumRows(25);
+        tablaDemUser.setNumRows(25);
+        tablaEcoUser.setNumRows(25);
         String [][] list = CtrlBarrio.listarCjtRestBarrio();
         int indiceUU=0;
         int indiceDU=0;
@@ -429,6 +442,15 @@ public class vistaGrafica extends JFrame {
             p=p.concat("\n");    
         }
         Mapa.setText(p);
+    }
+    
+    private void guardaBarrioActualizacion(){
+        try{
+            CtrlBarrio.guardarBarrio();
+        }
+        catch(Exception e){
+            Console.setText(e.getMessage());
+        }
     }
 
     /**
@@ -1334,6 +1356,7 @@ public class vistaGrafica extends JFrame {
             try{
                 CtrlBarrio.anadirElemBarrio(id, cant);
                 initTablasBarrioElem();
+                guardaBarrioActualizacion();
                 Console.setText("Elemento añadido correctamente");
             }catch(Exception e){
                 Console.setText("No se pudo añadir el elemento: "+e.getMessage());
@@ -1550,7 +1573,7 @@ public class vistaGrafica extends JFrame {
                         int [] pres = formulario.getPresupuestos();
                         try{
                             CtrlRest.CrearRestriccion(nombre, "economica", "-1", "-1", pres[0], pres[1], pres[2]);
-                            initDemograficas();
+                            initEconomicas();
                             Console.setText("Restriccion de ubicacion creada correctamente");
                         }
                         catch(Exception e){
@@ -1619,6 +1642,7 @@ public class vistaGrafica extends JFrame {
             try{
                 CtrlBarrio.anadirRestBarrio(seleccion.toString());
                 initTablasBarrioRest();
+                guardaBarrioActualizacion();
                 Console.setText("La Restriccion "+seleccion.toString()+" ha sido añadida a tu barrio!");
                 
             }catch(Exception e){
@@ -1644,6 +1668,7 @@ public class vistaGrafica extends JFrame {
                 int cantidad = formulario.getCantidad();
                 try{
                     CtrlBarrio.setPresupuestoBarrio(cantidad);
+                    guardaBarrioActualizacion();
                 }catch(Exception e){
                     Console.setText(e.getMessage());
                 }
@@ -1664,6 +1689,7 @@ public class vistaGrafica extends JFrame {
                 int cantidad = formulario.getCantidad();
                 try{
                     CtrlBarrio.setPoblacionbarrio(cantidad);
+                    guardaBarrioActualizacion();
                 }catch(Exception e){
                     Console.setText(e.getMessage());
                 }
@@ -1699,6 +1725,7 @@ public class vistaGrafica extends JFrame {
             if(seleccion2==0){
                 try {
                     CtrlBarrio.generarBarrio(true);
+                    guardaBarrioActualizacion();
                 } catch (Exception ex) {
                     Console.setText(ex.getMessage());
                 }
@@ -1734,6 +1761,7 @@ public class vistaGrafica extends JFrame {
             try{
                 CtrlBarrio.quitarRestBarrio(seleccion.toString());
                 initTablasBarrioRest();
+                guardaBarrioActualizacion();
                 Console.setText("La Restriccion "+seleccion.toString()+" se elimino correctamente de tu barrio");
             }catch(Exception e){
                 Console.setText(e.getMessage());
@@ -1761,6 +1789,7 @@ public class vistaGrafica extends JFrame {
             try{
                 CtrlBarrio.quitarElemento(seleccion.toString(),formulario.getCantidad());
                 initTablasBarrioElem();
+                guardaBarrioActualizacion();
                 Console.setText("Se han quitado "+formulario.getCantidad()+" "+seleccion.toString()+" de tu barrio");
             }catch(Exception e){
                 Console.setText(e.getMessage());
