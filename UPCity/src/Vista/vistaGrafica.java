@@ -453,6 +453,7 @@ public class vistaGrafica extends JFrame {
         MapaVista mapa = new MapaVista(mat.length, mat[0].length,true);
         mapa.leerMapa(mat);
         jSplitPane3.setTopComponent(mapa);
+        jSplitPane3.setDividerLocation(450);
     }
     
     private void lanzathread(final boolean b){
