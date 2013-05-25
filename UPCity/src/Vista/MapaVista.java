@@ -125,14 +125,14 @@ public class MapaVista extends javax.swing.JPanel {
         this.tipoTablero = tipoTablero;
     }
     
-    public void leerMapa(String[][] mapa){
+    public void leerMapa(Integer[][] mapa){
         for(int i = 0; i < tamx; ++i) {
             for(int j = 0; j < tamy; ++j) {
                 int aux = 0;
                 if(inverso == true) {
-                    aux = Integer.parseInt(mapa[j][i]);
+                    aux = mapa[j][i];
                 }
-                else aux = Integer.parseInt(mapa[i][j]);
+                else aux = mapa[i][j];
                 if(aux == -1)  casillas[i][j].setFondo(calle);
                 else if(aux < 20) {
                     casillas[i][j].setFondo(imagenespre[aux]);

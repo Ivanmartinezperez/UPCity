@@ -450,7 +450,9 @@ public class vistaGrafica extends JFrame {
             }
             p=p.concat("\n");    
         }
-        Mapa.setText(p);
+        MapaVista mapa = new MapaVista(mat.length, mat[0].length,true);
+        mapa.leerMapa(mat);
+        jSplitPane3.setTopComponent(mapa);
     }
     
     private void lanzathread(final boolean b){
@@ -550,8 +552,6 @@ public class vistaGrafica extends JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Console = new javax.swing.JTextPane();
         viewBarrio = new javax.swing.JPanel();
-        jScrollPane14 = new javax.swing.JScrollPane();
-        Mapa = new javax.swing.JTextPane();
         jSplitPane4 = new javax.swing.JSplitPane();
         ScrollsysRest1 = new javax.swing.JScrollPane();
         jTabbedPane5 = new javax.swing.JTabbedPane();
@@ -909,23 +909,15 @@ public class vistaGrafica extends JFrame {
 
         jSplitPane3.setBottomComponent(jScrollPane1);
 
-        jScrollPane14.setViewportView(Mapa);
-
         org.jdesktop.layout.GroupLayout viewBarrioLayout = new org.jdesktop.layout.GroupLayout(viewBarrio);
         viewBarrio.setLayout(viewBarrioLayout);
         viewBarrioLayout.setHorizontalGroup(
             viewBarrioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, viewBarrioLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(jScrollPane14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
-                .addContainerGap())
+            .add(0, 596, Short.MAX_VALUE)
         );
         viewBarrioLayout.setVerticalGroup(
             viewBarrioLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, viewBarrioLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(jScrollPane14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
-                .addContainerGap())
+            .add(0, 448, Short.MAX_VALUE)
         );
 
         jSplitPane3.setLeftComponent(viewBarrio);
@@ -1890,7 +1882,6 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JMenuItem CreaElem;
     private javax.swing.JMenuItem Eliminar_barrio;
     private javax.swing.JButton InfoBarrio;
-    private javax.swing.JTextPane Mapa;
     private javax.swing.JScrollPane ScrollsysRest;
     private javax.swing.JScrollPane ScrollsysRest1;
     private javax.swing.JButton addElem;
@@ -1925,7 +1916,6 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
-    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
