@@ -61,10 +61,15 @@ public class MapaVista extends javax.swing.JPanel {
         setLayout(new java.awt.GridLayout(tamx, tamy));
         this.tipoTablero = tipo;
         calle = new ImageIcon("src/imatges/calle.jpg");
-        imagenespre = new ImageIcon[5];
+        imagenespre = new ImageIcon[10];
         imagenesusu = new ImageIcon[10];
         imagenespre[0] = new ImageIcon("src/imatges/casa.jpg");
         imagenespre[1] = new ImageIcon("src/imatges/comercio.jpg");
+        imagenespre[2] = new ImageIcon("src/imatges/Hospital_Final.jpg");
+        imagenespre[3] = new ImageIcon("src/imatges/Police.jpg");
+        imagenespre[4] = new ImageIcon("src/imatges/firestation.jpg");
+        imagenespre[5] = new ImageIcon("src/imatges/school.jpg");
+        imagenespre[6] = new ImageIcon("src/imatges/uni.jpg");
         imagenesusu[0] = new ImageIcon("src/imatges/1.jpg");
         imagenesusu[1] = new ImageIcon("src/imatges/2.jpg");
         imagenesusu[2] = new ImageIcon("src/imatges/3.jpg");

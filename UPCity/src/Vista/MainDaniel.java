@@ -17,9 +17,11 @@ public class MainDaniel extends javax.swing.JFrame {
     }
                           
     private void initComponents() {
-        String[][] mapa = new String[8][6];
-        for(int i = 0; i < 8; ++i){
-            for(int j = 0; j < 6; ++j) {
+        
+        
+        String[][] mapa = new String[6][10];
+        for(int i = 0; i < 6; ++i){
+            for(int j = 0; j < 10; ++j) {
                 if(i%2 == 0)mapa[i][j] = "0";
                 else mapa[i][j] = "1";
             }
@@ -29,7 +31,17 @@ public class MainDaniel extends javax.swing.JFrame {
         mapa[2][2] = "22";
         mapa[3][3] = "23";
         mapa[4][4] = "24";
-        tableroGUI1 = new MapaVista(8, 6 ,true);
+        mapa[5][5] = "2";
+        mapa[5][6] = "3";
+        mapa[1][7] = "4";
+        mapa[5][9] = "5";
+        mapa[2][8] = "6";
+        
+        
+        
+        tableroGUI1 = new MapaVista(6, 10 ,true);
+        
+        
         tableroGUI1.leerMapa(mapa);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
