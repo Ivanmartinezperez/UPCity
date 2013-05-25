@@ -28,6 +28,9 @@ public class formNewRestriccion extends javax.swing.JDialog {
         buttonGroup1.add(jRadioButton1);
         buttonGroup1.add(jRadioButton2);
         buttonGroup1.add(jRadioButton3);
+        jComboBox1.removeAllItems();
+        jComboBox2.removeAllItems();
+        jComboBox3.removeAllItems();
         e = elem;
         for(int i=0;i<elem.length;++i){
             jComboBox1.addItem(elem[i]);

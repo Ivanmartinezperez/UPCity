@@ -370,10 +370,8 @@ public class vistaGrafica extends JFrame {
         int indiceUU=0;
         int indiceDU=0;
         int indiceEU=0;
-        System.out.println("CHIVATOO");
         if(list!=null){
             for(int i=0;i<list.length;++i){
-                System.out.println("CHIVATOO");
                 if(list[i][0].equals("u")){
                     tablaUbicUser.setValueAt(list[i][1], indiceUU, 0);
                     tablaUbicUser.setValueAt(list[i][2], indiceUU, 1);
@@ -457,7 +455,6 @@ public class vistaGrafica extends JFrame {
     }
     
     private void lanzathread(final boolean b){
-        System.out.println("Entro");
         Thread hilo = new Thread()
         {
             public void run()
@@ -476,25 +473,38 @@ public class vistaGrafica extends JFrame {
                 catch ( Exception e )
                 {
                     Console.setText(e.getMessage());
+                    computando=false;
                 }
             }
         };
         hilo.start();
-        System.out.println("salgo");
     }
     
     private void mensajeEnGeneracion(){
-        System.out.println("Mensaje que no saleeee");
-        int contador=0;
-        while(computando){
-            if(contador==0)Console.setText("Generando Barrio.");
-            if(contador==1)Console.setText("Generando Barrio..");
-            if(contador==2){
-                Console.setText("Generando Barrio...");
-                contador=-1;
+        Thread hilo = new Thread()
+        {
+            public void run()
+            {
+                try
+                {
+                    int contador=-1000000000;
+                    while(computando){
+                        if(contador==10000000)Console.setText("Generando Barrio.");
+                        if(contador==200000000)Console.setText("Generando Barrio..");
+                        if(contador==390000000){
+                            Console.setText("Generando Barrio...");
+                            contador=-180000000;
+                        }
+                    ++contador;
+                    }    
+                }
+                catch ( Exception e )
+                {
+                    Console.setText(e.getMessage());
+                }
             }
-            ++contador;
-        }
+        };
+        hilo.start();
     }
     
     private void guardaBarrioActualizacion(){
@@ -1279,6 +1289,7 @@ public class vistaGrafica extends JFrame {
                     CtrlBarrio.crearBarrio(Nombre, TB,0);
                     CtrlBarrio.crearMapaBarrio(X, Y);
                     barrioCargado();
+
                 }
                 catch(Exception e){
                     Console.setText(e.getMessage());
@@ -1392,7 +1403,13 @@ public class vistaGrafica extends JFrame {
     }//GEN-LAST:event_Eliminar_barrioActionPerformed
 
     private void anadirElemento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirElemento
-          addElemBar formulario = new addElemBar(this,true);
+        String[][] elem = CtrlBarrio.listarCjtElemBarrio();
+        Object[] list = new Object[elem.length];
+        for(int i=0;i<elem.length;++i){
+            list[i] = elem[i][3];
+        }
+        
+          addElemBar formulario = new addElemBar(this,true,list);
           formulario.setVisible(true);
           if(formulario.Aceptado()){
                 String id = formulario.getNombre();
@@ -1658,9 +1675,9 @@ public class vistaGrafica extends JFrame {
                 initTablasBarrioRest();
                 barrioCargado();
                 if(tipo==1)modoLibre();
+                mostrarBarrio();
                 Console.setText("Barrio Cargado correctamentes");
             } catch (Exception ex) {
-                System.out.println("CHIVATOO");
                 Console.setText(ex.getMessage());
             }
         }
@@ -1770,7 +1787,7 @@ public class vistaGrafica extends JFrame {
                 try {
                     computando = true;
                     lanzathread(true);
-                    //mensajeEnGeneracion();
+                    mensajeEnGeneracion();
                 } catch (Exception ex) {
                     Console.setText(ex.getMessage());
                 }
@@ -1779,7 +1796,7 @@ public class vistaGrafica extends JFrame {
                try {
                     computando = true;
                     lanzathread(false);
-                    //mensajeEnGeneracion();                   
+                    mensajeEnGeneracion();                   
                 } catch (Exception ex) {
                     Console.setText(ex.getMessage());
                 } 
