@@ -41,6 +41,7 @@ public class addElemBar extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(450, 320));
 
         jLabel1.setText("Nombre");
 

@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import controladors.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -54,6 +56,11 @@ public class vistaGrafica extends JFrame {
         CtrlBarrio = CtrlDomBarrios.getInstance();
         CtrlElem = CtrlDomElementos.getInstance();
         CtrlRest = CtrlDomRestricciones.getInstance();
+        /*Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = pantalla.height;
+        int width = pantalla.width;
+        setLocation(width/2, height/2);		
+        setLocationRelativeTo(null);*/
         initComponents();
         jToolBar1.setFloatable(false);
         setResizable(false);
@@ -580,6 +587,7 @@ public class vistaGrafica extends JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(80, 100));
         setPreferredSize(new java.awt.Dimension(1115, 640));
 
         jToolBar1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.gray));
@@ -1704,7 +1712,7 @@ public class vistaGrafica extends JFrame {
     }//GEN-LAST:event_eliminarCarretera
 
     private void editPresupuesto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPresupuesto
-        FormPresPob formulario = new FormPresPob(this,true);
+        FormPresPob formulario = new FormPresPob(this,true,null);
         formulario.setVisible(true);
         if(formulario.aceptado()){
             try{
@@ -1725,7 +1733,7 @@ public class vistaGrafica extends JFrame {
     }//GEN-LAST:event_editPresupuesto
 
     private void editPoblacion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPoblacion
-        FormPresPob formulario = new FormPresPob(this,true);
+        FormPresPob formulario = new FormPresPob(this,true,null);
         formulario.setVisible(true);
         if(formulario.aceptado()){
             try{
@@ -1829,7 +1837,7 @@ public class vistaGrafica extends JFrame {
                             JOptionPane.QUESTION_MESSAGE,
                             null,  // null para icono defecto
                              list,"  ");
-        FormPresPob formulario = new FormPresPob(this,true);
+        FormPresPob formulario = new FormPresPob(this,true,"Cuantos quieres eliminar?");
         formulario.setVisible(true);
         if(seleccion!=null && formulario.aceptado()){
             try{

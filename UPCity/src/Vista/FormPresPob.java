@@ -11,13 +11,15 @@ package Vista;
 public class FormPresPob extends javax.swing.JDialog {
     
     private boolean aceptado;
-
+    static private String msg;
     /**
      * Creates new form FormPresPob
      */
-    public FormPresPob(java.awt.Frame parent, boolean modal) {
+    public FormPresPob(java.awt.Frame parent, boolean modal,String m) {
         super(parent, modal);
         initComponents();
+        msg = m;
+        if(msg!=null) jLabel1.setText(msg);
         aceptado=false;
     }
 
@@ -36,6 +38,7 @@ public class FormPresPob extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(470, 375));
 
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -147,7 +150,7 @@ public class FormPresPob extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FormPresPob dialog = new FormPresPob(new javax.swing.JFrame(), true);
+                FormPresPob dialog = new FormPresPob(new javax.swing.JFrame(), true,msg);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -71,6 +71,7 @@ public class formNewRestriccion extends javax.swing.JDialog {
         jComboBox3 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(275, 100));
 
         jRadioButton1.setText("Ubicacion");
         jRadioButton1.addChangeListener(new javax.swing.event.ChangeListener() {

@@ -88,6 +88,7 @@ public class formNewElem extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(275, 100));
 
         jLabel1.setText("Nombre");
 
