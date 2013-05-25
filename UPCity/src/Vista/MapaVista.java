@@ -15,7 +15,7 @@ public class MapaVista extends javax.swing.JPanel {
     private boolean tipoTablero;
     private Casilla [][] casillas ;
     private int tamx, tamy, tamcx, tamcy;
-    boolean cuadrado;
+    private boolean cuadrado, inverso;
     private ImageIcon[] imagenespre;
     private ImageIcon[] imagenesusu;
     private ImageIcon calle;
@@ -26,6 +26,7 @@ public class MapaVista extends javax.swing.JPanel {
     }
 
     public MapaVista(int x,  int y, boolean tipo) {
+        inverso = false;
         if(x == y) {
             cuadrado = true;
             tamx = x;
@@ -46,9 +47,15 @@ public class MapaVista extends javax.swing.JPanel {
                 tamcy = x;
                 tamcx = y;
             }
+            if(tamx < tamy) {
+                inverso = true;
+                int aux = tamx;
+                tamx = tamy;
+                tamy = aux;
+            }
             tamcx = 1000/tamcx;
             tamcy = 700/tamcy;
-            casillas = new Casilla[tamcx][tamcy];
+            casillas = new Casilla[tamx][tamy];
         }
         initComponents();
         setLayout(new java.awt.GridLayout(tamx, tamy));
@@ -58,11 +65,11 @@ public class MapaVista extends javax.swing.JPanel {
         imagenesusu = new ImageIcon[10];
         imagenespre[0] = new ImageIcon("src/imatges/casa.jpg");
         imagenespre[1] = new ImageIcon("src/imatges/comercio.jpg");
-        imagenesusu[1] = new ImageIcon("src/imatges/1.jpg");
-        imagenesusu[2] = new ImageIcon("src/imatges/2.jpg");
-        imagenesusu[3] = new ImageIcon("src/imatges/3.jpg");
-        imagenesusu[4] = new ImageIcon("src/imatges/4.jpg");
-        imagenesusu[5] = new ImageIcon("src/imatges/5.jpg");
+        imagenesusu[0] = new ImageIcon("src/imatges/1.jpg");
+        imagenesusu[1] = new ImageIcon("src/imatges/2.jpg");
+        imagenesusu[2] = new ImageIcon("src/imatges/3.jpg");
+        imagenesusu[3] = new ImageIcon("src/imatges/4.jpg");
+        imagenesusu[4] = new ImageIcon("src/imatges/5.jpg");
         
         for (int i = 0; i < tamx; i++){
             for (int j = 0; j < tamy; j++){
@@ -114,15 +121,24 @@ public class MapaVista extends javax.swing.JPanel {
     }
     
     public void leerMapa(String[][] mapa){
-        boolean inverso = false;
-        if(cuadrado == false && tamx < tamy) {
-            inverso = true;
-        }
         for(int i = 0; i < tamx; ++i) {
             for(int j = 0; j < tamy; ++j) {
-                
+                int aux = 0;
+                if(inverso == true) {
+                    aux = Integer.parseInt(mapa[j][i]);
+                }
+                else aux = Integer.parseInt(mapa[i][j]);
+                if(aux == -1)  casillas[i][j].setFondo(calle);
+                else if(aux < 20) {
+                    casillas[i][j].setFondo(imagenespre[aux]);
+                }
+                else {
+                    aux = aux%20;
+                    casillas[i][j].setFondo(imagenesusu[aux]);
+                }
             }
         }
+        this.repaint();
     }
                               
     private void initComponents() {

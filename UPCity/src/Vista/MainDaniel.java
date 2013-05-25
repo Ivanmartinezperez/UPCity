@@ -17,7 +17,20 @@ public class MainDaniel extends javax.swing.JFrame {
     }
                           
     private void initComponents() {
-        tableroGUI1 = new MapaVista(15, 10 ,true);
+        String[][] mapa = new String[8][6];
+        for(int i = 0; i < 8; ++i){
+            for(int j = 0; j < 6; ++j) {
+                if(i%2 == 0)mapa[i][j] = "0";
+                else mapa[i][j] = "1";
+            }
+        }
+        mapa[0][0] = "20";
+        mapa[1][1] = "21";
+        mapa[2][2] = "22";
+        mapa[3][3] = "23";
+        mapa[4][4] = "24";
+        tableroGUI1 = new MapaVista(8, 6 ,true);
+        tableroGUI1.leerMapa(mapa);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         javax.swing.GroupLayout tableroGUI1Layout = new javax.swing.GroupLayout(tableroGUI1);
