@@ -184,7 +184,6 @@ public class MapaVista extends javax.swing.JPanel {
     
     public void finalizaEspera(){
         espera = 1;
-        System.out.println("Espera fin");
     }
                      
 }

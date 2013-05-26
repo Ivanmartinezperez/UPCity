@@ -540,17 +540,14 @@ public class vistaGrafica extends JFrame {
                     try {
                         if(tipo==1  /*mapa.getEspera()==1*/){
                             CtrlBarrio.insertarCarretera(mapa.seleccionadaX(), mapa.seleccionadaY());
-                            System.out.println("He actualizado el barrio poniendo");
                         }
                         else if(tipo==0  /*mapa.getEspera()==1*/){
                             CtrlBarrio.eliminarCarretera(mapa.seleccionadaX(), mapa.seleccionadaY());
-                            System.out.println("He actualizado el barrio borrando");
                         }
                     } catch (Exception ex) {
                         Console.setText(ex.getMessage());
                     }
                     mostrarBarrio();
-                    System.out.println("Salgo del thread!");
                 }
                 catch ( Exception e )
                 {
@@ -1321,10 +1318,14 @@ public class vistaGrafica extends JFrame {
                 try{
                     CtrlBarrio.crearBarrio(Nombre, 0,1);
                     CtrlBarrio.crearMapaBarrio(X, Y);
-                    initVistaMapa(X,Y);
+                    initTablasBarrioElem();
+                    initTablasBarrioRest();
                     barrioCargado();
                     modoLibre();
                     modo=1;
+                    initVistaMapa(CtrlBarrio.vistaMapa().length,CtrlBarrio.vistaMapa()[0].length);
+                    mostrarBarrio();
+                    
                 }
                 catch(Exception e){
                     Console.setText(e.getMessage());
@@ -1336,9 +1337,12 @@ public class vistaGrafica extends JFrame {
                 try{
                     CtrlBarrio.crearBarrio(Nombre, TB,0);
                     CtrlBarrio.crearMapaBarrio(X, Y);
-                    initVistaMapa(X,Y);
+                    initTablasBarrioElem();
+                    initTablasBarrioRest();
                     barrioCargado();
                     modo=0;
+                    initVistaMapa(CtrlBarrio.vistaMapa().length,CtrlBarrio.vistaMapa()[0].length);
+                    mostrarBarrio();
 
                 }
                 catch(Exception e){
@@ -1354,9 +1358,12 @@ public class vistaGrafica extends JFrame {
                     CtrlBarrio.crearMapaBarrio(X, Y);
                     CtrlBarrio.setPresupuestoBarrio(presupuesto);
                     CtrlBarrio.setPoblacionbarrio(poblacion);
-                    initVistaMapa(X,Y);
+                    initTablasBarrioElem();
+                    initTablasBarrioRest();
                     barrioCargado();
                     modo=0;
+                    initVistaMapa(CtrlBarrio.vistaMapa().length,CtrlBarrio.vistaMapa()[0].length);
+                    mostrarBarrio();
                 }
                 catch(Exception e){
                     Console.setText(e.getMessage());
