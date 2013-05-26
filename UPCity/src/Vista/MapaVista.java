@@ -19,6 +19,9 @@ public class MapaVista extends javax.swing.JPanel {
     private ImageIcon[] imagenespre;
     private ImageIcon[] imagenesusu;
     private ImageIcon calle;
+    private int ultimaX;
+    private int ultimaY;
+    public int espera;
         
     public MapaVista() {
         initComponents();
@@ -26,6 +29,7 @@ public class MapaVista extends javax.swing.JPanel {
     }
 
     public MapaVista(int x,  int y, boolean tipo) {
+        espera = 0;
         inverso = false;
         if(x == y) {
             cuadrado = true;
@@ -60,10 +64,10 @@ public class MapaVista extends javax.swing.JPanel {
         initComponents();
         setLayout(new java.awt.GridLayout(tamx, tamy));
         this.tipoTablero = tipo;
-        calle = new ImageIcon("src/imatges/calle.jpg");
+        calle = new ImageIcon("src/imatges/carretera.jpg");
         imagenespre = new ImageIcon[10];
         imagenesusu = new ImageIcon[10];
-        imagenespre[0] = new ImageIcon("src/imatges/casa.jpg");
+        imagenespre[0] = new ImageIcon("src/imatges/cesped.jpg");
         imagenespre[1] = new ImageIcon("src/imatges/comercio.jpg");
         imagenespre[2] = new ImageIcon("src/imatges/Hospital_Final.jpg");
         imagenespre[3] = new ImageIcon("src/imatges/Police.jpg");
@@ -145,6 +149,11 @@ public class MapaVista extends javax.swing.JPanel {
         }
         this.repaint();
     }
+    
+    public void ultimaSeleccionada(int x,int y){
+       ultimaX=x;
+       ultimaY=y;
+    }
                               
     private void initComponents() {
 
@@ -154,6 +163,28 @@ public class MapaVista extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         if(tamx == tamy) setPreferredSize(new java.awt.Dimension(700, 700));
         else setPreferredSize(new java.awt.Dimension(1000, 700));
-    }                      
+    } 
+    
+    public int seleccionadaX(){
+        return ultimaX;
+    }
+    
+    public int seleccionadaY(){
+        return ultimaY;
+    }
+    
+    public int resetEspera(){
+        espera=0;
+        return espera;
+    }
+    
+    public int getEspera(){
+        return espera;
+    }
+    
+    public void finalizaEspera(){
+        espera = 1;
+        System.out.println("Espera fin");
+    }
                      
 }

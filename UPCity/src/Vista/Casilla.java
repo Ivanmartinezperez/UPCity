@@ -17,6 +17,7 @@ public class Casilla extends javax.swing.JPanel implements MouseListener {
     private MapaVista tablero;
     private ImageIcon fondo;
     private static int [] casillaMarcada = new int[2];
+    private boolean Seleccionada;
     
     public Casilla() {        
         // este constructor no se usar&aacute;, se deja para poder crear el bean.        
@@ -25,6 +26,7 @@ public class Casilla extends javax.swing.JPanel implements MouseListener {
     public Casilla(MapaVista t) {
         initComponents();        
         this.tablero = t;
+        Seleccionada=false;
         if(this.tablero.getTipoTablero() == true){// tablero responde a clics?
             this.addMouseListener(this);
         }
@@ -63,7 +65,10 @@ public class Casilla extends javax.swing.JPanel implements MouseListener {
     public void mouseExited(MouseEvent e){}
     public void mousePressed(MouseEvent e){
             this.setCasillaMarcada(tablero.getCoordenadas((Casilla)e.getComponent())); 
-            this.tablero.pintar(this.getCasillaMarcada()[0],this.getCasillaMarcada()[1]);
+            this.tablero.ultimaSeleccionada(this.getCasillaMarcada()[0],this.getCasillaMarcada()[1]);
+            tablero.finalizaEspera();
+            System.out.println("atiendo clicks");
+            
     }
     public void mouseReleased(MouseEvent e){}
     
@@ -72,6 +77,10 @@ public class Casilla extends javax.swing.JPanel implements MouseListener {
     }
     public static void setCasillaMarcada(int[] aCasillaMarcada) {
         casillaMarcada = aCasillaMarcada;
-    }                  
+    }
+    
+    private void setSeleccionada(){
+        
+    }
     
 }

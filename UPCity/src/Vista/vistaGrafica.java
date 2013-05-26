@@ -47,6 +47,8 @@ public class vistaGrafica extends JFrame {
     private CtrlDomElementos CtrlElem;
     private CtrlDomRestricciones CtrlRest;
     private boolean computando;
+    public int modo;
+    MapaVista mapa;
         
 
     /**
@@ -448,7 +450,6 @@ public class vistaGrafica extends JFrame {
             }
             p=p.concat("\n");    
         }
-        MapaVista mapa = new MapaVista(mat.length, mat[0].length,true);
         mapa.leerMapa(mat);
         jSplitPane3.setTopComponent(mapa);
         jSplitPane3.setDividerLocation(450);
@@ -467,6 +468,7 @@ public class vistaGrafica extends JFrame {
                     CtrlBarrio.generarBarrio(b);
                     guardaBarrioActualizacion();
                     computando=false;
+                    mostrarBarrio();
                     Console.setText("Mira, ya hemos terminado tu barrio!");
                     
                 }
@@ -514,6 +516,50 @@ public class vistaGrafica extends JFrame {
         catch(Exception e){
             Console.setText(e.getMessage());
         }
+    }
+    
+    private void initVistaMapa(int x,int y){
+        mapa = new MapaVista(x,y,true);
+    }
+    
+    /* tipo=0:quita carretera
+     * tipo=1:poncarretera
+     */
+    private void threadCarretera(final int tipo){
+        Thread hilo = new Thread()
+        {
+            public void run()
+            {
+                try
+                {
+                    int espera;
+                    mapa.resetEspera();
+                    while(mapa.getEspera()==0){
+                       System.out.print("");
+                    } 
+                    try {
+                        if(tipo==1  /*mapa.getEspera()==1*/){
+                            CtrlBarrio.insertarCarretera(mapa.seleccionadaX(), mapa.seleccionadaY());
+                            System.out.println("He actualizado el barrio poniendo");
+                        }
+                        else if(tipo==0  /*mapa.getEspera()==1*/){
+                            CtrlBarrio.eliminarCarretera(mapa.seleccionadaX(), mapa.seleccionadaY());
+                            System.out.println("He actualizado el barrio borrando");
+                        }
+                    } catch (Exception ex) {
+                        Console.setText(ex.getMessage());
+                    }
+                    mostrarBarrio();
+                    System.out.println("Salgo del thread!");
+                }
+                catch ( Exception e )
+                {
+                    Console.setText(e.getMessage());
+                    computando=false;
+                }
+            }
+        };
+        hilo.start();
     }
 
     /**
@@ -1275,8 +1321,10 @@ public class vistaGrafica extends JFrame {
                 try{
                     CtrlBarrio.crearBarrio(Nombre, 0,1);
                     CtrlBarrio.crearMapaBarrio(X, Y);
+                    initVistaMapa(X,Y);
                     barrioCargado();
                     modoLibre();
+                    modo=1;
                 }
                 catch(Exception e){
                     Console.setText(e.getMessage());
@@ -1288,7 +1336,9 @@ public class vistaGrafica extends JFrame {
                 try{
                     CtrlBarrio.crearBarrio(Nombre, TB,0);
                     CtrlBarrio.crearMapaBarrio(X, Y);
+                    initVistaMapa(X,Y);
                     barrioCargado();
+                    modo=0;
 
                 }
                 catch(Exception e){
@@ -1304,7 +1354,9 @@ public class vistaGrafica extends JFrame {
                     CtrlBarrio.crearMapaBarrio(X, Y);
                     CtrlBarrio.setPresupuestoBarrio(presupuesto);
                     CtrlBarrio.setPoblacionbarrio(poblacion);
+                    initVistaMapa(X,Y);
                     barrioCargado();
+                    modo=0;
                 }
                 catch(Exception e){
                     Console.setText(e.getMessage());
@@ -1403,10 +1455,11 @@ public class vistaGrafica extends JFrame {
     }//GEN-LAST:event_Eliminar_barrioActionPerformed
 
     private void anadirElemento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirElemento
-        String[][] elem = CtrlBarrio.listarCjtElemBarrio();
-        Object[] list = new Object[elem.length];
-        for(int i=0;i<elem.length;++i){
-            list[i] = elem[i][3];
+        Set<String> elementos = CtrlElem.ListaNombreElementos();
+        Object[] list = new Object[elementos.size()+1];
+        Iterator j = elementos.iterator();
+        for(int i=0;j.hasNext();++i){
+            list[i] = j.next();
         }
         
           addElemBar formulario = new addElemBar(this,true,list);
@@ -1483,7 +1536,6 @@ public class vistaGrafica extends JFrame {
         Iterator j = elementos.iterator();
         for(int i=0;j.hasNext();++i){
             list[i] = j.next();
-            //elementos.iterator().
         }
         
         Object seleccion = JOptionPane.showInputDialog(
@@ -1674,7 +1726,12 @@ public class vistaGrafica extends JFrame {
                 initTablasBarrioElem();
                 initTablasBarrioRest();
                 barrioCargado();
-                if(tipo==1)modoLibre();
+                modo=0;
+                if(tipo==1){
+                    modoLibre();
+                    modo=1;
+                }
+                initVistaMapa(CtrlBarrio.vistaMapa().length,CtrlBarrio.vistaMapa()[0].length);
                 mostrarBarrio();
                 Console.setText("Barrio Cargado correctamentes");
             } catch (Exception ex) {
@@ -1714,11 +1771,13 @@ public class vistaGrafica extends JFrame {
     }//GEN-LAST:event_anadirRestBarrio
 
     private void anadirCarretera(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirCarretera
-        // TODO add your handling code here:
+        Console.setText("Pulse la casilla donde quieres introducir la carretera");
+        threadCarretera(1);
     }//GEN-LAST:event_anadirCarretera
 
     private void eliminarCarretera(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarCarretera
-        // TODO add your handling code here:
+         Console.setText("Pulse la casilla donde quieres eliminar la carretera");
+        threadCarretera(0);
     }//GEN-LAST:event_eliminarCarretera
 
     private void editPresupuesto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPresupuesto
@@ -1803,7 +1862,6 @@ public class vistaGrafica extends JFrame {
             }
             
         }
-        mostrarBarrio();
     }//GEN-LAST:event_generarBarrio
 
     private void elimResBarrio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elimResBarrio
