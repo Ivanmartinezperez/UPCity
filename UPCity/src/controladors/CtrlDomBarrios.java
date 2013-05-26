@@ -785,6 +785,17 @@ public class CtrlDomBarrios {
         return true;
     }
     
+    public void eliminarCarretera(int x,int y) throws Exception{
+        if (x < 0 || x >= Mapa.tama() || y < 0 || y >= Mapa.tamb()){
+            throw new Exception("\nLa posicion no es correcta.\n");
+        }
+        if(Mapa.pos(x, y).getoid()!=-1){
+            throw new Exception("\nNo hay ninguna carretera en la posicion dada.\n");
+        }
+        Mapa.pos(x, y).modificarPar(0, 0);
+        copia.pos(x, y).modificarPar(0, 0);;
+    }
+    
     
     public void setPresupuestoBarrio(int pres) throws Exception{
         if(pres < 0){
