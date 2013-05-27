@@ -58,11 +58,6 @@ public class vistaGrafica extends JFrame {
         CtrlBarrio = CtrlDomBarrios.getInstance();
         CtrlElem = CtrlDomElementos.getInstance();
         CtrlRest = CtrlDomRestricciones.getInstance();
-        /*Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = pantalla.height;
-        int width = pantalla.width;
-        setLocation(width/2, height/2);		
-        setLocationRelativeTo(null);*/
         initComponents();
         jToolBar1.setFloatable(false);
         setResizable(false);
@@ -382,17 +377,17 @@ public class vistaGrafica extends JFrame {
                     ++indiceUU;
                 }
                 if(list[i][0].equals("d")){
-                    tablaDemUser.setValueAt(list[i][1], indiceUU, 0);
-                    tablaDemUser.setValueAt(list[i][2], indiceUU, 1);
-                    tablaDemUser.setValueAt(list[i][3], indiceUU, 2);
+                    tablaDemUser.setValueAt(list[i][1], indiceDU, 0);
+                    tablaDemUser.setValueAt(list[i][2], indiceDU, 1);
+                    tablaDemUser.setValueAt(list[i][3], indiceDU, 2);
                     ++indiceDU;
                 }
                 if(list[i][0].equals("e")){
-                    tablaEcoUser.setValueAt(list[i][1], indiceUU, 0);
-                    tablaEcoUser.setValueAt(list[i][2], indiceUU, 1);
-                    tablaEcoUser.setValueAt(list[i][3], indiceUU, 2);
-                    tablaEcoUser.setValueAt(list[i][4], indiceUU, 3);
-                    tablaEcoUser.setValueAt(list[i][5], indiceUU, 4);
+                    tablaEcoUser.setValueAt(list[i][1], indiceEU, 0);
+                    tablaEcoUser.setValueAt(list[i][2], indiceEU, 1);
+                    tablaEcoUser.setValueAt(list[i][3], indiceEU, 2);
+                    tablaEcoUser.setValueAt(list[i][4], indiceEU, 3);
+                    tablaEcoUser.setValueAt(list[i][5], indiceEU, 4);
                     ++indiceEU;
                 }
             }
@@ -639,6 +634,7 @@ public class vistaGrafica extends JFrame {
         newRes = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        restGen = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(80, 100));
@@ -1260,6 +1256,14 @@ public class vistaGrafica extends JFrame {
         });
         newRes.add(jMenuItem2);
 
+        restGen.setText("Restricciones Generales...");
+        restGen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gestRestGen(evt);
+            }
+        });
+        newRes.add(restGen);
+
         jMenuBar1.add(newRes);
 
         setJMenuBar(jMenuBar1);
@@ -1297,7 +1301,7 @@ public class vistaGrafica extends JFrame {
                     .add(jSplitPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 590, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jSplitPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 590, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(filler2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
+                .add(filler2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(filler1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(25, 25, 25))
@@ -1926,6 +1930,12 @@ public class vistaGrafica extends JFrame {
         }
     }//GEN-LAST:event_QuitarElemento
 
+    private void gestRestGen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestRestGen
+        
+        formRestGen formulario = new formRestGen(this,true);
+        formulario.setVisible(true);
+    }//GEN-LAST:event_gestRestGen
+
     /**
      * @param args the command line arguments
      */
@@ -2019,6 +2029,7 @@ public class vistaGrafica extends JFrame {
     private javax.swing.JMenuItem newBar;
     private javax.swing.JMenu newElem;
     private javax.swing.JMenu newRes;
+    private javax.swing.JMenuItem restGen;
     private javax.swing.JTable tabCom;
     private javax.swing.JTable tabComU;
     private javax.swing.JTable tabDem;
