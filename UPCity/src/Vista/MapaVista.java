@@ -104,7 +104,7 @@ public class MapaVista extends javax.swing.JPanel {
     public int[] getCoordenadas(Casilla casilla) {
         int [] coordenadas = new int[2];
         for (int i=0; i < this.casillas.length; i++) {
-            for (int j=0; j < this.casillas.length; j++) {
+            for (int j=0; j < this.casillas[0].length; j++) {
                 if (this.casillas[i][j] == casilla) {
                     coordenadas[0] = i;
                     coordenadas[1] = j;

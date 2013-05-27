@@ -47,7 +47,8 @@ public class vistaGrafica extends JFrame {
     private CtrlDomElementos CtrlElem;
     private CtrlDomRestricciones CtrlRest;
     private boolean computando;
-    public int modo;
+    private int modo;
+    private String lastElemDG;
     MapaVista mapa;
         
 
@@ -426,14 +427,12 @@ public class vistaGrafica extends JFrame {
     }
     
     private void modoLibre(){
-        addElem.setEnabled(false);
-        jButton2.setEnabled(false);
         jButton2.setEnabled(false);
         jButton3.setEnabled(false);
         jButton4.setEnabled(false);
-        jButton5.setEnabled(false);
-        jButton6.setEnabled(false);
-        
+        jButton8.setEnabled(false);
+        jButton9.setEnabled(false);
+        jButton10.setEnabled(false);
     }
     
     private void mostrarBarrio(){
@@ -548,6 +547,82 @@ public class vistaGrafica extends JFrame {
                 {
                     Console.setText(e.getMessage());
                     computando=false;
+                }
+            }
+        };
+        hilo.start();
+    }
+    
+    private void threadDGElemadd(){
+        Thread hilo = new Thread()
+        {
+            public void run()
+            {
+                try
+                {
+                    int espera;
+                    addElem.setEnabled(false);
+                    jButton2.setEnabled(false);
+                    Console.setText("Seleccione la posicion dode quiere colocar el elemento\n"
+                        +"NOTA: En la posicion seleccionada se colocará la esquina superior izquierda del elemento");
+                    mapa.resetEspera();
+                    while(mapa.getEspera()==0){
+                       System.out.print("");
+                    } 
+                    try {
+                        CtrlBarrio.draguearElemBarrio(lastElemDG, mapa.seleccionadaX(), mapa.seleccionadaY());
+                        Console.setText("Elemento colocado correctamente");
+                    } catch (Exception ex) {
+                        Console.setText(ex.getMessage());
+                    }
+                    mostrarBarrio();
+                    addElem.setEnabled(true);
+                    jButton2.setEnabled(true);
+                    guardaBarrioActualizacion();
+                    initTablasBarrioElem();
+                    
+                }
+                catch ( Exception e )
+                {
+                    Console.setText(e.getMessage());
+                }
+            }
+        };
+        hilo.start();
+    }
+    
+    private void threadDGElemTak(){
+        Thread hilo = new Thread()
+        {
+            public void run()
+            {
+                try
+                {
+                    int espera;
+                    addElem.setEnabled(false);
+                    jButton2.setEnabled(false);
+                    Console.setText("Seleccione la esquina superior izquierda del elemento a retirar");
+                    mapa.resetEspera();
+                    while(mapa.getEspera()==0){
+                       System.out.print("");
+                    } 
+                    try {
+                        CtrlBarrio.takearElemBarrio(mapa.seleccionadaX(), mapa.seleccionadaY());
+                        Console.setText("Elemento retirado con exito");
+                    } catch (Exception ex) {
+                        Console.setText(ex.getMessage());
+                    }
+                    mostrarBarrio();
+                    addElem.setEnabled(true);
+                    jButton2.setEnabled(true);
+                    guardaBarrioActualizacion();
+                    initTablasBarrioElem();
+                }
+                catch ( Exception e )
+                {
+                    Console.setText(e.getMessage());
+                    addElem.setEnabled(true);
+                    jButton2.setEnabled(true);
                 }
             }
         };
@@ -1447,20 +1522,24 @@ public class vistaGrafica extends JFrame {
                              list," ");
         if(seleccion!=null){
             try{
-                //String Nombre = formulario.getNombre();
-                try{
-                    CtrlBarrio.eliminarBarrio(seleccion.toString());
-                    Console.setText("El Barrio "+seleccion.toString()+" ha sido eliminado correctamente");
+               if(seleccion.toString()!=CtrlBarrio.getNombreBarrio()){ 
+                    try{
+                        CtrlBarrio.eliminarBarrio(seleccion.toString());
+                        Console.setText("El Barrio "+seleccion.toString()+" ha sido eliminado correctamente");
+                    }
+                    catch(Exception e){
+                        Console.setText(e.getMessage());
+                    }
+
                 }
-                catch(Exception e){
-                    Console.setText(e.getMessage());
-                }
-                
+               else{
+                   Console.setText("No puedes borrar el barrio que actualmente esta cargado\n"
+                           +"Si desea eliminarlo, cargue otro barrio o bien cree uno nuevo");
+               }
             }
             catch(Exception e){
                 Console.setText("Introduzca un nombre porfavor");
                 JOptionPane warning = new JOptionPane();
-                //warning.
             }
         }
     }//GEN-LAST:event_Eliminar_barrioActionPerformed
@@ -1472,7 +1551,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;j.hasNext();++i){
             list[i] = j.next();
         }
-        
+        if(modo==0){
           addElemBar formulario = new addElemBar(this,true,list);
           formulario.setVisible(true);
           if(formulario.Aceptado()){
@@ -1488,6 +1567,20 @@ public class vistaGrafica extends JFrame {
                 
             }
           }
+        }
+        else if(modo==1){
+            Object seleccion = JOptionPane.showInputDialog(
+                            this,
+                            "Seleccione el elemento que desea añadir ",
+                            "Añadir Elemento",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,  // null para icono defecto
+                             list," ");
+            if(seleccion!=null) lastElemDG=seleccion.toString();
+            threadDGElemadd();
+            
+        }
+        
     }//GEN-LAST:event_anadirElemento
 
     private void guardaBarrio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaBarrio
@@ -1652,7 +1745,6 @@ public class vistaGrafica extends JFrame {
         if(formulario.aceptado()){
             try{
                 String nombre = formulario.Nombre();
-                System.out.println(formulario.getTipo());
                 if(formulario.getTipo() == 1) {
                     try{
                         String e1 = formulario.getElemUb1();
@@ -1804,7 +1896,7 @@ public class vistaGrafica extends JFrame {
                     Console.setText(e.getMessage());
                 }
             }catch(Exception e){
-                Console.setText("Introduza una cantidad porfavor");
+                Console.setText("Introduzca una cantidad porfavor");
                 JOptionPane.showMessageDialog(
                             this,
                             "NO VAYAS DE TROLL Y PON UNA CANTIDAD!!");
@@ -1903,31 +1995,34 @@ public class vistaGrafica extends JFrame {
     }//GEN-LAST:event_elimResBarrio
 
     private void QuitarElemento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitarElemento
-        String[][] rest = CtrlBarrio.listarCjtElemBarrio();
-        Object[] list = new Object[rest.length+1];
-        for(int i=0;i<rest.length;++i){
-            list[i] = rest[i][3];
-        }
-        
-        Object seleccion = JOptionPane.showInputDialog(
-                            this,
-                            "Añadir restriccion al barrio",
-                            "Seleccione la restriccion que desea añadir",
-                            JOptionPane.QUESTION_MESSAGE,
-                            null,  // null para icono defecto
-                             list,"  ");
-        FormPresPob formulario = new FormPresPob(this,true,"Cuantos quieres eliminar?");
-        formulario.setVisible(true);
-        if(seleccion!=null && formulario.aceptado()){
-            try{
-                CtrlBarrio.quitarElemento(seleccion.toString(),formulario.getCantidad());
-                initTablasBarrioElem();
-                guardaBarrioActualizacion();
-                Console.setText("Se han quitado "+formulario.getCantidad()+" "+seleccion.toString()+" de tu barrio");
-            }catch(Exception e){
-                Console.setText(e.getMessage());
+        if(modo==0){
+            String[][] rest = CtrlBarrio.listarCjtElemBarrio();
+            Object[] list = new Object[rest.length+1];
+            for(int i=0;i<rest.length;++i){
+                list[i] = rest[i][3];
+            }
+
+            Object seleccion = JOptionPane.showInputDialog(
+                                this,
+                                "Añadir restriccion al barrio",
+                                "Seleccione la restriccion que desea añadir",
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,  // null para icono defecto
+                                 list,"  ");
+            FormPresPob formulario = new FormPresPob(this,true,"Cuantos quieres eliminar?");
+            formulario.setVisible(true);
+            if(seleccion!=null && formulario.aceptado()){
+                try{
+                    CtrlBarrio.quitarElemento(seleccion.toString(),formulario.getCantidad());
+                    initTablasBarrioElem();
+                    guardaBarrioActualizacion();
+                    Console.setText("Se han quitado "+formulario.getCantidad()+" "+seleccion.toString()+" de tu barrio");
+                }catch(Exception e){
+                    Console.setText(e.getMessage());
+                }
             }
         }
+        else if(modo==1) threadDGElemTak();
     }//GEN-LAST:event_QuitarElemento
 
     private void gestRestGen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestRestGen
