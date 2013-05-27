@@ -4,22 +4,26 @@
  */
 package Pruebas;
 
-import Pruebas.testfunciones;
 import Vista.vistaComandos;
+import Vista.vistaGrafica;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 
 /**
  *
  * @author ivanmartinez
  */
-public class Mainprincipal {
+public class UPCity {
     
     public static void main(String arg[]) throws IOException, FileNotFoundException, ClassNotFoundException, Exception{
         
-        vistaComandos a = new vistaComandos();
-        a.mainLoop();
+        if(arg.length==0){
+            vistaGrafica.main(arg);
+        }
+        else if(arg.length==1 && "-c".equals(arg[0])){
+            vistaComandos a = new vistaComandos();
+            a.mainLoop();
+        }
 
         
     }

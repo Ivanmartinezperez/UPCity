@@ -19,7 +19,9 @@ public class FormPresPob extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         msg = m;
-        if(msg!=null) jLabel1.setText(msg);
+        if(msg!=null) {
+            jLabel1.setText(msg);
+        }
         aceptado=false;
     }
 
@@ -149,6 +151,7 @@ public class FormPresPob extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 FormPresPob dialog = new FormPresPob(new javax.swing.JFrame(), true,msg);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
