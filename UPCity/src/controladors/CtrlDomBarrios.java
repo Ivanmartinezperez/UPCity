@@ -958,6 +958,11 @@ public class CtrlDomBarrios {
         }
         else if(r instanceof Restriccion_demografica){
             Restriccion_demografica r2 = (Restriccion_demografica) r;
+            if(CjtRestDemog.containsKey(r2.consultar_OID())){
+                throw new Exception("\nEl Conjunto de Restricciones ya "
+                        + "contiene una restriccion demografica sobre este"
+                        + "elemento\n");
+            }
             CjtRestDemog.put(r2.consultar_OID(), r2);
         }
         else if(r instanceof Restriccion_economica){

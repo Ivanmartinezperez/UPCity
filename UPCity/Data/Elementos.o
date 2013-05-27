@@ -1,0 +1,29 @@
+1	Casa pequena	Casita pequena de ricachones	1	3	40000	5	1	1
+2	Casa mediana	Casita de ricos media	1	3	80000	20	2	1
+3	Casa grande	Casaron de ricachones guapo	1	3	200000	30	2	2
+4	Bloque bajo	Bloque de pisos antiguos de 2 plantas	1	1	3000	400	1	1
+5	Bloque mediano	Bloque de pisos mediano de unas 5 plantas	1	1	6000	1000	2	1
+6	Bloque alto	Bloque de pisos de unas 12 plantas	1	2	15000	2000	1	1
+7	Bloque muy alto	Bloque de pisos de unas 25 plantas	1	2	35000	5000	2	1
+8	Bloque muy grande	Bloque de pisos muy grande de unos 40 plantas	1	2	60000	10000	2	2
+9	Clinica sanitaria	Clinica sanitaria de barrio	2	0	150000	1	100000	2	1
+10	Hospital	Hospital grande y totalmente equipado	2	0	1000000	1	500000	3	2
+11	Escuela inicial	Escuela de clases iniciales	2	0	400000	2	200000	2	2
+12	Escuela tecnica	Escuela de especializacion tecnica	2	0	500000	2	60000	2	1
+13	Comiseria de Policia	Comiseria general de policia	2	0	800000	3	500000	2	2
+14	Estacion de Bomberos	Estacion de bomberos general	2	0	700000	3	600000	2	1
+15	Estacion de Metro	Estacion de metro para comunicar el barrio	2	0	3000000	4	1500000	1	1
+16	Aeropuerto	Aeropuerto, como aqui en espana nos gustan tanto...	2	0	10000000	4	4000000	4	2
+17	Teatro	Teatro de entretenimiento para todos los publicos	2	0	150000	5	80000	1	1
+18	Cine	Cine para todos los publicos	2	0	250000	5	150000	1	1
+19	Bolera	Bolera para jugar a los bolos	2	0	200000	5	120000	2	1
+20	Cancha de baloncesto	Cancha para jugar a baloncesto	2	0	15000	5	20000	1	1
+21	Centro comercial	Centro comercial de tiendas	3	2	3000000	700000	3	2
+22	Tienda de barrio	Pequena tienda de barrio	3	1	5000	3000	1	1
+23	Tienda de ropa	Tienda de ropa de esas	3	2	50000	20000	1	1
+24	Supermercado	Supermercado normal y corriente	3	0	40000	30000	1	1
+25	Hipermercado	COmo supermercado pero mas grande	3	2	300000	100000	2	1
+26	Tienda pija	Pues eso tienda de pijos de esas	3	3	400000	3000	1	1
+27	Durum-Kebap	Durums y Doners, que a todos nos gustan	3	0	7000	6000	1	1
+28	Badul-A-Que	La tienda al lado de la Uni	3	0	1000000000	999999999	1	1
+29	Universidad	Pues ya se sabe que es	2	0	650000	2	350000	3	2

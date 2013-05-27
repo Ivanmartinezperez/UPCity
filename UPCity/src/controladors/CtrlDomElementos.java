@@ -296,7 +296,7 @@ public class CtrlDomElementos {
         Elemento e;
         if(mapElem0.containsKey(Elem)){
             e = mapElem0.get(Elem);
-            if(e.getId()<=5){
+            if(e.getId()<=29){
                 throw new Exception("\nEste elemento pertenece al sistema.\n"
                     + "Los elementos del sistema no se pueden eliminar\n");
             }
@@ -309,7 +309,7 @@ public class CtrlDomElementos {
         }
         else if(mapElem1.containsKey(Elem)){
             e = mapElem1.get(Elem);
-            if(e.getId()<=5){
+            if(e.getId()<=29){
                 throw new Exception("\nEste elemento pertenece al sistema.\n"
                     + "Los elementos del sistema no se pueden eliminar\n");
             }
@@ -322,7 +322,7 @@ public class CtrlDomElementos {
         }
         else if(mapElem2.containsKey(Elem)){
             e = mapElem2.get(Elem);
-            if(e.getId()<=5){
+            if(e.getId()<=29){
                 throw new Exception("\nEste elemento pertenece al sistema.\n"
                     + "Los elementos del sistema no se pueden eliminar\n");
             }
@@ -335,7 +335,7 @@ public class CtrlDomElementos {
         }
         else if(mapElem3.containsKey(Elem)){
             e = mapElem3.get(Elem);
-            if(e.getId()<=5){
+            if(e.getId()<=29){
                 throw new Exception("\nEste elemento pertenece al sistema.\n"
                     + "Los elementos del sistema no se pueden eliminar\n");
             }

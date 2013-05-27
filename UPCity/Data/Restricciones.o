@@ -1,0 +1,28 @@
+Clinica-Policia	ubicacion	9	13	1
+Clinica-Bomberos	ubicacion	9	14	1
+Hospital-Policia	ubicacion	10	13	1
+Hospital-Bomberos	ubicacion	10	14	1
+Aeropuerto-BloqueBajo	ubicacion	16	4	1
+Aeropuerto-BloqueMediano	ubicacion	16	5	1
+Aeropuerto-BloqueAlto	ubicacion	16	6	1
+Aeropuerto-BloqueMuyAlto	ubicacion	16	7	1
+Aeropuerto-BloqueMuyGrande	ubicacion	16	8	1
+Aeropuerto-CasaPequena	ubicacion	16	1	1
+Aeropuerto-CasaMediana	ubicacion	16	2	1
+Aeropuerto-CasaGrande	ubicacion	16	3	1
+Teatro-Cine	ubicacion	17	18	2
+Teatro-Bolera	ubicacion	17	19	1
+Cine-Bolera	ubicacion	18	19	1
+Policia-Policia	ubicacion	13	13	2
+Bomberos-Bomberos	ubicacion	14	14	1
+EscuelaInicial-EscuelaInicial	ubicacion	11	11	2
+EscuelaTecnica-EscuelaTecnica	ubicacion	12	12	2
+Universidad-Universidad	ubicacion	29	29	3
+La sanidad Espanola en su gloria	demografica	10	300000
+Espana! Venga a poner Aeropuertos en cada esquina	demografica	16	1000000
+Universidad eficiente hombre y sin Wert, por favor!	demografica	29	200000
+Que sino el centro comercial pierde dinero tio...	demografica	21	450000
+Pon un super hombre! Que no tienes ni 4 gatos!	demografica	25	70000
+Presupuesto del Estado(o como deberia ser...)	economica	13000000	3000000	8000000	2000000
+Capitaliiiiismooooooo!!!!!!	economica	9000000	6000000	2000000	1000000
+Consumiiiiiismoooooo!!!!!!	economica	63000000	10000000	3000000	50000000
