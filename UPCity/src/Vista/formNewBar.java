@@ -25,7 +25,7 @@ public class formNewBar extends javax.swing.JDialog {
         jRadioButton7.setMnemonic(0);
         jRadioButton6.setMnemonic(1);
         jRadioButton5.setMnemonic(2);
-        jRadioButton5.setMnemonic(3);
+        jRadioButton4.setMnemonic(3);
         jTextField3.setEnabled(false);
         jTextField2.setEnabled(false);
         jRadioButton4.setEnabled(false);
@@ -104,7 +104,7 @@ public class formNewBar extends javax.swing.JDialog {
 
         buttonGroup2.add(jRadioButton4);
         jRadioButton4.setMnemonic('4');
-        jRadioButton4.setText("Gama Baja");
+        jRadioButton4.setText("Gama Alta");
 
         buttonGroup2.add(jRadioButton5);
         jRadioButton5.setMnemonic('3');
@@ -112,7 +112,7 @@ public class formNewBar extends javax.swing.JDialog {
 
         buttonGroup2.add(jRadioButton6);
         jRadioButton6.setMnemonic('2');
-        jRadioButton6.setText("Gama alta");
+        jRadioButton6.setText("Gama Baja");
         jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton6ActionPerformed(evt);

@@ -207,7 +207,7 @@
           <ComponentRef name="buttonGroup2"/>
         </Property>
         <Property name="mnemonic" type="int" value="52"/>
-        <Property name="text" type="java.lang.String" value="Gama Baja"/>
+        <Property name="text" type="java.lang.String" value="Gama Alta"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton5">
@@ -225,7 +225,7 @@
           <ComponentRef name="buttonGroup2"/>
         </Property>
         <Property name="mnemonic" type="int" value="50"/>
-        <Property name="text" type="java.lang.String" value="Gama alta"/>
+        <Property name="text" type="java.lang.String" value="Gama Baja"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton6ActionPerformed"/>
