@@ -101,7 +101,7 @@ public class vistaGrafica extends JFrame {
         tablaVivienda.addColumn("Capacidad");
         tablaVivienda.addColumn("TamX");
         tablaVivienda.addColumn("TamY");
-        tablaVivienda.setNumRows(25);
+        tablaVivienda.setNumRows(100);
         
         tablaPublico=new DefaultTableModel();
         tablaPublico.addColumn("Nombre");
@@ -111,7 +111,7 @@ public class vistaGrafica extends JFrame {
         tablaPublico.addColumn("Capacidad");
         tablaPublico.addColumn("TamX");
         tablaPublico.addColumn("TamY");
-        tablaPublico.setNumRows(25);
+        tablaPublico.setNumRows(100);
         
         tablaComercio=new DefaultTableModel();
         tablaComercio.addColumn("Nombre");
@@ -120,20 +120,20 @@ public class vistaGrafica extends JFrame {
         tablaComercio.addColumn("Capacidad");
         tablaComercio.addColumn("TamX");
         tablaComercio.addColumn("TamY");
-        tablaComercio.setNumRows(25);
+        tablaComercio.setNumRows(100);
         
         tablaUbic = new DefaultTableModel();
         tablaUbic.addColumn("Nombre");
         tablaUbic.addColumn("Elemento 1");
         tablaUbic.addColumn("Elemento 2");
         tablaUbic.addColumn("Distancia");
-        tablaUbic.setNumRows(25);
+        tablaUbic.setNumRows(100);
         
         tablaDem=new DefaultTableModel();
         tablaDem.addColumn("Nombre");
         tablaDem.addColumn("Elemento");
         tablaDem.addColumn("Poblacion minima");
-        tablaDem.setNumRows(25);
+        tablaDem.setNumRows(100);
         
         tablaEco=new DefaultTableModel();
         tablaEco.addColumn("Nombre");
@@ -141,14 +141,14 @@ public class vistaGrafica extends JFrame {
         tablaEco.addColumn("Viviendas");
         tablaEco.addColumn("Publicos");
         tablaEco.addColumn("Comercios");
-        tablaEco.setNumRows(25);
+        tablaEco.setNumRows(100);
     }
     
     private void initViviendas(){
         for(int i=0;i<tablaVivienda.getRowCount();++i){
             tablaVivienda.removeRow(i);
         }
-        tablaVivienda.setNumRows(25);
+        tablaVivienda.setNumRows(100);
         int indiceV=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
@@ -172,7 +172,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaPublico.getRowCount();++i){
             tablaPublico.removeRow(i);
         }
-        tablaPublico.setNumRows(25);
+        tablaPublico.setNumRows(100);
         int indiceP=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
@@ -198,7 +198,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaComercio.getRowCount();++i){
             tablaComercio.removeRow(i);
         }
-        tablaComercio.setNumRows(25);
+        tablaComercio.setNumRows(100);
         int indiceC=0;
         String[][] viv1;
         for(int j=0;j<=3;++j){
@@ -222,7 +222,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaUbic.getRowCount();++i){
             tablaUbic.removeRow(i);
         }
-        tablaUbic.setNumRows(25);
+        tablaUbic.setNumRows(100);
         int indiceU;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("ubicacion");
@@ -240,7 +240,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaDem.getRowCount();++i){
             tablaDem.removeRow(i);
         }
-        tablaDem.setNumRows(25);
+        tablaDem.setNumRows(100);
         int indiceD;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("demografica");
@@ -257,7 +257,7 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaEco.getRowCount();++i){
             tablaEco.removeRow(i);
         }
-        tablaEco.setNumRows(25);
+        tablaEco.setNumRows(100);
         int indiceE;
         String[][] viv1;
         viv1 = CtrlRest.listarRestTipo("economica");
@@ -276,30 +276,30 @@ public class vistaGrafica extends JFrame {
         tablaViviendaUser = new DefaultTableModel();
         tablaViviendaUser.addColumn("Nombre");
         tablaViviendaUser.addColumn("Cantidad");
-        tablaViviendaUser.setNumRows(25);
+        tablaViviendaUser.setNumRows(100);
         
         tablaPublicoUser = new DefaultTableModel();
         tablaPublicoUser.addColumn("Nombre");
         tablaPublicoUser.addColumn("Cantidad");
-        tablaPublicoUser.setNumRows(25);
+        tablaPublicoUser.setNumRows(100);
         
         tablaComercioUser = new DefaultTableModel();
         tablaComercioUser.addColumn("Nombre");
         tablaComercioUser.addColumn("Cantidad");
-        tablaComercioUser.setNumRows(25);
+        tablaComercioUser.setNumRows(100);
         
         tablaUbicUser = new DefaultTableModel();
         tablaUbicUser.addColumn("Nombre");
         tablaUbicUser.addColumn("Elemento 1");
         tablaUbicUser.addColumn("Elemento 2");
         tablaUbicUser.addColumn("Distancia");
-        tablaUbicUser.setNumRows(25);
+        tablaUbicUser.setNumRows(100);
         
         tablaDemUser=new DefaultTableModel();
         tablaDemUser.addColumn("Nombre");
         tablaDemUser.addColumn("Elemento");
         tablaDemUser.addColumn("Poblacion minima");
-        tablaDemUser.setNumRows(25);
+        tablaDemUser.setNumRows(100);
         
         tablaEcoUser=new DefaultTableModel();
         tablaEcoUser.addColumn("Nombre");
@@ -307,7 +307,7 @@ public class vistaGrafica extends JFrame {
         tablaEcoUser.addColumn("Viviendas");
         tablaEcoUser.addColumn("Publicos");
         tablaEcoUser.addColumn("Comercios");
-        tablaEcoUser.setNumRows(25);
+        tablaEcoUser.setNumRows(100);
         
         
     }
@@ -322,9 +322,9 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaPublicoUser.getRowCount();++i){
             tablaPublicoUser.removeRow(i);
         }
-        tablaViviendaUser.setNumRows(25);
-        tablaComercioUser.setNumRows(25);
-        tablaPublicoUser.setNumRows(25);
+        tablaViviendaUser.setNumRows(100);
+        tablaComercioUser.setNumRows(100);
+        tablaPublicoUser.setNumRows(100);
         String[][] list = CtrlBarrio.listarCjtElemBarrio();
         int indiceVU=0;
         int indicePU=0;
@@ -361,9 +361,9 @@ public class vistaGrafica extends JFrame {
         for(int i=0;i<tablaEcoUser.getRowCount();++i){
             tablaEcoUser.removeRow(i);
         }
-        tablaUbicUser.setNumRows(25);
-        tablaDemUser.setNumRows(25);
-        tablaEcoUser.setNumRows(25);
+        tablaUbicUser.setNumRows(100);
+        tablaDemUser.setNumRows(100);
+        tablaEcoUser.setNumRows(100);
         String [][] list = CtrlBarrio.listarCjtRestBarrio();
         int indiceUU=0;
         int indiceDU=0;
@@ -427,7 +427,6 @@ public class vistaGrafica extends JFrame {
     }
     
     private void modoLibre(){
-        jButton2.setEnabled(false);
         jButton3.setEnabled(false);
         jButton4.setEnabled(false);
         jButton8.setEnabled(false);
@@ -1404,6 +1403,7 @@ public class vistaGrafica extends JFrame {
                     modo=1;
                     initVistaMapa(CtrlBarrio.vistaMapa().length,CtrlBarrio.vistaMapa()[0].length);
                     mostrarBarrio();
+                    Console.setText("Barrio creado correctamente");
                     
                 }
                 catch(Exception e){
@@ -1422,6 +1422,7 @@ public class vistaGrafica extends JFrame {
                     modo=0;
                     initVistaMapa(CtrlBarrio.vistaMapa().length,CtrlBarrio.vistaMapa()[0].length);
                     mostrarBarrio();
+                    Console.setText("Barrio creado correctamente");
 
                 }
                 catch(Exception e){
@@ -1443,6 +1444,7 @@ public class vistaGrafica extends JFrame {
                     modo=0;
                     initVistaMapa(CtrlBarrio.vistaMapa().length,CtrlBarrio.vistaMapa()[0].length);
                     mostrarBarrio();
+                    Console.setText("Barrio creado correctamente");
                 }
                 catch(Exception e){
                     Console.setText(e.getMessage());
@@ -1818,8 +1820,8 @@ public class vistaGrafica extends JFrame {
         
         Object seleccion = JOptionPane.showInputDialog(
                             this,
-                            "Eliminar Barrio",
-                            "Seleccione el barrio que desea eliminar",
+                            "Cargar Barrio",
+                            "Seleccione el barrio que desea cargar",
                             JOptionPane.QUESTION_MESSAGE,
                             null,  // null para icono defecto
                              list," ");
@@ -1977,8 +1979,8 @@ public class vistaGrafica extends JFrame {
         
         Object seleccion = JOptionPane.showInputDialog(
                             this,
-                            "Añadir restriccion al barrio",
-                            "Seleccione la restriccion que desea añadir",
+                            "Eliminar restriccion del barrio",
+                            "Selecciona la restriccion que deseas eliminar de tu barrio",
                             JOptionPane.QUESTION_MESSAGE,
                             null,  // null para icono defecto
                              list,"  ");
@@ -2004,8 +2006,8 @@ public class vistaGrafica extends JFrame {
 
             Object seleccion = JOptionPane.showInputDialog(
                                 this,
-                                "Añadir restriccion al barrio",
-                                "Seleccione la restriccion que desea añadir",
+                                "Eliminar elemento del barrio",
+                                "Selecciona el elemento que deseas eliminar de tu barrio",
                                 JOptionPane.QUESTION_MESSAGE,
                                 null,  // null para icono defecto
                                  list,"  ");

@@ -64,21 +64,21 @@ public class MapaVista extends javax.swing.JPanel {
         initComponents();
         setLayout(new java.awt.GridLayout(tamx, tamy));
         this.tipoTablero = tipo;
-        calle = new ImageIcon("src/imatges/carretera.jpg");
+        calle = new ImageIcon("imatges/carretera.jpg");
         imagenespre = new ImageIcon[10];
         imagenesusu = new ImageIcon[10];
-        imagenespre[0] = new ImageIcon("src/imatges/cesped.jpg");
-        imagenespre[1] = new ImageIcon("src/imatges/comercio.jpg");
-        imagenespre[2] = new ImageIcon("src/imatges/Hospital_Final.jpg");
-        imagenespre[3] = new ImageIcon("src/imatges/Police.jpg");
-        imagenespre[4] = new ImageIcon("src/imatges/firestation.jpg");
-        imagenespre[5] = new ImageIcon("src/imatges/school.jpg");
-        imagenespre[6] = new ImageIcon("src/imatges/uni.jpg");
-        imagenesusu[0] = new ImageIcon("src/imatges/1.jpg");
-        imagenesusu[1] = new ImageIcon("src/imatges/2.jpg");
-        imagenesusu[2] = new ImageIcon("src/imatges/3.jpg");
-        imagenesusu[3] = new ImageIcon("src/imatges/4.jpg");
-        imagenesusu[4] = new ImageIcon("src/imatges/5.jpg");
+        imagenespre[0] = new ImageIcon("imatges/cesped.jpg");
+        imagenespre[1] = new ImageIcon("imatges/comercio.jpg");
+        imagenespre[2] = new ImageIcon("imatges/Hospital_Final.jpg");
+        imagenespre[3] = new ImageIcon("imatges/Police.jpg");
+        imagenespre[4] = new ImageIcon("imatges/firestation.jpg");
+        imagenespre[5] = new ImageIcon("imatges/school.jpg");
+        imagenespre[6] = new ImageIcon("imatges/uni.jpg");
+        imagenesusu[0] = new ImageIcon("imatges/1.jpg");
+        imagenesusu[1] = new ImageIcon("imatges/2.jpg");
+        imagenesusu[2] = new ImageIcon("imatges/3.jpg");
+        imagenesusu[3] = new ImageIcon("imatges/4.jpg");
+        imagenesusu[4] = new ImageIcon("imatges/5.jpg");
         
         for (int i = 0; i < tamx; i++){
             for (int j = 0; j < tamy; j++){
