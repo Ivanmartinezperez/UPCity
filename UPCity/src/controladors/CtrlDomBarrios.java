@@ -1214,7 +1214,7 @@ public class CtrlDomBarrios {
     private boolean backtracking(int k,Pair[] coordenadas,ArrayList<Integer> cjt,Pair lastVisited[],int EstaVisitado[],HashMap<Integer,ArrayList<Restriccion_ubicacion>> res,Plano p)throws Exception{
         
         ++controlait;
-        if(controlait > 100000000) {
+        if(controlait > 1000000) {
             throw new Exception("\nAlcanzado tiempo limite del Backtracking\n");
         }
         //System.out.println("Backtracking iteracion " + controlait);
@@ -1234,7 +1234,7 @@ public class CtrlDomBarrios {
                                                                         // valores visitados sean difentes a 0 (puesto previamente)
             //System.out.println(""+pos.getFirst()+" "+pos.getSecond());
             while(pos.getFirst()!=-1){
-                if(controlait > 100000000) {
+                if(controlait > 1000000) {
                     return false;
                 }
                 
