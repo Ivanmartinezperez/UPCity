@@ -1578,8 +1578,10 @@ public class vistaGrafica extends JFrame {
                             JOptionPane.QUESTION_MESSAGE,
                             null,  // null para icono defecto
                              list," ");
-            if(seleccion!=null) lastElemDG=seleccion.toString();
-            threadDGElemadd();
+            if(seleccion!=null){
+                lastElemDG=seleccion.toString();
+                threadDGElemadd();
+            }
             
         }
         
