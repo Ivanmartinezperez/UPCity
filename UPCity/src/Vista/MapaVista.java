@@ -65,15 +65,40 @@ public class MapaVista extends javax.swing.JPanel {
         setLayout(new java.awt.GridLayout(tamx, tamy));
         this.tipoTablero = tipo;
         calle = new ImageIcon("imatges/carretera.jpg");
-        imagenespre = new ImageIcon[10];
+        imagenespre = new ImageIcon[30];
         imagenesusu = new ImageIcon[10];
         imagenespre[0] = new ImageIcon("imatges/cesped.jpg");
-        imagenespre[1] = new ImageIcon("imatges/comercio.jpg");
-        imagenespre[2] = new ImageIcon("imatges/Hospital_Final.jpg");
-        imagenespre[3] = new ImageIcon("imatges/Police.jpg");
-        imagenespre[4] = new ImageIcon("imatges/firestation.jpg");
-        imagenespre[5] = new ImageIcon("imatges/school.jpg");
-        imagenespre[6] = new ImageIcon("imatges/uni.jpg");
+        imagenespre[1] = new ImageIcon("imatges/casa2.jpg");
+        imagenespre[2] = new ImageIcon("imatges/casa.jpg");
+        imagenespre[3] = new ImageIcon("imatges/mansion.jpg");
+        imagenespre[4] = new ImageIcon("imatges/pisopeque.jpg");
+        imagenespre[5] = new ImageIcon("imatges/pisomed.jpg");
+        imagenespre[6] = new ImageIcon("imatges/edificio.jpg");
+        imagenespre[7] = new ImageIcon("imatges/rascacielo.jpg");
+        imagenespre[8] = new ImageIcon("imatges/pisogrande.jpg");
+        imagenespre[9] = new ImageIcon("imatges/Hospital_Final.jpg");
+        imagenespre[10] = new ImageIcon("imatges/hospital.jpg");
+        imagenespre[11] = new ImageIcon("imatges/Colegio1.jpg");
+        imagenespre[12] = new ImageIcon("imatges/school.jpg");
+        imagenespre[13] = new ImageIcon("imatges/policia.jpg");
+        imagenespre[14] = new ImageIcon("imatges/bomberos.jpg");
+        imagenespre[15] = new ImageIcon("imatges/metro.jpg");
+        imagenespre[16] = new ImageIcon("imatges/aeropuerto.jpg");
+        imagenespre[17] = new ImageIcon("imatges/teatro.jpg");
+        imagenespre[18] = new ImageIcon("imatges/cine.jpg");
+        imagenespre[19] = new ImageIcon("imatges/bolera.jpg");
+        imagenespre[20] = new ImageIcon("imatges/basket.jpg");
+        imagenespre[21] = new ImageIcon("imatges/cc.jpg");
+        imagenespre[22] = new ImageIcon("imatges/tiendapeque.jpg");
+        imagenespre[23] = new ImageIcon("imatges/ropa.jpg");
+        imagenespre[24] = new ImageIcon("imatges/tienda.jpg");
+        imagenespre[25] = new ImageIcon("imatges/super.jpg");
+        imagenespre[26] = new ImageIcon("imatges/pija.jpg");
+        imagenespre[27] = new ImageIcon("imatges/kebab.jpg");
+        imagenespre[28] = new ImageIcon("imatges/comercio.jpg");
+        imagenespre[29] = new ImageIcon("imatges/uni.jpg");
+        
+        
         imagenesusu[0] = new ImageIcon("imatges/1.jpg");
         imagenesusu[1] = new ImageIcon("imatges/2.jpg");
         imagenesusu[2] = new ImageIcon("imatges/3.jpg");
@@ -138,11 +163,11 @@ public class MapaVista extends javax.swing.JPanel {
                 }
                 else aux = mapa[i][j];
                 if(aux == -1)  casillas[i][j].setFondo(calle);
-                else if(aux < 20) {
+                else if(aux <= 29) {
                     casillas[i][j].setFondo(imagenespre[aux]);
                 }
                 else {
-                    aux = aux%20;
+                    aux = aux%5;
                     casillas[i][j].setFondo(imagenesusu[aux]);
                 }
             }
