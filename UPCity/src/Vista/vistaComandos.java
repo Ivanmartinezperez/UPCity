@@ -629,7 +629,7 @@ public class vistaComandos {
                 + "6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Mostrar informacion del Barrio\n"
                 + "10-Modificar Presupuesto del Barrio\n11-Modificar Poblacion del Barrio\n"
                 + "12-Mostrar Conjunto de Elementos\n13-Mostrar Conjunto de Restricciones\n14-Guardar mi barrio\n"
-                + "15-Insertar carretera\n0-Salir");
+                + "15-Insertar carretera\n16-Eliminar Carretera\n0-Salir");
         Scanner action = new Scanner(System.in);
         int n=getInt();
         boolean aux1;
@@ -773,6 +773,19 @@ public class vistaComandos {
                             System.out.println(e.getMessage());
                          }
                          break;
+               case 16: mostrarBarrio();
+                         System.out.println("Inserte la fila de donde quiere eliminar la carretera:");
+                         Scanner param6 = new Scanner(System.in);
+                         f = getInt();
+                         System.out.println("Inserte la columna de donde quiere eliminar la carretera:");
+                         c = getInt();
+                         try{
+                            CtrlBarrio.eliminarCarretera(f, c);
+                            System.out.println("La carretera se ha eliminado correctamente");
+                         }catch(Exception e){
+                            System.out.println(e.getMessage());
+                         }          
+                         break;
                 default: System.out.println("Opcio Invalida");    
             }
           System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
@@ -780,7 +793,7 @@ public class vistaComandos {
                 + "6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Mostrar informacion del Barrio\n"
                 + "10-Modificar Presupuesto del Barrio\n11-Modificar Poblacion del Barrio\n"
                 + "12-Mostrar Conjunto de Elementos\n13-Mostrar Conjunto de Restricciones\n14-Guardar mi barrio\n"
-                + "15-Insertar carretera\n0-Salir");
+                + "15-Insertar carretera\n16-Eliminar carretera\n0-Salir");
           n = getInt();
          }
         }catch(Exception e){
@@ -800,7 +813,7 @@ public class vistaComandos {
             + "6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Mostrar informacion del Barrio\n"
             + "10-Modificar Presupuesto del Barrio\n11-Modificar Poblacion del Barrio\n"
             + "12-Mostrar Conjunto de Elementos\n13-Mostrar Conjunto de Restricciones\n14-Guardar mi barrio\n"
-            + "15-Insertar carretera\n0-Salir");
+            + "15-Insertar carretera\n16-Eliminar Carretera\n0-Salir");
 
         Scanner action = new Scanner(System.in);
         int n=getInt();
@@ -946,6 +959,19 @@ public class vistaComandos {
                             System.out.println(e.getMessage());
                         }
                         break;
+                case 16: mostrarBarrio();
+                         System.out.println("Inserte la fila de donde quiere eliminar la carretera:");
+                         Scanner param6 = new Scanner(System.in);
+                         f = getInt();
+                         System.out.println("Inserte la columna de donde quiere eliminar la carretera:");
+                         c = getInt();
+                         try{
+                            CtrlBarrio.eliminarCarretera(f, c);
+                            System.out.println("La carretera se ha eliminado correctamente");
+                         }catch(Exception e){
+                            System.out.println(e.getMessage());
+                         }
+                        break;
                 default: System.out.println("Opcio Invalida");    
             }
           System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
@@ -953,7 +979,7 @@ public class vistaComandos {
             + "6-Crear Restriccion\n7-Generar mi barrio\n8-Mostrar mi barrio\n9-Mostrar informacion del Barrio\n"
             + "10-Modificar Presupuesto del Barrio\n11-Modificar Poblacion del Barrio\n"
             + "12-Mostrar Conjunto de Elementos\n13-Mostrar Conjunto de Restricciones\n14-Guardar mi barrio\n"
-            + "15-Insertar carretera\n0-Salir");
+            + "15-Insertar carretera\n16-Eliminar carretera\n0-Salir");
           n = getInt();
      }        
         
@@ -1020,9 +1046,9 @@ public class vistaComandos {
              
              System.out.println("Barrio creado correctamente");
              System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
-                 + "3-Crear Elemento\n4-Insertar carretera\n5-Mostrar mi barrio\n6-Mostrar informacion del Barrio\n"
-                 + "7-Modificar Presupuesto del Barrio\n8-Modificar Poblacion del Barrio\n"
-                 + "9-Mostrar Conjunto de Elementos\n10-Guardar mi barrio\n0-Salir");
+                 + "3-Crear Elemento\n4-Insertar carretera\n5-Eliminar carretera\n6-Mostrar mi barrio\n7-Mostrar informacion del Barrio\n"
+                 + "8-Modificar Presupuesto del Barrio\n9-Modificar Poblacion del Barrio\n"
+                 + "10-Mostrar Conjunto de Elementos\n11-Guardar mi barrio\n0-Salir");
              
              Scanner action = new Scanner(System.in);
              int n=getInt();
@@ -1075,12 +1101,25 @@ public class vistaComandos {
                                 System.out.println(e.getMessage());
                             }
                             break;
-                   case 5:  System.out.println("Mostrando barrio:");
+                    case 5: mostrarBarrio();
+                         System.out.println("Inserte la fila de donde quiere eliminar la carretera:");
+                         Scanner param6 = new Scanner(System.in);
+                         f = getInt();
+                         System.out.println("Inserte la columna de donde quiere eliminar la carretera:");
+                         c = getInt();
+                         try{
+                            CtrlBarrio.eliminarCarretera(f, c);
+                            System.out.println("La carretera se ha eliminado correctamente");
+                         }catch(Exception e){
+                            System.out.println(e.getMessage());
+                         }
+                         break;
+                   case 6:  System.out.println("Mostrando barrio:");
                             mostrarBarrio();
                             break;
-                   case 6:  mostrarInfoBarrio();
+                   case 7:  mostrarInfoBarrio();
                             break;
-                   case 7:  System.out.println("Introduzca el presupuesto disponible para el barrio:");
+                   case 8:  System.out.println("Introduzca el presupuesto disponible para el barrio:");
                             System.out.println("Nota: Si no quiere limitar su barrio a un presupuesto, introduzca un 0,\n"
                             + "asi simplmente se le mostrara el presupuesto gastado como valor informativo");
                             Presupuesto = getInt();
@@ -1091,7 +1130,7 @@ public class vistaComandos {
                                 System.out.println(e.getMessage());
                             }
                             break;
-                   case 8:  System.out.println("Introduzca la poblacion del barrio:");
+                   case 9:  System.out.println("Introduzca la poblacion del barrio:");
                             System.out.println("Nota: Si no quiere limitar el barrio a una poblacion, introduzca un 0\n"
                             + "asi simplemente se le mostrara la poblacion posible como valor informativo");
                             Poblacion = getInt();
@@ -1102,17 +1141,17 @@ public class vistaComandos {
                                 System.out.println(e.getMessage());
                             }
                             break;    
-                    case 9: mostrarCjtElem();
+                    case 10: mostrarCjtElem();
                             break;
-                    case 10: System.out.println("Guardando barrio");
+                    case 11: System.out.println("Guardando barrio");
                              CtrlBarrio.guardarBarrio();
                              break;
                     default: System.out.println("Opcio Invalida");    
                 }
                 System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
-                 + "3-Crear Elemento\n4-Insertar carretera\n5-Mostrar mi barrio\n6-Mostrar informacion del Barrio\n"
-                 + "7-Modificar Presupuesto del Barrio\n8-Modificar Poblacion del Barrio\n"
-                 + "9-Mostrar Conjunto de Elementos\n10-Guardar mi barrio\n0-Salir");
+                 + "3-Crear Elemento\n4-Insertar carretera\n5-Eliminar carretera\n6-Mostrar mi barrio\n7-Mostrar informacion del Barrio\n"
+                 + "8-Modificar Presupuesto del Barrio\n9-Modificar Poblacion del Barrio\n"
+                 + "10-Mostrar Conjunto de Elementos\n11-Guardar mi barrio\n0-Salir");
                 n=getInt();
              }
          }catch(Exception e){
@@ -1127,9 +1166,9 @@ public class vistaComandos {
              
          System.out.println("Barrio cargado correctamente");
          System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
-             + "3-Crear Elemento\n4-Insertar carretera\n5-Mostrar mi barrio\n6-Mostrar informacion del Barrio\n"
-             + "7-Modificar Presupuesto del Barrio\n8-Modificar Poblacion del Barrio\n"
-             + "9-Mostrar Conjunto de Elementos\n10-Guardar mi barrio\n0-Salir");
+             + "3-Crear Elemento\n4-Insertar carretera\n5-Eliminar carretera\n6-Mostrar mi barrio\n7-Mostrar informacion del Barrio\n"
+             + "8-Modificar Presupuesto del Barrio\n9-Modificar Poblacion del Barrio\n"
+             + "10-Mostrar Conjunto de Elementos\n11-Guardar mi barrio\n0-Salir");
 
          Scanner action = new Scanner(System.in);
          int n=getInt();
@@ -1182,12 +1221,25 @@ public class vistaComandos {
                             System.out.println(e.getMessage());
                         }
                         break;
-               case 5:  System.out.println("Mostrando barrio:");
+                case 5: mostrarBarrio();
+                         System.out.println("Inserte la fila de donde quiere eliminar la carretera:");
+                         Scanner param6 = new Scanner(System.in);
+                         f = getInt();
+                         System.out.println("Inserte la columna de donde quiere eliminar la carretera:");
+                         c = getInt();
+                         try{
+                            CtrlBarrio.eliminarCarretera(f, c);
+                            System.out.println("La carretera se ha eliminado correctamente");
+                         }catch(Exception e){
+                            System.out.println(e.getMessage());
+                         }
+                        break;
+               case 6:  System.out.println("Mostrando barrio:");
                         mostrarBarrio();
                         break;
-               case 6:  mostrarInfoBarrio();
+               case 7:  mostrarInfoBarrio();
                         break;
-               case 7:  System.out.println("Introduzca el presupuesto disponible para el barrio:");
+               case 8:  System.out.println("Introduzca el presupuesto disponible para el barrio:");
                         System.out.println("Nota: Si no quiere limitar su barrio a un presupuesto, introduzca un 0,\n"
                         + "asi simplmente se le mostrara el presupuesto gastado como valor informativo");
                         int Presupuesto = getInt();
@@ -1198,7 +1250,7 @@ public class vistaComandos {
                             System.out.println(e.getMessage());
                         }
                         break;
-               case 8:  System.out.println("Introduzca la poblacion del barrio:");
+               case 9:  System.out.println("Introduzca la poblacion del barrio:");
                         System.out.println("Nota: Si no quiere limitar el barrio a una poblacion, introduzca un 0\n"
                         + "asi simplemente se le mostrara la poblacion posible como valor informativo");
                         int Poblacion = getInt();
@@ -1209,17 +1261,17 @@ public class vistaComandos {
                             System.out.println(e.getMessage());
                         }
                         break;    
-                case 9: mostrarCjtElem();
+                case 10: mostrarCjtElem();
                         break;
-                case 10: System.out.println("Guardando barrio");
+                case 11: System.out.println("Guardando barrio");
                          CtrlBarrio.guardarBarrio();
                          break;
                 default: System.out.println("Opcio Invalida");    
             }
             System.out.println("\nQue desea hacer:\n1-Añadir edificio a mi barrio\n2-Eliminar edificio de mi barrio\n"
-             + "3-Crear Elemento\n4-Insertar carretera\n5-Mostrar mi barrio\n6-Mostrar informacion del Barrio\n"
-             + "7-Modificar Presupuesto del Barrio\n8-Modificar Poblacion del Barrio\n"
-             + "9-Mostrar Conjunto de Elementos\n10-Guardar mi barrio\n0-Salir");
+             + "3-Crear Elemento\n4-Insertar carretera\n5-Eliminar carretera\n6-Mostrar mi barrio\n7-Mostrar informacion del Barrio\n"
+             + "8-Modificar Presupuesto del Barrio\n9-Modificar Poblacion del Barrio\n"
+             + "10-Mostrar Conjunto de Elementos\n11-Guardar mi barrio\n0-Salir");
             n=getInt();
          }
          
